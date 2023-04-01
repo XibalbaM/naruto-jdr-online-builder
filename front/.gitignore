@@ -1,0 +1,15 @@
+# Node
+node_modules/
+pnpm-lock.yaml
+
+# IDE
+.editorconfig
+.idea/
+.vscode/
+*.iml
+
+# Compiled files
+dist/
+
+# Angular
+.angular/

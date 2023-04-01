@@ -1,0 +1,14 @@
+#node
+node_modules/
+pnpm-lock.yaml
+
+# Editors
+.vscode/
+.idea/
+*.iml
+
+# Compiled files
+dist/
+
+# Credidentials
+src/config/env/test.ts
