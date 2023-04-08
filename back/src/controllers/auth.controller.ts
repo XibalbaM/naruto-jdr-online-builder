@@ -5,12 +5,12 @@ export function requireEmail(req: Request, res: Response) {
 
     if (req.body.email && req.body.email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
 
-        authService.requestEmail(req.body.email).then((code) => {
-            switch (code) {
-                case 0: res.status(202).json({message: "Email sent"});
+        authService.requestEmail(req.body.email).then((result) => {
+            switch (result.code) {
+                case 0: res.status(202).json({message: "Email sent", isRegistration: result.isRegistration});
                 break;
 
-                case 1: res.status(429).json({error: "Too many requests"});
+                case 1: res.status(429).json({error: "Too many requests", isRegistration: result.isRegistration});
                 break;
 
                 default: res.status(500).json({error: "Internal server error"});

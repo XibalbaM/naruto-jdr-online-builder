@@ -20,6 +20,10 @@ test("POST /", async () => {
     const response = await fetchUtils.post("/auth", userEmail);
 
     expect(response.status).toBe(202);
+    response.json().then((json) => {
+        expect(json["message"]).toBe("Email sent");
+        expect(json["isRegistration"]).toBeDefined();
+    });
 });
 
 test("login link received for a new email", async () => {

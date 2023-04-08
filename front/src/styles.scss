@@ -1,4 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@import "variables";
 
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "assets/fonts/fonts";
+
+body {
+  @extend .font-primary;
+  background-color: $dark;
+}
+
+a {
+  color: $purple;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+input.input-invisible {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}

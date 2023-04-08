@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'PP Monument Extended';
+  src: url("PPMonumentExtended-Regular.woff2") format("woff2"),
+    url("PPMonumentExtended-Regular.woff") format("woff"),
+    url("PPMonumentExtended-Regular.ttf") format("truetype"),
+    url("PPMonumentExtended-Regular.otf") format("opentype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'PP Monument Extended';
+  src: url("PPMonumentExtended-Bold.woff2") format("woff2"),
+    url("PPMonumentExtended-Bold.woff") format("woff"),
+    url("PPMonumentExtended-Bold.ttf") format("truetype"),
+    url("PPMonumentExtended-Bold.otf") format("opentype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url("PPNeueMontreal-Regular.woff2") format("woff2"),
+    url("PPNeueMontreal-Regular.woff") format("woff"),
+    url("PPNeueMontreal-Regular.ttf") format("truetype"),
+    url("PPNeueMontreal-Regular.otf") format("opentype");
+  font-style: normal;
+}
+
+.font-title {
+  font-family: 'PP Monument Extended', sans-serif;
+}
+
+.font-primary {
+  font-family: 'PP Neue Montreal', sans-serif;
+}

@@ -11,18 +11,18 @@ import User from "../types/user.type.js";
  * @param {string} email The user's email
  * @returns {number} 0 if the email was sent, 1 if the user already requested a connection token recently
  */
-export async function requestEmail(email: string): Promise<number> {
+export async function requestEmail(email: string): Promise<{code: number, isRegistration: boolean}> {
 
-    const userDoc = await userModel.findOne({email: email});
-    const token = await getConnectionTokenFromEmail(email);
+    const oldUser = await userModel.findOne({email: email});
+    const connectionToken = await getConnectionTokenFromEmail(email);
 
-    if (userDoc && User.fromModel(userDoc).connectionToken === token) {
-        return 1;
+    if (oldUser && User.fromModel(oldUser).connectionToken === connectionToken) {
+        return {code: 1, isRegistration: !oldUser};
     }
 
-    await emailService.sendConnectionEmail(email, token, !userDoc);
+    await emailService.sendConnectionEmail(email, connectionToken, !oldUser);
 
-    return 0;
+    return {code: 0, isRegistration: !oldUser};
 }
 
 /**
