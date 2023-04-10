@@ -1,48 +1,19 @@
-<main class="container w-100 h-100 d-flex flex-column justify-content-around align-items-center">
-  <app-logo class="mx-0 my-5 p-0 pt-5"></app-logo>
-  <form [formGroup]="emailForm" class="row col-11 col-md-6 col-lg-4 mx-auto mt-5">
-    <div id="emailHelp" [hidden]="!emailForm.invalid" class="form-text text-orange">Veuillez enter une adresse email valide.</div>
-    <div class="g-3 p-2 align-items-center bg-light-dark border border-1 border-lighter-dark rounded d-flex flex-row">
-      <div class="col-auto m-0 mx-3 flex-shrink-0">
-        <label for="email" class="m-0 font-size-14">Email</label>
+<main class="flex h-full w-full flex-col items-center justify-around">
+  <app-logo class="mt-[125px] mb-[80px] w-[100px] h-[100px]"></app-logo>
+  <form class="w-full px-4 space-y-3">
+    <div class="relative">
+      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <label class="text-white">Email</label>
       </div>
-      <div class="col-auto w-auto m-0 flex-grow-1 w-100">
-        <input type="email" id="email" formControlName="userEmail" aria-describedby="emailHelp" placeholder="Ex: Mitsuo@naruto-jdr.com" class="m-0 input-invisible font-size-14 text-white w-100">
-      </div>
+      <input type="text" name="price" id="price"
+             class="block w-full rounded-lg border py-3 pl-14 outline-none border-lighter-dark bg-light-dark text-light-gray placeholder:text-light-gray focus:border-gray focus:border-2"
+             placeholder="Ex: Mitsuo@naruto-jdr.com">
     </div>
-    <div class="m-0 p-0 mt-2">
-      <button type="submit" (click)="onSubmit()" [disabled]="emailForm.invalid" class="btn btn-black btn-outline-lighter-dark text-purple w-100 m-0 p-2">
-        <div class="mx-3 d-flex justify-content-between font-size-16">
-          <span>Valider</span><span class="font-monospace">></span>
-        </div>
-      </button>
-    </div>
+    <button
+      class="flex w-full items-center justify-between rounded-lg border bg-black p-3 border-lighter-dark hocus:bg-dark">
+      <span class="text-purple">Valider</span>
+      <img alt=">" ngSrc="assets/images/dropdown.svg" height="11" width="6">
+    </button>
   </form>
-
-  <ng-template #modal_too_many_requests let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-too-many-requests">Trop de demandes</h4>
-      <button type="button" class="btn-close btn-close-white" aria-label="Fermer" (click)="modal.dismiss()"></button>
-    </div>
-    <div class="modal-body">
-      <p>Un mail a déjà ete envoyé a cette adresse récemment sans que le lien qu'il contient soit utilisé.</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-black btn-outline-lighter-dark text-white" (click)="modal.close()">Fermer</button>
-    </div>
-  </ng-template>
-
-  <ng-template #modal_other let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-other">Erreur inconnue</h4>
-      <button type="button" class="btn-close btn-close-white" aria-label="Fermer" (click)="modal.dismiss()"></button>
-    </div>
-    <div class="modal-body">
-      <p>Une erreur est survenue lors de l'envois du mail, réessayer plus tard. Si le problème persiste, contacter Xibalba#2167 sur discord.</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-black btn-outline-lighter-dark text-white" (click)="modal.close()">Fermer</button>
-    </div>
-  </ng-template>
 </main>
 <app-footer></app-footer>

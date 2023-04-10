@@ -6,24 +6,26 @@
 
 @import "assets/fonts/fonts";
 
-body {
-  @extend .font-primary;
-  background-color: $dark;
-}
+@layer base {
 
-a {
-  color: $purple;
-  text-decoration: none;
+  html {
+    @apply font-neue bg-dark text-white;
+  }
 
-  &:hover {
-    text-decoration: underline;
+  a {
+    @apply text-purple no-underline hocus:underline;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 600000s 0s, color 600000s 0s;
   }
 }
 
-input.input-invisible {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
+@layer components {
+}
+
+@layer utilities {
 }

@@ -4,7 +4,7 @@
     url("PPMonumentExtended-Regular.woff") format("woff"),
     url("PPMonumentExtended-Regular.ttf") format("truetype"),
     url("PPMonumentExtended-Regular.otf") format("opentype");
-  font-weight: normal;
+  font-weight: 450;
 }
 
 @font-face {
@@ -13,7 +13,7 @@
     url("PPMonumentExtended-Bold.woff") format("woff"),
     url("PPMonumentExtended-Bold.ttf") format("truetype"),
     url("PPMonumentExtended-Bold.otf") format("opentype");
-  font-weight: bold;
+  font-weight: 675;
 }
 
 @font-face {
@@ -23,12 +23,4 @@
     url("PPNeueMontreal-Regular.ttf") format("truetype"),
     url("PPNeueMontreal-Regular.otf") format("opentype");
   font-style: normal;
-}
-
-.font-title {
-  font-family: 'PP Monument Extended', sans-serif;
-}
-
-.font-primary {
-  font-family: 'PP Neue Montreal', sans-serif;
 }
