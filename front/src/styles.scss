@@ -10,6 +10,8 @@
 
   html {
     @apply font-neue bg-dark text-white;
+    background-image: url("assets/images/backgrounds/bg-large.png");
+    background-repeat: repeat;
   }
 
   a {
