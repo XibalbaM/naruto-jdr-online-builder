@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 const plugin = require("tailwindcss/plugin");
-const {add} = require("karma-coverage/lib/coverage-map");
 
 module.exports = {
   content: [
@@ -31,10 +30,21 @@ module.exports = {
     fontWeight: {
       normal: '450',
       bold: '675',
+    },
+    fontSize: {
+      12: '12px',
+      13: '13px',
+      14: '14px',
+      16: '16px',
+      20: '20px',
+      22: '22px',
+      25: '25px',
+      28: '28px',
+      36: '36px',
     }
   },
   plugins: [
-    plugin(function ({ addVariant, addUtilities }) {
+    plugin(function ({ addVariant }) {
       addVariant('hocus', ['&:hover', '&:focus']);
 
       // Scrollbars
