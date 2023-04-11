@@ -17,12 +17,12 @@ export async function requestEmail(email: string): Promise<{ code: number, isReg
     const connectionToken = await getConnectionTokenFromEmail(email);
 
     if (oldUser && User.fromModel(oldUser).connectionToken === connectionToken) {
-        return {code: 1, isRegistration: !oldUser};
+        return {code: 1, isRegistration: !oldUser.lastSuccessfulConnection};
     }
 
-    await emailService.sendConnectionEmail(email, connectionToken, !oldUser);
+    await emailService.sendConnectionEmail(email, connectionToken, !oldUser.lastSuccessfulConnection);
 
-    return {code: 0, isRegistration: !oldUser};
+    return {code: 0, isRegistration: !oldUser.lastSuccessfulConnection};
 }
 
 /**
