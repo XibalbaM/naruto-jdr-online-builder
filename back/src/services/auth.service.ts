@@ -11,7 +11,7 @@ import User from "../types/user.type.js";
  * @param {string} email The user's email
  * @returns {number} 0 if the email was sent, 1 if the user already requested a connection token recently
  */
-export async function requestEmail(email: string): Promise<{code: number, isRegistration: boolean}> {
+export async function requestEmail(email: string): Promise<{ code: number, isRegistration: boolean }> {
 
     const oldUser = await userModel.findOne({email: email});
     const connectionToken = await getConnectionTokenFromEmail(email);
@@ -59,12 +59,12 @@ export async function getConnectionTokenFromEmail(email: string): Promise<string
  * @param {string} code The code to use
  * @returns {token: string, isFirstLogin: boolean} The new token
  */
-export async function useCode(code: string): Promise<{token: string, isFirstLogin: boolean}> {
+export async function useCode(code: string): Promise<{ token: string, isFirstLogin: boolean }> {
 
     const userDoc = await userModel.findOne({connectionToken: code});
 
     if (!userDoc) {
-        throw new Error('Invalid code');
+        throw new Error("Invalid code");
     }
 
     const user = User.fromModel(userDoc);
@@ -87,7 +87,7 @@ async function resetToken(id: number): Promise<string> {
     const userDoc = await userModel.findById(id);
 
     if (!userDoc) {
-        throw new Error('No user found');
+        throw new Error("No user found");
     }
 
     const user = User.fromModel(userDoc);
@@ -97,4 +97,23 @@ async function resetToken(id: number): Promise<string> {
     await userModel.findByIdAndUpdate(id, {token: nanoid(32), lastSuccessfulConnection: new Date()});
 
     return token;
+}
+
+/**
+ * Get the user from a jwt token
+ * @param {string} token The token to use
+ * @returns {User} The user
+ * @throws {Error} If the user is not found or the token is invalid
+ */
+export async function getUserFromToken(token: string): Promise<User> {
+
+    const decoded = await jwt.verify(token, config.jwt_secret);
+
+    const userDoc = await userModel.findById(decoded["id"]);
+
+    if (!userDoc) {
+        throw new Error("No user found");
+    }
+
+    return User.fromModel(userDoc);
 }
