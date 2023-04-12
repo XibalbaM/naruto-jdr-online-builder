@@ -15,14 +15,14 @@ beforeAll(async () => {
 });
 
 //NORMAL USES
-test("POST /", async () => {
+test("POST / with a non-registered email", async () => {
 
     const response = await fetchUtils.post("/auth", userEmail);
 
     expect(response.status).toBe(202);
     response.json().then((json) => {
         expect(json["message"]).toBe("Email sent");
-        expect(json["isRegistration"]).toBeDefined();
+        expect(json["isRegistration"]).toBe(true);
     });
 });
 
@@ -36,6 +36,17 @@ test("login link received for a new email", async () => {
     response.json().then((json) => {
         expect(json["token"]).toBeDefined();
         expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
+    });
+});
+
+test("POST / with a registered email", async () => {
+
+    const response = await fetchUtils.post("/auth", userEmail);
+
+    expect(response.status).toBe(202);
+    response.json().then((json) => {
+        expect(json["message"]).toBe("Email sent");
+        expect(json["isRegistration"]).toBe(false);
     });
 });
 
