@@ -42,6 +42,14 @@ module.exports = {
       25: '25px',
       28: '28px',
       36: '36px',
+    },
+    extend: {
+      backgroundSize: {
+        'cover-y': 'auto 100vh'
+      },
+      screens: {
+        'xs': '520px',
+      }
     }
   },
   plugins: [
