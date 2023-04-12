@@ -41,13 +41,17 @@ export class ApiService {
     return this.httpClient.request<T>(method, url, {headers: headers, body: body, responseType: 'json', observe: 'response', params: params, withCredentials: authenticated})
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          return of(new HttpResponse({
-            body: error.error,
-            headers: error.headers,
-            status: error.status,
-            statusText: error.statusText,
-            url: error.url ? error.url : undefined
-          }))
+          if (error.status === 0) {
+            return of(new HttpResponse({}));
+          } else {
+            return of(new HttpResponse({
+              body: error.error,
+              headers: error.headers,
+              status: error.status,
+              statusText: error.statusText,
+              url: error.url ? error.url : undefined
+            }))
+          }
         })
       );
   }

@@ -4,6 +4,14 @@ import config from "../config/env.js";
 
 const transporter = nodemailer.createTransport(config.loginEmail.transport);
 
+const connectionTemplate = (connectionToken: string) => {
+    return `Link : ${config.loginUrl}${connectionToken}`;
+}
+
+const accountCreationTemplate = (connectionToken: string) => {
+    return `Link : ${config.loginUrl}${connectionToken}`;
+}
+
 export async function sendConnectionEmail(to: string, connectionToken: string, isRegistration: boolean) {
 
     console.log(`Sending connection email to ${to} with token ${connectionToken} as ${isRegistration ? "registration" : "connection"}`);
@@ -12,7 +20,7 @@ export async function sendConnectionEmail(to: string, connectionToken: string, i
         from: config.loginEmail.username,
         to: to,
         subject: isRegistration ? "Inscription" : "Connexion",
-        text: "Pour vous " + (isRegistration ? "inscrire" : "connecter") + ", cliquez sur ce lien: " + config.loginUrl + connectionToken + "\n\nSi vous n'êtes pas à l'origine de cette demande, ignorez ce mail."
+        html: isRegistration ? accountCreationTemplate(connectionToken) : connectionTemplate(connectionToken)
     });
 
     console.log("Message sent");

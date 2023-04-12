@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {CommonModule, NgOptimizedImage} from "@angular/common";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -9,11 +9,11 @@ import {ReactiveFormsModule} from "@angular/forms";
   imports: [
     CommonModule,
     NgOptimizedImage,
-    ReactiveFormsModule,
+    FormsModule,
   ],
   exports: [
     NgOptimizedImage,
-    ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class SharedModule { }

@@ -15,15 +15,15 @@ export class AuthService {
    * Call the API to email the user connect or create account.
    * @param email
    */
-  sendEmailRequest(email: string): Observable<{succeed: boolean, isRegistration: boolean, error?: string}> {
+  sendEmailRequest(email: string): Observable<{isRegistration: boolean, error?: string}> {
 
     return this.apiService.doRequest<{message?: string, error?: string, isRegistration?: boolean}>('POST', '/auth', {email: email}, false).pipe(
       map((response) => {
         if (response.body) return response.body;
-        else return {error: 'No data received'};
+        else return {error: "No data received"};
       }),
       map((response) => {
-        return {succeed: !response.error, isRegistration: !!response.isRegistration, error: response.error};
+        return {isRegistration: !!response.isRegistration, error: response.error};
       })
     );
   }

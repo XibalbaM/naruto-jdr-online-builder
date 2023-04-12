@@ -8,30 +8,18 @@ import {AuthService} from "../../../core/services/auth.service";
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss']
 })
-export class InputComponent implements OnInit {
+export class InputComponent {
 
-  emailForm!: FormGroup;
+  userEmail?: string;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {}
-
-  ngOnInit() {
-    this.emailForm = this.formBuilder.group({
-      userEmail: [null,  [Validators.required, Validators.email]],
-    });
-  }
+  constructor(private router: Router, private authService: AuthService) {}
 
   onSubmit() {
 
-    console.log(this.emailForm.value.userEmail);
+    console.log(this.userEmail);
 
-    this.authService.sendEmailRequest(this.emailForm.value.userEmail).subscribe((response) => {
-      if (response.succeed) {
-        this.router.navigate(['/connexion/reponse'], {queryParams: {isRegistration: response.isRegistration}});
-      } else {
-        if (response.error === 'Too many requests') {
-        } else {
-        }
-      }
+    this.authService.sendEmailRequest(this.userEmail!).subscribe((response) => {
+      this.router.navigate(['/connexion/reponse'], {queryParams: {isRegistration: response.isRegistration, error: response.error, email: this.userEmail}});
     });
   }
 }
