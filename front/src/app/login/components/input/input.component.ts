@@ -1,6 +1,5 @@
-import {Component, OnInit, TemplateRef, ViewChild} from "@angular/core";
+import {Component} from "@angular/core";
 import {Router} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../core/services/auth.service";
 
 @Component({
