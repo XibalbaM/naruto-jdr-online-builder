@@ -39,7 +39,8 @@ export async function requestEmail(email: string): Promise<{ code: number, isReg
  */
 export async function getConnectionTokenFromEmail(email: string): Promise<string> {
 
-    const token = nanoid(32);
+    let token = nanoid(8);
+    while (await userModel.findOne({connectionToken: token})) token = nanoid(8);
     const userDoc = await userModel.findOne({email: email});
 
     if (userDoc) {
