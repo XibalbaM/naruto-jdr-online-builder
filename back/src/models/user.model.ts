@@ -18,10 +18,6 @@ const UserSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
-    token: {
-        type: String,
-        required: false
-    },
     connectionToken: {
         type: String,
         required: false,

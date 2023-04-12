@@ -16,13 +16,20 @@ export async function requestEmail(email: string): Promise<{ code: number, isReg
     const oldUser = await userModel.findOne({email: email});
     const connectionToken = await getConnectionTokenFromEmail(email);
 
-    if (oldUser && User.fromModel(oldUser).connectionToken === connectionToken) {
-        return {code: 1, isRegistration: !oldUser.lastSuccessfulConnection};
+    if (oldUser) {
+        const oldUserType = User.fromModel(oldUser);
+        if (oldUserType.connectionToken === connectionToken) {
+            return {code: 1, isRegistration: !oldUserType.lastSuccessfulConnection};
+        }
+        if (oldUserType.lastSuccessfulConnection) {
+            await emailService.sendConnectionEmail(email, connectionToken, false);
+            return {code: 0, isRegistration: false};
+        }
     }
 
-    await emailService.sendConnectionEmail(email, connectionToken, !oldUser.lastSuccessfulConnection);
+    await emailService.sendConnectionEmail(email, connectionToken, true);
 
-    return {code: 0, isRegistration: !oldUser.lastSuccessfulConnection};
+    return {code: 0, isRegistration: true};
 }
 
 /**
@@ -94,7 +101,7 @@ async function resetToken(id: number): Promise<string> {
 
     const token = jwt.sign({id: user.id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
 
-    await userModel.findByIdAndUpdate(id, {token: nanoid(32), lastSuccessfulConnection: new Date()});
+    await userModel.findByIdAndUpdate(id, {lastSuccessfulConnection: new Date()});
 
     return token;
 }
