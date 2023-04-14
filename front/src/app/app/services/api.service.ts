@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import Environment from "src/environments/environment.interface";
-import {HttpClient, HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {BehaviorSubject, catchError, Observable, of, tap} from "rxjs";
 import Auth from "../models/auth.model";
 import {Router} from "@angular/router";
@@ -24,18 +24,19 @@ export class ApiService {
    * @param body The body of the request, if any.
    * @param authenticated If the request should be authenticated. If true, the token will be added to the request.
    * @param params The parameters to add to the request.
-   * @param header The headers to add to the request.
    * @return An observable of the response.
    */
   doRequest<T>(method: string, path: string, body?: any, authenticated: boolean = true,
-               params?: Map<string, string>, header?: Map<string, string>): Observable<HttpResponse<T>> {
+               params?: Map<string, string>): Observable<HttpResponse<T>> {
 
     const url = path.startsWith("/") ? this.environment.api_url + path : path;
-    const headers = header ? header : new Map<string, string>();
+    let headers = new HttpHeaders();
 
     if (authenticated) {
       if (this.auth.token) {
-        headers.set("Authorization", "Bearer " + this.auth.token);
+        headers = new HttpHeaders({
+          "Authorization": "Bearer " + this.auth.token
+        });
       } else {
         this.router.navigate(["/connexion"]);
         this.notificationService.showNotification("Vous devez être connecté pour accéder à cette page.");
@@ -44,7 +45,7 @@ export class ApiService {
     }
 
     // @ts-ignore
-    return this.httpClient.request<T>(method, url, {headers: headers, body: body, responseType: "json", observe: "response", params: params, withCredentials: authenticated})
+    return this.httpClient.request<T>(method, url, {headers: headers, body: body, responseType: "json", observe: "response", params: params})
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 0) {
