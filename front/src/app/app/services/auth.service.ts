@@ -22,7 +22,7 @@ export class AuthService {
       if (!this.auth.token || JSON.parse(atob(this.auth.token.split('.')[1]))['exp'] < Date.now() / 1000) {
         this.auth.token = undefined;
       } else {
-        this.apiService.doRequest<{token?: string, error?: string}>('POST', '/auth/refresh', undefined).subscribe((response) => {
+        this.apiService.doRequest<{token?: string, error?: string}>('POST', '/auth/refresh').subscribe((response) => {
           if (response.body && !response.body.error && response.body.token) this.auth.token = response.body.token;
           else this.auth.token = undefined;
         });
