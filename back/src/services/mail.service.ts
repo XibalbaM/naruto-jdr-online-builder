@@ -409,7 +409,7 @@ const accountCreationTemplate = (connectionToken: string) => {
                                                 Si vous n’êtes pas à l’origine de la création de ce compte, ne faites rien. Tant que la validation n’est pas finalisée, le compte ne
                                                 sera pas créé. Si vous recevez cet email de façon très répété, <a target="_blank"
                                                                                                                    style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:20px"
-                                                                                                                   href="AREMPLACER">contactez nous ici</a>.</p></td>
+                                                                                                                   href="mailto:pierre@naruto-jdr.com">contactez nous ici</a>.</p></td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -979,7 +979,7 @@ const connectionTemplate = (connectionToken: string) => {
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#333333;font-size:20px">
                                                 Si vous n’êtes pas à l’origine de cette tentative de connexion, ne faites rien. Il faut avoir accès à ce lien pour que votre compte soit accessible. Si vous recevez cet email de façon très répété, <a target="_blank"
                                                                                                                    style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:20px"
-                                                                                                                   href="AREMPLACER">contactez nous ici</a>.</p></td>
+                                                                                                                   href="mailto:pierre@naruto-jdr.com">contactez nous ici</a>.</p></td>
                                           </tr>
                                         </tbody>
                                       </table>
