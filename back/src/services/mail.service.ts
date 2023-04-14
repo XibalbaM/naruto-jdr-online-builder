@@ -1147,8 +1147,6 @@ const connectionTemplate = (connectionToken: string, username: string) => {
 
 export async function sendConnectionEmail(to: string, connectionToken: string, isRegistration: boolean) {
 
-    console.log(`Sending connection email to ${to} with token ${connectionToken} as ${isRegistration ? "registration" : "connection"}`);
-
     const username = isRegistration ? undefined : await userService.getUserNameFromEmail(to);
 
     await transporter.sendMail({
