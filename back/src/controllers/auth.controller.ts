@@ -26,11 +26,6 @@ export function login(req: Request, res: Response) {
 
     const code = req.params.code;
 
-    if (!code || code.length !== 32) {
-        res.status(400).json({error: "Invalid code"});
-        return;
-    }
-
     authService.useCode(code).then((data) => {
         if (data.isFirstLogin) {
             res.status(201).json({token: data.token});
@@ -40,6 +35,8 @@ export function login(req: Request, res: Response) {
     }).catch((err) => {
         if (err.message === "Invalid code") {
             res.status(400).json({error: "Invalid code"});
+        } else if (err.message === "jwt expired") {
+            res.status(418).json({error: "Code expired"});
         } else {
             res.status(500).json({error: "Internal server error"});
             throw err;

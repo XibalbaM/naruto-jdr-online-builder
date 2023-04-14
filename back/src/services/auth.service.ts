@@ -1,10 +1,13 @@
-import {nanoid} from "nanoid";
 import jwt from "jsonwebtoken";
+import NodeCache from "node-cache";
 
 import userModel from "../models/user.model.js";
 import * as emailService from "./mail.service.js";
 import config from "../config/env.js";
 import User from "../types/user.type.js";
+import {ObjectId} from "mongoose";
+
+const emailSentCache = new NodeCache({stdTTL: config.login_jwt_expiration, checkperiod: config.login_jwt_expiration + 10});
 
 /**
  * Request a connection token email for a user
@@ -13,23 +16,18 @@ import User from "../types/user.type.js";
  */
 export async function requestEmail(email: string): Promise<{ code: number, isRegistration: boolean }> {
 
-    const oldUser = await userModel.findOne({email: email});
-    const connectionToken = await getConnectionTokenFromEmail(email);
+    const connectionToken = getConnectionTokenFromEmail(email);
+    const userDoc = await userModel.findOne({email: email});
 
-    if (oldUser) {
-        const oldUserType = User.fromModel(oldUser);
-        if (oldUserType.connectionToken === connectionToken) {
-            return {code: 1, isRegistration: !oldUserType.lastSuccessfulConnection};
-        }
-        if (oldUserType.lastSuccessfulConnection) {
-            await emailService.sendConnectionEmail(email, connectionToken, false);
-            return {code: 0, isRegistration: false};
-        }
+    const isEmailPresent = emailSentCache.get<string>(email);
+    if (isEmailPresent && ((new Date().getTime() - new Date(isEmailPresent).getTime()) / 1000 < config.login_jwt_expiration)) {
+        return {code: 1, isRegistration: !userDoc};
     }
 
-    await emailService.sendConnectionEmail(email, connectionToken, true);
+    await emailService.sendConnectionEmail(email, connectionToken, !userDoc);
+    emailSentCache.set(email, new Date().toString());
 
-    return {code: 0, isRegistration: true};
+    return {code: 0, isRegistration: !userDoc};
 }
 
 /**
@@ -37,29 +35,9 @@ export async function requestEmail(email: string): Promise<{ code: number, isReg
  * @param {string} email The user's email
  * @returns {string} The user's connection token
  */
-export async function getConnectionTokenFromEmail(email: string): Promise<string> {
+export function getConnectionTokenFromEmail(email: string): string {
 
-    let token = nanoid(8);
-    while (await userModel.findOne({connectionToken: token})) token = nanoid(8);
-    const userDoc = await userModel.findOne({email: email});
-
-    if (userDoc) {
-        const user = User.fromModel(userDoc);
-
-        if (user.lastConnectionRequest && (Date.now() - user.lastConnectionRequest.getTime() < config.loginTokenExpiration)) {
-            return user.connectionToken;
-        }
-
-        await userModel.updateOne({email: email}, {connectionToken: token, lastConnectionRequest: new Date()});
-    } else {
-
-        const user = new User();
-        user.email = email;
-        user.connectionToken = token;
-        user.lastConnectionRequest = new Date();
-        await userModel.create(user);
-    }
-    return token;
+    return jwt.sign({email: email}, config.login_jwt_secret, {expiresIn: config.login_jwt_expiration});
 }
 
 /**
@@ -68,43 +46,45 @@ export async function getConnectionTokenFromEmail(email: string): Promise<string
  * @returns {token: string, isFirstLogin: boolean} The new token
  */
 export async function useCode(code: string): Promise<{ token: string, isFirstLogin: boolean }> {
+    try {
+    const email: string = jwt.verify(code, config.login_jwt_secret, {ignoreExpiration: false})["email"];
+    if (email && email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
 
-    const userDoc = await userModel.findOne({connectionToken: code});
+        emailSentCache.del(email);
 
-    if (!userDoc) {
-        throw new Error("Invalid code");
+        const existingUserDoc = await userModel.findOne({email: email});
+        console.log("Auth")
+        if (existingUserDoc) {
+            const token = await generateToken(existingUserDoc._id);
+            await userModel.findByIdAndUpdate(existingUserDoc._id, {token: token});
+            return {token: token, isFirstLogin: false};
+        } else {
+            const user = await userModel.create({email: email});
+            const token = await generateToken(user._id);
+            await userModel.findByIdAndUpdate(user._id, {token: token});
+            return {token: token, isFirstLogin: true};
+        }
     }
-
-    const user = User.fromModel(userDoc);
-
-    const firstLogin = !user.lastSuccessfulConnection;
-    const token = await resetToken(user.id);
-
-    await userModel.findByIdAndUpdate(user.id, {connectionToken: null, lastConnectionRequest: null});
-
-    return {token: token, isFirstLogin: firstLogin};
+    } catch (e) {
+        if (e.message === "jwt expired") {
+            throw new Error("jwt expired");
+        } else if (e.message === "jwt malformed") {
+            throw new Error("Invalid code");
+        } else {
+            throw new Error(e.message);
+        }
+    }
+    throw new Error("Invalid code");
 }
 
 /**
- * Reset the token of a user
- * @param {number} id The user's id
+ * Generate token for a user
+ * @param {any} id The user's id
  * @returns {string} The new token
  */
-async function resetToken(id: number): Promise<string> {
+async function generateToken(id: any): Promise<string> {
 
-    const userDoc = await userModel.findById(id);
-
-    if (!userDoc) {
-        throw new Error("No user found");
-    }
-
-    const user = User.fromModel(userDoc);
-
-    const token = jwt.sign({id: user.id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
-
-    await userModel.findByIdAndUpdate(id, {lastSuccessfulConnection: new Date()});
-
-    return token;
+    return jwt.sign({id: id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
 }
 
 /**

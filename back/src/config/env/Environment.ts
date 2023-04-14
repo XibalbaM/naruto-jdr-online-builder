@@ -6,7 +6,8 @@ export default class Environment {
     db: string;
     jwt_secret: string;
     jwt_expiration: number;
-    loginTokenExpiration: number;
+    login_jwt_secret: string;
+    login_jwt_expiration: number;
     loginEmail: {
         transport: any;
         username: string;

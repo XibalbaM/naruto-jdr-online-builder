@@ -20,23 +20,24 @@ test("POST / with a non-registered email", async () => {
     const response = await fetchUtils.post("/auth", userEmail);
 
     expect(response.status).toBe(202);
-    response.json().then((json) => {
-        expect(json["message"]).toBe("Email sent");
-        expect(json["isRegistration"]).toBe(true);
-    });
+    const json = await response.json();
+    expect(json["message"]).toBe("Email sent");
+    expect(json["isRegistration"]).toBe(true);
 });
 
 test("login link received for a new email", async () => {
 
-    const code = await authService.getConnectionTokenFromEmail(userEmail.email);
+    const code = authService.getConnectionTokenFromEmail(userEmail.email);
+    expect(jwt.verify(code, config.login_jwt_secret)["email"]).toBeDefined();
     const response = await fetchUtils.get("/auth/" + code);
 
     expect(response.status).toBe(201);
 
-    response.json().then((json) => {
-        expect(json["token"]).toBeDefined();
-        expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
-    });
+    const json = await response.json();
+    expect(json["token"]).toBeDefined();
+    console.log(jwt.verify(json["token"], config.jwt_secret));
+    expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
+
 });
 
 test("POST / with a registered email", async () => {
@@ -44,23 +45,21 @@ test("POST / with a registered email", async () => {
     const response = await fetchUtils.post("/auth", userEmail);
 
     expect(response.status).toBe(202);
-    response.json().then((json) => {
-        expect(json["message"]).toBe("Email sent");
-        expect(json["isRegistration"]).toBe(false);
-    });
+    const json = await response.json();
+    expect(json["message"]).toBe("Email sent");
+    expect(json["isRegistration"]).toBe(false);
 });
 
 test("login link received for an existing email", async () => {
 
-    const code = await authService.getConnectionTokenFromEmail(userEmail.email);
+    const code = authService.getConnectionTokenFromEmail(userEmail.email);
     const response = await fetchUtils.get("/auth/" + code);
 
     expect(response.status).toBe(200);
 
-    response.json().then((json) => {
-        expect(json["token"]).toBeDefined();
-        expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
-    });
+    const json = await response.json();
+    expect(json["token"]).toBeDefined();
+    expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
 });
 
 //BAD USES
@@ -71,9 +70,8 @@ test("two requests for the same email in a short time", async () => {
 
     expect(response.status).toBe(429);
 
-    response.json().then((json) => {
-        expect(json["error"]).toBe("Too many requests");
-    });
+    const json = await response.json();
+    expect(json["error"]).toBe("Too many requests");
 });
 
 test("POST / with an invalid email", async () => {
@@ -82,9 +80,8 @@ test("POST / with an invalid email", async () => {
 
     expect(response.status).toBe(400);
 
-    response.json().then((json) => {
-        expect(json["error"]).toBe("Invalid email");
-    });
+    const json = await response.json();
+    expect(json["error"]).toBe("Invalid email");
 });
 
 test("GET /:code with an invalid code", async () => {
@@ -93,7 +90,20 @@ test("GET /:code with an invalid code", async () => {
 
     expect(response.status).toBe(400);
 
-    response.json().then((json) => {
-        expect(json["error"]).toBe("Invalid code");
-    });
+    const json = await response.json();
+    expect(json["error"]).toBe("Invalid code");
 });
+
+test("GET /:code with an expired code", async () => {
+
+    const code = authService.getConnectionTokenFromEmail(userEmail.email);
+    await new Promise((resolve) => setTimeout(resolve, config.login_jwt_expiration * 1000 + 2000));
+    expect(() => {
+        jwt.verify(code, config.login_jwt_secret, {ignoreExpiration: false});
+    }).toThrow("jwt expired");
+    const response = await fetchUtils.get("/auth/" + code);
+
+    expect(response.status).toBe(418);
+    const json = await response.json();
+    expect(json["error"]).toBe("Code expired");
+}, {timeout: 10000});

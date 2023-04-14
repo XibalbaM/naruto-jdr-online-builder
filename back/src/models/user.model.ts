@@ -25,10 +25,6 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         length: 32
     },
-    lastConnectionRequest: {
-        type: Date,
-        required: false
-    },
     lastSuccessfulConnection: {
         type: Date,
         required: false
