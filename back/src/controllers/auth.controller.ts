@@ -15,6 +15,9 @@ export function requireEmail(req: Request, res: Response) {
 
                 default: res.status(500).json({error: "Internal server error"});
             }
+        }).catch((err) => {
+            res.status(500).json({error: "Internal server error"});
+            console.error(err);
         });
     } else {
 
@@ -39,7 +42,7 @@ export function login(req: Request, res: Response) {
             res.status(418).json({error: "Code expired"});
         } else {
             res.status(500).json({error: "Internal server error"});
-            throw err;
+            console.error(err);
         }
     });
 }
