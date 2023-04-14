@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 
 import config from "../config/env.js";
+import * as userService from "./user.service.js";
 
 const transporter = nodemailer.createTransport(config.loginEmail.transport);
 
@@ -574,7 +575,7 @@ const accountCreationTemplate = (connectionToken: string) => {
 `;
 }
 
-const connectionTemplate = (connectionToken: string) => {
+const connectionTemplate = (connectionToken: string, username: string) => {
     return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="font-family:arial, 'helvetica neue', helvetica, sans-serif">
   <head>
@@ -898,7 +899,7 @@ const connectionTemplate = (connectionToken: string) => {
                                           <tr>
                                             <td align="left" style="padding:0;Margin:0;padding-bottom:30px;padding-top:40px">
                                               <h1 style="Margin:0;line-height:43px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:36px;font-style:normal;font-weight:normal;color:#030505">
-                                                <strong style="color: #030505">Hello (USERNAME) ! Ravi de te revoir parmi nous.</strong></h1></td>
+                                                <strong style="color: #030505">Hello ${username} ! Ravi de te revoir parmi nous.</strong></h1></td>
                                           </tr>
                                         </tbody>
                                       </table>
@@ -1148,10 +1149,12 @@ export async function sendConnectionEmail(to: string, connectionToken: string, i
 
     console.log(`Sending connection email to ${to} with token ${connectionToken} as ${isRegistration ? "registration" : "connection"}`);
 
+    const username = isRegistration ? undefined : await userService.getUserNameFromEmail(to);
+
     await transporter.sendMail({
         from: config.loginEmail.username,
         to: to,
         subject: isRegistration ? "Inscription" : "Connexion",
-        html: isRegistration ? accountCreationTemplate(connectionToken) : connectionTemplate(connectionToken)
+        html: isRegistration ? accountCreationTemplate(connectionToken) : connectionTemplate(connectionToken, username)
     });
 }

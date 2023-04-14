@@ -3,8 +3,9 @@ import mongoose from 'mongoose';
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: false,
+        required: true,
         trim: true,
+        default: "Ninja Sans Nom",
     },
     email: {
         type: String,
