@@ -81,7 +81,7 @@ export async function useCode(code: string): Promise<{ token: string, isFirstLog
  * @param {any} id The user's id
  * @returns {string} The new token
  */
-async function generateToken(id: any): Promise<string> {
+export async function generateToken(id: any): Promise<string> {
 
     return jwt.sign({id: id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
 }

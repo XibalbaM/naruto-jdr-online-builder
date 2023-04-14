@@ -7,13 +7,16 @@ export function requireEmail(req: Request, res: Response) {
 
         authService.requestEmail(req.body.email).then((result) => {
             switch (result.code) {
-                case 0: res.status(202).json({message: "Email sent", isRegistration: result.isRegistration});
-                break;
+                case 0:
+                    res.status(202).json({message: "Email sent", isRegistration: result.isRegistration});
+                    break;
 
-                case 1: res.status(429).json({error: "Too many requests", isRegistration: result.isRegistration});
-                break;
+                case 1:
+                    res.status(429).json({error: "Too many requests", isRegistration: result.isRegistration});
+                    break;
 
-                default: res.status(500).json({error: "Internal server error"});
+                default:
+                    res.status(500).json({error: "Internal server error"});
             }
         }).catch((err) => {
             res.status(500).json({error: "Internal server error"});
@@ -23,6 +26,16 @@ export function requireEmail(req: Request, res: Response) {
 
         res.status(400).json({error: "Invalid email"});
     }
+}
+
+export function refreshToken(req: Request, res: Response) {
+
+    authService.generateToken(req["user"]["id"]).then(token => {
+        res.status(200).json({token: token});
+    }).catch(err => {
+        res.status(500).json({error: "Internal server error"});
+        console.error(err);
+    });
 }
 
 export function login(req: Request, res: Response) {

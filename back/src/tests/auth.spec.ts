@@ -35,7 +35,6 @@ test("login link received for a new email", async () => {
 
     const json = await response.json();
     expect(json["token"]).toBeDefined();
-    console.log(jwt.verify(json["token"], config.jwt_secret));
     expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
 
 });
@@ -62,6 +61,19 @@ test("login link received for an existing email", async () => {
     expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
 });
 
+test("POST /refresh with a valid token", async () => {
+
+    const token = await fetchUtils.get("/auth/" + authService.getConnectionTokenFromEmail(userEmail.email)).then((response) => response.json()).then((json) => json["token"]);
+
+    const response = await fetchUtils.post("/auth/refresh", undefined, token);
+
+    expect(response.status).toBe(200);
+
+    const json = await response.json();
+    expect(json["token"]).toBeDefined();
+    expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
+});
+
 //BAD USES
 test("two requests for the same email in a short time", async () => {
 
@@ -72,6 +84,8 @@ test("two requests for the same email in a short time", async () => {
 
     const json = await response.json();
     expect(json["error"]).toBe("Too many requests");
+
+    await fetchUtils.get("/auth/" + authService.getConnectionTokenFromEmail(userEmail.email));
 });
 
 test("POST / with an invalid email", async () => {
@@ -92,6 +106,16 @@ test("GET /:code with an invalid code", async () => {
 
     const json = await response.json();
     expect(json["error"]).toBe("Invalid code");
+});
+
+test("POST /refresh with an invalid token", async () => {
+
+    const response = await fetchUtils.post("/auth/refresh", undefined, "invalid");
+
+    expect(response.status).toBe(401);
+
+    const json = await response.json();
+    expect(json["error"]).toBe("Cannot authenticate user.");
 });
 
 test("GET /:code with an expired code", async () => {
