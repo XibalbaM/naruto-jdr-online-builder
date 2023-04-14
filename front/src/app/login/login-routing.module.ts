@@ -6,6 +6,7 @@ import {CallbackComponent} from "./components/callback/callback.component";
 const routes: Routes = [
   { path: '', component: InputComponent },
   { path: 'reponse', component: CallbackComponent },
+  { path: ':token', component: CallbackComponent },
 ];
 
 @NgModule({

@@ -53,7 +53,6 @@ export async function useCode(code: string): Promise<{ token: string, isFirstLog
         emailSentCache.del(email);
 
         const existingUserDoc = await userModel.findOne({email: email});
-        console.log("Auth")
         if (existingUserDoc) {
             const token = await generateToken(existingUserDoc._id);
             await userModel.findByIdAndUpdate(existingUserDoc._id, {token: token});
