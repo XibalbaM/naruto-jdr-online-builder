@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import Auth from "../models/auth.model";
 import {ApiService} from "./api.service";
 import { map, Observable, tap} from "rxjs";
+import User from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +24,9 @@ export class AuthService {
    * Get the token from the local storage.
    */
   init(): void {
+
+    this.auth.token = localStorage.getItem('token') || undefined;
     try {
-
-      this.auth.token = localStorage.getItem('token') || undefined;
-
       if (!this.auth.token || JSON.parse(atob(this.auth.token.split('.')[1]))['exp'] < Date.now() / 1000) {
         this.auth.token = undefined;
       } else {
@@ -37,7 +37,21 @@ export class AuthService {
       }
     } catch (e) {
       this.auth.token = undefined;
+      console.error(e);
     }
+
+    this.auth.tokenObservable().subscribe((token) => {
+      if (!token) localStorage.removeItem('token');
+      else localStorage.setItem('token', token);
+      if (token) {
+        this.apiService.doRequest<{user?: User, error?: string}>("GET", "/auth/user").subscribe((response) => {
+          if (response.body && !response.body["error"] && response.body["user"]) this.auth.user = response.body.user;
+          else this.auth.user = undefined;
+        });
+      } else {
+        this.auth.user = undefined;
+      }
+    });
   }
 
   /**

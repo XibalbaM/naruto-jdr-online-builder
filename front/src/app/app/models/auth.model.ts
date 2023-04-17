@@ -26,6 +26,10 @@ export default class Auth {
     return this._user.getValue();
   }
 
+  set user(user: User | undefined) {
+    this._user.next(user);
+  }
+
   userObservable(): BehaviorSubject<User | undefined> {
     return this._user;
   }
@@ -34,18 +38,8 @@ export default class Auth {
     return this._token.getValue();
   }
 
-  /**
-   * Set the token and save it in the local storage.
-   * @param token The token to set.
-   */
   set token(token: string | undefined) {
     this._token.next(token);
-    if (!token) localStorage.removeItem('token');
-    else localStorage.setItem('token', token);
-    if (token) {
-      //this._user.next(new User());
-      //TODO get user data
-    }
   }
 
   tokenObservable(): BehaviorSubject<string | undefined> {

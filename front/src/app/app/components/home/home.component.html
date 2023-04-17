@@ -1,2 +1,4 @@
 <!--Just for debug: will be removed soon-->
 <p>Token is {{auth.tokenObservable() | async}}</p>
+<p>Email is {{(auth.userObservable() | async)?.email}}</p>
+<p>Username is {{(auth.userObservable() | async)?.username}}</p>
