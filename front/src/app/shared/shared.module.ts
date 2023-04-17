@@ -12,6 +12,7 @@ import {FormsModule} from "@angular/forms";
     FormsModule,
   ],
   exports: [
+    CommonModule,
     NgOptimizedImage,
     FormsModule,
   ]

@@ -16,7 +16,6 @@ import {SharedModule} from "../shared/shared.module";
     LogoComponent,
   ],
   imports: [
-    CommonModule,
     LoginRoutingModule,
     SharedModule,
   ],

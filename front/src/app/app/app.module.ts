@@ -10,6 +10,7 @@ import Environment from "../../environments/environment.interface";
 import {environment} from "../../environments/environment";
 import Auth from "./models/auth.model";
 import {AuthService} from "./services/auth.service";
+import {SharedModule} from "../shared/shared.module";
 
 const init = (authService: AuthService) => {
   return () => authService.init();
@@ -21,7 +22,7 @@ const init = (authService: AuthService) => {
     HomeComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
