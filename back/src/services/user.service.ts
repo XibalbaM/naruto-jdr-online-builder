@@ -7,6 +7,6 @@ import userModel from "../models/user.model.js";
  */
 export async function getUserNameFromEmail(email: string): Promise<string> {
   const user = await userModel.findOne({email: email});
-  if (user) return user.username;
+  if (user && user.username) return user.username;
   else return "Ninja Sans Nom";
 }

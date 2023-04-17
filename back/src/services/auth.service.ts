@@ -16,7 +16,6 @@ const emailSentCache = new NodeCache({stdTTL: config.login_jwt_expiration, check
  */
 export async function requestEmail(email: string): Promise<{ code: number, isRegistration: boolean }> {
 
-    const connectionToken = getConnectionTokenFromEmail(email);
     const userDoc = await userModel.findOne({email: email});
 
     const isEmailPresent = emailSentCache.get<string>(email);
@@ -24,7 +23,7 @@ export async function requestEmail(email: string): Promise<{ code: number, isReg
         return {code: 1, isRegistration: !userDoc};
     }
 
-    await emailService.sendConnectionEmail(email, connectionToken, !userDoc);
+    await emailService.sendConnectionEmail(email, getConnectionTokenFromEmail(email), !userDoc);
     emailSentCache.set(email, new Date().toString());
 
     return {code: 0, isRegistration: !userDoc};
@@ -41,29 +40,32 @@ export function getConnectionTokenFromEmail(email: string): string {
 }
 
 /**
- * Use given code to generate a real token, and invalidate the code
- * @param {string} code The code to use
- * @returns {token: string, isFirstLogin: boolean} The new token
+ * Use given connection token to generate a real token.
+ *
+ * get the user's email from the token, check if the email is valid, remove the email from the cache, check if the user already exists, if not create it,
+ * generate a token using {@link generateToken} and return it.
+ *
+ * @param {string} connectionToken The code to use
+ * @returns {token: string, isFirstLogin: boolean} The new token and a boolean indicating if the user is logging in for the first time
+ * @throws {Error} If the token is invalid or expired
  */
-export async function useCode(code: string): Promise<{ token: string, isFirstLogin: boolean }> {
+export async function useCode(connectionToken: string): Promise<{ token: string, isFirstLogin: boolean }> {
     try {
-    const email: string = jwt.verify(code, config.login_jwt_secret, {ignoreExpiration: false})["email"];
-    if (email && email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
+        const email: string = jwt.verify(connectionToken, config.login_jwt_secret, {ignoreExpiration: false})["email"];
+        if (email && email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
 
-        emailSentCache.del(email);
+            emailSentCache.del(email);
 
-        const existingUserDoc = await userModel.findOne({email: email});
-        if (existingUserDoc) {
-            const token = await generateToken(existingUserDoc._id);
-            await userModel.findByIdAndUpdate(existingUserDoc._id, {token: token});
-            return {token: token, isFirstLogin: false};
-        } else {
-            const user = await userModel.create({email: email});
-            const token = await generateToken(user._id);
-            await userModel.findByIdAndUpdate(user._id, {token: token});
-            return {token: token, isFirstLogin: true};
+            const existingUserDoc = await userModel.findOne({email: email});
+            if (existingUserDoc) {
+                const token = await generateToken(existingUserDoc._id);
+                return {token: token, isFirstLogin: false};
+            } else {
+                const user = await userModel.create({email: email});
+                const token = await generateToken(user._id);
+                return {token: token, isFirstLogin: true};
+            }
         }
-    }
     } catch (e) {
         if (e.message === "jwt expired") {
             throw new Error("jwt expired");

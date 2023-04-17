@@ -16,3 +16,5 @@ mongoose.connection.on("connected", () => {
         mongoose.set("debug", true);
     }
 });
+
+export default mongoose.connection.asPromise();

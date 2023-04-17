@@ -18,16 +18,6 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: true,
         default: 0
-    },
-    connectionToken: {
-        type: String,
-        required: false,
-        unique: true,
-        length: 32
-    },
-    lastSuccessfulConnection: {
-        type: Date,
-        required: false
     }
 });
 
