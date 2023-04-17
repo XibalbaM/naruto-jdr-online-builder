@@ -1,9 +1,11 @@
 import config from "../config/env";
 
 import fetch, {Response} from "node-fetch";
+import userModel from "../models/user.model";
+import jwt from "jsonwebtoken";
 
 /**
- * Processes the given url to make sure it is a full url and to provide a short hand for api calls.
+ * Processes the given url to make sure it is a full url and to provide a shorthand for api calls.
  * @param url the url to process.
  * @returns the processed url.
  */
@@ -15,6 +17,18 @@ function processUrl(url: string) {
 }
 
 /**
+ * Returns a valid token for testing.
+ * @returns a promise that resolves to the token.
+ */
+export async function testToken(): Promise<string> {
+    let user = await userModel.findOne({email: 'test@test.test'});
+    if (!user) {
+        user = await userModel.create({email: 'test@test.test'});
+    }
+    return jwt.sign({id: user._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
+}
+
+/**
  * Returns the response of a GET request to the given url.
  * @param url the url to send the request to.
  * @param token the token to use for authentication.
@@ -23,7 +37,7 @@ function processUrl(url: string) {
 export function get(url: string, token?: string): Promise<Response> {
     return fetch(processUrl(url), {
         headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': token ? `Bearer ${token}` : undefined
         }
     });
 }
@@ -41,7 +55,7 @@ export function post(url: string, body: any, token?: string): Promise<Response> 
         body: JSON.stringify(body),
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': token ? `Bearer ${token}` : undefined
         }
     });
 }
@@ -59,7 +73,7 @@ export function put(url: string, body: any, token?: string): Promise<Response> {
         body: JSON.stringify(body),
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': token ? `Bearer ${token}` : undefined
         }
     });
 }
@@ -74,7 +88,7 @@ export function del(url: string, token?: string): Promise<Response> {
     return fetch(processUrl(url), {
         method: 'DELETE',
         headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': token ? `Bearer ${token}` : undefined
         }
     });
 }
