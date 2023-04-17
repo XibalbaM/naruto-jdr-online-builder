@@ -41,8 +41,8 @@ export function requestEmail(req: Request, res: Response) {
  * Must be preceded by the authMiddleware
  *
  * It takes the user id from the user and passes it to {@link authService#generateToken}, then returns the good status code and data
- * @param req
- * @param res
+ * @param req The request
+ * @param res The response
  */
 export function refreshToken(req: Request, res: Response) {
 
@@ -52,6 +52,20 @@ export function refreshToken(req: Request, res: Response) {
         res.status(500).json({error: "Internal server error"});
         console.error(err);
     });
+}
+
+/**
+ * Handles requests to /auth/user
+ *
+ * Must be preceded by the authMiddleware
+ *
+ * Simply returns the user received from the authMiddleware
+ * @param req The request
+ * @param res The response
+ */
+export function getUser(req: Request, res: Response) {
+
+    res.status(200).json(req["user"]);
 }
 
 /**

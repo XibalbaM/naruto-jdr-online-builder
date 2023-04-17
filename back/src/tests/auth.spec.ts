@@ -74,6 +74,16 @@ test("POST /refresh with a valid token", async () => {
     expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
 });
 
+test("GET /user with a valid token", async () => {
+
+    const response = await fetchUtils.get("/auth/user", await fetchUtils.testToken());
+
+    expect(response.status).toBe(200);
+
+    const json = await response.json();
+    expect(json["email"]).toBeDefined();
+});
+
 //BAD USES
 test("two requests for the same email in a short time", async () => {
 
@@ -118,6 +128,27 @@ test("POST /refresh with an invalid token", async () => {
     expect(json["error"]).toBe("Cannot authenticate user.");
 });
 
+test("GET /user with an invalid token", async () => {
+
+    const response = await fetchUtils.get("/auth/user", "invalid");
+
+    expect(response.status).toBe(401);
+
+    const json = await response.json();
+    expect(json["error"]).toBe("Cannot authenticate user.");
+});
+
+test("GET /user without a token", async () => {
+
+    const response = await fetchUtils.get("/auth/user");
+
+    expect(response.status).toBe(401);
+
+    const json = await response.json();
+    expect(json["error"]).toBe("No token provided for accessing a protected resource.");
+});
+
+//LONG TESTS
 test("GET /:code with an expired code", async () => {
 
     const code = authService.getConnectionTokenFromEmail(userEmail.email);
