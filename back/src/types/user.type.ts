@@ -6,7 +6,7 @@ import {ObjectId} from "mongoose";
  */
 export default class User {
     id: ObjectId;
-    username: string;
+    username: string = "Ninja Sans Nom";
     email: string;
     profileImage: number = 0;
 
@@ -18,9 +18,9 @@ export default class User {
 
         const user = new User();
         user.id = modelUser._id;
-        user.username = modelUser.username;
+        user.username = modelUser.username || "Ninja Sans Nom";
         user.email = modelUser.email;
-        user.profileImage = modelUser.profileImage;
+        user.profileImage = modelUser.profileImage || 0;
 
         return user;
     }
