@@ -9,6 +9,7 @@ pnpm-lock.yaml
 
 # Compiled files
 dist/
+front/**/*
 
 # Credidentials
 src/config/env/test.ts

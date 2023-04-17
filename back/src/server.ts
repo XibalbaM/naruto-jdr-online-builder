@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
 
 import config from "./config/env.js";
 import router from './router.js';
@@ -17,6 +18,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Add the router for the api
 app.use('/api', router);
+// Add the router for the frontend
+app.use('/', express.static(path.resolve('front')));
+app.use((req, res) => {
+    res.sendFile(path.resolve('front/index.html'));
+});
 
 app.listen(config.port, () => {
     return console.log(`Express is listening at http://localhost:${config.port} (${config.env})`);

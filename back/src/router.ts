@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import * as url from 'url';
+import path from 'path';
 
 import authRoute from './routes/auth.route.js';
 
@@ -11,10 +11,7 @@ import authRoute from './routes/auth.route.js';
  */
 const router = Router();
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-
 router.use('/auth', authRoute);
-router.use('/assets', express.static(__dirname + '../assets'))
+router.use('/assets', express.static(path.resolve('assets')));
 
 export default router;
