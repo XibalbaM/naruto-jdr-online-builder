@@ -1,8 +1,25 @@
 import User from "./user.model";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 
+/**
+ * Class that contains the authentication data.
+ * @class Auth
+ */
 export default class Auth {
+  /**
+   * The token of the user, as a JWT, if the user is connected.
+   *
+   * Takes the form of a BehaviorSubject to be able to be observed.
+   * @private
+   */
   private _token = new BehaviorSubject<string | undefined>(undefined);
+  /**
+   * The user data, if the user is connected.
+   *
+   * Takes the form of a BehaviorSubject to be able to be observed.
+   * @see User
+   * @private
+   */
   private _user = new BehaviorSubject<User | undefined>(undefined);
 
   get user(): User | undefined {
@@ -13,14 +30,14 @@ export default class Auth {
     return this._user;
   }
 
-  tokenObservable(): BehaviorSubject<string | undefined> {
-    return this._token;
-  }
-
   get token(): string | undefined {
     return this._token.getValue();
   }
 
+  /**
+   * Set the token and save it in the local storage.
+   * @param token The token to set.
+   */
   set token(token: string | undefined) {
     this._token.next(token);
     if (!token) localStorage.removeItem('token');
@@ -29,5 +46,9 @@ export default class Auth {
       //this._user.next(new User());
       //TODO get user data
     }
+  }
+
+  tokenObservable(): BehaviorSubject<string | undefined> {
+    return this._token;
   }
 }

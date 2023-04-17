@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from "@angular/core";
+import {Injectable} from "@angular/core";
 import Auth from "../models/auth.model";
 import {ApiService} from "./api.service";
 import { map, Observable, tap} from "rxjs";
@@ -6,6 +6,14 @@ import { map, Observable, tap} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Service to manage the authentication.
+ *
+ * This service is used to manage the authentication of the user.
+ * @see Auth
+ * @see ApiService
+ * @class AuthService
+ */
 export class AuthService {
 
   constructor(private apiService: ApiService, private auth: Auth) {}
@@ -49,6 +57,11 @@ export class AuthService {
     );
   }
 
+  /**
+   * Call the API to log in the user with the connection token received by email.
+   * @param token The token received by email.
+   * @returns An observable with the result of the login.
+   */
   login(token: string): Observable<{ succeed: boolean, isRegistration: boolean, error?: string }> {
 
     return this.apiService.doRequest<{token?: string, error?: string}>("GET", `/auth/${token}`, undefined, false).pipe(

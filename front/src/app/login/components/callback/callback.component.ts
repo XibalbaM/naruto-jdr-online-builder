@@ -9,6 +9,9 @@ import {NotificationService} from "../../../app/services/notification.service";
   templateUrl: "./callback.component.html",
   styleUrls: ["./callback.component.scss"],
 })
+/**
+ * The component that handles the callback from the server after a login or registration request and from email link.
+ */
 export class CallbackComponent implements OnInit {
 
   text!: string;
@@ -16,6 +19,14 @@ export class CallbackComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private environment: Environment, private authService: AuthService, private notificationService: NotificationService) {
   }
 
+  /**
+   * Checks if the user has been redirected from the login page or from an email link.
+   *
+   * If the user has been redirected from the login page, the component will show a message depending on the query parameters, witch tell if the login request was successful or not.
+   *
+   * Else, the component will try to log in the user with the token in the url, and show a message depending on the response.
+   * If the response is successful, the user will be redirected to the home page and a notification will be shown.
+   */
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       if (params["token"]) {

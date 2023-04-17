@@ -1,3 +1,7 @@
+/**
+ * Class representing a user.
+ * @class User
+ */
 export default class User {
   email!: string;
   username?: string;

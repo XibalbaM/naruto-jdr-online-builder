@@ -6,18 +6,18 @@
 
 @import "assets/fonts/fonts";
 
+//Applying default styles
 @layer base {
 
   html {
     @apply font-neue bg-dark text-white bg-cover-y bg-no-repeat bg-[url('assets/images/backgrounds/bg-small.png')] xs:bg-repeat xs:bg-auto xs:bg-[url('assets/images/backgrounds/bg-large.png')];
-    //background-image: url("assets/images/backgrounds/bg-large.png");
-    //background-repeat: repeat;
   }
 
   a {
     @apply text-purple no-underline hocus:underline;
   }
 
+  //Removes the autofill background color
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,

@@ -54,9 +54,10 @@ module.exports = {
   },
   plugins: [
     plugin(function ({ addVariant }) {
+      // Combinaison of hover and focus
       addVariant('hocus', ['&:hover', '&:focus']);
 
-      // Scrollbars
+      // Selectors for scrollbars
       addVariant('scrollbar', '&::-webkit-scrollbar');
       addVariant('scrollbar-thumb', '&::-webkit-scrollbar-thumb');
       addVariant('scrollbar-track', '&::-webkit-scrollbar-track');

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import Environment from "src/environments/environment.interface";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular/common/http";
-import {BehaviorSubject, catchError, Observable, of, tap} from "rxjs";
+import {catchError, Observable, of} from "rxjs";
 import Auth from "../models/auth.model";
 import {Router} from "@angular/router";
 import {NotificationService} from "./notification.service";
@@ -11,6 +11,12 @@ import {NotificationService} from "./notification.service";
 })
 /**
  * The API service is used to call the API. It automatically resolves the API URL from the environment and the token from the auth.service.
+ *
+ * It also handles errors and redirects to the login page if the user is not authenticated.
+ * @see Auth
+ * @see Environment
+ *
+ * @class ApiService
  */
 export class ApiService {
 
