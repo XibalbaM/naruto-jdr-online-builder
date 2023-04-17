@@ -8,7 +8,8 @@
     "dev": "nodemon --ignore ./src/tests --exec ts-node-esm src/main.ts",
     "test": "vitest --ui --api 9527",
     "clear-db": "ts-node-esm ./clear-db.ts",
-    "run": "tsc && node dist/main.js"
+    "run": "tsc && node dist/main.js",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
