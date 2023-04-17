@@ -1,7 +1,14 @@
-import e, {Request, Response} from "express";
+import {Request, Response} from "express";
 import * as authService from "../services/auth.service.js";
 
-export function requireEmail(req: Request, res: Response) {
+/**
+ * Handles requests to /auth
+ *
+ * It takes the email address from the body and passes it to {@link authService#requestEmail}, then returns the good status code and data
+ * @param req The request
+ * @param res The response
+ */
+export function requestEmail(req: Request, res: Response) {
 
     if (req.body.email && req.body.email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
 
@@ -28,6 +35,15 @@ export function requireEmail(req: Request, res: Response) {
     }
 }
 
+/**
+ * Handles requests to /auth/refresh
+ *
+ * Must be preceded by the authMiddleware
+ *
+ * It takes the user id from the user and passes it to {@link authService#generateToken}, then returns the good status code and data
+ * @param req
+ * @param res
+ */
 export function refreshToken(req: Request, res: Response) {
 
     authService.generateToken(req["user"]["id"]).then(token => {
@@ -38,6 +54,13 @@ export function refreshToken(req: Request, res: Response) {
     });
 }
 
+/**
+ * Handles requests to /auth/:code
+ *
+ * It takes the code from the url and passes it to {@link authService#useCode}, then returns the good status code and data
+ * @param req The request
+ * @param res The response
+ */
 export function login(req: Request, res: Response) {
 
     const code = req.params.code;

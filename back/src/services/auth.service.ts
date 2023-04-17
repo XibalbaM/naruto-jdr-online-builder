@@ -5,12 +5,18 @@ import userModel from "../models/user.model.js";
 import * as emailService from "./mail.service.js";
 import config from "../config/env.js";
 import User from "../types/user.type.js";
-import {ObjectId} from "mongoose";
 
+/**
+ * A cache used to store addresses that have already requested a connection token recently.
+ *
+ * This is used to prevent spamming the server with connection token requests.
+ */
 const emailSentCache = new NodeCache({stdTTL: config.login_jwt_expiration, checkperiod: config.login_jwt_expiration + 10});
 
 /**
- * Request a connection token email for a user
+ * Request a connection token email for a user.
+ *
+ * Check if no email was recently sent to the passed email, generate the connection token using {@link getConnectionTokenFromEmail} and send it using {@link emailService.sendConnectionEmail}.
  * @param {string} email The user's email
  * @returns {number} 0 if the email was sent, 1 if the user already requested a connection token recently
  */
@@ -30,7 +36,7 @@ export async function requestEmail(email: string): Promise<{ code: number, isReg
 }
 
 /**
- * Generate a connection token for a user
+ * Generate a connection token for a user using jwt. The token's payload is the user's email.
  * @param {string} email The user's email
  * @returns {string} The user's connection token
  */
@@ -79,7 +85,7 @@ export async function useCode(connectionToken: string): Promise<{ token: string,
 }
 
 /**
- * Generate token for a user
+ * Generate token for a user using jwt. The token's payload is the passed id.
  * @param {any} id The user's id
  * @returns {string} The new token
  */
@@ -89,7 +95,9 @@ export async function generateToken(id: any): Promise<string> {
 }
 
 /**
- * Get the user from a jwt token
+ * Get the user from a jwt token.
+ *
+ * Get the user's id from the token, check if the user exists, if not throw an error, else return the user.
  * @param {string} token The token to use
  * @returns {User} The user
  * @throws {Error} If the user is not found or the token is invalid

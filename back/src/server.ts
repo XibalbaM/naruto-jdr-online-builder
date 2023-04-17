@@ -4,12 +4,18 @@ import cors from 'cors';
 import config from "./config/env.js";
 import router from './router.js';
 
+/**
+ * The express app.
+ * @type {Express}
+ */
 const app = express();
 
+// Add the middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Add the router for the api
 app.use('/api', router);
 
 app.listen(config.port, () => {

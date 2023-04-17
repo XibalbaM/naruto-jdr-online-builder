@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
 
+/**
+ * Represents a user of the application.
+ * A mongoose model is a wrapper on the MongoDB database.
+ */
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,

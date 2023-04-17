@@ -1,11 +1,19 @@
 import {ObjectId} from "mongoose";
 
+/**
+ * Describes a user, in a more convenient and lightweight way than the model
+ * @Class User
+ */
 export default class User {
     id: ObjectId;
     username: string;
     email: string;
     profileImage: number = 0;
 
+    /**
+     * Creates a new user from a model
+     * @param modelUser The model to create the user from
+     */
     static fromModel(modelUser): User {
 
         const user = new User();

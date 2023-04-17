@@ -1,6 +1,10 @@
 import {Middleware} from "../middleware.type.js";
 import * as authService from "../../services/auth.service.js";
 
+/**
+ * A function that returns a {@link Middleware} that checks if the user is authenticated, and if yes, adds the user to the request's user property.
+ * @returns {Middleware} The middleware
+ */
 export default function (): Middleware {
     return function (req, res, next) {
         const tokenHeader = req.headers.authorization;
@@ -8,7 +12,7 @@ export default function (): Middleware {
             authService.getUserFromToken(tokenHeader.split(' ')[1]).then(user => {
                 req['user'] = user;
                 next();
-            }).catch(err => {
+            }).catch(() => {
                 res.status(401).send({error: 'Cannot authenticate user.'});
             });
         } else {

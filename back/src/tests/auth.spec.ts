@@ -3,7 +3,7 @@ import * as jwt from "jsonwebtoken";
 
 import * as fetchUtils from "../utils/tests.utils.js";
 import * as authService from "../services/auth.service.js";
-import {initializeDatabase} from "../utils/clear-db.js";
+import {clearDatabase} from "../utils/clear-db.js";
 import config from "../config/env.js";
 
 const userEmail = {
@@ -11,7 +11,7 @@ const userEmail = {
 };
 
 beforeAll(async () => {
-    await initializeDatabase();
+    await clearDatabase();
 });
 
 //NORMAL USES

@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 import config from "./config/env.js";
 
+/**
+ * Connect to MongoDB using the environment configuration.
+ * @returns {Promise} A promise that resolves when the connection is established.
+ */
+
 console.log(`Connecting to database...`);
 
 mongoose.connect(config.db, {dbName: config.dbName});

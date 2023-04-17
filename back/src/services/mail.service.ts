@@ -5,6 +5,10 @@ import * as userService from "./user.service.js";
 
 const transporter = nodemailer.createTransport(config.loginEmail.transport);
 
+/**
+ * The template for the email sent to the user to confirm his account
+ * @param connectionToken The token to connect the user to his account
+ */
 const accountCreationTemplate = (connectionToken: string) => {
     return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="font-family:arial, 'helvetica neue', helvetica, sans-serif">
@@ -575,6 +579,11 @@ const accountCreationTemplate = (connectionToken: string) => {
 `;
 }
 
+/**
+ * Template for the connection email
+ * @param connectionToken The token to connect the user to his account
+ * @param username The name of the user
+ */
 const connectionTemplate = (connectionToken: string, username: string) => {
     return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="font-family:arial, 'helvetica neue', helvetica, sans-serif">
@@ -1145,6 +1154,12 @@ const connectionTemplate = (connectionToken: string, username: string) => {
 `;
 }
 
+/**
+ * Send an email to the user to confirm his connection or registration
+ * @param to The email of the user
+ * @param connectionToken The token to use to connect
+ * @param isRegistration Whether the email is for a registration or a connection
+ */
 export async function sendConnectionEmail(to: string, connectionToken: string, isRegistration: boolean) {
 
     const username = isRegistration ? undefined : await userService.getUserNameFromEmail(to);
