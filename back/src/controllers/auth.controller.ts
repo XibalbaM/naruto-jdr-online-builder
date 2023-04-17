@@ -65,7 +65,7 @@ export function refreshToken(req: Request, res: Response) {
  */
 export function getUser(req: Request, res: Response) {
 
-    res.status(200).json(req["user"]);
+    res.status(200).json({user: req["user"]});
 }
 
 /**

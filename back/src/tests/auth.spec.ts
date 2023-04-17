@@ -81,7 +81,7 @@ test("GET /user with a valid token", async () => {
     expect(response.status).toBe(200);
 
     const json = await response.json();
-    expect(json["email"]).toBeDefined();
+    expect(json["user"]["email"]).toBeDefined();
 });
 
 //BAD USES
