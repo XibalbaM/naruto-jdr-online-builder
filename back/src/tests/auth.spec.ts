@@ -63,9 +63,7 @@ test("login link received for an existing email", async () => {
 
 test("POST /refresh with a valid token", async () => {
 
-    const token = await fetchUtils.get("/auth/" + authService.getConnectionTokenFromEmail(userEmail.email)).then((response) => response.json()).then((json) => json["token"]);
-
-    const response = await fetchUtils.post("/auth/refresh", undefined, token);
+    const response = await fetchUtils.get("/auth/refresh", await fetchUtils.testToken());
 
     expect(response.status).toBe(200);
 
@@ -118,9 +116,9 @@ test("GET /:code with an invalid code", async () => {
     expect(json["error"]).toBe("Invalid code");
 });
 
-test("POST /refresh with an invalid token", async () => {
+test("GET /refresh with an invalid token", async () => {
 
-    const response = await fetchUtils.post("/auth/refresh", undefined, "invalid");
+    const response = await fetchUtils.get("/auth/refresh", "invalid");
 
     expect(response.status).toBe(401);
 
