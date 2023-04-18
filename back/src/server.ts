@@ -4,6 +4,7 @@ import path from 'path';
 
 import config from "./config/env.js";
 import router from './router.js';
+import logMiddleware from "./middlewares/log.middleware.js";
 
 /**
  * The express app.
@@ -17,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Add the router for the api
-app.use('/api', router);
+app.use('/api', logMiddleware("/api"), router);
 // Add the router for the frontend
 app.use('/', express.static(path.resolve('front')));
 app.use((req, res) => {
