@@ -4,7 +4,7 @@ import NodeCache from "node-cache";
 import userModel from "../models/user.model.js";
 import * as emailService from "./mail.service.js";
 import config from "../config/env.js";
-import User from "../types/user.type.js";
+import User from "../classes/user.class.js";
 
 /**
  * A cache used to store addresses that have already requested a connection token recently.

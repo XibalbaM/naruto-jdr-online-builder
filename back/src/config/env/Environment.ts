@@ -1,3 +1,6 @@
+import ImageSourceConfig from "./ImageSourceConfig.js";
+import defaultImageSource from "./image-source.js";
+
 export default class Environment {
     /**
      * The environment name
@@ -56,4 +59,10 @@ export default class Environment {
      * The URL sent in the connection/creation email.
      */
     loginUrl: string;
+    imageSource: ImageSourceConfig[] = defaultImageSource;
+    allowedFileExtensions: string[] = ["png", "jpg", "jpeg", "webp", "svg"];
+
+    constructor(data: Environment) {
+        Object.assign(this, data);
+    }
 };

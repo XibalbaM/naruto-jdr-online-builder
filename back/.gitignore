@@ -12,5 +12,4 @@ dist/
 front/**/*
 
 # Credidentials
-src/config/env/test.ts
-src/config/env/development.ts
+src/config/env/*.environment.ts

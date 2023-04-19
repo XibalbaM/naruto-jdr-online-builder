@@ -5,7 +5,7 @@ const env = process.env.NODE_ENV || 'test';
 console.log(`Loading ${env} environment...`);
 
 //Load the environment
-let importPath = `./env/${env}.js`;
+let importPath = `./env/${env}.environment.js`;
 if (env === 'test') {
     importPath = importPath.replace('.js', '.ts');
 }

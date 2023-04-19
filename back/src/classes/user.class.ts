@@ -8,7 +8,7 @@ export default class User {
     id: ObjectId;
     username: string = "Ninja Sans Nom";
     email: string;
-    profileImage: number = 0;
+    profileImage: string;
 
     /**
      * Creates a new user from a model
@@ -20,7 +20,7 @@ export default class User {
         user.id = modelUser._id;
         user.username = modelUser.username || "Ninja Sans Nom";
         user.email = modelUser.email;
-        user.profileImage = modelUser.profileImage || 0;
+        user.profileImage = modelUser.profileImage;
 
         return user;
     }

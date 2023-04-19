@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
  * Represents a user of the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-const UserSchema = new mongoose.Schema({
+export const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -19,9 +19,8 @@ const UserSchema = new mongoose.Schema({
         regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     },
     profileImage: {
-        type: Number,
-        required: true,
-        default: 0
+        type: String,
+        trim: true,
     }
 });
 
