@@ -45,7 +45,7 @@ export class AuthService {
       else localStorage.setItem('token', token);
       if (token) {
         this.apiService.doRequest<{user?: User, error?: string}>("GET", "/auth/user").subscribe((response) => {
-          if (response.body && !response.body["error"] && response.body["user"]) this.auth.user = response.body.user;
+          if (response.body && !response.body["error"] && response.body["user"]) this.auth.user = new User(response.body.user);
           else this.auth.user = undefined;
         });
       } else {
