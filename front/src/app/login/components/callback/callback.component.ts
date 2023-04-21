@@ -34,7 +34,7 @@ export class CallbackComponent implements OnInit {
         this.authService.login(params["token"]).subscribe((response) => {
           if (response.succeed) {
             this.router.navigate(["/"]);
-            this.notificationService.showNotification(response.isRegistration ? "Compte crée avec succès !" : "Vous êtes maintenant connecté.");
+            this.notificationService.showNotification("Félicitations", response.isRegistration ? "Compte crée avec succès !" : "Vous êtes maintenant connecté.");
           } else {
             switch (response.error) {
               case "Invalid token":

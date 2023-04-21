@@ -1,4 +1,7 @@
 <app-nav *ngIf="showNav"></app-nav>
-<div class="container mx-auto">
-  <router-outlet></router-outlet>
+<app-notification></app-notification>
+<div class="px-[15px]">
+  <div class="container mx-auto lg:mt-[50px]">
+    <router-outlet></router-outlet>
+  </div>
 </div>

@@ -11,6 +11,8 @@ import Auth from "./models/auth.model";
 import {AuthService} from "./services/auth.service";
 import {SharedModule} from "../shared/shared.module";
 import { NavComponent } from './components/nav/nav.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const init = (authService: AuthService) => {
   return () => authService.init();
@@ -20,11 +22,13 @@ const init = (authService: AuthService) => {
   declarations: [
     AppComponent,
     HomeComponent,
-    NavComponent
+    NavComponent,
+    NotificationComponent
   ],
   imports: [
     SharedModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule
   ],

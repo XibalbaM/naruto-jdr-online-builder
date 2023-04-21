@@ -45,7 +45,7 @@ export class ApiService {
         });
       } else {
         this.router.navigate(["/connexion"]);
-        this.notificationService.showNotification("Vous devez être connecté pour accéder à cette page.");
+        this.notificationService.showNotification("Impossible d'accéder à cette page", "Vous devez être connecté pour accéder à cette page.");
         throw new Error("Not authenticated");
       }
     }
