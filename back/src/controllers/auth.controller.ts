@@ -55,20 +55,6 @@ export function refreshToken(req: Request, res: Response) {
 }
 
 /**
- * Handles requests to /auth/user
- *
- * Must be preceded by the authMiddleware
- *
- * Simply returns the user received from the authMiddleware
- * @param req The request
- * @param res The response
- */
-export function getUser(req: Request, res: Response) {
-
-    res.status(200).json({user: req["user"]});
-}
-
-/**
  * Handles requests to /auth/:code
  *
  * It takes the code from the url and passes it to {@link authService#useCode}, then returns the good status code and data

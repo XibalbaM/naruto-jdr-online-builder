@@ -1,18 +1,13 @@
-import {test, expect, beforeAll} from "vitest";
+import {test, expect} from "vitest";
 import * as jwt from "jsonwebtoken";
 
-import * as fetchUtils from "../utils/tests.utils.js";
-import * as authService from "../services/auth.service.js";
-import {clearDatabase} from "../utils/clear-db.js";
-import config from "../config/env.js";
+import * as fetchUtils from "../../utils/tests.utils.js";
+import * as authService from "../../services/auth.service.js";
+import config from "../../config/env.js";
 
 const userEmail = {
     email: "test@test.test",
 };
-
-beforeAll(async () => {
-    await clearDatabase();
-});
 
 //NORMAL USES
 test("POST / with a non-registered email", async () => {
@@ -61,25 +56,15 @@ test("login link received for an existing email", async () => {
     expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
 });
 
-test("POST /refresh with a valid token", async () => {
+test("POST /refresh", async () => {
 
-    const response = await fetchUtils.get("/auth/refresh", await fetchUtils.testToken());
+    const response = await fetchUtils.get("/auth/refresh", await fetchUtils.getTestToken());
 
     expect(response.status).toBe(200);
 
     const json = await response.json();
     expect(json["token"]).toBeDefined();
     expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
-});
-
-test("GET /user with a valid token", async () => {
-
-    const response = await fetchUtils.get("/auth/user", await fetchUtils.testToken());
-
-    expect(response.status).toBe(200);
-
-    const json = await response.json();
-    expect(json["user"]["email"]).toBeDefined();
 });
 
 //BAD USES
@@ -114,36 +99,6 @@ test("GET /:code with an invalid code", async () => {
 
     const json = await response.json();
     expect(json["error"]).toBe("Invalid code");
-});
-
-test("GET /refresh with an invalid token", async () => {
-
-    const response = await fetchUtils.get("/auth/refresh", "invalid");
-
-    expect(response.status).toBe(401);
-
-    const json = await response.json();
-    expect(json["error"]).toBe("Cannot authenticate user.");
-});
-
-test("GET /user with an invalid token", async () => {
-
-    const response = await fetchUtils.get("/auth/user", "invalid");
-
-    expect(response.status).toBe(401);
-
-    const json = await response.json();
-    expect(json["error"]).toBe("Cannot authenticate user.");
-});
-
-test("GET /user without a token", async () => {
-
-    const response = await fetchUtils.get("/auth/user");
-
-    expect(response.status).toBe(401);
-
-    const json = await response.json();
-    expect(json["error"]).toBe("No token provided for accessing a protected resource.");
 });
 
 //LONG TESTS

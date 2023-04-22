@@ -59,8 +59,32 @@ export default class Environment {
      * The URL sent in the connection/creation email.
      */
     loginUrl: string;
+    /**
+     * The list of allowed image hosts.
+     */
     imageSource: ImageSourceConfig[] = defaultImageSource;
+    /**
+     * The list of allowed image extensions.
+     */
     allowedFileExtensions: string[] = ["png", "jpg", "jpeg", "webp", "svg"];
+    /**
+     * The config for the user model.
+     */
+    user: {
+        /**
+         * The config for the username field.
+         */
+        username: {
+            /**
+             * The minimum length for the username.
+             */
+            minLength: number;
+            /**
+             * The maximum length for the username.
+             */
+            maxLength: number;
+        }
+    }
 
     constructor(data: Environment) {
         Object.assign(this, data);

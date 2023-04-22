@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 import path from 'path';
 
 import authRoute from './routes/auth.route.js';
+import accountRoute from "./routes/account.route.js";
 
 /**
  * The main router of the api.
@@ -12,6 +13,7 @@ import authRoute from './routes/auth.route.js';
 const router = Router();
 
 router.use('/auth', authRoute);
+router.use('/account', accountRoute);
 router.use('/assets', express.static(path.resolve('assets')));
 
 export default router;

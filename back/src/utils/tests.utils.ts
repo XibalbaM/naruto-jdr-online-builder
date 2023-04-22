@@ -1,7 +1,8 @@
 import config from "../config/env";
+import userModel from "../models/user.model";
+import databaseConnect from "../database-connect";
 
 import fetch, {Response} from "node-fetch";
-import userModel from "../models/user.model";
 import jwt from "jsonwebtoken";
 
 /**
@@ -17,15 +18,19 @@ function processUrl(url: string) {
 }
 
 /**
- * Returns a valid token for testing.
- * @returns a promise that resolves to the token.
+ * Initializes the test utils.
  */
-export async function testToken(): Promise<string> {
-    let user = await userModel.findOne({email: 'test@test.test'});
-    if (!user) {
-        user = await userModel.create({email: 'test@test.test'});
-    }
-    return jwt.sign({id: user._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
+export async function createTestAccount() {
+    await databaseConnect;
+    await userModel.create({email: 'testdata@test.test'});
+}
+
+/**
+ * @returns the test token.
+ */
+export async function getTestToken(): Promise<string> {
+    await databaseConnect;
+    return jwt.sign({id: (await userModel.findOne({email: 'testdata@test.test'}))._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
 }
 
 /**
