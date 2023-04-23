@@ -33,6 +33,7 @@ module.exports = {
       bold: '675',
     },
     fontSize: {
+      10: '10px',
       12: '12px',
       13: '13px',
       14: '14px',
@@ -49,6 +50,9 @@ module.exports = {
       },
       screens: {
         'xs': '520px',
+      },
+      listStyleType: {
+        'square': 'square',
       }
     }
   },
