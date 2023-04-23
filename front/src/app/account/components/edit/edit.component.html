@@ -1,0 +1,38 @@
+<div *ngIf="(auth.userObservable() | async) as user">
+  <p class="text-yellow text-16">Mon profile</p>
+  <h1 class="font-bold uppercase text-28 font-monument my-[25px]">{{user?.username}}</h1>
+  <p class="text-10 text-light-gray font-monument uppercase">ID {{user?.id}}</p>
+  <p class="text-purple text-14">Joueur-euse</p>
+  <app-spacer-graphical class="my-[50px]"></app-spacer-graphical>
+  <div>
+    TEAM LIST NYI
+  </div>
+  <app-spacer class="my-[50px]"></app-spacer>
+  <div>
+    <h2 class="font-monument uppercase text-10 text-light-gray">nom du compte</h2>
+  </div>
+  <div>
+    <!--EMAIL-->
+  </div>
+  <app-spacer class="my-[50px]"></app-spacer>
+  <div>
+    <!--PP-->
+  </div>
+  <app-spacer-graphical class="mt-[50px]"></app-spacer-graphical>
+  <div class="my-[100px]">
+    <h2 class="uppercase font-monument text-light-gray text-10">crédits + données</h2>
+    <p class="my-[18px] text-purple text-14">Ninja Builder est une app de création de personnage proposée pour Naruto jeu de rôle et produite par sa communauté.</p>
+    <ul class="list-square list-outside ms-[20px] mb-[18px] text-14">
+      <li>Création + design : Pierre Ragois.</li>
+      <li>Développement : Mael Porret, Stéphane Mignon.</li>
+      <li>Polices : Monument Extended + Neue Montreal de Pangram Pangram Foundry.</li>
+    </ul>
+    <p class="text-14">
+      Aucune donnée n’est utilisée à des fins commerciales directes, indirectes ou vendues à des entreprises tierces. <br>
+      Si vous souhaitez faire disparaitre toutes vos données et tout vos personnages, c’est juste en dessous. No backup.
+    </p>
+  </div>
+  <button class="mb-[100px] px-7 py-3.5 text-orange border border-orange text-14 rounded-xl hover:bg-light-dark w-full text-start">
+    Supprimer mon compte
+  </button>
+</div>
