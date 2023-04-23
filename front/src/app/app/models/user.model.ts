@@ -6,7 +6,7 @@ export default class User {
   id!: number;
   email!: string;
   username?: string;
-  profileImage: string = 'assets/images/default-pp.svg';
+  profileImage?: string;
 
   constructor(user: User) {
     Object.assign(this, user);
