@@ -44,9 +44,14 @@ test("DELETE /picture", async () => {
 
 test("DELETE /", async () => {
 
-    const response = await fetchUtils.del("/account", await fetchUtils.getTestToken());
+    const token = await fetchUtils.getTestToken();
+    const response = await fetchUtils.del("/account", token);
 
-    expect(response.status).toBe(501);
+    expect(response.status).toBe(200);
+    const userData = await fetchUtils.get("/account", token);
+    expect(userData.status).toBe(401);
+
+    await fetchUtils.createTestAccount();
 });
 
 //BAD USES

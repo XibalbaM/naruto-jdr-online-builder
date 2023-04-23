@@ -100,5 +100,9 @@ export function deletePicture(req: Request, res: Response) {
 
 export function deleteAccount(req: Request, res: Response) {
 
-    res.status(501).json({message: "Not implemented"});
+    accountService.deleteAccount(req["user"]["id"]).then(() => {
+        res.status(200).json({message: "Account deleted."});
+    }).catch((err) => {
+        res.status(500).json({error: err.message});
+    });
 }

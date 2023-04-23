@@ -10,10 +10,10 @@ import * as accountController from "../controllers/account.controller.js";
 const router = Router();
 
 router.get('/', authMiddleware(), accountController.getUser);
+router.delete('/', authMiddleware(), accountController.deleteAccount);
 router.post('/username', authMiddleware(), accountController.updateUsername);
 router.post('/email', authMiddleware(), accountController.updateEmail);
 router.post('/picture', authMiddleware(), accountController.updatePicture);
 router.delete('/picture', authMiddleware(), accountController.deletePicture);
-router.delete('/', authMiddleware(), accountController.deleteAccount);
 
 export default router;

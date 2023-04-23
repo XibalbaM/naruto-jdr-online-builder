@@ -21,3 +21,7 @@ export async function deletePicture(id: ObjectId) {
 
     await userModel.findByIdAndUpdate(id, {$unset: {profileImage: 1}});
 }
+
+export async function deleteAccount(id: ObjectId) {
+    await userModel.findByIdAndDelete(id);
+}
