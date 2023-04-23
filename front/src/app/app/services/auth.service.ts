@@ -44,7 +44,7 @@ export class AuthService {
       if (!token) localStorage.removeItem('token');
       else localStorage.setItem('token', token);
       if (token) {
-        this.apiService.doRequest<{user?: User, error?: string}>("GET", "/auth/user").subscribe((response) => {
+        this.apiService.doRequest<{user?: User, error?: string}>("GET", "/account").subscribe((response) => {
           if (response.body && !response.body["error"] && response.body["user"]) this.auth.user = new User(response.body.user);
           else this.auth.user = undefined;
         });
