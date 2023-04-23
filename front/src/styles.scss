@@ -10,7 +10,7 @@
 @layer base {
 
   html {
-    @apply font-neue bg-dark text-white bg-cover-y bg-no-repeat bg-[url('assets/images/backgrounds/bg-small.png')] xs:bg-repeat xs:bg-auto xs:bg-[url('assets/images/backgrounds/bg-large.png')];
+    @apply font-neue bg-dark text-white;
   }
 
   a {
@@ -36,5 +36,9 @@
     -webkit-background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
+  }
+
+  .image-bg {
+    @apply bg-cover-y bg-no-repeat bg-[url('assets/images/backgrounds/bg-small.png')] xs:bg-repeat xs:bg-auto xs:bg-[url('assets/images/backgrounds/bg-large.png')]
   }
 }
