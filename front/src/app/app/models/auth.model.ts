@@ -34,6 +34,10 @@ export default class Auth {
     return this._user;
   }
 
+  refreshUser() {
+    this.tokenObservable().next(this.token);
+  }
+
   get token(): string | undefined {
     return this._token.getValue();
   }
