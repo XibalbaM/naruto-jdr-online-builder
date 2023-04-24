@@ -1,5 +1,5 @@
-<div [class]="imageBg ? 'image-bg' : ''" class="w-screen h-screen overflow-auto">
-  <app-nav *ngIf="showNav"></app-nav>
+<div [class]="imageBg ? 'image-bg' : ''" class="h-screen w-screen overflow-auto">
+  <app-nav *ngIf="showNav" class="fixed bottom-0 w-full bg-black h-[70px] lg:sticky lg:top-0 lg:bottom-auto"></app-nav>
   <app-notification></app-notification>
   <div class="px-[15px]">
     <div class="container mx-auto mt-[50px] mb-[70px] lg:mb-0">
