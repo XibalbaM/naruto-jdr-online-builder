@@ -6,9 +6,9 @@ import {ObjectId} from "mongoose";
  */
 export default class User {
     id: ObjectId;
-    username: string = "Ninja Sans Nom";
+    username?: string;
     email: string;
-    profileImage: string;
+    profileImage?: string;
 
     /**
      * Creates a new user from a model
@@ -18,7 +18,7 @@ export default class User {
 
         const user = new User();
         user.id = modelUser._id;
-        user.username = modelUser.username || "Ninja Sans Nom";
+        user.username = modelUser.username;
         user.email = modelUser.email;
         user.profileImage = modelUser.profileImage;
 

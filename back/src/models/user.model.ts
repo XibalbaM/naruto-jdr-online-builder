@@ -9,9 +9,7 @@ import config from "../config/env.js";
 export const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true,
         trim: true,
-        default: "Ninja Sans Nom",
         minLength: config.user.username.minLength,
         maxLength: config.user.username.maxLength,
     },
