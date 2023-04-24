@@ -1,12 +1,70 @@
-import { Component } from '@angular/core';
+import {Component} from "@angular/core";
 import Auth from "../../../app/models/auth.model";
+import {AccountService} from "../../../app/services/account.service";
+import {Router} from "@angular/router";
+import {NotificationService} from "../../../app/services/notification.service";
 
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  selector: "app-edit",
+  templateUrl: "./edit.component.html",
+  styleUrls: ["./edit.component.scss"],
 })
 export class EditComponent {
 
-  constructor(public auth: Auth) { }
+  constructor(public auth: Auth, private accountService: AccountService, private router: Router, private notificationService: NotificationService) {
+  }
+
+  changeUsername(username: string) {
+    this.accountService.setUsername(username).subscribe((result) => {
+      if (result.success) {
+        this.notificationService.showNotification("Nom d'utilisateur modifié !", "Votre nom d'utilisateur a bien été modifié.");
+      } else {
+        this.notificationService.showNotification("Erreur", result.error || "Une erreur est survenue.");
+      }
+    });
+  }
+
+  changeEmail(email: string) {
+    this.accountService.setEmail(email).subscribe((result) => {
+      if (result.success) {
+        this.notificationService.showNotification("Adresse email modifié !", "Votre adresse email a bien été modifié.");
+      } else {
+        this.notificationService.showNotification("Erreur", result.error || "Une erreur est survenue.");
+      }
+    });
+  }
+
+  deleteAccount() {
+    this.accountService.deleteAccount().subscribe((success: boolean) => {
+      if (success) {
+        this.router.navigateByUrl("/");
+        this.notificationService.showNotification("Compte supprimé !", "Votre compte a bien été supprimé.");
+      } else {
+        this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la suppression de votre compte.");
+      }
+    });
+  }
+
+  changePp(newLink: string) {
+    this.accountService.setProfilePicture(newLink).subscribe((result) => {
+
+      if (result.success) {
+        this.notificationService.showNotification("Photo de profil modifiée !", "Votre photo de profil a bien été modifiée.");
+      } else {
+        this.notificationService.showNotification("Erreur", result.error || "Une erreur est survenue.");
+      }
+    });
+  }
+
+  deletePp() {
+    this.accountService.deleteProfilePicture().subscribe((result) => {
+      if (result.success) {
+        this.notificationService.showNotification("Photo de profil supprimée !", "Votre photo de profil a bien été supprimée.");
+      } else {
+        this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la suppression de votre photo de profile.");
+      }
+    });
+  }
+
+  protected readonly console = console;
 }

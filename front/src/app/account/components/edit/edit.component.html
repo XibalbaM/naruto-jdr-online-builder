@@ -1,28 +1,87 @@
+<dialog #deleteAccountDialog>
+  <p>En attente de design</p>
+  <button (click)="deleteAccountDialog.close()">Close</button>
+  <button (click)="deleteAccountDialog.close(); deleteAccount()">Supprimer</button>
+</dialog>
+<dialog #changePpDialog>
+  <p>En attente de design</p>
+  <input #ppLink required type="text">
+  <button (click)="changePpDialog.close()">Close</button>
+  <button (click)="changePpDialog.close(); changePp(ppLink.value)">Valider</button>
+</dialog>
+<dialog #deletePpDialog>
+  <p>En attente de design</p>
+  <button (click)="deletePpDialog.close()">Close</button>
+  <button (click)="deletePpDialog.close(); deletePp()">Supprimer</button>
+</dialog>
+
 <div *ngIf="(auth.userObservable() | async) as user">
   <p class="text-yellow text-16">Mon profile</p>
-  <h1 class="font-bold uppercase text-28 font-monument my-[25px]">{{user?.username}}</h1>
-  <p class="text-10 text-light-gray font-monument uppercase">ID {{user?.id}}</p>
+  <h1 class="font-bold uppercase text-28 font-monument my-[25px]">{{user?.username || "Ninja Sans Nom"}}</h1>
+  <p class="uppercase text-10 text-light-gray font-monument">ID {{user?.id}}</p>
   <p class="text-purple text-14">Joueur-euse</p>
   <app-spacer-graphical class="my-[50px]"></app-spacer-graphical>
   <div>
     TEAM LIST NYI
   </div>
   <app-spacer class="my-[50px]"></app-spacer>
-  <div>
-    <h2 class="font-monument uppercase text-10 text-light-gray">nom du compte</h2>
-  </div>
-  <div>
-    <!--EMAIL-->
-  </div>
+  <form (ngSubmit)="changeUsername(usernameField.value)" class="flex max-w-md flex-col mb-[50px]">
+    <h2 class="uppercase font-monument text-10 text-light-gray mb-[18px]">nom du compte</h2>
+    <input type="text"
+           name="username"
+           #usernameField="ngModel"
+           ngModel="{{user.username || ''}}"
+           placeholder="Ninja sans nom (défaut)"
+           minlength="3"
+           maxlength="20"
+           required
+           class="w-full rounded-xl border outline-none text-16 text-light-gray mb-[12px] border-lighter-dark bg-light-dark ps-[24px] py-[17px]
+           placeholder:text-light-gray
+           focus:placeholder:text-light-gray focus:border-gray focus:border-2">
+    <button [disabled]="usernameField.invalid || usernameField.value === user.username"
+            type="submit"
+            class="w-full rounded-xl border bg-black text-start outline-none text-16 text-purple border-lighter-dark ps-[24px] py-[17px] hover:bg-dark
+                  disabled:cursor-default disabled:text-dark-gray disabled:hover:bg-black">
+      Modifier
+    </button>
+  </form>
+  <form (ngSubmit)="changeEmail(emailField.value)" class="flex max-w-md flex-col">
+    <h2 class="uppercase font-monument text-10 text-light-gray mb-[18px]">email</h2>
+    <input type="text"
+           name="email"
+           #emailField="ngModel"
+           ngModel="{{user.email}}"
+           required
+           class="w-full rounded-xl border outline-none text-16 text-light-gray mb-[12px] border-lighter-dark bg-light-dark ps-[24px] py-[17px]
+           focus:placeholder:text-light-gray focus:border-gray focus:border-2">
+    <button [disabled]="emailField.invalid || emailField.value === user.email"
+            type="submit"
+            class="w-full rounded-xl border bg-black text-start outline-none text-16 text-purple border-lighter-dark ps-[24px] py-[17px] hover:bg-dark
+                  disabled:cursor-default disabled:text-dark-gray disabled:hover:bg-black">
+      Modifier
+    </button>
+  </form>
   <app-spacer class="my-[50px]"></app-spacer>
-  <div>
-    <!--PP-->
-  </div>
+  <form class="max-w-md">
+    <h2 class="uppercase font-monument text-10 text-light-gray mb-[15px]">image de profile</h2>
+    <div class="flex w-full flex-row items-center">
+      <img *ngIf="!!user.profileImage" class="rounded-3xl object-cover w-[50px] h-[50px] me-[10px]" [src]="user.profileImage" alt="Photo de profile">
+      <svg *ngIf="!user.profileImage" class="fill-light-gray me-[10px]" width="50" height="50" viewBox="0 0 29 29" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M11.6712 0.275972C12.5869 0.0948196 13.5329 0 14.5 0C15.4671 0 16.4131 0.0948197 17.3288 0.275972C17.8705 0.383153 18.2229 0.909244 18.1157 1.45103C18.0085 1.99281 17.4824 2.34513 16.9406 2.23795C16.1521 2.08195 15.3361 2 14.5 2C13.6639 2 12.8479 2.08195 12.0594 2.23795C11.5176 2.34513 10.9915 1.99281 10.8843 1.45103C10.7771 0.909244 11.1295 0.383153 11.6712 0.275972ZM7.83016 2.71755C8.1374 3.17648 8.01444 3.79759 7.55551 4.10484C6.19193 5.01772 5.01773 6.19193 4.10484 7.55551C3.79759 8.01444 3.17648 8.1374 2.71755 7.83016C2.25862 7.52291 2.13565 6.9018 2.4429 6.44287C3.50123 4.86205 4.86206 3.50123 6.44287 2.4429C6.9018 2.13565 7.52291 2.25862 7.83016 2.71755ZM21.1698 2.71755C21.4771 2.25862 22.0982 2.13565 22.5571 2.4429C24.1379 3.50123 25.4988 4.86206 26.5571 6.44287C26.8643 6.9018 26.7414 7.52291 26.2825 7.83016C25.8235 8.1374 25.2024 8.01444 24.8952 7.55551C23.9823 6.19193 22.8081 5.01773 21.4445 4.10484C20.9856 3.79759 20.8626 3.17648 21.1698 2.71755ZM1.45103 10.8843C1.99281 10.9915 2.34513 11.5176 2.23795 12.0594C2.08195 12.8479 2 13.6639 2 14.5C2 15.3361 2.08195 16.1521 2.23795 16.9406C2.34513 17.4824 1.99281 18.0085 1.45103 18.1157C0.909244 18.2229 0.383153 17.8705 0.275972 17.3288C0.0948196 16.4131 0 15.4671 0 14.5C0 13.5329 0.0948197 12.5869 0.275972 11.6712C0.383153 11.1295 0.909244 10.7771 1.45103 10.8843ZM27.549 10.8843C28.0908 10.7771 28.6168 11.1295 28.724 11.6712C28.9052 12.5869 29 13.5329 29 14.5C29 15.4671 28.9052 16.4131 28.724 17.3288C28.6168 17.8705 28.0908 18.2229 27.549 18.1157C27.0072 18.0085 26.6549 17.4824 26.7621 16.9406C26.9181 16.1521 27 15.3361 27 14.5C27 13.6639 26.9181 12.8479 26.7621 12.0594C26.6549 11.5176 27.0072 10.9915 27.549 10.8843ZM2.71755 21.1698C3.17648 20.8626 3.79759 20.9856 4.10484 21.4445C5.01772 22.8081 6.19193 23.9823 7.55551 24.8952C8.01444 25.2024 8.1374 25.8235 7.83016 26.2825C7.52291 26.7414 6.9018 26.8643 6.44287 26.5571C4.86205 25.4988 3.50123 24.1379 2.4429 22.5571C2.13565 22.0982 2.25862 21.4771 2.71755 21.1698ZM26.2825 21.1698C26.7414 21.4771 26.8643 22.0982 26.5571 22.5571C25.4988 24.1379 24.1379 25.4988 22.5571 26.5571C22.0982 26.8643 21.4771 26.7414 21.1698 26.2825C20.8626 25.8235 20.9856 25.2024 21.4445 24.8952C22.8081 23.9823 23.9823 22.8081 24.8952 21.4445C25.2024 20.9856 25.8235 20.8626 26.2825 21.1698ZM10.8843 27.549C10.9915 27.0072 11.5176 26.6549 12.0594 26.7621C12.8479 26.9181 13.6639 27 14.5 27C15.3361 27 16.1521 26.9181 16.9406 26.7621C17.4824 26.6549 18.0085 27.0072 18.1157 27.549C18.2229 28.0908 17.8705 28.6168 17.3288 28.724C16.4131 28.9052 15.4671 29 14.5 29C13.5329 29 12.5869 28.9052 11.6712 28.724C11.1295 28.6168 10.7771 28.0908 10.8843 27.549ZM12.2105 14C11.7368 14 11.4211 13.68 11.4211 13.2C11.4211 12.32 10.7895 11.6 10 11.6C9.21053 11.6 8.57895 12.32 8.57895 13.2C8.57895 13.68 8.26316 14 7.78947 14C7.31579 14 7 13.68 7 13.2C7 11.44 8.3421 10 10 10C11.6579 10 13 11.44 13 13.2C13 13.6 12.6842 14 12.2105 14ZM20.4211 13.2C20.4211 13.68 20.7368 14 21.2105 14C21.6842 14 22 13.6 22 13.2C22 11.44 20.6579 10 19 10C17.3421 10 16 11.44 16 13.2C16 13.68 16.3158 14 16.7895 14C17.2632 14 17.5789 13.68 17.5789 13.2C17.5789 12.32 18.2105 11.6 19 11.6C19.7895 11.6 20.4211 12.32 20.4211 13.2ZM17.2601 17C17.7451 17 18.0685 17.5 17.9876 18.0833C17.5835 19.75 16.2094 21 14.5119 21C12.8145 21 11.4404 19.75 11.0362 18.0833C10.8745 17.5833 11.2787 17 11.7637 17H17.2601Z"/>
+      </svg>
+      <div class="flex w-full flex-row">
+        <button class="rounded-xl w-[55%] bg-light-dark py-[17px] text-14 hover:bg-lighter-dark" (click)="changePpDialog.show()">Configurer</button>
+        <button class="box-border rounded-xl bg-black w-[45%] py-[17px] ms-[10px] text-purple text-14 hover:bg-light-dark" (click)="deletePpDialog.show()">Supprimer</button>
+      </div>
+    </div>
+  </form>
   <app-spacer-graphical class="mt-[50px]"></app-spacer-graphical>
   <div class="my-[100px]">
     <h2 class="uppercase font-monument text-light-gray text-10">crédits + données</h2>
     <p class="my-[18px] text-purple text-14">Ninja Builder est une app de création de personnage proposée pour Naruto jeu de rôle et produite par sa communauté.</p>
-    <ul class="list-square list-outside ms-[20px] mb-[18px] text-14">
+    <ul class="list-outside list-square ms-[20px] mb-[18px] text-14">
       <li>Création + design : Pierre Ragois.</li>
       <li>Développement : Mael Porret, Stéphane Mignon.</li>
       <li>Polices : Monument Extended + Neue Montreal de Pangram Pangram Foundry.</li>
@@ -32,7 +91,8 @@
       Si vous souhaitez faire disparaitre toutes vos données et tout vos personnages, c’est juste en dessous. No backup.
     </p>
   </div>
-  <button class="mb-[100px] px-7 py-3.5 text-orange border border-orange text-14 rounded-xl hover:bg-light-dark w-full text-start">
+  <button class="w-full max-w-md rounded-xl border px-7 text-start outline-none mb-[100px] py-3.5 text-orange border-orange text-14 hover:bg-light-dark"
+          (click)="deleteAccountDialog.show()">
     Supprimer mon compte
   </button>
 </div>
