@@ -57,8 +57,8 @@ export class EditComponent {
   }
 
   deletePp() {
-    this.accountService.deleteProfilePicture().subscribe((result) => {
-      if (result.success) {
+    this.accountService.deleteProfilePicture().subscribe((success) => {
+      if (success) {
         this.notificationService.showNotification("Photo de profil supprimée !", "Votre photo de profil a bien été supprimée.");
       } else {
         this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la suppression de votre photo de profile.");

@@ -12,6 +12,11 @@ export class AccountService {
   constructor(private apiService: ApiService, private auth: Auth) {
   }
 
+  /**
+   * Change the username of the current user
+   * @param username The new username
+   * @returns {Observable<{ success: boolean, error?: string }>} The result of the request
+   */
   setUsername(username: string): Observable<{ success: boolean, error?: string }> {
 
     return this.apiService.doRequest<{ error?: string }>("POST", "/account/username", {username: username}).pipe(
@@ -24,6 +29,11 @@ export class AccountService {
     );
   }
 
+  /**
+   * Change the email of the current user
+   * @param email The new email
+   * @returns {Observable<{ success: boolean, error?: string }>} The result of the request
+   */
   setEmail(email: string): Observable<{ success: boolean, error?: string }> {
 
     return this.apiService.doRequest<{ error?: string }>("POST", "/account/email", {email: email}).pipe(
@@ -36,6 +46,11 @@ export class AccountService {
     );
   }
 
+  /**
+   * Change the profile picture of the current user
+   * @param profilePicture The new profile picture
+   * @returns {Observable<{ success: boolean, error?: string }>} The result of the request
+   */
   setProfilePicture(profilePicture: string): Observable<{ success: boolean, error?: string }> {
 
     return this.apiService.doRequest<{ error?: string }>("POST", "/account/picture", {link: profilePicture}).pipe(
@@ -48,11 +63,15 @@ export class AccountService {
     );
   }
 
-  deleteProfilePicture(): Observable<{ success: boolean }> {
+  /**
+   * Delete the profile picture of the current user
+   * @returns {Observable<boolean>} The result of the request
+   */
+  deleteProfilePicture(): Observable<boolean> {
 
     return this.apiService.doRequest("DELETE", "/account/picture").pipe(
       map((response: HttpResponse<any>) => {
-        return {success: response.status === 200};
+        return response.status === 200;
       }),
       tap(() => {
         this.auth.refreshUser();
@@ -60,6 +79,12 @@ export class AccountService {
     );
   }
 
+  /**
+   * Delete the account of the current user.
+   *
+   * WARNING: This will delete the account and all the data associated with it.
+   * @returns {Observable<boolean>} The result of the request
+   */
   deleteAccount(): Observable<boolean> {
 
     return this.apiService.doRequest("DELETE", "/account").pipe(
