@@ -1,8 +1,11 @@
 import nodemailer from "nodemailer";
 
 import config from "../config/env.js";
-import * as userService from "./user.service.js";
+import {getUserNameFromEmail} from "./account.service.js";
 
+/**
+ * The transporter used to send emails
+ */
 const transporter = nodemailer.createTransport(config.loginEmail.transport);
 
 /**
@@ -1162,7 +1165,7 @@ const connectionTemplate = (connectionToken: string, username: string) => {
  */
 export async function sendConnectionEmail(to: string, connectionToken: string, isRegistration: boolean) {
 
-    const username = isRegistration ? undefined : await userService.getUserNameFromEmail(to);
+    const username = isRegistration ? undefined : await getUserNameFromEmail(to);
 
     await transporter.sendMail({
         from: config.loginEmail.username,

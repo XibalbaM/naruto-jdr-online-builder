@@ -5,7 +5,7 @@ import * as imagesService from "../services/images.service.js";
 import config from "../config/env.js";
 
 /**
- * Handles GET requests to /auth/user
+ * Handles GET requests to /account/user
  *
  * Must be preceded by the authMiddleware
  *
@@ -19,7 +19,7 @@ export function getUser(req: Request, res: Response) {
 }
 
 /**
- * Handles POST requests to /auth/username
+ * Handles POST requests to /account/username
  *
  * Must be preceded by the authMiddleware
  *
@@ -46,7 +46,7 @@ export function updateUsername(req: Request, res: Response) {
 }
 
 /**
- * Handles POST requests to /auth/email
+ * Handles POST requests to /account/email
  *
  * Must be preceded by the authMiddleware
  *
@@ -72,6 +72,15 @@ export function updateEmail(req: Request, res: Response) {
     }
 }
 
+/**
+ * Handles POST requests to /account/picture
+ *
+ * Must be preceded by the authMiddleware
+ *
+ * Updates the picture of the user
+ * @param req The request
+ * @param res The response
+ */
 export function updatePicture(req: Request, res: Response) {
 
     const link = req.body.link;
@@ -90,6 +99,15 @@ export function updatePicture(req: Request, res: Response) {
     }
 }
 
+/**
+ * Handles DELETE requests to /account/picture
+ *
+ * Must be preceded by the authMiddleware
+ *
+ * Deletes the profile picture of the user
+ * @param req The request
+ * @param res The response
+ */
 export function deletePicture(req: Request, res: Response) {
     accountService.deletePicture(req["user"]["id"]).then(() => {
         res.status(200).json({message: "Picture removed."});
@@ -98,6 +116,15 @@ export function deletePicture(req: Request, res: Response) {
     });
 }
 
+/**
+ * Handles DELETE requests to /account
+ *
+ * Must be preceded by the authMiddleware
+ *
+ * Deletes the account of the user
+ * @param req The request
+ * @param res The response
+ */
 export function deleteAccount(req: Request, res: Response) {
 
     accountService.deleteAccount(req["user"]["id"]).then(() => {
