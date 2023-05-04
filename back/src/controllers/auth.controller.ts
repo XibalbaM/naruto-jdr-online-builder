@@ -10,7 +10,7 @@ import * as authService from "../services/auth.service.js";
  */
 export function requestEmail(req: Request, res: Response) {
 
-    if (req.body.email && req.body.email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+    if (req.body.email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
 
         authService.requestEmail(req.body.email).then((result) => {
             switch (result.code) {

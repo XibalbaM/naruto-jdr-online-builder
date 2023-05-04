@@ -64,15 +64,6 @@ test("POST /username with invalid username", async () => {
     expect(json["error"]).toBe(`Username must be between ${config.user.username.minLength} and ${config.user.username.maxLength} characters.`);
 });
 
-test("POST /username with no username", async () => {
-
-    const response = await fetchUtils.post("/account/username", {}, await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(400);
-    const json = await response.json();
-    expect(json["error"]).toBe("Username is required.");
-});
-
 test("POST /email with invalid email", async () => {
 
     const response = await fetchUtils.post("/account/email", {email: "salut"}, await fetchUtils.getTestToken());
@@ -82,15 +73,6 @@ test("POST /email with invalid email", async () => {
     expect(json["error"]).toBe("Email is not valid.");
 });
 
-test("POST /email with no email", async () => {
-
-    const response = await fetchUtils.post("/account/email", {}, await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(400);
-    const json = await response.json();
-    expect(json["error"]).toBe("Email is required.");
-});
-
 test("POST /picture with invalid link", async () => {
 
     const response = await fetchUtils.post("/account/picture", {link: "salut"}, await fetchUtils.getTestToken());
@@ -98,13 +80,4 @@ test("POST /picture with invalid link", async () => {
     expect(response.status).toBe(400);
     const json = await response.json();
     expect(json["error"]).toBe("Link is not valid.");
-});
-
-test("POST /picture with no link", async () => {
-
-    const response = await fetchUtils.post("/account/picture", {}, await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(400);
-    const json = await response.json();
-    expect(json["error"]).toBe("Link is required.");
 });

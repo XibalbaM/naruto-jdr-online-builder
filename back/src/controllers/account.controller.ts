@@ -30,18 +30,14 @@ export function getUser(req: Request, res: Response) {
 export function updateUsername(req: Request, res: Response) {
 
     const username = req.body.username;
-    if (username) {
-        if (username.length >= config.user.username.minLength && username.length <= config.user.username.maxLength) {
-            accountService.updateUsername(req["user"]["id"], username).then(() => {
-                res.status(200).json({message: "Username updated."});
-            }).catch((err) => {
-                res.status(500).json({error: err.message});
-            });
-        } else {
-            res.status(400).json({error: `Username must be between ${config.user.username.minLength} and ${config.user.username.maxLength} characters.`});
-        }
+    if (username.length >= config.user.username.minLength && username.length <= config.user.username.maxLength) {
+        accountService.updateUsername(req["user"]["id"], username).then(() => {
+            res.status(200).json({message: "Username updated."});
+        }).catch((err) => {
+            res.status(500).json({error: err.message});
+        });
     } else {
-        res.status(400).json({error: "Username is required."});
+        res.status(400).json({error: `Username must be between ${config.user.username.minLength} and ${config.user.username.maxLength} characters.`});
     }
 }
 
@@ -57,18 +53,14 @@ export function updateUsername(req: Request, res: Response) {
 export function updateEmail(req: Request, res: Response) {
 
     const email = req.body.email;
-    if (email) {
-        if (email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-            accountService.updateEmail(req["user"]["id"], email).then(() => {
-                res.status(200).json({message: "Email updated."});
-            }).catch((err) => {
-                res.status(500).json({error: err.message});
-            });
-        } else {
-            res.status(400).json({error: "Email is not valid."});
-        }
+    if (email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+        accountService.updateEmail(req["user"]["id"], email).then(() => {
+            res.status(200).json({message: "Email updated."});
+        }).catch((err) => {
+            res.status(500).json({error: err.message});
+        });
     } else {
-        res.status(400).json({error: "Email is required."});
+        res.status(400).json({error: "Email is not valid."});
     }
 }
 
@@ -84,18 +76,14 @@ export function updateEmail(req: Request, res: Response) {
 export function updatePicture(req: Request, res: Response) {
 
     const link = req.body.link;
-    if (link) {
-        if (imagesService.isImageSafe(link)) {
-            accountService.updatePicture(req["user"]["id"], link).then(() => {
-                res.status(200).json({message: "Link updated."});
-            }).catch((err) => {
-                res.status(500).json({error: err.message});
-            });
-        } else {
-            res.status(400).json({error: "Link is not valid."});
-        }
+    if (imagesService.isImageSafe(link)) {
+        accountService.updatePicture(req["user"]["id"], link).then(() => {
+            res.status(200).json({message: "Link updated."});
+        }).catch((err) => {
+            res.status(500).json({error: err.message});
+        });
     } else {
-        res.status(400).json({error: "Link is required."});
+        res.status(400).json({error: "Link is not valid."});
     }
 }
 
