@@ -18,11 +18,24 @@ function processUrl(url: string) {
 }
 
 /**
- * Initializes the test utils.
+ * Initializes the test environment.
+ */
+export async function init() {
+    await clearDatabase();
+    await createTestAccount();
+    await createTestGroup();
+}
+
+let testToken: string;
+
+/**
+ * Create account used for authenticated tests.
  */
 export async function createTestAccount() {
     await databaseConnect;
     await userModel.create({email: 'testdata@test.test'});
+    testToken = null;
+    console.log("Test account created");
 }
 
 /**
@@ -30,7 +43,10 @@ export async function createTestAccount() {
  */
 export async function getTestToken(): Promise<string> {
     await databaseConnect;
-    return jwt.sign({id: (await userModel.findOne({email: 'testdata@test.test'}))._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
+    if (!testToken) {
+        testToken = jwt.sign({id: (await userModel.findOne({email: 'testdata@test.test'}))._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
+    }
+    return testToken;
 }
 
 /**
