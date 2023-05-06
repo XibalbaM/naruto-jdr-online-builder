@@ -31,7 +31,7 @@ export function updateUsername(req: Request, res: Response) {
 
     const username = req.body.username;
     if (username.length >= config.user.username.minLength && username.length <= config.user.username.maxLength) {
-        accountService.updateUsername(req["user"]["id"], username).then(() => {
+        accountService.updateUsername(req["user"]["_id"], username).then(() => {
             res.status(200).json({message: "Username updated."});
         }).catch((err) => {
             res.status(500).json({error: err.message});
@@ -54,7 +54,7 @@ export function updateEmail(req: Request, res: Response) {
 
     const email = req.body.email;
     if (email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-        accountService.updateEmail(req["user"]["id"], email).then(() => {
+        accountService.updateEmail(req["user"]["_id"], email).then(() => {
             res.status(200).json({message: "Email updated."});
         }).catch((err) => {
             res.status(500).json({error: err.message});
@@ -77,7 +77,7 @@ export function updatePicture(req: Request, res: Response) {
 
     const link = req.body.link;
     if (imagesService.isImageSafe(link)) {
-        accountService.updatePicture(req["user"]["id"], link).then(() => {
+        accountService.updatePicture(req["user"]["_id"], link).then(() => {
             res.status(200).json({message: "Link updated."});
         }).catch((err) => {
             res.status(500).json({error: err.message});
@@ -97,7 +97,7 @@ export function updatePicture(req: Request, res: Response) {
  * @param res The response
  */
 export function deletePicture(req: Request, res: Response) {
-    accountService.deletePicture(req["user"]["id"]).then(() => {
+    accountService.deletePicture(req["user"]["_id"]).then(() => {
         res.status(200).json({message: "Picture removed."});
     }).catch((err) => {
         res.status(500).json({error: err.message});
@@ -115,7 +115,7 @@ export function deletePicture(req: Request, res: Response) {
  */
 export function deleteAccount(req: Request, res: Response) {
 
-    accountService.deleteAccount(req["user"]["id"]).then(() => {
+    accountService.deleteAccount(req["user"]["_id"]).then(() => {
         res.status(200).json({message: "Account deleted."});
     }).catch((err) => {
         res.status(500).json({error: err.message});

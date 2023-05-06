@@ -46,7 +46,7 @@ export function requestEmail(req: Request, res: Response) {
  */
 export function refreshToken(req: Request, res: Response) {
 
-    authService.generateToken(req["user"]["id"]).then(token => {
+    authService.generateToken(req["user"]["_id"]).then(token => {
         res.status(200).json({token: token});
     }).catch(err => {
         res.status(500).json({error: "Internal server error"});

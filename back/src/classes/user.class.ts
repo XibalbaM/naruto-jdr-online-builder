@@ -5,7 +5,7 @@ import {ObjectId} from "mongoose";
  * @Class User
  */
 export default class User {
-    id: ObjectId;
+    _id: ObjectId;
     username?: string;
     email: string;
     profileImage?: string;
@@ -17,7 +17,7 @@ export default class User {
     static fromModel(modelUser): User {
 
         const user = new User();
-        user.id = modelUser._id;
+        user._id = modelUser._id;
         user.username = modelUser.username;
         user.email = modelUser.email;
         user.profileImage = modelUser.profileImage;
