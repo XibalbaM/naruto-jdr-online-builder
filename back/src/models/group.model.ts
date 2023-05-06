@@ -1,4 +1,4 @@
-import mongoose, {Types} from "mongoose";
+import mongoose from "mongoose";
 
 import {UserSchema} from "./user.model.js";
 
