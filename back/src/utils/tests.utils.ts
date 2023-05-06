@@ -4,6 +4,9 @@ import databaseConnect from "../database-connect";
 
 import fetch, {Response} from "node-fetch";
 import jwt from "jsonwebtoken";
+import {clearDatabase} from "./clear-db";
+import groupModel from "../models/group.model";
+import UserModel from "../models/user.model";
 
 /**
  * Processes the given url to make sure it is a full url and to provide a shorthand for api calls.
@@ -47,6 +50,25 @@ export async function getTestToken(): Promise<string> {
         testToken = jwt.sign({id: (await userModel.findOne({email: 'testdata@test.test'}))._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
     }
     return testToken;
+}
+
+/**
+ * Create group used for tests.
+ */
+export async function createTestGroup() {
+    await databaseConnect;
+    const user = await userModel.findOne({email: 'testdata@test.test'});
+    const group = await groupModel.create({name: 'testDataGroup', users: [{role: "sensei", user: user}]});
+    await UserModel.findByIdAndUpdate(user._id, {$push: {groups: {name: group.name, role: "sensei", _id: group.id}}});
+    console.log("Test group created");
+}
+
+/**
+ * @returns the test group's id.
+ */
+export async function getTestGroupId(): Promise<string> {
+    await databaseConnect;
+    return (await groupModel.findOne({name: 'testDataGroup'}))._id.toString();
 }
 
 /**

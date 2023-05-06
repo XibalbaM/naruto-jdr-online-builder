@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 import "../database-connect.js";
-import UserSchema from "../models/user.model.js";
+import UserModel from "../models/user.model.js";
+import GroupModel from "../models/group.model.js";
 
 /**
  * Clears the database witch the app currently connected to.
@@ -10,6 +11,7 @@ import UserSchema from "../models/user.model.js";
  */
 export async function clearDatabase() {
     await mongoose.connection.asPromise();
-    await UserSchema.collection.drop();
+    await UserModel.collection.drop();
+    await GroupModel.collection.drop();
     console.log("Database cleared");
 }

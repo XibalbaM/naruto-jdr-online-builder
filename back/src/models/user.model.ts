@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, {Types} from "mongoose";
 
 import config from "../config/env.js";
 
@@ -16,13 +16,31 @@ export const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
         trim: true,
         regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     },
     profileImage: {
         type: String,
         trim: true,
+    },
+    groups: {
+        type: [{
+            _id: {
+                type: Types.ObjectId,
+                ref: 'Group',
+                required: true
+            },
+            name: {
+                type: String,
+                required: true
+            },
+            role: {
+                type: String,
+                required: true
+            }
+        }],
+        default: [],
+        required: true
     }
 });
 

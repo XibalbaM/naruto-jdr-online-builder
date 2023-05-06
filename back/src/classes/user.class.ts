@@ -9,6 +9,7 @@ export default class User {
     username?: string;
     email: string;
     profileImage?: string;
+    groups: {_id: ObjectId, name: String, role: String}[];
 
     /**
      * Creates a new user from a model
@@ -21,6 +22,7 @@ export default class User {
         user.username = modelUser.username;
         user.email = modelUser.email;
         user.profileImage = modelUser.profileImage;
+        user.groups = modelUser.groups;
 
         return user;
     }
