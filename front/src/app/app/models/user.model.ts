@@ -3,7 +3,7 @@
  * @class User
  */
 export default class User {
-  id!: number;
+  _id!: number;
   email!: string;
   username?: string;
   profileImage?: string;
