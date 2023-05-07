@@ -7,6 +7,8 @@ export default class User {
   email!: string;
   username?: string;
   profileImage?: string;
+  isAdmin!: boolean;
+  groups: {_id: String, name: String, role: String}[] = [];
 
   constructor(user: User) {
     Object.assign(this, user);

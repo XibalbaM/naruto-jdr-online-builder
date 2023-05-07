@@ -18,8 +18,8 @@
 <div *ngIf="(auth.userObservable() | async) as user">
   <p class="text-yellow text-16">Mon profile</p>
   <h1 class="font-bold uppercase text-28 font-monument my-[25px]">{{user?.username || "Ninja Sans Nom"}}</h1>
-  <p class="uppercase text-10 text-light-gray font-monument">ID {{user?.id}}</p>
-  <p class="text-purple text-14">Joueur-euse</p>
+  <p class="uppercase text-10 text-light-gray font-monument">ID {{user?._id}}</p>
+  <p class="text-purple text-14 mt-[5px]"><ng-container *ngFor="let role of (user | roles)"><span>{{role}}</span><span class="text-purple-gradient mx-[10px] last:hidden">/</span></ng-container></p>
   <app-spacer-graphical class="my-[50px]"></app-spacer-graphical>
   <div>
     TEAM LIST NYI
