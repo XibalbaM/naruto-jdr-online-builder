@@ -23,6 +23,11 @@ export const UserSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
+    isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     groups: {
         type: [{
             _id: {
