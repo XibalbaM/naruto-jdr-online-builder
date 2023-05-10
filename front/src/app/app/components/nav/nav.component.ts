@@ -17,7 +17,7 @@ export class NavComponent implements OnInit {
   constructor(protected auth: Auth, private router: Router) { }
 
   ngOnInit() {
-    this.router.events.subscribe((val) => {
+    this.router.events.subscribe(() => {
       this.onCreate.next(this.router.url.startsWith('/creation'));
       this.onList.next(this.router.url.startsWith('/liste'));
       this.onAccount.next(this.router.url.startsWith("/compte"));
