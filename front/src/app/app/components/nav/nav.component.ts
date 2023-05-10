@@ -10,25 +10,17 @@ import {BehaviorSubject} from "rxjs";
 })
 export class NavComponent implements OnInit {
 
-  accountUrl: BehaviorSubject<string> = new BehaviorSubject<string>('/connexion');
   onAccount: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   onList: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   onCreate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(public auth: Auth, private router: Router) { }
+  constructor(protected auth: Auth, private router: Router) { }
 
   ngOnInit() {
     this.router.events.subscribe((val) => {
       this.onCreate.next(this.router.url.startsWith('/creation'));
       this.onList.next(this.router.url.startsWith('/liste'));
-      this.onAccount.next(this.router.url.startsWith(this.accountUrl.getValue()));
-    });
-    this.auth.tokenObservable().subscribe((token) => {
-      if (token) {
-        this.accountUrl.next("/compte");
-      } else {
-        this.accountUrl.next("/connexion");
-      }
+      this.onAccount.next(this.router.url.startsWith("/compte"));
     });
   }
 }
