@@ -66,5 +66,9 @@ export class EditComponent {
     });
   }
 
-  protected readonly console = console;
+  disconnect() {
+    this.auth.token = undefined;
+    this.router.navigateByUrl("/");
+    this.notificationService.showNotification("Déconnexion", "Vous avez bien été déconnecté.");
+  }
 }
