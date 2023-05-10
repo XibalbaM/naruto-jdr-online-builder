@@ -14,7 +14,9 @@
     <button [disabled]="email.invalid" (click)="onSubmit()" type="submit"
             class="flex w-full items-center justify-between rounded-lg border bg-black p-3 border-lighter-dark enabled:hocus:bg-dark">
       <span class="text-purple text-16">Valider</span>
-      <img alt=">" ngSrc="assets/images/dropdown.svg" height="11" width="6">
+      <svg class="fill-purple" width="6" height="11" viewBox="0 0 6 11" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.266515 8.96756L3.80182 5.49553L0.266515 2.02349C-0.0888383 1.6745 -0.0888383 1.11074 0.266515 0.761745C0.621868 0.412752 1.1959 0.412752 1.55125 0.761745L5.73349 4.86913C6.08884 5.21812 6.08884 5.78188 5.73349 6.13087L1.55125 10.2383C1.1959 10.5872 0.621868 10.5872 0.266515 10.2383C-0.0797267 9.88926 -0.0888383 9.31656 0.266515 8.96756Z"/>
+      </svg>
     </button>
   </form>
 </main>
