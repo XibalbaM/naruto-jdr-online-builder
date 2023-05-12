@@ -20,12 +20,30 @@
   <h1 class="font-bold uppercase text-28 font-monument my-[25px]">{{user?.username || "Ninja Sans Nom"}}</h1>
   <p class="uppercase text-10 text-light-gray font-monument">ID {{user?._id}}</p>
   <p class="text-purple text-14 mt-[5px]">
-    <ng-container *ngFor="let role of (user | roles)"><span>{{role}}</span><span class="text-purple-gradient mx-[10px] last:hidden">/</span></ng-container>
+    <ng-container *ngFor="let role of (user | roles)">
+      <span>{{role}}</span><span class="text-purple-gradient mx-[10px] last:hidden">/</span>
+    </ng-container>
   </p>
   <app-spacer-graphical class="my-[50px]"></app-spacer-graphical>
-  <div>
-    TEAM LIST NYI
-  </div>
+  <h2 class="uppercase font-monument text-10 text-light-gray mb-[18px]">équipes</h2>
+  <ul>
+    <li *ngFor="let group of user.groups">
+      <a [routerLink]="['/group', group._id]"
+         class="flex w-full max-w-md flex-row items-center justify-between rounded-xl border bg-black py-[18px] px-[24px] border-lighter-dark mb-[12px]
+                hover:bg-dark hover:cursor-pointer hover:no-underline">
+        <p class="text-white">{{group.name}} <span class="text-purple ms-[10px]">{{group.role | roleName}}</span></p>
+        <svg class="fill-purple" width="6" height="11" viewBox="0 0 6 11" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.266515 8.96756L3.80182 5.49553L0.266515 2.02349C-0.0888383 1.6745 -0.0888383 1.11074 0.266515 0.761745C0.621868 0.412752 1.1959 0.412752 1.55125 0.761745L5.73349 4.86913C6.08884 5.21812 6.08884 5.78188 5.73349 6.13087L1.55125 10.2383C1.1959 10.5872 0.621868 10.5872 0.266515 10.2383C-0.0797267 9.88926 -0.0888383 9.31656 0.266515 8.96756Z"/>
+        </svg>
+      </a>
+    </li>
+  </ul>
+  <a routerLink="/groupes/ajouter"
+     class="flex w-full max-w-md items-center justify-center rounded-xl border bg-black h-[76px] border-lighter-dark hover:bg-dark hover:cursor-pointer">
+    <svg class="fill-purple" width="20" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 0H9.5V9H0.5V11H9.5V20H11.5V11H20.5V9H11.5V0Z"/>
+    </svg>
+  </a>
   <app-spacer class="my-[50px] bg-lighter-dark"></app-spacer>
   <form (ngSubmit)="changeUsername(usernameField.value)" class="flex max-w-md flex-col mb-[50px]">
     <h2 class="uppercase font-monument text-10 text-light-gray mb-[18px]">nom du compte</h2>
