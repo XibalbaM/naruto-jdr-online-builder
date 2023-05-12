@@ -10,9 +10,9 @@ export class AppComponent implements OnInit {
   title = "naruto-jdr-online-builder";
   showNav: boolean = true;
   imageBg: boolean = false;
-  private readonly imageBgPages: string[] = [
-    "/connexion",
-    "/",
+  private readonly imageBgPages: RegExp[] = [
+    /^\/connexion\/.*$/,
+    /^\/$/,
   ];
 
   constructor(private router: Router) {
@@ -22,9 +22,11 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(() => {
       this.showNav = !this.router.url.includes("/connexion");
       for (let imageBgPage of this.imageBgPages) {
-        if (this.router.url.includes(imageBgPage)) {
+        if (this.router.url.match(imageBgPage)) {
           this.imageBg = true;
           break;
+        } else {
+          this.imageBg = false;
         }
       }
     });
