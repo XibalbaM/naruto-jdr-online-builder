@@ -10,6 +10,7 @@ module.exports = {
     colors: {
       "transparent": "transparent",
       "current": "currentColor",
+      "inherit": "inherit",
       "purple": "#EE88FF",
       "yellow": "#FFCD3C",
       "orange": "#FF631E",
