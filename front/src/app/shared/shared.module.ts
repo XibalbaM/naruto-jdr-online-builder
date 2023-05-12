@@ -4,12 +4,14 @@ import {FormsModule} from "@angular/forms";
 import { SpacerGraphicalComponent } from './components/spacer-graphical/spacer-graphical.component';
 import { SpacerComponent } from './components/spacer/spacer.component';
 import {RolesPipe} from "./pipes/roles.pipe";
+import { RoleNamePipe } from './pipes/role-name.pipe';
 
 @NgModule({
   declarations: [
     SpacerGraphicalComponent,
     SpacerComponent,
-    RolesPipe
+    RolesPipe,
+    RoleNamePipe
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,11 @@ import {RolesPipe} from "./pipes/roles.pipe";
     FormsModule,
     SpacerGraphicalComponent,
     SpacerComponent,
-    RolesPipe
+    RolesPipe,
+    RoleNamePipe,
   ],
+  providers: [
+    RoleNamePipe
+  ]
 })
 export class SharedModule { }
