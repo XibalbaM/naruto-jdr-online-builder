@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {AfterContentInit, Component, ContentChild, ElementRef, OnInit, TemplateRef, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import Environment from "../../../../environments/environment.interface";
 import {AuthService} from "../../../app/services/auth.service";
@@ -12,12 +12,14 @@ import {NotificationService} from "../../../app/services/notification.service";
 /**
  * The component that handles the callback from the server after a login or registration request and from email link.
  */
-export class CallbackComponent implements OnInit {
+export class CallbackComponent implements AfterContentInit {
 
-  text!: string;
+  viewMode: "text" | "registration" = "text";
+  email: string = "";
+  text: string = "";
+  showBack: boolean = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private environment: Environment, private authService: AuthService, private notificationService: NotificationService) {
-  }
+  constructor(private route: ActivatedRoute, private router: Router, private environment: Environment, private authService: AuthService, private notificationService: NotificationService) {}
 
   /**
    * Checks if the user has been redirected from the login page or from an email link.
@@ -27,7 +29,7 @@ export class CallbackComponent implements OnInit {
    * Else, the component will try to log in the user with the token in the url, and show a message depending on the response.
    * If the response is successful, the user will be redirected to the home page and a notification will be shown.
    */
-  ngOnInit(): void {
+  ngAfterContentInit(): void {
     this.route.params.subscribe(params => {
       if (params["token"]) {
         this.text = "Connexion en cours...";
@@ -52,9 +54,11 @@ export class CallbackComponent implements OnInit {
           }
         });
       } else {
+        this.showBack = true;
         this.route.queryParams.subscribe(params => {
-          const email = `<span class="text-purple">${params["email"]}</span>`;
-          if (params["error"] || !params["email"]) {
+          this.email = params["email"];
+          const email = `<span class="text-purple">${this.email}</span>`;
+          if (params["error"] || !this.email) {
             switch (params["error"]) {
               case "Too many requests":
                 this.text = `Un email a déjà été envoyé récemment à l'adresse ${email}. Veuillez réessayer plus tard.`;
@@ -70,7 +74,7 @@ export class CallbackComponent implements OnInit {
             }
           } else {
             if (params["isRegistration"] === "true") {
-              this.text = `Votre compte a bien été créé.<br />Vous avez reçu un lien sur votre email ${email} pour finaliser la validation du compte.`;
+              this.viewMode = 'registration'
             } else {
               this.text = `Votre demande de connexion a bien été enregistrée. Vous avez reçu un lien sur votre email ${email} permettant de vous connecter.`;
             }
