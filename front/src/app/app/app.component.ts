@@ -21,7 +21,12 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.router.events.subscribe(() => {
       this.showNav = !this.router.url.includes("/connexion");
-      this.imageBg = this.imageBgPages.includes(this.router.url);
+      for (let imageBgPage of this.imageBgPages) {
+        if (this.router.url.includes(imageBgPage)) {
+          this.imageBg = true;
+          break;
+        }
+      }
     });
   }
 }
