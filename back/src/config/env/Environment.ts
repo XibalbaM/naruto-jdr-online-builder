@@ -86,6 +86,11 @@ export default class Environment {
         }
     }
 
+    /**
+     * The secret key for reCaptcha.
+     */
+    reCaptchaSecretKey: string;
+
     constructor(data: Environment) {
         Object.assign(this, data);
     }
