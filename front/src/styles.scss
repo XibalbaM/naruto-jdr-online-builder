@@ -49,4 +49,8 @@
   .default-link {
     @apply hocus:underline no-underline text-purple;
   }
+
+  .black-button {
+    @apply flex items-center rounded-xl border bg-black text-start border-lighter-dark px-[24px] hocus:bg-dark;
+  }
 }

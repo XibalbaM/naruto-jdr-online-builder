@@ -6,18 +6,18 @@
         <label class="text-white text-14">Email</label>
       </div>
       <input type="email" name="userEmail" id="email" [(ngModel)]="userEmail" #email="ngModel" required autofocus placeholder="Ex: Mitsuo@naruto-jdr.com"
-             class="block w-full  rounded-xl border py-3 pl-14 outline-none text-14 border-lighter-dark bg-light-dark text-light-gray m-[1px]
+             class="block w-full h-[53px] rounded-xl border pl-14 outline-none text-14 border-lighter-dark bg-light-dark text-light-gray m-[1px]
                     invalid:border-orange invalid:placeholder-orange
                     placeholder:text-light-gray focus:placeholder:text-light-gray
                     focus:border-gray focus:border-2 focus:m-0">
     </div>
-    <button [disabled]="email.invalid" (click)="onSubmit()" type="submit"
-            class="flex w-full items-center justify-between  rounded-xl border bg-black p-3 border-lighter-dark enabled:hocus:bg-dark">
+    <a [class.hocus:bg-black]="email.invalid" (click)="onSubmit()" type="submit"
+            class="black-button w-full h-[55px] justify-between">
       <span class="text-purple text-16">Valider</span>
       <svg class="fill-purple" width="6" height="11" viewBox="0 0 6 11" xmlns="http://www.w3.org/2000/svg">
         <path d="M0.266515 8.96756L3.80182 5.49553L0.266515 2.02349C-0.0888383 1.6745 -0.0888383 1.11074 0.266515 0.761745C0.621868 0.412752 1.1959 0.412752 1.55125 0.761745L5.73349 4.86913C6.08884 5.21812 6.08884 5.78188 5.73349 6.13087L1.55125 10.2383C1.1959 10.5872 0.621868 10.5872 0.266515 10.2383C-0.0797267 9.88926 -0.0888383 9.31656 0.266515 8.96756Z"/>
       </svg>
-    </button>
+    </a>
   </form>
 </main>
 <app-footer></app-footer>
