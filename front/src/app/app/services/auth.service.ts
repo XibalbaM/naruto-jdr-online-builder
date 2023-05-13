@@ -56,11 +56,12 @@ export class AuthService {
 
   /**
    * Call the API to email the user connect or create account.
-   * @param email
+   * @param email The email of the user.
+   * @param captcha The captcha token.
    */
-  sendEmailRequest(email: string): Observable<{isRegistration: boolean, error?: string}> {
+  sendEmailRequest(email: string, captcha: string): Observable<{isRegistration: boolean, error?: string}> {
 
-    return this.apiService.doRequest<{message?: string, error?: string, isRegistration?: boolean}>('POST', '/auth', {email: email}, false).pipe(
+    return this.apiService.doRequest<{message?: string, error?: string, isRegistration?: boolean}>('POST', '/auth', {email: email, captcha: captcha}, false).pipe(
       map((response) => {
         if (response.body) return response.body;
         else return {error: "No data received"};

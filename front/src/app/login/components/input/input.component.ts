@@ -1,6 +1,8 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../app/services/auth.service";
+import {ReCaptchaV3Service} from "ngx-captcha";
+import Environment from "../../../../environments/environment.interface";
 
 @Component({
   selector: 'app-input',
@@ -14,7 +16,7 @@ export class InputComponent {
 
   userEmail?: string;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService, private recaptchaV3Service: ReCaptchaV3Service, private environment: Environment) {}
 
   /**
    * Once the form is submitted, call the api to send the connection email then send the user to the callback view.
@@ -22,8 +24,12 @@ export class InputComponent {
    * @see CallbackComponent
    */
   onSubmit() {
-    this.authService.sendEmailRequest(this.userEmail!).subscribe((response) => {
-      this.router.navigate(['/connexion/reponse'], {queryParams: {isRegistration: response.isRegistration, error: response.error, email: this.userEmail}});
+    this.recaptchaV3Service.execute(this.environment.recaptchaSiteKey, 'login', (token) => {
+      this.authService.sendEmailRequest(this.userEmail!, token).subscribe((response) => {
+        this.router.navigate(['/connexion/reponse'], {queryParams: {isRegistration: response.isRegistration, error: response.error, email: this.userEmail}});
+      });
+    }, {}, (error) => {
+      console.error(error)
     });
   }
 }
