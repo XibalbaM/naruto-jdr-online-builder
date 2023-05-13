@@ -10,7 +10,7 @@
 @layer base {
 
   html {
-    @apply font-neue bg-dark text-white;
+    @apply text-white font-neue bg-dark;
   }
 
   //Removes the autofill background color
@@ -33,6 +33,7 @@
     color: transparent;
     -webkit-text-fill-color: transparent;
   }
+
   .text-purple-gradient {
     background: linear-gradient(267.71deg, #FCA3A7 0%, #7C00FF 100%);
     background-clip: text;
@@ -46,6 +47,6 @@
   }
 
   .default-link {
-    @apply text-purple no-underline hocus:underline;
+    @apply hocus:underline no-underline text-purple;
   }
 }
