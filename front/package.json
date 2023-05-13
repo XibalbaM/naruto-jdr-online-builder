@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --configuration development",
+    "build": "ng build --configuration development",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "copy-build-to-backend": "copyfiles -a ./dist/naruto-jdr-online-builder/ ../back/front"
+    "copy-build-to-backend": "copyfiles -a -u 2 ./dist/naruto-jdr-online-builder/**/* ../back/front"
   },
   "private": true,
   "dependencies": {
