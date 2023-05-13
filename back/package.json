@@ -8,7 +8,7 @@
     "dev": "nodemon --ignore ./src/tests --exec ts-node-esm src/main.ts",
     "test": "vitest",
     "clear-db": "ts-node-esm ./clear-db.ts",
-    "run": "tsc && node dist/main.js",
+    "run": "ts-node-esm src/main.ts",
     "build": "tsc"
   },
   "keywords": [],
