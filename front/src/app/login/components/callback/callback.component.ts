@@ -40,13 +40,13 @@ export class CallbackComponent implements AfterContentInit {
           } else {
             switch (response.error) {
               case "Invalid token":
-                this.text = "Le lien que vous avez utilisé n'est pas valide. Veuillez réessayer ou, si le problème persiste, nous contacter à <a href='" + this.environment.contactUrl + "'>ce lien</a>.";
+                this.text = "Le lien que vous avez utilisé n'est pas valide. Veuillez réessayer ou, si le problème persiste, nous contacter à <a class='default-link' href='" + this.environment.contactUrl + "'>ce lien</a>.";
                 break;
               case "Code expired":
-                this.text = "Le lien que vous avez utilisé a expiré. Veuillez réessayer ou, si le problème persiste, nous contacter à <a href='" + this.environment.contactUrl + "'>ce lien</a>.";
+                this.text = "Le lien que vous avez utilisé a expiré. Veuillez réessayer ou, si le problème persiste, nous contacter à <a class='default-link' href='" + this.environment.contactUrl + "'>ce lien</a>.";
                 break;
               case "Internal server error":
-                this.text = `Une erreur interne est survenue lors du traitement de votre requete. <br />Veuillez réessayer plus tard ou nous contacter à <a href='${this.environment.contactUrl}'>ce lien</a>.`;
+                this.text = `Une erreur interne est survenue lors du traitement de votre requete. <br />Veuillez réessayer plus tard ou nous contacter à <a class='default-link' href='${this.environment.contactUrl}'>ce lien</a>.`;
                 break;
               default:
                 this.text = "Erreur lors de la connexion au serveur. Aucune donnée reçue.";
@@ -64,10 +64,10 @@ export class CallbackComponent implements AfterContentInit {
                 this.text = `Un email a déjà été envoyé récemment à l'adresse ${email}. Veuillez réessayer plus tard.`;
                 break;
               case "Invalid email":
-                this.text = `L'email que vous avez fourni (${email}) n'est pas valide. Veuillez réessayer apres l'avoir vérifié, ou <a href='${this.environment.contactUrl}'>nous contacter</a> si le problème persiste.`;
+                this.text = `L'email que vous avez fourni (${email}) n'est pas valide. Veuillez réessayer apres l'avoir vérifié, ou <a class='default-link' href='${this.environment.contactUrl}'>nous contacter</a> si le problème persiste.`;
                 break;
               case "Internal server error":
-                this.text = `Une erreur interne est survenue lors du traitement de votre requete. <br />Veuillez réessayer plus tard ou nous contacter à <a href='${this.environment.contactUrl}'>ce lien</a>.`;
+                this.text = `Une erreur interne est survenue lors du traitement de votre requete. <br />Veuillez réessayer plus tard ou nous contacter à <a class='default-link' href='${this.environment.contactUrl}'>ce lien</a>.`;
                 break;
               default:
                 this.text = "Erreur lors de la connexion au serveur. Aucune donnée reçue.";

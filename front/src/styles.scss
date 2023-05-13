@@ -13,10 +13,6 @@
     @apply font-neue bg-dark text-white;
   }
 
-  a {
-    @apply text-purple no-underline hocus:underline;
-  }
-
   //Removes the autofill background color
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
@@ -47,5 +43,9 @@
 
   .image-bg {
     @apply bg-cover-y bg-no-repeat bg-[url('assets/images/backgrounds/bg-small.png')] xs:bg-repeat xs:bg-auto xs:bg-[url('assets/images/backgrounds/bg-large.png')]
+  }
+
+  .default-link {
+    @apply text-purple no-underline hocus:underline;
   }
 }
