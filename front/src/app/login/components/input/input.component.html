@@ -11,7 +11,7 @@
                     placeholder:text-light-gray focus:placeholder:text-light-gray
                     focus:border-gray focus:border-2 focus:m-0">
     </div>
-    <a [class.hocus:bg-black]="email.invalid" (click)="onSubmit()" type="submit"
+    <a [class.hocus:bg-black]="email.invalid" [class.cursor-pointer]="!email.invalid" (click)="onSubmit()" type="submit"
             class="black-button w-full h-[55px] justify-between">
       <span class="text-purple text-16">Valider</span>
       <svg class="fill-purple" width="6" height="11" viewBox="0 0 6 11" xmlns="http://www.w3.org/2000/svg">
