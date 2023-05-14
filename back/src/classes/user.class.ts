@@ -11,6 +11,9 @@ export default class User {
     profileImage?: string;
     isAdmin: boolean;
     groups: {_id: ObjectId, name: String, role: String}[];
+    discordId?: string;
+    discordUsername?: string;
+    discordDiscriminator?: string;
 
     /**
      * Creates a new user from a model
@@ -25,6 +28,9 @@ export default class User {
         user.profileImage = modelUser.profileImage;
         user.isAdmin = modelUser.isAdmin;
         user.groups = modelUser.groups;
+        user.discordId = modelUser.discordId;
+        user.discordUsername = modelUser.discordUsername;
+        user.discordDiscriminator = modelUser.discordDiscriminator;
 
         return user;
     }

@@ -1,6 +1,10 @@
 import {ObjectId} from "mongoose";
+import {Routes} from "discord-api-types/v10";
+import {makeURLSearchParams, REST} from "@discordjs/rest";
 
 import userModel from "../models/user.model.js";
+import config from "../config/env.js";
+import User from "../classes/user.class.js";
 
 /**
  * Change the username of the user
@@ -61,4 +65,41 @@ export async function getUserNameFromEmail(email: string): Promise<string> {
     const user = await userModel.findOne({email: email});
     if (user && user.username) return user.username;
     else return "Ninja Sans Nom";
+}
+
+/**
+ * Add a discord account to the user
+ * @param userId The id of the user
+ * @param discordCode The authorization code from discord
+ * @returns The username of the user
+ */
+export async function addDiscordAccount(userId: ObjectId, discordCode: string): Promise<string> {
+
+    if (User.fromModel(await userModel.findById(userId)).discordId) throw new Error("User already has a discord account");
+
+    const body = makeURLSearchParams({
+        client_id: config.discord.clientId,
+        client_secret: config.discord.clientSecret,
+        grant_type: "authorization_code",
+        code: discordCode,
+        redirect_uri: config.discord.redirectUri,
+        scope: "identify"
+    })
+    const token = (await config.discord.rest.post(Routes.oauth2TokenExchange(), {body: body.toString(), passThroughBody: true, headers: {'Content-Type': 'application/x-www-form-urlencoded'}}))["access_token"];
+    if (!token) throw new Error("Invalid code");
+
+    const clientRest = new REST({version: "10", authPrefix: "Bearer"}).setToken(token);
+    const discordUser = await clientRest.get(Routes.user("@me"));
+    if (await userModel.findOne({discordId: discordUser['id']})) throw new Error("Discord account already linked to another user");
+
+    await userModel.findByIdAndUpdate(userId, {discordId: discordUser['id'], discordUsername: discordUser['username'], discordDiscriminator: discordUser['discriminator']});
+    console.log("TATITUTO", await userModel.findById(userId));
+
+    return discordUser['username'] + "#" + discordUser['discriminator'];
+}
+
+export async function removeDiscordAccount(userId: ObjectId): Promise<void> {
+    if (!User.fromModel(await userModel.findById(userId)).discordId) throw new Error("User does not have a discord account");
+
+    await userModel.findByIdAndUpdate(userId, {$unset: {discordId: 1, discordUsername: 1, discordDiscriminator: 1}});
 }

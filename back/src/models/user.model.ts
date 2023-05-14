@@ -46,6 +46,17 @@ export const UserSchema = new mongoose.Schema({
         }],
         default: [],
         required: true
+    },
+    discordId: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
+    discordUsername: {
+        type: String
+    },
+    discordDiscriminator: {
+        type: String
     }
 });
 

@@ -121,3 +121,55 @@ export function deleteAccount(req: Request, res: Response) {
         res.status(500).json({error: err.message});
     });
 }
+
+/**
+ * Handles POST requests to /account/discord
+ *
+ * Must be preceded by the authMiddleware
+ *
+ * Links a discord account to the user
+ * @param req The request
+ * @param res The response
+ */
+export function addDiscordAccount(req: Request, res: Response) {
+
+    accountService.addDiscordAccount(req["user"]["_id"], req.body.code).then((username) => {
+        res.status(200).json({username: username});
+    }).catch((err) => {
+        switch (err.message) {
+            case "Invalid code":
+            case "Invalid \"code\" in request.":
+                res.status(400).json({error: "Invalid code"});
+                break;
+            case "User already has a discord account":
+                res.status(409).json({error: "User already has a discord account"});
+                break;
+            case "Discord account already linked to another user":
+                res.status(409).json({error: "Discord account already linked to another user"});
+                break;
+            default:
+                res.status(500).json({error: "Internal server error"});
+        }
+    });
+}
+
+/**
+ * Handles DELETE requests to /account/discord
+ *
+ * Must be preceded by the authMiddleware
+ *
+ * Unlinks the discord account from the user
+ * @param req The request
+ * @param res The response
+ */
+export function removeDiscordAccount(req: Request, res: Response) {
+
+    accountService.removeDiscordAccount(req["user"]["_id"]).then(() => {
+        res.status(200).json({message: "Discord account removed."});
+    }).catch((err) => {
+        if (err.message === "User does not have a discord account")
+            res.status(409).json({error: "User does not have a discord account"});
+        else
+            res.status(500).json({error: "Internal server error"});
+    });
+}

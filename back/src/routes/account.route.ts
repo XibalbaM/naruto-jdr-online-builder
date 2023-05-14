@@ -16,5 +16,7 @@ router.post('/username', contentMiddleware({username: "username"}), authMiddlewa
 router.post('/email', contentMiddleware({email: "email"}), authMiddleware(), accountController.updateEmail);
 router.post('/picture', contentMiddleware({link: "link"}), authMiddleware(), accountController.updatePicture);
 router.delete('/picture', authMiddleware(), accountController.deletePicture);
+router.post('/discord', contentMiddleware({code: "code"}), authMiddleware(), accountController.addDiscordAccount);
+router.delete('/discord', authMiddleware(), accountController.removeDiscordAccount);
 
 export default router;

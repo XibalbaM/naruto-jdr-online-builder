@@ -1,5 +1,6 @@
 import ImageSourceConfig from "./ImageSourceConfig.js";
 import defaultImageSource from "./image-source.js";
+import {REST} from "@discordjs/rest";
 
 export default class Environment {
     /**
@@ -91,7 +92,34 @@ export default class Environment {
      */
     reCaptchaSecretKey: string;
 
+    /**
+     * The datas for discord.
+     */
+    discord: {
+        /**
+         * The client id of the discord application.
+         */
+        clientId: string;
+        /**
+         * The client secret of the discord application.
+         */
+        clientSecret: string;
+        /**
+         * The redirect uri of the oauth2.
+         */
+        redirectUri: string;
+        /**
+         * The bot token of the discord application.
+         */
+        botToken: string;
+        /**
+         * The rest client for discord.
+         */
+        rest: REST;
+    }
+
     constructor(data: Environment) {
         Object.assign(this, data);
+        this.discord.rest = new REST({version: '10', authPrefix: "Bot"}).setToken(this.discord.botToken);
     }
 };
