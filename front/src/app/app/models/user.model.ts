@@ -9,6 +9,10 @@ export default class User {
   profileImage?: string;
   isAdmin!: boolean;
   groups: {_id: string, name: string, role: string}[] = [];
+  discordId?: string;
+  discordUsername?: string;
+  discordDiscriminator?: string;
+
 
   constructor(user: User) {
     Object.assign(this, user);

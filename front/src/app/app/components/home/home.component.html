@@ -1,3 +1,4 @@
 <!--Just for debug: will be removed soon-->
 <p>Token is {{auth.tokenObservable() | async}}</p>
 <button (click)="addNotif()">add notif</button>
+<a [href]="!(auth.userObservable() | async)?.discordId ? env.discordLogUrl : '/compte/discord/deconnexion'" class="black-button">Discord auth id:{{(auth.userObservable() | async)?.discordId}}</a>

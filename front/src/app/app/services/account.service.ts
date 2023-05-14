@@ -98,4 +98,33 @@ export class AccountService {
       }),
     );
   }
+
+  /**
+   * Add a discord account to the current user
+   * @param code The code returned by the discord oauth2
+   */
+  addDiscordAccount(code: string): Observable<{succeed: boolean, username?: string, error?: string}> {
+    return this.apiService.doRequest<{username?: string, error?: string}>("POST", "/account/discord", {code: code}).pipe(
+      map((response) => {
+        return {succeed: response.status === 200 && !!response.body?.username, username: response.body?.username, error: response.body?.error};
+      }),
+      tap(() => {
+        this.auth.refreshUser();
+      })
+    );
+  }
+
+  /**
+   * Remove the discord account of the current user
+   */
+  removeDiscordAccount(): Observable<{succeed: boolean, error?: string}> {
+    return this.apiService.doRequest<{error?: string}>("DELETE", "/account/discord").pipe(
+      map((response) => {
+        return {succeed: response.status === 200, error: response.body?.error};
+      }),
+      tap(() => {
+        this.auth.refreshUser();
+      })
+    );
+  }
 }
