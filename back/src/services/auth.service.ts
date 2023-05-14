@@ -114,3 +114,24 @@ export async function getUserFromToken(token: string): Promise<User> {
 
     return User.fromModel(userDoc);
 }
+
+/**
+ * Get the user from a jwt token with discord id.
+ *
+ * Get the user's discord id from the token, check if the user exists, if not throw an error, else return the user.
+ * @param {string} token The token to use
+ * @returns {User} The user
+ * @throws {Error} If the user is not found or the token is invalid
+ */
+export async function getUserFromDiscordToken(token: string): Promise<User> {
+
+    const decoded = await jwt.verify(token, config.jwt_secret);
+
+    const userDoc = await userModel.findOne({discordId: decoded["discordId"]});
+
+    if (!userDoc) {
+        throw new Error("No user found");
+    }
+
+    return User.fromModel(userDoc);
+}
