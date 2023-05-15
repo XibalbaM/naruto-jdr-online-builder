@@ -1,41 +1,24 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import {Client, Collection, Events, GatewayIntentBits} from 'discord.js';
+import {Client, Collection, GatewayIntentBits, PermissionFlagsBits} from "discord.js";
+import {glob} from "glob";
 
+import {SlashCommand} from "./types.js";
 import config from "./config/env.js";
-import CustomClient from "./models/CustomClient.js";
-import CommandAndCallback from "./models/CommandAndCallback.js";
-import __dirname from "./utils/__dirname.js";
-import EventHandler from "./models/EventHandler.js";
 
-const client = new CustomClient({ intents: GatewayIntentBits.Guilds });
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
+    ]
+});
+client.slashCommands = new Collection<string, SlashCommand>();
 
-client.commands = new Collection();
-client.events = new Collection();
-
-const commandFiles = fs.readdirSync(path.join(__dirname, 'commands')).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
-const eventFiles = fs.readdirSync(path.join(__dirname, 'events')).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
-
-for (const file of commandFiles) {
-    const command: CommandAndCallback = (await import(path.join('file://', __dirname, 'commands', file))).default;
-    if (command.command && command.execute) {
-        client.commands.set(command.command.name, command);
-    } else {
-        console.error(`Command ${file} is not a valid command.`);
-    }
+console.log("Running handlers...");
+const handlersDir = "handlers";
+for (const handler of glob.sync("**/*", {cwd: "src/handlers"})) {
+    console.log(`Running handler ${handler}`);
+    await (await import(`./handlers/${handler}`)).default(client);
 }
-for (const file of eventFiles) {
-    const event: EventHandler = (await import(path.join('file://', __dirname, 'events', file))).default;
-    if (event.name && event.execute) {
-        client.events.set(event.name, event);
-        if (event.once) {
-            client.once(event.name, (...args) => event.execute(...args));
-        } else {
-            client.on(event.name, (...args) => event.execute(...args));
-        }
-    } else {
-        console.error(`Event ${file} is not a valid event handler.`);
-    }
-}
+console.log("Handlers run finished");
 
 client.login(config.token);
