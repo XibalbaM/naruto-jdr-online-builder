@@ -77,9 +77,9 @@ export class AuthService {
    * @param token The token received by email.
    * @returns An observable with the result of the login.
    */
-  login(token: string): Observable<{ succeed: boolean, isRegistration: boolean, error?: string }> {
+  login(token: string): Observable<{ succeed: boolean, isRegistration: boolean, discordUsername?: string, error?: string }> {
 
-    return this.apiService.doRequest<{token?: string, error?: string}>("GET", `/auth/${token}`, undefined, false).pipe(
+    return this.apiService.doRequest<{token?: string, discordUsername?: string, error?: string}>("GET", `/auth/${token}`, undefined, false).pipe(
       tap((response) => {
         if (response.body && !response.body.error && response.body.token) {
           this.auth.token = response.body.token;
@@ -87,7 +87,7 @@ export class AuthService {
       }),
       map((response) => {
         if (response.body) {
-          return {succeed: !!response.body.token, isRegistration: response.status === 201, error: response.body.error};
+          return {succeed: !!response.body.token, isRegistration: response.status === 201, discordUsername: response.body.discordUsername, error: response.body.error};
         } else {
           return {succeed: false, isRegistration: false, error: "No data received"};
         }

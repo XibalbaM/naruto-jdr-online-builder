@@ -36,7 +36,7 @@ export class CallbackComponent implements AfterContentInit {
         this.authService.login(params["token"]).subscribe((response) => {
           if (response.succeed) {
             this.router.navigate(["/"]);
-            this.notificationService.showNotification("Félicitations", response.isRegistration ? "Compte crée avec succès !" : "Vous êtes maintenant connecté.");
+            this.notificationService.showNotification("Félicitations", (response.isRegistration ? "Compte crée avec succès ! " : "Vous êtes maintenant connecté. ") + (response.discordUsername ? "De plus, le compte discord " + response.discordUsername + " a bien été lié à votre compte !" : ""));
           } else {
             switch (response.error) {
               case "Invalid token":
