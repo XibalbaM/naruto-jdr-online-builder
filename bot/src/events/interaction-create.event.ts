@@ -1,8 +1,8 @@
-import {Interaction} from "discord.js";
-import {BotEvent} from "../types";
+import {Events, Interaction} from "discord.js";
+import {BotEvent} from "../classes";
 
 const event: BotEvent = {
-    name: "interactionCreate",
+    name: Events.InteractionCreate,
     execute: async (interaction: Interaction) => {
         if (interaction.isChatInputCommand()) {
             let command = interaction.client.slashCommands.get(interaction.commandName);

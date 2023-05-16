@@ -1,7 +1,7 @@
 import {Client, REST, Routes, SlashCommandBuilder} from "discord.js";
 import {glob} from "glob";
 
-import {SlashCommand} from "../types";
+import {SlashCommand} from "../classes";
 import config from "../config/env.js";
 
 export default async function (client: Client) {
@@ -9,7 +9,7 @@ export default async function (client: Client) {
 
     for (const file of glob.sync("**/*", {cwd: "src/commands"})) {
         let command: SlashCommand = (await import(`../commands/${file}`)).default;
-        slashCommands.push(command.command);
+        slashCommands.push(command.command as SlashCommandBuilder);
         client.slashCommands.set(command.command.name, command);
     }
 
