@@ -1,9 +1,17 @@
 import {AutocompleteInteraction, Collection, CommandInteraction, SlashCommandBuilder} from "discord.js";
 
 export interface SlashCommand {
-    command: SlashCommandBuilder,
+    command: SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">,
     execute: (interaction: CommandInteraction) => Promise<void> | void,
     autocomplete?: (interaction: AutocompleteInteraction) => void
+}
+
+export class ButtonStyle {
+    static readonly PRIMARY = 1;
+    static readonly SECONDARY = 2;
+    static readonly SUCCESS = 3;
+    static readonly DANGER = 4;
+    static readonly LINK = 5;
 }
 
 export interface BotEvent {

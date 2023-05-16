@@ -1,7 +1,7 @@
 import {Client, Collection, GatewayIntentBits, PermissionFlagsBits} from "discord.js";
 import {glob} from "glob";
 
-import {SlashCommand} from "./types.js";
+import {SlashCommand} from "./classes";
 import config from "./config/env.js";
 
 const client = new Client({
