@@ -63,7 +63,8 @@ export async function deleteAccount(id: ObjectId) {
  */
 export async function getUserNameFromEmail(email: string): Promise<string> {
     const user = await userModel.findOne({email: email});
-    if (user && user.username) return user.username;
+    if (!user) return "No user";
+    if (user.username) return user.username;
     else return "Ninja Sans Nom";
 }
 
