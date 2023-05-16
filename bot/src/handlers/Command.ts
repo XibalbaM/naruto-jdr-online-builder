@@ -11,6 +11,7 @@ export default async function (client: Client) {
         let command: SlashCommand = (await import(`../commands/${file}`)).default;
         slashCommands.push(command.command as SlashCommandBuilder);
         client.slashCommands.set(command.command.name, command);
+        console.log(`Found slash command ${command.command.name}`);
     }
 
     console.log(`Found ${slashCommands.length} slash command(s)`);
