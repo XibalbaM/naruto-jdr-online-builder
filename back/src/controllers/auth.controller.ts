@@ -67,9 +67,9 @@ export function login(req: Request, res: Response) {
 
     authService.useCode(code).then((data) => {
         if (data.isFirstLogin) {
-            res.status(201).json({token: data.token});
+            res.status(201).json({token: data.token, discordUsername: data.discordUsername});
         } else {
-            res.status(200).json({token: data.token});
+            res.status(200).json({token: data.token, discordUsername: data.discordUsername});
         }
     }).catch((err) => {
         if (err.message === "Invalid code") {

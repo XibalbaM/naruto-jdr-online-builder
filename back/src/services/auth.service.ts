@@ -5,6 +5,7 @@ import userModel from "../models/user.model.js";
 import * as emailService from "./mail.service.js";
 import config from "../config/env.js";
 import User from "../classes/user.class.js";
+import {Routes} from "discord-api-types/v10";
 
 /**
  * A cache used to store addresses that have already requested a connection token recently.
@@ -18,9 +19,10 @@ const emailSentCache = new NodeCache({stdTTL: config.login_jwt_expiration, check
  *
  * Check if no email was recently sent to the passed email, generate the connection token using {@link getConnectionTokenFromEmail} and send it using {@link emailService.sendConnectionEmail}.
  * @param {string} email The user's email
+ * @param {?string} discordId The user's discord id (optional)
  * @returns {number} 0 if the email was sent, 1 if the user already requested a connection token recently
  */
-export async function requestEmail(email: string): Promise<{ code: number, isRegistration: boolean }> {
+export async function requestEmail(email: string, discordId?: string): Promise<{ code: number, isRegistration: boolean }> {
 
     const userDoc = await userModel.findOne({email: email});
 
@@ -29,7 +31,17 @@ export async function requestEmail(email: string): Promise<{ code: number, isReg
         return {code: 1, isRegistration: !userDoc};
     }
 
-    await emailService.sendConnectionEmail(email, getConnectionTokenFromEmail(email), !userDoc);
+    if (discordId) {
+        if (userDoc && User.fromModel(userDoc).discordId) {
+            return {code: 2, isRegistration: false};
+        }
+        const discordUser = await userModel.findOne({discordId: discordId});
+        if (discordUser) {
+            return {code: 3, isRegistration: !userDoc};
+        }
+    }
+
+    await emailService.sendConnectionEmail(email, getConnectionTokenFromEmail(email, discordId), !userDoc);
     emailSentCache.set(email, new Date().toString());
 
     return {code: 0, isRegistration: !userDoc};
@@ -38,11 +50,15 @@ export async function requestEmail(email: string): Promise<{ code: number, isReg
 /**
  * Generate a connection token for a user using jwt. The token's payload is the user's email.
  * @param {string} email The user's email
+ * @param {?string} discordId The user's discord id (optional)
  * @returns {string} The user's connection token
  */
-export function getConnectionTokenFromEmail(email: string): string {
+export function getConnectionTokenFromEmail(email: string, discordId?: string): string {
+    console.log("Generating connection token for " + email + " with discord id " + discordId);
 
-    return jwt.sign({email: email}, config.login_jwt_secret, {expiresIn: config.login_jwt_expiration});
+    const payload = discordId ? {email: email, discordId: discordId} : {email: email};
+
+    return jwt.sign(payload, config.login_jwt_secret, {expiresIn: config.login_jwt_expiration});
 }
 
 /**
@@ -55,22 +71,24 @@ export function getConnectionTokenFromEmail(email: string): string {
  * @returns {token: string, isFirstLogin: boolean} The new token and a boolean indicating if the user is logging in for the first time
  * @throws {Error} If the token is invalid or expired
  */
-export async function useCode(connectionToken: string): Promise<{ token: string, isFirstLogin: boolean }> {
+export async function useCode(connectionToken: string): Promise<{ token: string, isFirstLogin: boolean, discordUsername?: string }> {
     try {
-        const email: string = jwt.verify(connectionToken, config.login_jwt_secret, {ignoreExpiration: false})["email"];
-        if (email && email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) {
+        const decodedToken = jwt.verify(connectionToken, config.login_jwt_secret, {ignoreExpiration: false});
+        const email: string = decodedToken["email"];
+        const discordId: string = decodedToken["discordId"];
+        let discordUsername: string;
+        emailSentCache.del(email);
 
-            emailSentCache.del(email);
-
-            const existingUserDoc = await userModel.findOne({email: email});
-            if (existingUserDoc) {
-                const token = await generateToken(existingUserDoc._id);
-                return {token: token, isFirstLogin: false};
-            } else {
-                const user = await userModel.create({email: email});
-                const token = await generateToken(user._id);
-                return {token: token, isFirstLogin: true};
-            }
+        const existingUserDoc = await userModel.findOne({email: email});
+        if (existingUserDoc) {
+            const token = await generateToken(existingUserDoc._id);
+            if (discordId) discordUsername = await addDiscordData(existingUserDoc._id, discordId);
+            return {token: token, isFirstLogin: false, discordUsername: discordUsername};
+        } else {
+            const user = await userModel.create({email: email});
+            const token = await generateToken(user._id);
+            if (discordId) discordUsername = await addDiscordData(user._id, discordId);
+            return {token: token, isFirstLogin: true, discordUsername: discordUsername};
         }
     } catch (e) {
         if (e.message === "jwt expired") {
@@ -81,7 +99,6 @@ export async function useCode(connectionToken: string): Promise<{ token: string,
             throw new Error(e.message);
         }
     }
-    throw new Error("Invalid code");
 }
 
 /**
@@ -134,4 +151,18 @@ export async function getUserFromDiscordToken(token: string): Promise<User> {
     }
 
     return User.fromModel(userDoc);
+}
+
+/**
+ * Add discord infos to a user.
+ * @param userId The user's id
+ * @param discordId The user's discord id
+ */
+export async function addDiscordData(userId: any, discordId: string): Promise<string> {
+
+    const user = await config.discord.rest.get(Routes.user(discordId)) as {username: string, discriminator: string};
+
+    await userModel.findByIdAndUpdate(userId, {discordId: discordId, discordUsername: user.username, discordDiscriminator: user.discriminator});
+
+    return user.username + "#" + user.discriminator;
 }
