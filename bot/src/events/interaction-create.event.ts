@@ -17,9 +17,9 @@ const event: BotEvent = {
             } catch (error) {
                 console.error(error);
                 if (interaction.replied || interaction.deferred) {
-                    await interaction.followUp({content: "Une erreur est survenue lors de l'exécution de cette commande!", ephemeral: true});
+                    await interaction.followUp({content: "Une erreur est survenue lors de l'exécution de cette commande !", ephemeral: true});
                 } else {
-                    await interaction.reply({content: "Une erreur est survenue lors de l'exécution de cette commande!", ephemeral: true});
+                    await interaction.reply({content: "Une erreur est survenue lors de l'exécution de cette commande !", ephemeral: true});
                 }
             }
         } else if (interaction.isAutocomplete()) {
