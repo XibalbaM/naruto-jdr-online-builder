@@ -14,16 +14,17 @@ export default class Group {
     users: {role: "sensei" | "player", user: User}[];
 
     /**
-     * Creates a new user from a model
-     * @param modelGroup The model to create the user from
+     * Creates a new group from a model
+     * @param modelGroup The model to create the group from
      */
     static fromModel(modelGroup): Group {
 
-        const user = new Group();
-        user._id = modelGroup._id;
-        user.name = modelGroup.name;
-        user.users = modelGroup.users;
+        const group = new Group();
+        group._id = modelGroup._id;
+        group.name = modelGroup.name;
+        group.village = modelGroup.village;
+        group.users = modelGroup.users;
 
-        return user;
+        return group;
     }
 }
