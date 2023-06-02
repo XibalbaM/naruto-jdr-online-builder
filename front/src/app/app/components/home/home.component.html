@@ -1,4 +1,14 @@
 <!--Just for debug: will be removed soon-->
 <p>Token is {{auth.tokenObservable() | async}}</p>
-<button (click)="addNotif()">add notif</button>
 <a [href]="!(auth.userObservable() | async)?.discordId ? env.discordLogUrl : '/compte/discord/deconnexion'" class="black-button">Discord auth id:{{(auth.userObservable() | async)?.discordId}}</a>
+<h1>Villages</h1>
+<div *ngFor="let village of (dataService.villages | async)">
+  <h2>{{village.name}}</h2>
+  <img [src]="env.api_url + '/assets/' + village.logo" />
+</div>
+<h1>Bases</h1>
+<div *ngFor="let base of (dataService.bases | async)">
+  <h2>{{base.fullName}} ({{base.shortName}})</h2>
+  <p>{{base.description}}</p>
+  <button (click)="console.log(base)">Test</button>
+</div>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import Auth from "../../models/auth.model";
-import {NotificationService} from "../../services/notification.service";
 import Environment from "../../../../environments/environment.interface";
+import {DataService} from "../../services/data.service";
 
 @Component({
   selector: 'app-home',
@@ -10,9 +10,7 @@ import Environment from "../../../../environments/environment.interface";
 })
 export class HomeComponent {
 
-  constructor(public auth: Auth, private notificationService: NotificationService, public env: Environment) {}
+  constructor(public auth: Auth, public env: Environment, public dataService: DataService) {}
 
-  addNotif() {
-    this.notificationService.showNotification('Hello World', 'This is a test notification');
-  }
+  protected readonly console = console;
 }
