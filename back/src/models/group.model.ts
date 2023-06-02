@@ -28,4 +28,4 @@ export const GroupSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model('Group', GroupSchema);
+export default mongoose.model('group', GroupSchema);

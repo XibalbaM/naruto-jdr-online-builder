@@ -32,7 +32,7 @@ export const UserSchema = new mongoose.Schema({
         type: [{
             _id: {
                 type: Types.ObjectId,
-                ref: 'Group',
+                ref: 'group',
                 required: true
             },
             name: {
@@ -60,4 +60,4 @@ export const UserSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.model('user', UserSchema);
