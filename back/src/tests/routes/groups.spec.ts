@@ -1,11 +1,12 @@
 import {test, expect} from "vitest";
 
 import * as fetchUtils from "../../utils/tests.utils.js";
+import VillageModel from "../../models/village.model";
 
 //NORMAL USES
 test("POST / with group data", async () => {
 
-    const response = await fetchUtils.post("/groups", {name: "testGroup"}, await fetchUtils.getTestToken());
+    const response = await fetchUtils.post("/groups", {name: "testGroup", village: (await VillageModel.findOne({name: "Konoha"}))._id}, await fetchUtils.getTestToken());
 
     expect(response.status).toBe(201);
     const json = await response.json();
