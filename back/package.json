@@ -8,6 +8,7 @@
     "dev": "nodemon --ignore ./src/tests --exec ts-node-esm src/main.ts",
     "test": "vitest",
     "clear-db": "ts-node-esm ./clear-db.ts",
+    "add-default-data": "ts-node-esm ./add-default-data.ts",
     "run": "ts-node-esm src/main.ts",
     "build": "tsc"
   },
