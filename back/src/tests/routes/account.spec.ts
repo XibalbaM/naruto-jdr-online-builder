@@ -51,7 +51,7 @@ test("DELETE /", async () => {
     const userData = await fetchUtils.get("/account", token);
     expect(userData.status).toBe(401);
 
-    await fetchUtils.createTestAccount();
+    await fetchUtils.createTestAccounts();
 });
 
 //BAD USES

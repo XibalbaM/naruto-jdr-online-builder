@@ -4,7 +4,6 @@ import databaseConnect from "../database-connect";
 
 import fetch, {Response} from "node-fetch";
 import jwt from "jsonwebtoken";
-import {clearDatabase} from "./clear-db";
 import groupModel from "../models/group.model";
 import UserModel from "../models/user.model";
 import VillageModel from "../models/village.model";
@@ -25,20 +24,22 @@ function processUrl(url: string) {
  * Initializes the test environment.
  */
 export async function init() {
-    await clearDatabase();
-    await createTestAccount();
+    await createTestAccounts();
     await createTestGroup();
 }
 
 let testToken: string;
+let adminToken: string;
 
 /**
- * Create account used for authenticated tests.
+ * Create accounts used for authenticated tests.
  */
-export async function createTestAccount() {
+export async function createTestAccounts() {
     await databaseConnect;
     await userModel.create({email: 'testdata@test.test'});
+    await userModel.create({email: 'admin@test.test', isAdmin: true});
     testToken = null;
+    adminToken = null;
     console.log("Test account created");
 }
 
@@ -51,6 +52,17 @@ export async function getTestToken(): Promise<string> {
         testToken = jwt.sign({id: (await userModel.findOne({email: 'testdata@test.test'}))._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
     }
     return testToken;
+}
+
+/**
+ * @returns the admin token.
+ */
+export async function getAdminToken(): Promise<string> {
+    await databaseConnect;
+    if (!adminToken) {
+        adminToken = jwt.sign({id: (await userModel.findOne({email: 'admin@test.test'}))._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
+    }
+    return adminToken;
 }
 
 /**
