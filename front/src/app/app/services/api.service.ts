@@ -29,20 +29,18 @@ export class ApiService {
    * @param path The path to call. If it starts with a slash, it will be appended to the API URL.
    * @param body The body of the request, if any.
    * @param authenticated If the request should be authenticated. If true, the token will be added to the request.
+   * @param headers The headers to add to the request.
    * @param params The parameters to add to the request.
    * @return An observable of the response.
    */
-  doRequest<T>(method: string, path: string, body?: any, authenticated: boolean = true,
+  doRequest<T>(method: string, path: string, body?: any, authenticated: boolean = true, headers: HttpHeaders = new HttpHeaders(),
                params?: Map<string, string>): Observable<HttpResponse<T>> {
 
     const url = path.startsWith("/") ? this.environment.api_url + path : path;
-    let headers = new HttpHeaders();
 
     if (authenticated) {
       if (this.auth.token) {
-        headers = new HttpHeaders({
-          "Authorization": "Bearer " + this.auth.token
-        });
+        headers.set("Authorization", "Bearer " + this.auth.token);
       } else {
         this.router.navigate(["/connexion"]);
         this.notificationService.showNotification("Impossible d'accéder à cette page", "Vous devez être connecté pour accéder à cette page.");
