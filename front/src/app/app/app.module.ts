@@ -13,9 +13,11 @@ import {SharedModule} from "../shared/shared.module";
 import {NavComponent} from './components/nav/nav.component';
 import {NotificationComponent} from './components/notification/notification.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {DataService} from "./services/data.service";
 
-const init = (authService: AuthService) => {
-  return () => authService.init();
+const init = (authService: AuthService, dataService: DataService) => {
+  authService.init();
+  dataService.init();
 };
 
 @NgModule({
@@ -35,7 +37,7 @@ const init = (authService: AuthService) => {
   providers: [
     {provide: Environment, useValue: environment},
     {provide: Auth, useValue: new Auth()},
-    {provide: APP_INITIALIZER, useFactory: init, deps: [AuthService], multi: true}
+    {provide: APP_INITIALIZER, useFactory: init, deps: [AuthService, DataService]}
   ],
   bootstrap: [AppComponent]
 })
