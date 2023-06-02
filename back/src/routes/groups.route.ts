@@ -10,7 +10,7 @@ import contentMiddleware from "../middlewares/content.middleware.js";
  */
 const router = Router();
 
-router.post('/', contentMiddleware({name: "name"}), authMiddleware(), groupsController.create);
+router.post('/', contentMiddleware({name: "name", village: undefined}), authMiddleware(), groupsController.create);
 router.get('/', authMiddleware(), groupsController.list);
 router.get('/:id', authMiddleware(), groupsController.get);
 

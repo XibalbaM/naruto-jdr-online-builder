@@ -5,7 +5,7 @@ import Group from "../classes/group.class";
 
 export function create(req: Request, res: Response) {
 
-    groupsService.create(req.body.name, req["user"]._id).then((group) => {
+    groupsService.create(req.body, req["user"]._id).then((group) => {
         res.status(201).json({group: group});
     }).catch((error) => {
         if (error.message === "Group already exists")
