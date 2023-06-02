@@ -13,7 +13,11 @@ import logMiddleware from "./middlewares/log.middleware.js";
 const app = express();
 
 // Add the middlewares
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    allowedHeaders: '*',
+    exposedHeaders: '*'
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
