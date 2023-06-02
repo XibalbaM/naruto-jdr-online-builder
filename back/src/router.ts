@@ -1,10 +1,21 @@
-import express, { Router } from 'express';
+import express, {Router} from 'express';
 import path from 'path';
 
 import authRoute from './routes/auth.route.js';
 import accountRoute from "./routes/account.route.js";
 import groupsRoute from "./routes/groups.route.js";
 import discordRoute from "./routes/discord.route.js";
+import dataRoute from "./routes/data.route.js";
+import VillageModel from "./models/village.model.js";
+import Village from "./classes/village.class.js";
+import BaseModel from "./models/base.model.js";
+import Base from "./classes/base.class.js";
+import RoadModel from "./models/road.model.js";
+import Road from "./classes/road.class.js";
+import Skill from "./classes/skill.class.js";
+import SkillModel from "./models/skill.model.js";
+import ClanModel from "./models/clan.model.js";
+import Clan from "./classes/clan.class.js";
 
 /**
  * The main router of the api.
@@ -17,7 +28,12 @@ const router = Router();
 router.use('/auth', authRoute);
 router.use('/account', accountRoute);
 router.use('/groups', groupsRoute);
-router.use('/discord', discordRoute)
+router.use('/discord', discordRoute);
+router.use('/villages', await dataRoute(VillageModel, Village.fromModel));
+router.use('/bases', await dataRoute(BaseModel, Base.fromModel));
+router.use('/roads', await dataRoute(RoadModel, Road.fromModel));
+router.use('/skills', await dataRoute(SkillModel, Skill.fromModel));
+router.use('/clans', await dataRoute(ClanModel, Clan.fromModel));
 router.use('/assets', express.static(path.resolve('assets')));
 
 export default router;
