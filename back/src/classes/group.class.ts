@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import User from "./user.class.js";
+import Village from "./village.class.js";
 
 /**
  * Describes a group, in a more convenient and lightweight way than the model
@@ -9,6 +10,7 @@ import User from "./user.class.js";
 export default class Group {
     _id: mongoose.Types.ObjectId;
     name: string;
+    village: Village | mongoose.Types.ObjectId;
     users: {role: "sensei" | "player", user: User}[];
 
     /**
