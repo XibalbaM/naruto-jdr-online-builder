@@ -1,4 +1,4 @@
-import {ObjectId} from "mongoose";
+import mongoose from "mongoose";
 
 import User from "./user.class.js";
 
@@ -7,7 +7,7 @@ import User from "./user.class.js";
  * @Class Group
  */
 export default class Group {
-    _id: ObjectId;
+    _id: mongoose.Types.ObjectId;
     name: string;
     users: {role: "sensei" | "player", user: User}[];
 

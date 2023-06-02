@@ -1,16 +1,16 @@
-import {ObjectId} from "mongoose";
+import mongoose from "mongoose";
 
 /**
  * Describes a user, in a more convenient and lightweight way than the model
  * @Class User
  */
 export default class User {
-    _id: ObjectId;
+    _id: mongoose.Types.ObjectId;
     username?: string;
     email: string;
     profileImage?: string;
     isAdmin: boolean;
-    groups: {_id: ObjectId, name: String, role: String}[];
+    groups: {_id: mongoose.Types.ObjectId, name: String, role: String}[];
     discordId?: string;
     discordUsername?: string;
     discordDiscriminator?: string;
