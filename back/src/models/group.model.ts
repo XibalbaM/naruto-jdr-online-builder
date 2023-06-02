@@ -11,6 +11,10 @@ export const GroupSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    village: {
+        type: mongoose.Schema.Types.Mixed,
+        required: true
+    },
     users: {
         type: [{
             role: {
