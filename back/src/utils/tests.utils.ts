@@ -71,7 +71,7 @@ export async function getAdminToken(): Promise<string> {
 export async function createTestGroup() {
     await databaseConnect;
     const user = await userModel.findOne({email: 'testdata@test.test'});
-    const group = await groupModel.create({name: 'testDataGroup', village: await VillageModel.findOne({name: "Konoha"}), users: [{role: "sensei", user: user}]});
+    const group = await groupModel.create({name: 'testDataGroup', village: (await VillageModel.findOne({name: "Konoha"}))._id, users: [{role: "sensei", user: user}]});
     await UserModel.findByIdAndUpdate(user._id, {$push: {groups: {name: group.name, role: "sensei", _id: group.id}}});
     console.log("Test group created");
 }
