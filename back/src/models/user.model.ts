@@ -57,6 +57,10 @@ export const UserSchema = new mongoose.Schema({
     },
     discordDiscriminator: {
         type: String
+    },
+    discordSelectedGroup: {
+        type: Types.ObjectId,
+        ref: 'group'
     }
 });
 

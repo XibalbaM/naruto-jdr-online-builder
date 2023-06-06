@@ -18,3 +18,11 @@ export async function create(data: any, userId: ObjectId) {
 
     return group;
 }
+
+export async function discordSelect(userId: ObjectId, groupId: ObjectId) {
+
+    if (!await GroupModel.exists({_id: groupId}))
+        throw new Error("Group not found");
+
+    await UserModel.findByIdAndUpdate(userId, {$set: {discordSelectedGroup: groupId}});
+}
