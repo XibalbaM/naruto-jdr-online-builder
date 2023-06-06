@@ -94,7 +94,6 @@ export async function addDiscordAccount(userId: ObjectId, discordCode: string): 
     if (await userModel.findOne({discordId: discordUser['id']})) throw new Error("Discord account already linked to another user");
 
     await userModel.findByIdAndUpdate(userId, {discordId: discordUser['id'], discordUsername: discordUser['username'], discordDiscriminator: discordUser['discriminator']});
-    console.log("TATITUTO", await userModel.findById(userId));
 
     return discordUser['username'] + "#" + discordUser['discriminator'];
 }
