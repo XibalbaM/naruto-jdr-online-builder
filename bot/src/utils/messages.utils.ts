@@ -24,6 +24,8 @@ export default class Messages {
         LIST: (groups: string[]) => `Vous êtes dans les groupes suivants : ${groups.map((group, i) => `\n${i++}. ` + group).join()}`,
         GROUP_NOT_FOUND: "Le groupe n'a pas été trouvé.",
         SELECTED: (group: string) => `Le groupe ${group} a bien été sélectionné.`,
+        WAS_SELECTED: (group: string) => `Le groupe sélectionné est ${group}.`,
+        NO_SELECTED_GROUP: "Aucun groupe n'est sélectionné.",
     }
 
     static ERRORS = {
