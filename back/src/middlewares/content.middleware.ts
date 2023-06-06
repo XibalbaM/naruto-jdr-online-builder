@@ -29,7 +29,6 @@ export function checkTypeFields(model: any, obj: any): boolean {
             }
 
             const modelKeys = Object.keys(model);
-            console.log(obj);
             const objKeys = Object.keys(obj);
 
             if (modelKeys.length > objKeys.length) {
