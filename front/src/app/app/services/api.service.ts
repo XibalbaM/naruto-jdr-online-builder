@@ -40,7 +40,7 @@ export class ApiService {
 
     if (authenticated) {
       if (this.auth.token) {
-        headers.set("Authorization", "Bearer " + this.auth.token);
+        headers = headers.append("Authorization", "Bearer " + this.auth.token);
       } else {
         this.router.navigate(["/connexion"]);
         this.notificationService.showNotification("Impossible d'accéder à cette page", "Vous devez être connecté pour accéder à cette page.");
