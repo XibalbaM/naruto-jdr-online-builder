@@ -18,8 +18,8 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     this.router.events.subscribe(() => {
-      this.onCreate.next(this.router.url.startsWith('/creation'));
-      this.onList.next(this.router.url.startsWith('/liste'));
+      this.onCreate.next(this.router.url.startsWith('/personnages/creation'));
+      this.onList.next(this.router.url.startsWith('/personnages'));
       this.onAccount.next(this.router.url.startsWith("/compte"));
     });
   }
