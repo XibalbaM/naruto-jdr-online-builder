@@ -61,6 +61,10 @@ export const UserSchema = new mongoose.Schema({
     discordSelectedGroup: {
         type: Types.ObjectId,
         ref: 'group'
+    },
+    discordSelectedCharacter: {
+        type: Types.ObjectId,
+        ref: 'character'
     }
 });
 

@@ -23,6 +23,94 @@
 }
 
 @layer components {
+
+  .default-link {
+    @apply hocus:underline no-underline text-purple;
+  }
+
+  .black-button {
+    @apply flex items-center rounded-xl border bg-black text-start border-lighter-dark px-[24px] hocus:bg-dark;
+  }
+
+  .labeled-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 53px;
+    & > label {
+      pointer-events: none;
+      position: absolute;
+      left: 24px;
+      display: flex;
+      align-items: center;
+      color: $white;
+      font-size: 14px;
+    }
+    & > input {
+      appearance: none;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 1px solid $lighter-dark;
+      outline: none;
+      font-size: 14px;
+      border-radius: 12px;
+      background: $light-dark;
+      color: $light-gray;
+      &::placeholder {
+        color: $light-gray;
+      }
+      &:invalid {
+        border-color: $orange;
+        &::placeholder {
+          color: $orange;
+        }
+        &:focus {
+          border-color: $lighter-dark;
+        }
+      }
+      &:focus {
+        border-width: 2px;
+        &::placeholder {
+          color: $light-gray;
+        }
+      }
+    }
+  }
+
+  .labeled-select {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 53px;
+    & > label {
+      pointer-events: none;
+      position: absolute;
+      left: 24px;
+      display: flex;
+      align-items: center;
+      color: $white;
+      font-size: 14px;
+    }
+    & > select {
+      appearance: none;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 1px solid $lighter-dark;
+      outline: none;
+      font-size: 14px;
+      border-radius: 12px;
+      background-color: $light-dark;
+      color: $light-gray;
+      background-image: url("assets/images/dropdown.svg");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+      &:focus {
+        border-width: 2px;
+      }
+    }
+  }
 }
 
 @layer utilities {
@@ -46,11 +134,7 @@
     @apply bg-cover-y bg-no-repeat bg-[url('assets/images/backgrounds/bg-small.png')] xs:bg-repeat xs:bg-auto xs:bg-[url('assets/images/backgrounds/bg-large.png')]
   }
 
-  .default-link {
-    @apply hocus:underline no-underline text-purple;
-  }
-
-  .black-button {
-    @apply flex items-center rounded-xl border bg-black text-start border-lighter-dark px-[24px] hocus:bg-dark;
+  .gray-box {
+    @apply rounded-xl border bg-light-dark border-dark-gray;
   }
 }
