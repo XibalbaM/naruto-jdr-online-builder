@@ -37,6 +37,7 @@
     display: flex;
     align-items: center;
     height: 53px;
+
     & > label {
       pointer-events: none;
       position: absolute;
@@ -46,6 +47,7 @@
       color: $white;
       font-size: 14px;
     }
+
     & > input {
       appearance: none;
       display: block;
@@ -57,23 +59,39 @@
       border-radius: 12px;
       background: $light-dark;
       color: $light-gray;
+
       &::placeholder {
         color: $light-gray;
       }
+
       &:invalid {
         border-color: $orange;
+
         &::placeholder {
           color: $orange;
         }
+
         &:focus {
           border-color: $lighter-dark;
         }
       }
+
       &:focus {
         border-width: 2px;
+
         &::placeholder {
           color: $light-gray;
         }
+      }
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+
+      &[type=number] {
+        -moz-appearance: textfield;
       }
     }
   }
@@ -83,6 +101,7 @@
     display: flex;
     align-items: center;
     height: 53px;
+
     & > label {
       pointer-events: none;
       position: absolute;
@@ -92,6 +111,7 @@
       color: $white;
       font-size: 14px;
     }
+
     & > select {
       appearance: none;
       display: block;
@@ -106,6 +126,7 @@
       background-image: url("assets/images/dropdown.svg");
       background-repeat: no-repeat;
       background-position: right 18px center;
+
       &:focus {
         border-width: 2px;
       }
