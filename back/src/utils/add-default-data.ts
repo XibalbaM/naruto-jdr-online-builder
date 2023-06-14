@@ -10,8 +10,8 @@ import Base from "../classes/base.class.js";
 import Clan from "../classes/clan.class.js";
 import Road from "../classes/road.class.js";
 import Skill from "../classes/skill.class.js";
-import Rank from "../classes/rank.class";
-import RankModel from "../models/rank.model";
+import Rank from "../classes/rank.class.js";
+import RankModel from "../models/rank.model.js";
 
 export default async function () {
 
