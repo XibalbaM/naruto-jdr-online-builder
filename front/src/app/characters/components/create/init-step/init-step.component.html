@@ -1,0 +1,5 @@
+<div *ngIf="creating">
+  <p>Un personnage est deja en cours de creation, voulez vous le supprimer et en creer un nouveau ?</p>
+  <button (click)="forceCreation()">Oui</button>
+  <button (click)="resumeCreation()">Non</button>
+</div>
