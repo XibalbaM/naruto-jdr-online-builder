@@ -27,7 +27,8 @@ export class DataService {
     bases: new BehaviorSubject<Base[]>([]),
     clans: new BehaviorSubject<Clan[]>([]),
     roads: new BehaviorSubject<Road[]>([]),
-    skills: new BehaviorSubject<Skill[]>([])
+    skills: new BehaviorSubject<Skill[]>([]),
+    ranks: new BehaviorSubject<string[]>([])
   }
 
   constructor(private apiService: ApiService) {}
@@ -100,5 +101,9 @@ export class DataService {
 
   get skills(): BehaviorSubject<Skill[]> {
     return this.datas.skills;
+  }
+
+  get ranks(): BehaviorSubject<string[]> {
+    return this.datas.ranks;
   }
 }
