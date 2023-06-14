@@ -10,6 +10,8 @@ import Base from "../classes/base.class.js";
 import Clan from "../classes/clan.class.js";
 import Road from "../classes/road.class.js";
 import Skill from "../classes/skill.class.js";
+import Rank from "../classes/rank.class";
+import RankModel from "../models/rank.model";
 
 export default async function () {
 
@@ -18,27 +20,27 @@ export default async function () {
     const villages: Omit<Village, "_id">[] = [
         {
             name: "Konoha",
-            logo: "konoha.png"
+            logo: "konoha.svg"
         },
         {
             name: "Suna",
-            logo: "suna.png"
+            logo: "suna.svg"
         },
         {
             name: "Kiri",
-            logo: "kiri.png"
+            logo: "kiri.svg"
         },
         {
             name: "Iwa",
-            logo: "iwa.png"
+            logo: "iwa.svg"
         },
         {
             name: "Kumo",
-            logo: "kumo.png"
+            logo: "kumo.svg"
         },
         {
             name: "Kusa",
-            logo: "kusa.png"
+            logo: "kusa.svg"
         }
     ]
     await VillageModel.insertMany(villages);
@@ -322,4 +324,29 @@ export default async function () {
         },
     ]
     await SkillModel.insertMany(skills);
+
+    const ranks: Omit<Rank, "_id">[] = [
+        {
+            name: "Cadet"
+        },
+        {
+            name: "Genin",
+        },
+        {
+            name: "Chūnin",
+        },
+        {
+            name: "Jōnin",
+        },
+        {
+            name: "Sensei"
+        },
+        {
+            name: "Sanin"
+        },
+        {
+            name: "Kage",
+        }
+    ]
+    await RankModel.insertMany(ranks);
 }
