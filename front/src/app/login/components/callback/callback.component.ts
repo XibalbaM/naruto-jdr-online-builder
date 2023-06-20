@@ -57,7 +57,7 @@ export class CallbackComponent implements AfterContentInit {
         this.showBack = true;
         this.route.queryParams.subscribe(params => {
           this.email = params["email"];
-          const email = `<span class="text-purple">${this.email}</span>`;
+          const email = `<span class="text-pink">${this.email}</span>`;
           if (params["error"] || !this.email) {
             switch (params["error"]) {
               case "Too many requests":

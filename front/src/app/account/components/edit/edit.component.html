@@ -19,7 +19,7 @@
   <p class="text-yellow text-16">Mon profile</p>
   <h1 class="font-bold uppercase text-28 font-monument my-[25px]">{{user?.username || "Ninja Sans Nom"}}</h1>
   <p class="font-light uppercase text-10 text-light-gray font-monument">ID {{user?._id}}</p>
-  <p class="text-purple text-14 mt-[5px]">
+  <p class="text-pink text-14 mt-[5px]">
     <ng-container *ngFor="let role of (user | roles)">
       <span>{{role}}</span><span class="text-purple-gradient mx-[10px] last:hidden">/</span>
     </ng-container>
@@ -30,8 +30,8 @@
     <li *ngFor="let group of user.groups">
       <a [routerLink]="['/group', group._id]"
          class="w-full max-w-md flex-row justify-between black-button h-[55px] mb-[12px]">
-        <p class="text-white">{{group.name}} <span class="text-purple ms-[10px]">{{group.role | roleName}}</span></p>
-        <svg class="fill-purple" width="6" height="11" viewBox="0 0 6 11" xmlns="http://www.w3.org/2000/svg">
+        <p class="text-white">{{group.name}} <span class="text-pink ms-[10px]">{{group.role | roleName}}</span></p>
+        <svg class="fill-pink" width="6" height="11" viewBox="0 0 6 11" xmlns="http://www.w3.org/2000/svg">
           <path d="M0.266515 8.96756L3.80182 5.49553L0.266515 2.02349C-0.0888383 1.6745 -0.0888383 1.11074 0.266515 0.761745C0.621868 0.412752 1.1959 0.412752 1.55125 0.761745L5.73349 4.86913C6.08884 5.21812 6.08884 5.78188 5.73349 6.13087L1.55125 10.2383C1.1959 10.5872 0.621868 10.5872 0.266515 10.2383C-0.0797267 9.88926 -0.0888383 9.31656 0.266515 8.96756Z"/>
         </svg>
       </a>
@@ -39,7 +39,7 @@
   </ul>
   <a routerLink="/groupes/ajouter"
      class="w-full max-w-md justify-center black-button h-[76px]">
-    <svg class="fill-purple" width="20" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg">
+    <svg class="fill-pink" width="20" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 0H9.5V9H0.5V11H9.5V20H11.5V11H20.5V9H11.5V0Z"/>
     </svg>
   </a>
@@ -59,7 +59,7 @@
            focus:placeholder:text-light-gray focus:border-gray focus:border-2">
     <button [disabled]="usernameField.invalid || usernameField.value === user.username"
             type="submit"
-            class="w-full black-button h-[55px] text-16 text-purple disabled:text-dark-gray disabled:cursor-default disabled:hover:bg-black">
+            class="w-full black-button h-[55px] text-16 text-pink disabled:text-dark-gray disabled:cursor-default disabled:hover:bg-black">
       Modifier
     </button>
   </form>
@@ -74,7 +74,7 @@
            focus:placeholder:text-light-gray focus:border-gray focus:border-2">
     <button [disabled]="emailField.invalid || emailField.value === user.email"
             type="submit"
-            class="w-full black-button h-[55px] text-16 text-purple disabled:text-dark-gray disabled:cursor-default disabled:hover:bg-black">
+            class="w-full black-button h-[55px] text-16 text-pink disabled:text-dark-gray disabled:cursor-default disabled:hover:bg-black">
       Modifier
     </button>
   </form>
@@ -96,14 +96,14 @@
       </svg>
       <div class="flex w-full flex-row">
         <button class="rounded-xl w-[55%] bg-light-dark h-[52px] text-14 hover:bg-lighter-dark" (click)="changePpDialog.show()">Configurer</button>
-        <button class="box-border rounded-xl bg-black w-[45%] h-[52px] ms-[10px] text-purple text-14 hover:bg-light-dark" (click)="deletePpDialog.show()">Supprimer</button>
+        <button class="box-border rounded-xl bg-black w-[45%] h-[52px] ms-[10px] text-pink text-14 hover:bg-light-dark" (click)="deletePpDialog.show()">Supprimer</button>
       </div>
     </div>
   </form>
   <app-spacer-graphical class="mt-[50px]"></app-spacer-graphical>
   <div class="my-[100px]">
     <h2 class="font-light uppercase font-monument text-light-gray text-10">crédits + données</h2>
-    <p class="my-[18px] text-purple text-14">Ninja Builder est une app de création de personnage proposée pour Naruto jeu de rôle et produite par sa communauté.</p>
+    <p class="my-[18px] text-pink text-14">Ninja Builder est une app de création de personnage proposée pour Naruto jeu de rôle et produite par sa communauté.</p>
     <ul class="list-outside list-square ms-[20px] mb-[18px] text-14">
       <li>Création + design : Pierre Ragois.</li>
       <li>Développement : Mael Porret, Stéphane Mignon.</li>
