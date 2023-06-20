@@ -18,14 +18,14 @@
 <div *ngIf="(auth.userObservable() | async) as user">
   <p class="text-yellow text-16">Mon profile</p>
   <h1 class="font-bold uppercase text-28 font-monument my-[25px]">{{user?.username || "Ninja Sans Nom"}}</h1>
-  <p class="uppercase text-10 text-light-gray font-monument">ID {{user?._id}}</p>
+  <p class="font-light uppercase text-10 text-light-gray font-monument">ID {{user?._id}}</p>
   <p class="text-purple text-14 mt-[5px]">
     <ng-container *ngFor="let role of (user | roles)">
       <span>{{role}}</span><span class="text-purple-gradient mx-[10px] last:hidden">/</span>
     </ng-container>
   </p>
   <app-spacer-graphical class="my-[50px]"></app-spacer-graphical>
-  <h2 class="uppercase font-monument text-10 text-light-gray mb-[18px]">équipes</h2>
+  <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[18px]">équipes</h2>
   <ul>
     <li *ngFor="let group of user.groups">
       <a [routerLink]="['/group', group._id]"
@@ -45,7 +45,7 @@
   </a>
   <app-spacer class="my-[50px] bg-lighter-dark"></app-spacer>
   <form (ngSubmit)="changeUsername(usernameField.value)" class="flex max-w-md flex-col mb-[50px]">
-    <h2 class="uppercase font-monument text-10 text-light-gray mb-[18px]">nom du compte</h2>
+    <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[18px]">nom du compte</h2>
     <input type="text"
            name="username"
            #usernameField="ngModel"
@@ -64,7 +64,7 @@
     </button>
   </form>
   <form (ngSubmit)="changeEmail(emailField.value)" class="flex max-w-md flex-col">
-    <h2 class="uppercase font-monument text-10 text-light-gray mb-[18px]">email</h2>
+    <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[18px]">email</h2>
     <input type="text"
            name="email"
            #emailField="ngModel"
@@ -86,7 +86,7 @@
   </button>
   <app-spacer class="my-[50px] bg-lighter-dark"></app-spacer>
   <form class="max-w-md">
-    <h2 class="uppercase font-monument text-10 text-light-gray mb-[15px]">image de profile</h2>
+    <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[15px]">image de profile</h2>
     <div class="flex w-full flex-row items-center">
       <img *ngIf="!!user.profileImage" class="rounded-3xl object-cover w-[50px] h-[50px] me-[10px]" [src]="user.profileImage" alt="Photo de profile">
       <svg *ngIf="!user.profileImage" class="fill-light-gray me-[10px]" width="50" height="50" viewBox="0 0 29 29" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +102,7 @@
   </form>
   <app-spacer-graphical class="mt-[50px]"></app-spacer-graphical>
   <div class="my-[100px]">
-    <h2 class="uppercase font-monument text-light-gray text-10">crédits + données</h2>
+    <h2 class="font-light uppercase font-monument text-light-gray text-10">crédits + données</h2>
     <p class="my-[18px] text-purple text-14">Ninja Builder est une app de création de personnage proposée pour Naruto jeu de rôle et produite par sa communauté.</p>
     <ul class="list-outside list-square ms-[20px] mb-[18px] text-14">
       <li>Création + design : Pierre Ragois.</li>
