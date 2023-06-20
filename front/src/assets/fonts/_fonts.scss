@@ -4,7 +4,7 @@
     url("PPMonumentExtended-Regular.woff") format("woff"),
     url("PPMonumentExtended-Regular.ttf") format("truetype"),
     url("PPMonumentExtended-Regular.otf") format("opentype");
-  font-weight: 450;
+  font-weight: 400;
 }
 
 @font-face {
@@ -13,7 +13,44 @@
     url("PPMonumentExtended-Bold.woff") format("woff"),
     url("PPMonumentExtended-Bold.ttf") format("truetype"),
     url("PPMonumentExtended-Bold.otf") format("opentype");
-  font-weight: 675;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url("PPNeueMontreal-Thin.woff2") format("woff2"),
+  url("PPNeueMontreal-Thin.woff") format("woff"),
+  url("PPNeueMontreal-Thin.ttf") format("truetype"),
+  url("PPNeueMontreal-Thin.otf") format("opentype");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url("PPNeueMontreal-ThinItalic.woff2") format("woff2"),
+  url("PPNeueMontreal-ThinItalic.woff") format("woff"),
+  url("PPNeueMontreal-ThinItalic.ttf") format("truetype"),
+  url("PPNeueMontreal-ThinItalic.otf") format("opentype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url("PPNeueMontreal-Light.woff2") format("woff2"),
+  url("PPNeueMontreal-Light.woff") format("woff"),
+  url("PPNeueMontreal-Light.ttf") format("truetype"),
+  url("PPNeueMontreal-Light.otf") format("opentype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url("PPNeueMontreal-Book.woff2") format("woff2"),
+    url("PPNeueMontreal-Book.woff") format("woff"),
+    url("PPNeueMontreal-Book.ttf") format("truetype"),
+    url("PPNeueMontreal-Book.otf") format("opentype");
+  font-weight: 400;
 }
 
 @font-face {
@@ -22,5 +59,43 @@
     url("PPNeueMontreal-Regular.woff") format("woff"),
     url("PPNeueMontreal-Regular.ttf") format("truetype"),
     url("PPNeueMontreal-Regular.otf") format("opentype");
-  font-style: normal;
+  font-weight: 450;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url("PPNeueMontreal-Italic.woff2") format("woff2"),
+  url("PPNeueMontreal-Italic.woff") format("woff"),
+  url("PPNeueMontreal-Italic.ttf") format("truetype"),
+  url("PPNeueMontreal-Italic.otf") format("opentype");
+  font-weight: 450;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url("PPNeueMontreal-Medium.woff2") format("woff2"),
+  url("PPNeueMontreal-Medium.woff") format("woff"),
+  url("PPNeueMontreal-Medium.ttf") format("truetype"),
+  url("PPNeueMontreal-Medium.otf") format("opentype");
+  font-weight: 530;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url("PPNeueMontreal-Bold.woff2") format("woff2"),
+    url("PPNeueMontreal-Bold.woff") format("woff"),
+    url("PPNeueMontreal-Bold.ttf") format("truetype"),
+    url("PPNeueMontreal-Bold.otf") format("opentype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url("PPNeueMontreal-BoldItalic.woff2") format("woff2"),
+  url("PPNeueMontreal-BoldItalic.woff") format("woff"),
+  url("PPNeueMontreal-BoldItalic.ttf") format("truetype"),
+  url("PPNeueMontreal-SemiBoldItalic.otf") format("opentype");
+  font-weight: 800;
+  font-style: italic;
 }

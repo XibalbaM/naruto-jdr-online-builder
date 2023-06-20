@@ -30,8 +30,9 @@ module.exports = {
       "neue": ['PP Neue Montreal', 'sans-serif'],
     },
     fontWeight: {
-      normal: '450',
-      bold: '675',
+      light: 400,
+      normal: 500,
+      bold: 700,
     },
     fontSize: {
       10: '10px',
