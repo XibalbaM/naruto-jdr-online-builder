@@ -9,6 +9,11 @@ export const rankSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    minXp: {
+        type: Number,
+        required: true,
+        unique: true
     }
 });
 

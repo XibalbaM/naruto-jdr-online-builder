@@ -327,25 +327,64 @@ export default async function () {
 
     const ranks: Omit<Rank, "_id">[] = [
         {
-            name: "Cadet"
+            name: "Genin, rang D",
+            minXp: 0
         },
         {
-            name: "Genin",
+            name: "Genin, rang C",
+            minXp: 200
         },
         {
-            name: "Chūnin",
+            name: "Genin, rang B",
+            minXp: 400
         },
         {
-            name: "Jōnin",
+            name: "Genin, rang A",
+            minXp: 600
         },
         {
-            name: "Sensei"
+            name: "Chūnin, rang D",
+            minXp: 700
         },
         {
-            name: "Sanin"
+            name: "Chūnin, rang C",
+            minXp: 1000
+        },
+        {
+            name: "Chūnin, rang B",
+            minXp: 1300
+        },
+        {
+            name: "Chūnin, rang A",
+            minXp: 1600
+        },
+        {
+            name: "Jōnin, rang D",
+            minXp: 1700
+        },
+        {
+            name: "Jōnin, rang C",
+            minXp: 2200
+        },
+        {
+            name: "Jōnin, rang B",
+            minXp: 2700
+        },
+        {
+            name: "Jōnin, rang A",
+            minXp: 3200
+        },
+        {
+            name: "Sensei",
+            minXp: 4500
+        },
+        {
+            name: "Sanin",
+            minXp: 6500
         },
         {
             name: "Kage",
+            minXp: 8500
         }
     ]
     await RankModel.insertMany(ranks);

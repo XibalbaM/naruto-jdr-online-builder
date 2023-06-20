@@ -7,6 +7,7 @@ import {ObjectId} from "mongoose";
 export default class Rank {
     _id: ObjectId;
     name: string;
+    minXp: number;
 
     /**
      * Creates a new rank from a model
@@ -17,6 +18,7 @@ export default class Rank {
         const rank = new Rank();
         rank._id = modelRank._id;
         rank.name = modelRank.name;
+        rank.minXp = modelRank.minXp;
 
         return rank;
     }
