@@ -5,5 +5,5 @@
 export default class Rank {
   _id!: string;
   name!: string;
-  number!: number;
+  minXp!: number;
 }

@@ -7,6 +7,7 @@ import Clan from "../models/clan.model";
 import Road from "../models/road.model";
 import Skill from "../models/skill.model";
 import {BehaviorSubject} from "rxjs";
+import Rank from "../models/rank.model";
 
 type StoredData = {
   etag: string,
@@ -28,7 +29,7 @@ export class DataService {
     clans: new BehaviorSubject<Clan[]>([]),
     roads: new BehaviorSubject<Road[]>([]),
     skills: new BehaviorSubject<Skill[]>([]),
-    ranks: new BehaviorSubject<string[]>([])
+    ranks: new BehaviorSubject<Rank[]>([])
   }
 
   constructor(private apiService: ApiService) {}
@@ -103,7 +104,7 @@ export class DataService {
     return this.datas.skills;
   }
 
-  get ranks(): BehaviorSubject<string[]> {
+  get ranks(): BehaviorSubject<Rank[]> {
     return this.datas.ranks;
   }
 }
