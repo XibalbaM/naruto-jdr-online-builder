@@ -1,42 +1,69 @@
 <p class="text-14 text-yellow">Naruto jeu de rôle</p>
 <h1 class="font-bold uppercase text-28 font-monument mt-[5px] mb-[50px]">créer un personnage</h1>
-<p class="text-10 font-monument text-light-gray">01 / 03</p>
+<p class="font-light text-10 font-monument text-light-gray">01 / 03</p>
 <h2 class="font-bold uppercase font-monument text-20">identité</h2>
-<p class="text-14 text-light">Un nouveau personnage commence au rang de Genin avec 100 points d’expérience.</p>
+<p class="font-light text-14 text-light">Un nouveau personnage commence au rang de Genin avec 100 points
+    d’expérience.</p>
 <form class="w-full max-w-md">
-  <div class="flex mt-[50px] h-[52px] w-full">
-    <div class="labeled-select flex-shrink flex-grow mr-[12px]">
-      <label>Village</label>
-      <select name="village" [(ngModel)]="village" class="!text-yellow pl-[83px]">
-        <option *ngFor="let village of dataService.villages | async" [ngValue]="village">{{village.name | titlecase}}</option>
-      </select>
+    <div class="flex w-full mt-[50px] h-[52px]">
+        <div class="flex-shrink flex-grow labeled-select mr-[12px]">
+            <label>Village</label>
+            <select name="village" [(ngModel)]="village" class="!text-yellow pl-[83px]">
+                <option *ngFor="let village of dataService.villages | async"
+                        [ngValue]="village">{{village.name | titlecase}}</option>
+            </select>
+        </div>
+        <div class="flex flex-shrink-0 items-center gray-box w-[52px]">
+            <img class="mx-auto" [src]="currentVillageLogo()">
+        </div>
     </div>
-    <div class="flex-shrink-0 gray-box w-[52px] flex items-center">
-      <img class="mx-auto" [src]="currentVillageLogo()">
+    <app-spacer class="my-[18px] bg-lighter-dark"></app-spacer>
+    <div class="labeled-input">
+        <label>Prénom</label>
+        <input type="text" name="firstName" [(ngModel)]="firstName" class="!text-yellow pl-[90px]"
+               placeholder="Ex: Mitsuo">
     </div>
-  </div>
-  <app-spacer class="my-[18px] bg-lighter-dark"></app-spacer>
-  <div class="labeled-input">
-    <label>Prénom</label>
-    <input type="text" name="firstName" required [(ngModel)]="firstName" class="!text-yellow pl-[90px]" placeholder="Ex: Mitsuo">
-  </div>
-  <div class="flex mt-[18px] h-[52px] w-full">
-    <div class="labeled-select flex-shrink flex-grow mr-[12px]">
-      <label>Clan</label>
-      <select name="clan" [(ngModel)]="clan" class="pl-[69px]" [class.!text-yellow]="clan">
-        <option selected disabled class="text-light-gray" [ngValue]="undefined">Choisir parmi la liste</option>
-        <option class="text-yellow" *ngFor="let clan of dataService.clans | async" [ngValue]="clan">{{clan.name | titlecase}}</option>
-      </select>
+    <div class="flex w-full mt-[18px] h-[52px]">
+        <div class="flex-shrink flex-grow labeled-select mr-[12px]">
+            <label>Clan</label>
+            <select name="clan" [(ngModel)]="clan" class="pl-[69px]" [class.!text-yellow]="clan">
+                <option selected disabled class="text-light-gray" [ngValue]="undefined">Choisir parmi la liste</option>
+                <option class="text-yellow" *ngFor="let clan of dataService.clans | async"
+                        [ngValue]="clan">{{clan.name | titlecase}}</option>
+            </select>
+        </div>
+        <div class="flex flex-shrink-0 items-center gray-box w-[52px]" [class.!bg-black]="!clan">
+            <img class="mx-auto" [src]="currentClanLogo()" alt="">
+        </div>
     </div>
-    <div class="flex-shrink-0 gray-box w-[52px] flex items-center" [class.!bg-black]="!clan">
-      <img class="mx-auto" [src]="currentClanLogo()">
+    <div class="flex w-full flex-row items-center rounded-xl border h-[55px] p-[16px] border-lighter-dark mt-[18px]"
+         (click)="isRoadElement.checked = !isRoadElement.checked; isRoad = !isRoad">
+        <input #isRoadElement type="checkbox" id="isRoad" name="isRoad" [(ngModel)]="isRoad"
+               class="pointer-events-none appearance-none rounded-md border w-[21px] h-[21px] bg-light-dark border-lighter-dark checked:bg-yellow">
+        <label for="isRoad" class="pointer-events-none ms-[15px]">Je souhaite une Voie, pas une Lignée</label>
     </div>
-  </div>
-  <!--TODO: Voie-->
-  <div class="labeled-select">
-    <label>Rang</label>
-    <select name="rank" [(ngModel)]="rank" class="pl-[69px] !text-yellow">
-      <option *ngFor="let rank of dataService.ranks | async" [ngValue]="rank">{{rank | titlecase}}</option>
-    </select>
-  </div>
+    <div *ngIf="isRoad" class="labeled-select mt-[18px]">
+        <label>Voie</label>
+        <select name="road" [(ngModel)]="road" class="pl-[69px]" [class.!text-yellow]="road">
+            <option selected disabled class="text-light-gray" [ngValue]="undefined">Choisir parmi la liste</option>
+            <option class="text-yellow" *ngFor="let road of dataService.roads | async"
+                    [ngValue]="road">{{road.name + " - " + road.longName}}</option>
+        </select>
+    </div>
+    <div class="labeled-input mt-[18px]">
+        <label>Points d’expérience</label>
+        <input type="number" name="xp" required [(ngModel)]="xp" class="!text-yellow pl-[166px]">
+    </div>
+    <div class="w-full rounded-xl bg-black mt-[18px] p-[18px]">
+        <h3>Rang officiel</h3>
+        <p class="w-fit rounded-xl text-yellow mt-[10px] bg-light-dark px-[12px] py-[4px]">{{(xp | xpToRank).name}}</p>
+    </div>
+    <button [disabled]="!firstName || !clan || (isRoad && !road)" type="submit" (click)="submit()"
+            class="flex w-full flex-row items-center justify-center rounded-xl mb-[120px] group mt-[50px] h-[55px] bg-purple disabled:border-lighter-dark disabled:text-dark-gray disabled:border disabled:bg-black">
+        Étape suivante
+        <svg class="fill-white group-disabled:fill-dark-gray ms-[10px]" width="21" height="13" viewBox="0 0 21 13"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.60553 7.5L17.0829 7.5L13.7663 10.8C13.3643 11.2 13.3643 11.8 13.7663 12.2C14.1683 12.6 14.7714 12.6 15.1734 12.2L20.1985 7.2C20.299 7.1 20.299 7 20.3995 7C20.3995 6.8 20.5 6.7 20.5 6.5C20.5 6.3 20.3995 6.2 20.3995 6.1C20.3995 6 20.299 5.9 20.1985 5.8L15.1734 0.799999C14.9724 0.599999 14.6709 0.499999 14.4699 0.499999C14.2688 0.499999 13.9673 0.599999 13.7663 0.799999C13.3643 1.2 13.3643 1.8 13.7663 2.2L17.0829 5.5L1.70603 5.5C1.00251 5.5 0.500001 5.9 0.500001 6.5C0.5 7.1 1.00251 7.5 1.60553 7.5Z"/>
+        </svg>
+    </button>
 </form>
