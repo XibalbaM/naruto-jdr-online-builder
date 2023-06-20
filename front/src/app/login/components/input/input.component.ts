@@ -24,12 +24,14 @@ export class InputComponent {
    * @see CallbackComponent
    */
   onSubmit() {
-    this.recaptchaV3Service.execute(this.environment.recaptchaSiteKey, 'login', (token) => {
-      this.authService.sendEmailRequest(this.userEmail!, token).subscribe((response) => {
-        this.router.navigate(['/connexion/reponse'], {queryParams: {isRegistration: response.isRegistration, error: response.error, email: this.userEmail}});
+    if (this.userEmail) {
+      this.recaptchaV3Service.execute(this.environment.recaptchaSiteKey, 'login', (token) => {
+        this.authService.sendEmailRequest(this.userEmail!, token).subscribe((response) => {
+          this.router.navigate(['/connexion/reponse'], {queryParams: {isRegistration: response.isRegistration, error: response.error, email: this.userEmail}});
+        });
+      }, {}, (error) => {
+        console.error(error)
       });
-    }, {}, (error) => {
-      console.error(error)
-    });
+    }
   }
 }
