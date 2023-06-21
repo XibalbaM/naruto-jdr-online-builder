@@ -11,4 +11,4 @@ pnpm-lock.yaml
 dist/
 
 # Credentials
-src/config/env/test.ts
+src/config/env/*.env.ts
