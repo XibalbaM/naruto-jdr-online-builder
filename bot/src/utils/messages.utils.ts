@@ -5,7 +5,8 @@ export default class Messages {
 
     static DICE = {
         INVALID_INPUT: "La formule n'est pas valide.",
-        SUCCESS: (input: string, result: number, details: string) => `Jet : \`${input}\` Résultat : \`${result}\` Détails : \`${details}\``
+        D: "https://tenor.com/view/gad-elmaleh-r%C3%A9ponse-d-qui-veut-gagner-des-millions-gif-19797483",
+	    SUCCESS: (input: string, result: number, details: string) => `Jet : \`${input}\` Résultat : \`${result}\` Détails : \`${details}\``
     }
 
     static LINKING = {
@@ -31,5 +32,9 @@ export default class Messages {
     static ERRORS = {
         INVALID_EMAIL: "L'adresse email que vous avez entrée n'est pas valide.",
         UNKNOWN: "Une erreur inconnue est survenue. Veuillez réessayer ou, si l'erreur persiste, contacter <@569895047026180135>."
+    }
+
+    static IMAGES = {
+        MAP: {title: "Carte du monde", url: "https://cdn.discordapp.com/attachments/923635847260164206/1121132872003244073/NARUTO_jdr_-_Carte_du_Monde.png"}
     }
 }

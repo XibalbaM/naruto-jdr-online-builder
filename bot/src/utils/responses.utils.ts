@@ -1,4 +1,4 @@
-import {ChatInputCommandInteraction, CommandInteraction, MessageComponentInteraction} from "discord.js";
+import {ChatInputCommandInteraction, CommandInteraction, Embed, EmbedBuilder, MessageComponentInteraction} from "discord.js";
 
 /**
  * Type of interaction that can be accepted by the responses.
@@ -10,18 +10,27 @@ type AcceptedInteraction = ChatInputCommandInteraction<any> | CommandInteraction
  */
 export default class Responses {
 
-    static async success(interaction: AcceptedInteraction, message: string, ephemeral = true, components: any[] = []) {
-        return await interaction.reply({
-            content: message,
-            ephemeral
-        })
-    }
+	static async success(interaction: AcceptedInteraction, message: string, ephemeral = true, components: any[] = []) {
+		return await interaction.reply({
+			content: message,
+			ephemeral
+		});
+	}
 
-    static async error(interaction: AcceptedInteraction, message: string, ephemeral = true, components: any[] = []) {
-        return await interaction.reply({
-            content: message,
+	static async error(interaction: AcceptedInteraction, message: string, ephemeral = true, components: any[] = []) {
+		return await interaction.reply({
+			content: message,
+			ephemeral,
+			components
+		});
+	}
+
+	static async image(interaction: AcceptedInteraction, data: {title: string, url: string}, ephemeral = false) {
+		return await interaction.reply({
             ephemeral,
-            components
-        })
-    }
+            embeds: [
+                new EmbedBuilder().setTitle(data.title).setImage(data.url).setColor("Random")
+            ]
+        });
+	}
 }
