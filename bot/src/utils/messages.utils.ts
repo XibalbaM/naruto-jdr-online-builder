@@ -31,7 +31,8 @@ export default class Messages {
 
     static ERRORS = {
         INVALID_EMAIL: "L'adresse email que vous avez entrée n'est pas valide.",
-        UNKNOWN: "Une erreur inconnue est survenue. Veuillez réessayer ou, si l'erreur persiste, contacter <@569895047026180135>."
+        UNKNOWN: "Une erreur inconnue est survenue. Veuillez réessayer ou, si l'erreur persiste, contactez <@569895047026180135>.",
+        NOT_IMPLEMENTED: "Cette commande n'est pas encore implémentée.",
     }
 
     static IMAGES = {

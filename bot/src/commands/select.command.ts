@@ -19,7 +19,7 @@ const command: SlashCommand = {
             )
         ),
     async execute(interaction) {
-        switch (interaction.options.getSubcommand()) {
+        /*switch (interaction.options.getSubcommand()) {
             case "groupe": {
                 try {
                     if (interaction.options.getInteger("numéro")) {
@@ -45,8 +45,10 @@ const command: SlashCommand = {
                     }
                 }
             }
-        }
-    }
+        }*/
+        await Responses.error(interaction, Messages.ERRORS.NOT_IMPLEMENTED);
+    },
+    implemented: false
 }
 
 export default command;

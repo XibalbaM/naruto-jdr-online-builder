@@ -11,7 +11,7 @@ const command: SlashCommand = {
         .setDescription("Permet de connecter son compte discord à son compte en ligne")
         .addStringOption(option => option.setName("email").setDescription("L'adresse email de votre compte en ligne").setRequired(true)),
     async execute(interaction) {
-        const email = interaction.options.get("email")!.value as string;
+        /*const email = interaction.options.get("email")!.value as string;
         if (!email || !email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
             await Responses.success(interaction, Messages.ERRORS.INVALID_EMAIL);
             return;
@@ -42,8 +42,10 @@ const command: SlashCommand = {
                     await Responses.success(i, Messages.LINKING.LINK_WITHOUT_ACCOUNT_CANCELED);
                 }
             })
-        }
+        }*/
+        await Responses.error(interaction, Messages.ERRORS.NOT_IMPLEMENTED);
     },
+    implemented: false
 };
 
 async function sendEmailAndReply(email: string, userId: Snowflake, interaction: CommandInteraction | ButtonInteraction) {

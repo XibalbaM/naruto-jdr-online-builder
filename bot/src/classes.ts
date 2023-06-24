@@ -3,7 +3,8 @@ import {AutocompleteInteraction, ChatInputCommandInteraction, Collection, SlashC
 export interface SlashCommand {
     command: SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup" | "addBooleanOption" | "addUserOption" | "addChannelOption" | "addRoleOption" | "addAttachmentOption" | "addMentionableOption" | "addStringOption" | "addIntegerOption" | "addNumberOption">,
     execute: (interaction: ChatInputCommandInteraction) => Promise<void> | void,
-    autocomplete?: (interaction: AutocompleteInteraction) => void
+    autocomplete?: (interaction: AutocompleteInteraction) => void,
+    implemented?: boolean
 }
 
 export class ButtonStyle {

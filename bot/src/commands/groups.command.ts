@@ -9,7 +9,7 @@ const command: SlashCommand = {
         .setName("groupes")
         .setDescription("Permet d'obtenir la liste des groupes dans lesquels vous êtes."),
     async execute(interaction) {
-        try {
+        /*try {
             const groups = await GroupsService.list(interaction.user.id);
             let i = 1;
             await Responses.success(interaction, Messages.GROUPS.LIST(groups))
@@ -21,8 +21,10 @@ const command: SlashCommand = {
                 default:
                     await Responses.error(interaction, Messages.ERRORS.UNKNOWN);
             }
-        }
-    }
+        }*/
+        await Responses.error(interaction, Messages.ERRORS.NOT_IMPLEMENTED);
+    },
+    implemented: false
 }
 
 export default command;
