@@ -7,12 +7,12 @@ import Messages from "../utils/messages.utils.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
-        .setName("roll")
-        .setDescription("Permet de lancer des dés. Si aucun paramètre n'est fourni, lance 1d10e10.")
+        .setName("jet")
+        .setDescription("Permet de lancer des dés. Si un nombre est fournit, lance 1d10e10 avec le nombre en bonus.")
         .addStringOption(builder => builder.setName("formule").setDescription("Les dés à lancer ou le bonus a appliquer").setRequired(false)),
     async execute(interaction) {
         if (interaction.options.getString("formule")?.toLowerCase() === "réponse d") {
-            await Responses.success(interaction, Messages.DICE.D);
+            await Responses.easterEgg(interaction, Messages.DICE.D);
             return;
         }
         let input = interaction.options.get("formule")?.value as string || "1d10e10";

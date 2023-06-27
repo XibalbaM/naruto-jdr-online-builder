@@ -5,16 +5,16 @@ export default class DiceUtils {
         const entities = this.extractEntities(input);
         const operators = this.extractOperators(input);
         const values = [];
-        const valuesDetails = [];
+        const valuesDetails: (string | undefined)[] = [];
 
         for (const entity of entities) {
-            const result = this.processEntity(entity);
-            valuesDetails.push(result.details || result.value);
+            const result = this.processEntity(entity, entities.length === 1);
+            valuesDetails.push(result.details);
             values.push(result.value);
         }
 
         let total = values[0];
-        const details = [valuesDetails[0]];
+        let details = [valuesDetails[0]];
 
         for (let i = 0; i < operators.length; i++) {
             const operator = operators[i];
@@ -36,7 +36,7 @@ export default class DiceUtils {
                     break;
             }
         }
-
+        details = details.filter(value => value !== undefined);
         return {result: total, details: details.join(" ")};
     }
 
@@ -48,9 +48,9 @@ export default class DiceUtils {
         return input.match(/([+\-*\/])/g) || [];
     }
 
-    static processEntity(input: string): { value: number, details?: string } {
+    static processEntity(input: string, isSingle: boolean): { value: number, details?: string } {
         if (input.match(/^\d+$/)) {
-            return {value: parseInt(input)};
+            return {value: parseInt(input), details: input};
         }
 
         const data = input.match(/(\d*)?d(\d+)(e(\d*))?/i) || [];
@@ -74,8 +74,9 @@ export default class DiceUtils {
             rolls.push(values.length === 1 ? values[0] : values);
             total += values.reduce((a, b) => a + b, 0);
         }
-
-        return {value: total, details: "(" + input + " : " + JSON.stringify(rolls).replace(/,/g, ", ").replace(/"/g, "") + ")"}
+        let rollsTexts = JSON.stringify(rolls).replace(/,/g, ", ").replace(/"/g, "");
+        if (rolls.length === 1) rollsTexts = rollsTexts.substring(1, rollsTexts.length - 1);
+        return {value: total, details: isSingle ? (Number(rollsTexts) === total ? undefined : rollsTexts) : "(" + input + " : " + rollsTexts + ")"};
     }
 
     static randomIntMax(max: number): number {
