@@ -6,7 +6,7 @@ export default class Messages {
     static DICE = {
         INVALID_INPUT: "La formule n'est pas valide.",
         D: "https://tenor.com/view/gad-elmaleh-r%C3%A9ponse-d-qui-veut-gagner-des-millions-gif-19797483",
-	    SUCCESS: (input: string, result: number, details: string) => `Jet : \`${input}\` Résultat : \`${result}\` Détails : \`${details}\``
+	    SUCCESS: (input: string, result: number, details?: string) => `Jet : \`[${input}]\`${details ? `Détails : \`${details}\`` : ""} Résultat : \`${result}\``
     }
 
     static LINKING = {
@@ -36,6 +36,8 @@ export default class Messages {
     }
 
     static IMAGES = {
-        MAP: {title: "Carte du monde", url: "https://cdn.discordapp.com/attachments/923635847260164206/1121132872003244073/NARUTO_jdr_-_Carte_du_Monde.png"}
+        MAP: {title: "Carte du monde", url: "./assets/map.webp"}
     }
+
+    static EASTER_EGG = "Vous avez trouvé un easter egg !";
 }

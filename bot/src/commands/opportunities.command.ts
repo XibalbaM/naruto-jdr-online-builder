@@ -1,0 +1,19 @@
+import {ActionRowBuilder, ButtonBuilder, ComponentType, SlashCommandBuilder} from "discord.js";
+import opportunities from "../datas/opportunities.js";
+import Responses from "../utils/responses.utils.js";
+
+import {ButtonStyle, SlashCommand} from "../classes.js";
+
+const command: SlashCommand = {
+    command: new SlashCommandBuilder()
+        .setName("opportunités")
+        .setDescription("Affiche la liste des opportunités"),
+    async execute(interaction) {
+
+        const message = "- " + opportunities.join("\n- ");
+
+        await Responses.sendOpportunities(interaction, message);
+    }
+};
+
+export default command;
