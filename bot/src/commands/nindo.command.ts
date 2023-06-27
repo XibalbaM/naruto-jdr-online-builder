@@ -1,6 +1,6 @@
-import {ActionRowBuilder, ButtonBuilder, ComponentType, SlashCommandBuilder} from "discord.js";
+import {ComponentType, SlashCommandBuilder} from "discord.js";
 import Responses from "../utils/responses.utils.js";
-import {ButtonStyle, SlashCommand} from "../classes.js";
+import {SlashCommand} from "../classes.js";
 import nindo from "../datas/nindo.js";
 
 const command: SlashCommand = {
