@@ -7,7 +7,7 @@ import config from "../config/env.js";
 export default async function (client: Client) {
     const slashCommands: SlashCommandBuilder[] = [];
 
-    for (const file of glob.sync("**/*.+(ts|js)", {cwd: "src/commands"})) {
+    for (const file of glob.sync("**/*.+(ts|js)", {cwd: "./commands"})) {
         const command: SlashCommand = (await import(`../commands/${file}`)).default;
         slashCommands.push(command.command as SlashCommandBuilder);
         client.slashCommands.set(command.command.name, command);

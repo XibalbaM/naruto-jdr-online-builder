@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --exec ts-node-esm ./src/main.ts",
-    "build": "tsc && copyfiles ./package.json ./dist"
+    "build": "tsc && copyfiles ./package.json ./dist && copyfiles ./assets/**/* ./dist",
+    "run": "node ./main.js"
   },
   "keywords": [],
   "author": "Xibalba",

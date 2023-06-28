@@ -15,7 +15,7 @@ client.slashCommands = new Collection<string, SlashCommand>();
 
 console.log("Running handlers...");
 const handlersDir = "handlers";
-for (const handler of glob.sync("**/*.+(ts|js)", {cwd: "src/handlers"})) {
+for (const handler of glob.sync("**/*.+(ts|js)", {cwd: "./handlers"})) {
     console.log(`Running handler ${handler}`);
     await (await import(`./handlers/${handler}`)).default(client);
 }
