@@ -3,6 +3,7 @@ import {glob} from "glob";
 
 import {SlashCommand} from "./classes";
 import config from "./config/env.js";
+import express from "express";
 
 const client = new Client({
     intents: [
@@ -14,7 +15,6 @@ const client = new Client({
 client.slashCommands = new Collection<string, SlashCommand>();
 
 console.log("Running handlers...");
-const handlersDir = "handlers";
 for (const handler of glob.sync("**/*.+(ts|js)", {cwd: "./handlers"})) {
     console.log(`Running handler ${handler}`);
     await (await import(`./handlers/${handler}`)).default(client);
@@ -22,3 +22,11 @@ for (const handler of glob.sync("**/*.+(ts|js)", {cwd: "./handlers"})) {
 console.log("Handlers run finished");
 
 client.login(config.token);
+
+const app = express();
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+});
+app.listen(3000, () => {
+    console.log("Listening on port 3000");
+});
