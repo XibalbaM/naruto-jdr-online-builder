@@ -1,0 +1,62 @@
+export default {
+    "Compétences communes": {
+        "Armes Simples (ARM)": "Attaquer avec des armes simples, les réparer, les reconnaître.",
+        "Camouflage (NIN)": "Art de la dissimulation physique et spirituelle (chakra et toutes énergies mystiques et occultes), déplacement silencieux, disparition instantanée.",
+        "Corps à Corps (TAI)": "Attaquer à mains nues.",
+        "Esquive (TAI)": "Esquiver toutes attaques physiques : armes, corps à corps, jutsus issus du Ninjutsu, explosions, pièges etc.",
+        "Gensou (GEN)": "Nature spirituelle de chakra. Créer, utiliser et faire évoluer des jutsus illusoires, hypnotiques, mémoriels, psychiques et émotionnels.",
+        "Henge (NIN)": "Nature physique de chakra.",
+        "Kawarimi (GEN)": "Nature mystique de chakra. Créer, utiliser et faire évoluer des jutsus de permutations physique et psychique, des notes célestes (Fuda) ou des rouleaux sacrés (Makimono).",
+        "Mental (ESP)": "Sang froid, vivacité d’esprit, défense universelle face aux attaques psychiques du Genjutsu et Intimidation.",
+        "Parade (ARM)": "Parer une attaque physique, au corps à corps ou à distance, avec une arme ou une armure. Malus face aux jutsus issus du Ninjutsu, explosions et effets de zone.",
+        "Physique (COR)": "Déplacements, enfoncer, briser, score de référence d’initiative, défense face aux drogues et poisons.",
+        "Survie (NIN)": "Pister, chasser, trouver de l’eau potable, construire un camp, connaître la faune et la flore, avec une spécialisation à choisir : Forêts & Montagnes, Milieu Aride, Milieu Glaciaire, Milieu Maritime ou Métropoles.",
+        "Vigilance (NIN)": "Détection physique et spirituelle (chakra) en confrontation à Camouflage, appréhender le danger, l’inhabituel et reconnaître le Genjutsu environnemental (mirages)."
+    },
+    "Compétences de combat": {
+        "Armes Exotiques (ARM)": "Attaquer avec des armes lourdes, complexes ou mécaniques. Créer, spécialiser et manipuler ces armes, les reconnaître.",
+        "Chūken (TAI)": "École du Poing Souple. Rendre impossible l’usage de pouvoirs de lignée sur une initiative donnée, parer et annuler à la main un jutsu offensif ou défensif, créer de la distance et des dégâts sur une action défensive.",
+        "Coup Spécial (ARM ou TAI)": "Assommer, briser, contre-attaque, coup mortel, désarmer, immobiliser. Chaque coup est utilisable qu’une fois par cible et par combat.",
+        "Doton (NIN)": "Nature élémentaire de chakra. Créer, utiliser et faire évoluer des jutsus issus de l’élément Terre.",
+        "Futon (NIN)": "Nature élémentaire de chakra. Créer, utiliser et faire évoluer des jutsus issus de l’élément Air.",
+        "Gōken (TAI)": "École du Poing Fort. Augmenter ses dégâts avec du chakra, doubler les effets des interceptions du groupe sur une initiative, faire une attaque de zone augmentable par des interceptions.",
+        "Intimidation (COR)": "Figer sur place un adversaire, terrifier, soutirer des informations, séduire, faire ressentir son chakra comme une menace.",
+        "Jūken (TAI)": "École du Poing Léger. Nécessite un dōjutsu ou la compétence Médecine. Empêcher temporairement l’usage du chakra, baisser l’initiative d’une cible, créer de la distance en évitant l’usage de pouvoir de Lignée sur une action défensive.",
+        "Katon (NIN)": "Nature élémentaire de chakra. Créer, utiliser et faire évoluer des jutsus issus de l’élément Feu.",
+        "Premiers Soins (COR)": "",
+        "Raïton (NIN)": "Nature élémentaire de chakra. Créer, utiliser et faire évoluer des jutsus issus de l’élément Foudre.",
+        "Régénération (COR)": "Intensifier radicalement la régénération de son chakra ou la récupération naturelle des blessures. Augmente le seuil d’overdose.",
+        "Résistances Élémentaires (NIN)": "Gagner un bonus permanent et temporaire sur son score de Vigueur ELEM, encaisser volontairement une attaque élémentaire.",
+        "Résistances Environnementales (COR)": "Gagner un bonus permanent et/ou temporaire sur son score de Vigueur ENVI, encaisser volontairement une attaque environnementale.",
+        "Résistances Psychiques (ESP)": "Gagner un bonus permanent et/ou temporaire sur son score de Caractère PSY, encaisser volontairement une attaque psychique.",
+        "Résistances Physiques (COR)": "Gagner un bonus permanent et/ou temporaire sur son score de Vigueur PHY, encaisser volontairement une attaque physique.",
+        "Science des Explosifs (ARM)": "Créer, utiliser et faire évoluer des techniques d’explosifs.",
+        "Science des Pièges (ARM)": "Créer, utiliser et faire évoluer des techniques de pièges.",
+        "Suiton (NIN)": "Nature élémentaire de chakra. Créer, utiliser et faire évoluer des jutsus issus de l’élément Eau.",
+        "Yūryoku (GEN)": "Nature spirituelle de chakra. Créer, utiliser et faire évoluer des jutsus de domination psychique, de mondes illusoires ou de contrôle."
+    },
+    "Compétences de terrain": {
+        "Collecter des Informations (ESP)": "Mener une investigation ou un interrogatoire. Crypter ou décrypter des informations, apprendre rapidement un plan ou des données complexes.",
+        "Éducation (ESP)": "Savoirs historiques et claniques, diplomatie, étiquette et lien social.",
+        "Empathie (NIN)": "Connaissances animales et végétales, langage animal, compagnon animal ou variante (au choix).",
+        "Faux Semblants (GEN)": "Forger, modifier ou reconnaître un faux document ou une contrefaçon. Observer et reproduire une attitude, une voix, une démarche. Connaissance approfondie des milieux yakuza, marchés noirs et lieux interdits.",
+        "Fūin (GEN)": "Nature mystique de chakra. Créer, utiliser et faire évoluer des jutsus de scellage physique, psychique, élémentaire, environnemental, émotionnel ou mythique.",
+        "Iryō (GEN)": "Nature biologique de chakra. Créer, utiliser et faire évoluer des jutsus de régénération, de guérison et de chakra pur.",
+        "Kuchiyose (GEN)": "Nature mystique de chakra. Créer, utiliser et faire évoluer des invocations issues d’un contrat sacré avec un clan d’animaux mythiques.",
+        "Lois & Traditions (ESP)": "",
+        "Manipulation (TAI)": "Dissimuler ou rendre accessible un objet, ouvrir ou déverrouiller un verrou, un mécanisme ou un obstacle, bluffer et argumenter, conduire un véhicule.",
+        "Médecine (ESP)": "",
+        "Science des Drogues (NIN)": "Créer, utiliser et faire évoluer des drogues et médicaments civils et ninjas, savoir s’approvisionner, connaître les sources et ingrédients.",
+        "Science des Poisons (NIN)": "Créer, utiliser et faire évoluer des poisons civils et ninjas, savoir s’approvisionner, connaître les sources et ingrédients.",
+        "Sentinelle (GEN)": "Sens aigu du chakra (volume, origine), vision spatiale du chakra en trois dimensions, reconnaître et imiter chaque signature de chakra.",
+        "Sixième Sens (GEN)": "Expertise des royaumes parallèles. Sentir, analyser et reconnaître une intrusion, flairer l’occulte, le divin et le maléfique.",
+        "Technologie (ARM)": "Créer, comprendre, saboter ou réparer un objet, une installation ou un lieu technologique. Intercepter ou protéger des données, connaître la logistique et les variétés de productions."
+    },
+    "Compétences de clan": {
+        "Jiton (NIN)": "*(Compétence exclusive du clan Munefuda)* Nature élémentaire supérieure de chakra. Créer, utiliser et faire évoluer des jutsus issus de l’élément Magnétisme.",
+        "Kage (NIN)": "*(Compétence exclusive du clan Nara)* Nature physique de chakra. Créer, utiliser et faire évoluer des jutsus issus de l’élément Ombre.",
+        "Kikaichū (NIN)": "*(Compétence exclusive du clan Aburame)* Nature biologique de chakra. Créer, utiliser et faire évoluer des jutsus issus de l’élément Insectes.",
+        "Mokuton (NIN)": "*(Compétence exclusive du clan Senju)* Nature élémentaire supérieure de chakra. Créer, utiliser et faire évoluer des jutsus issus de l’élément Bois.",
+        "Sumi (NIN)": "*(Compétence exclusive du clan Aniki)* Nature physique de chakra. Créer, utiliser et faire évoluer des jutsus issus de l’élément Encre."
+    }
+}
