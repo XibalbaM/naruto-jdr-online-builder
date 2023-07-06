@@ -25,21 +25,14 @@ export default [
     },
     {
         "title": "LIER NOS DESTINÉES (1, 2, 3)",
-        "cost": "1 point de Nindo pour chaque palier, pour un maximum de 3 pour chaque Lien.",
+        "cost": "1 point de Nindo pour chaque palier, maximum 3 pour chaque Lien.",
         "time": "Permanent",
         "description": "**1. Notre lien**" +
             "1/session, le Lien peut offrir son aide, donner des conseils ou intervenir positivement dans le cadre de ses capacités.\n" +
             "**2. Notre histoire**" +
-            "1/session, le Lien peut faire avancer d’un segment un arc narratif par le biais d’une petite scène (dialogue, flashback, etc), en plus de “Notre lien”.\n" +
+            "1/session, le Lien peut faire avancer d’un segment l’un des arcs narratifs d’un personnage par le biais d’une petite scène (dialogue, flashback, etc).\n" +
             "**3. Notre destin**" +
-            "En addition de “Notre lien” et “Notre histoire”, le Lien ouvre un nouvel arc narratif qui lui est propre et s’ajoute aux arcs narratifs du personnage."
-    },
-    {
-        "title": "MON CORPS EST UN BOUCLIER (1)",
-        "cost": "1 point de Nindo",
-        "time": "Instantané",
-        "description": "1. Annuler ou hériter d’une Condition, subir deux paliers de Blessures.\n" +
-            "2. Annuler ou hériter d’un palier de Blessure, subir deux Conditions."
+            "Le Lien ouvre un nouvel arc narratif qui lui est propre et s’ajoute aux arcs narratifs du personnage."
     },
     {
         "title": "UNISON (1)",
