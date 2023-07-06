@@ -52,52 +52,21 @@ export default class Responses {
         });
     }
 
-    static async sendOpportunities(interaction: AcceptedInteraction, message: string) {
-
-        return await interaction.reply({
-                embeds: [
-                    new EmbedBuilder().setTitle("Opportunités").setDescription(message).setColor("Random")
-                ]
-            }
-        );
-    }
-
-    static async sendNindo(interaction: AcceptedInteraction, text: string) {
-
+    static async successEmbed(interaction: AcceptedInteraction, title: string, text: string, components: any[] = []) {
         return await interaction.reply({
             embeds: [
-                new EmbedBuilder().setTitle("Liste des options pour utiliser les points de nindo").setDescription(text).setColor("Random")
-            ]
+                new EmbedBuilder().setTitle(title).setDescription(text).setColor("Random")
+            ],
+            components
         });
     }
 
-    static async sendResolutions(interaction: AcceptedInteraction, skill: string, message: string) {
-
-        return await interaction.reply({
-                embeds: [
-                    new EmbedBuilder().setTitle("Résolutions narratives de la compétence " + skill).setDescription(message).setColor("Random")
-                ]
-            }
-        );
-    }
-
-    static async sendRule(interaction: AcceptedInteraction, name: string, description: string) {
-
-        return await interaction.reply({
-                embeds: [
-                    new EmbedBuilder().setTitle(name).setDescription(description).setColor("Random")
-                ]
-            }
-        );
-    }
-
-    static async sendHelp(interaction: AcceptedInteraction, text: string) {
-
-        return await interaction.reply({
-                embeds: [
-                    new EmbedBuilder().setTitle("Liste des commandes").setDescription(text).setColor("Random")
-                ]
-            }
-        );
+    static async replaceSuccessEmbed(interaction: AcceptedInteraction, title: string, text: string, components: any[] = []) {
+        return await interaction.editReply({
+            embeds: [
+                new EmbedBuilder().setTitle(title).setDescription(text).setColor("Random")
+            ],
+            components
+        });
     }
 }

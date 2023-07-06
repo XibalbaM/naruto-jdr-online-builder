@@ -17,7 +17,7 @@ const command: SlashCommand = {
 
         const message = "- " + resolutions[interaction.options.getString("compétence", true) as keyof typeof resolutions].join("\n- ");
 
-        await Responses.sendResolutions(interaction, interaction.options.getString("compétence", true), message);
+        await Responses.successEmbed(interaction, "Résolutions narratives de la compétence " + interaction.options.getString("compétence", true), message);
     }
 };
 

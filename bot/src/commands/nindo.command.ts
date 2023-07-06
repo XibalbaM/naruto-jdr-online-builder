@@ -11,7 +11,7 @@ const command: SlashCommand = {
 
         const text = nindo.map(nindo => `### - ${nindo.title}\n**Coût :** ${nindo.cost}\n**Temporalité :** ${nindo.time}\n${nindo.description}`).join("\n");
 
-        await Responses.sendNindo(interaction, text);
+        await Responses.successEmbed(interaction, "Dépenser du Nindo", text);
     }
 };
 

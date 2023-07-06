@@ -40,7 +40,7 @@ const command: SlashCommand = {
                 description = "Cette règle n'existe pas ou n'est pas implémentée."
         }
 
-        await Responses.sendRule(interaction, name, description);
+        await Responses.successEmbed(interaction, name, description);
     }
 };
 

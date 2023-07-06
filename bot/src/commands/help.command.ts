@@ -13,7 +13,7 @@ const command: SlashCommand = {
             .map((value) => `**/${value.command.name}**\n${value.command.description}`)
             .join("\n- ");
 
-        await Responses.sendHelp(interaction, text);
+        await Responses.successEmbed(interaction, "Liste des commandes", text);
     }
 };
 

@@ -12,7 +12,7 @@ const command: SlashCommand = {
 
         const message = "- " + opportunities.join("\n- ");
 
-        await Responses.sendOpportunities(interaction, message);
+        await Responses.successEmbed(interaction, "Opportunités", message);
     }
 };
 
