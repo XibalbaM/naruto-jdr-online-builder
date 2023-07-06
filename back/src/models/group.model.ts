@@ -12,7 +12,8 @@ export const GroupSchema = new mongoose.Schema({
         required: true
     },
     village: {
-        type: mongoose.Schema.Types.Mixed,
+        type: mongoose.Types.ObjectId,
+        ref: "village",
         required: true
     },
     users: {

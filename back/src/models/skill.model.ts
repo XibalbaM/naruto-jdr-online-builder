@@ -11,21 +11,18 @@ export const skillSchema = new mongoose.Schema({
         unique: true
     },
     base: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
+        ref: 'base',
         required: true
     },
     description: {
         type: String,
         required: true
     },
-    isCommon: {
-        type: Boolean,
+    type: {
+        type: String,
+        enum: ["common", "combat", "terrain", "clan"],
         required: true
-    },
-    isClan: {
-        type: Boolean,
-        required: true,
-        default: false
     }
 });
 

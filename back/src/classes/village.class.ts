@@ -7,7 +7,6 @@ import mongoose from "mongoose";
 export default class Village {
     _id: mongoose.Types.ObjectId;
     name: string;
-    logo: string; //path from /api/assets/logos/villages
 
     /**
      * Creates a new village from a model
@@ -18,7 +17,6 @@ export default class Village {
         const village = new Village();
         village._id = modelVillage._id;
         village.name = modelVillage.name;
-        village.logo = modelVillage.logo;
 
         return village;
     }

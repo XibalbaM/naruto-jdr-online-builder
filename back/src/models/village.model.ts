@@ -9,10 +9,6 @@ export const VillageSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
-    },
-    logo: {
-        type: String,
-        required: true
     }
 });
 

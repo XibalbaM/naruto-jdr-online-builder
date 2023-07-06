@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 export default class Road {
     _id: mongoose.Types.ObjectId;
     name: string;
-    longName: string;
+    qualification: string;
 
     /**
      * Creates a new road from a model
@@ -18,7 +18,7 @@ export default class Road {
         const road = new Road();
         road._id = modelRoad._id;
         road.name = modelRoad.name;
-        road.longName = modelRoad.longName;
+        road.qualification = modelRoad.qualification;
 
         return road;
     }

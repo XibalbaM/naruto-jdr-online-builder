@@ -6,11 +6,12 @@ import mongoose from "mongoose";
  */
 export default class User {
     _id: mongoose.Types.ObjectId;
-    username?: string;
     email: string;
+    username?: string;
     profileImage?: string;
     isAdmin: boolean;
-    groups: {_id: mongoose.Types.ObjectId, name: String, role: String}[];
+    groups: [mongoose.Types.ObjectId];
+    characters: [mongoose.Types.ObjectId];
     discordId?: string;
     discordUsername?: string;
     discordDiscriminator?: string;
@@ -25,11 +26,12 @@ export default class User {
 
         const user = new User();
         user._id = modelUser._id;
-        user.username = modelUser.username;
         user.email = modelUser.email;
+        user.username = modelUser.username;
         user.profileImage = modelUser.profileImage;
         user.isAdmin = modelUser.isAdmin;
         user.groups = modelUser.groups;
+        user.characters = modelUser.characters;
         user.discordId = modelUser.discordId;
         user.discordUsername = modelUser.discordUsername;
         user.discordDiscriminator = modelUser.discordDiscriminator;

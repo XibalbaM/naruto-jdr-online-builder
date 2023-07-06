@@ -9,8 +9,7 @@ export default class Skill {
     name: string;
     base: mongoose.Types.ObjectId;
     description: string;
-    isCommon: boolean;
-    isClan: boolean;
+    type: "common" | "combat" | "terrain" | "clan";
 
     /**
      * Creates a new skill from a model
@@ -23,8 +22,7 @@ export default class Skill {
         skill.name = modelSkill.name;
         skill.base = modelSkill.base;
         skill.description = modelSkill.description;
-        skill.isCommon = modelSkill.isCommon;
-        skill.isClan = modelSkill.isClan;
+        skill.type = modelSkill.type;
 
         return skill;
     }

@@ -1,4 +1,4 @@
-import mongoose, {Types} from "mongoose";
+import mongoose from "mongoose";
 
 import config from "../config/env.js";
 
@@ -7,17 +7,17 @@ import config from "../config/env.js";
  * A mongoose model is a wrapper on the MongoDB database.
  */
 export const UserSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        trim: true,
-        minLength: config.user.username.minLength,
-        maxLength: config.user.username.maxLength,
-    },
     email: {
         type: String,
         required: true,
         trim: true,
         regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    },
+    username: {
+        type: String,
+        trim: true,
+        minLength: config.user.username.minLength,
+        maxLength: config.user.username.maxLength,
     },
     profileImage: {
         type: String,
@@ -29,21 +29,14 @@ export const UserSchema = new mongoose.Schema({
         default: false
     },
     groups: {
-        type: [{
-            _id: {
-                type: Types.ObjectId,
-                ref: 'group',
-                required: true
-            },
-            name: {
-                type: String,
-                required: true
-            },
-            role: {
-                type: String,
-                required: true
-            }
-        }],
+        type: [mongoose.Types.ObjectId],
+        ref: 'group',
+        default: [],
+        required: true
+    },
+    characters: {
+type: [mongoose.Types.ObjectId],
+        ref: 'character',
         default: [],
         required: true
     },
@@ -59,11 +52,11 @@ export const UserSchema = new mongoose.Schema({
         type: String
     },
     discordSelectedGroup: {
-        type: Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: 'group'
     },
     discordSelectedCharacter: {
-        type: Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: 'character'
     }
 });

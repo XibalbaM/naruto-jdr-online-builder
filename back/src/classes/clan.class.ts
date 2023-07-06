@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Village from "./village.class.js";
 
 /**
  * Describes a clan, in a more convenient and lightweight way than the model
@@ -8,7 +7,7 @@ import Village from "./village.class.js";
 export default class Clan {
     _id: mongoose.Types.ObjectId;
     name: string;
-    village: Village | mongoose.Types.ObjectId;
+    village: mongoose.Types.ObjectId;
     description: string;
 
     /**

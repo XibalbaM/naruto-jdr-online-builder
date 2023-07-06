@@ -10,7 +10,7 @@ export const roadSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    longName: {
+    qualification: {
         type: String,
         required: true,
         unique: true

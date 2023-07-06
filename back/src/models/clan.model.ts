@@ -11,7 +11,8 @@ export const clanSchema = new mongoose.Schema({
         unique: true
     },
     village: {
-        type: mongoose.Schema.Types.Mixed,
+        type: mongoose.Types.ObjectId,
+        ref: 'village',
         required: true
     },
     description: {

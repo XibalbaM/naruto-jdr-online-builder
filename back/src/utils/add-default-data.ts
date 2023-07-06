@@ -12,6 +12,8 @@ import Road from "../classes/road.class.js";
 import Skill from "../classes/skill.class.js";
 import Rank from "../classes/rank.class.js";
 import RankModel from "../models/rank.model.js";
+import ChakraSpe from "../classes/chakraSpe.class.js";
+import ChakraSpeModel from "../models/chakraSpe.model.js";
 
 export default async function () {
 
@@ -19,28 +21,22 @@ export default async function () {
 
     const villages: Omit<Village, "_id">[] = [
         {
-            name: "Konoha",
-            logo: "konoha.svg"
+            name: "Konoha"
         },
         {
-            name: "Suna",
-            logo: "suna.svg"
+            name: "Suna"
         },
         {
-            name: "Kiri",
-            logo: "kiri.svg"
+            name: "Kiri"
         },
         {
-            name: "Iwa",
-            logo: "iwa.svg"
+            name: "Iwa"
         },
         {
-            name: "Kumo",
-            logo: "kumo.svg"
+            name: "Kumo"
         },
         {
-            name: "Kusa",
-            logo: "kusa.svg"
+            name: "Kusa"
         }
     ]
     await VillageModel.insertMany(villages);
@@ -99,23 +95,23 @@ export default async function () {
     const roads: Omit<Road, "_id">[] = [
         {
             name: "Shōkan-shi",
-            longName: "Voie du Genjutsu"
+            qualification: "Voie du Genjutsu"
         },
         {
             name: "Ninpō",
-            longName: "Voie du Ninjutsu"
+            qualification: "Voie du Ninjutsu"
         },
         {
             name: "Kriegstier",
-            longName: "Voie des Armes"
+            qualification: "Voie des Armes"
         },
         {
             name: "Kugutsu",
-            longName: "Voie du Marionnettiste"
+            qualification: "Voie du Marionnettiste"
         },
         {
             name: "Hachimon",
-            longName: "Voie du Taïjutsu"
+            qualification: "Voie du Taïjutsu"
         }
     ]
     await RoadModel.insertMany(roads);
@@ -252,75 +248,75 @@ export default async function () {
     const skills: (Omit<Skill, "_id"> | Omit<Skill, "_id" | "isClan">)[] = [
         {
             name: "Armes Simples",
-            isCommon: true,
             base: basesId[2],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
         {
             name: "Camouflage",
-            isCommon: true,
             base: basesId[4],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
         {
             name: "Corps à Corps",
-            isCommon: true,
             base: basesId[3],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
         {
             name: "Esquive",
-            isCommon: true,
             base: basesId[3],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
         {
             name: "Gensou",
-            isCommon: true,
             base: basesId[5],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
         {
             name: "Henge",
-            isCommon: true,
             base: basesId[4],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
         {
             name: "Kawarimi",
-            isCommon: true,
             base: basesId[5],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
         {
             name: "Mental",
-            isCommon: true,
             base: basesId[1],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
         {
             name: "Parade",
-            isCommon: true,
             base: basesId[2],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
         {
             name: "Physique",
-            isCommon: true,
             base: basesId[0],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
         {
             name: "Survie",
-            isCommon: true,
             base: basesId[4],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
         {
             name: "Vigilance",
-            isCommon: true,
             base: basesId[4],
-            description: "TODO"
+            description: "TODO",
+            type: "common"
         },
     ]
     await SkillModel.insertMany(skills);
@@ -388,4 +384,48 @@ export default async function () {
         }
     ]
     await RankModel.insertMany(ranks);
+
+    const chakraSpes: Omit<ChakraSpe, "_id">[] = [
+        {
+            name: "Acéré",
+            max: 5
+        },
+        {
+            name: "Colossal",
+            max: 9
+        },
+        {
+            name: "Endurci",
+            max: 5
+        },
+        {
+            name: "Explosif",
+            max: 5
+        },
+        {
+            name: "Fulgurant",
+            max: 5
+        },
+        {
+            name: "Héréditaire",
+            max: 3
+        },
+        {
+            name: "Impérieux",
+            max: 5
+        },
+        {
+            name: "Inépuisable",
+            max: 3
+        },
+        {
+            name: "Puissant",
+            max: 1
+        },
+        {
+            name: "Rémanent",
+            max: 1
+        }
+    ]
+    await ChakraSpeModel.insertMany(chakraSpes);
 }
