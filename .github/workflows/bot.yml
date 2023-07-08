@@ -43,8 +43,9 @@ jobs:
           key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
 
           script: |
-              cd /home/discord/bot
-              rm -rf *
+            cd /home/discord
+            rm -rf bot
+            mkdir bot
 
       - name: Transfer build files to VPS
         run: |
