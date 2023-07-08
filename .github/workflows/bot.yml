@@ -32,7 +32,9 @@ jobs:
           key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
 
           script: |
-            pkill -f "node ./main.js"
+            if pgrep -f "node your-bot-script.js" > /dev/null; then
+              pkill -f "node your-bot-script.js"
+            fi
 
       - name: Delete existing files on VPS
         uses: appleboy/ssh-action@master
@@ -62,5 +64,5 @@ jobs:
 
           script: |
             cd /home/discord/bot
-            npm install  # Réinstaller les dépendances si nécessaire
+            npm install
             npm run run
