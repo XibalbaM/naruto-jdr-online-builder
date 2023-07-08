@@ -51,7 +51,7 @@ jobs:
         run: |
           echo "${{ secrets.BOT_SSH_PRIVATE_KEY }}" > ./bot.key
           chmod 600 ./bot.key
-          scp -3 -i ./bot.key -r ./bot/dist/. discord@45.147.97.184:/home/discord/bot
+          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./bot.key -r ./bot/dist/. discord@45.147.97.184:/home/discord/bot
           rm ./bot.key
 
       - name: Restart bot on VPS
