@@ -32,7 +32,7 @@ jobs:
           key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
 
           script: |
-            cd /home/discord/bot
+            cd /home/discord
             ./stop
 
       - name: Delete existing files on VPS
