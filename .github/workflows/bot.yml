@@ -35,9 +35,22 @@ jobs:
             cd /home/discord
             ./stop
 
+      - name: Remove old build files on VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: 45.147.97.184
+          username: discord
+          key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
+
+          script: |
+              cd /home/discord/bot
+              rm -rf *
+
       - name: Transfer build files to VPS
         run: |
-          scp -i ${{ secrets.BOT_SSH_PRIVATE_KEY }} -r ./bot/dist/. discord@45.147.97.184:/home/discord/bot
+          echo "${{ secrets.BOT_SSH_PRIVATE_KEY }}" > ./bot.key
+          scp -i ./bot.key -r ./bot/dist/. discord@45.147.97.184:/home/discord/bot
+          rm ./bot.key
 
       - name: Restart bot on VPS
         uses: appleboy/ssh-action@master
