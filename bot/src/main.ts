@@ -8,7 +8,7 @@ const client = new Client({
     presence: {
         status: "online",
         activities: [{
-            name: "/aide pour les commandes",
+            name: "/aide pour les commandes !",
             type: 2
         }]
     },
