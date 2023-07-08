@@ -49,6 +49,7 @@ jobs:
       - name: Transfer build files to VPS
         run: |
           echo "${{ secrets.BOT_SSH_PRIVATE_KEY }}" > ./bot.key
+          chmod 600 ./bot.key
           scp -i ./bot.key -r ./bot/dist/. discord@45.147.97.184:/home/discord/bot
           rm ./bot.key
 
