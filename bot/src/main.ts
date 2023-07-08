@@ -9,7 +9,8 @@ const client = new Client({
         status: "online",
         activities: [{
             name: "/aide pour les commandes",
-            type: 2
+            type: 2,
+            url: "https://builder.naruto-jdr.com"
         }]
     },
     intents: [
