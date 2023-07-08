@@ -5,6 +5,13 @@ import {SlashCommand} from "./classes";
 import config from "./config/env.js";
 
 const client = new Client({
+    presence: {
+        status: "online",
+        activities: [{
+            name: "/aide pour les commandes",
+            type: 2
+        }]
+    },
     intents: [
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
