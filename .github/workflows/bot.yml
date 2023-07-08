@@ -32,7 +32,7 @@ jobs:
           key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
 
           script: |
-            pkill -f "node your-bot-script.js"
+            pkill -f "node ./main.js"
 
       - name: Delete existing files on VPS
         uses: appleboy/ssh-action@master
