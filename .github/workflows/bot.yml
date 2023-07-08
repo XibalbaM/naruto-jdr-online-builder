@@ -19,12 +19,10 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        working-directory: ./bot
-        run: npm install
+        run: cd ./bot && npm install
 
       - name: Build
-        working-directory: ./bot
-        run: npm run build
+        run: cd ./bot && npm run build
 
       - name: Stop bot process on VPS
         uses: appleboy/ssh-action@master
