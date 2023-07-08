@@ -41,8 +41,9 @@ jobs:
           host: 45.147.97.184
           username: discord
           key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
-          source: ./bot/dist/.
+          source: ./bot/dist
           target: /home/discord/bot
+          strip-components: 1
           rm: true
 
       - name: Restart bot on VPS
