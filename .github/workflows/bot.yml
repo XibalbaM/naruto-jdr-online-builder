@@ -64,4 +64,9 @@ jobs:
           script: |
             cd /home/discord/bot
             npm install
+            export NODE_ENV=prod
+            export DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
+            export DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}
+            export DISCORD_GUILD_ID=${{ secrets.DISCORD_GUILD_ID }}
+            export JWT_SECRET=${{ secrets.DISCORD_JWT_SECRET }}
             npm run run
