@@ -13,18 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Go to bot directory
-        run: cd bot
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '18'
 
       - name: Install dependencies
+        working-directory: ./bot
         run: npm install
 
       - name: Build
+        working-directory: ./bot
         run: npm run build
 
       - name: Stop bot process on VPS
@@ -53,7 +52,7 @@ jobs:
           host: 45.147.97.184
           username: discord
           key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
-          source: ./dist
+          source: ./bot/dist
           target: /home/discord/bot
 
       - name: Restart bot on VPS
