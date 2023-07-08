@@ -1,0 +1,66 @@
+name: Discord bot deployment
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "bot/**"
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Stop bot process on VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: 45.147.97.184
+          username: discord
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+          script: |
+            pkill -f "node your-bot-script.js"
+
+      - name: Delete existing files on VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: 45.147.97.184
+          username: discord
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+          script: |
+            rm -rf /home/discord/bot/*
+
+      - name: Transfer build files to VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: 45.147.97.184
+          username: discord
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ./dist
+          target: /home/discord/bot
+
+      - name: Restart bot on VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: 45.147.97.184
+          username: discord
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+          script: |
+            cd /home/discord/bot
+            npm install  # Réinstaller les dépendances si nécessaire
+            npm run run
