@@ -18,6 +18,8 @@ import ClanModel from "./models/clan.model.js";
 import Clan from "./classes/clan.class.js";
 import RankModel from "./models/rank.model.js";
 import Rank from "./classes/rank.class.js";
+import ChakraSpeModel from "./models/chakraSpe.model";
+import ChakraSpe from "./classes/chakraSpe.class";
 
 /**
  * The main router of the api.
@@ -37,6 +39,7 @@ router.use('/roads', await dataRoute(RoadModel, Road.fromModel));
 router.use('/skills', await dataRoute(SkillModel, Skill.fromModel));
 router.use('/clans', await dataRoute(ClanModel, Clan.fromModel));
 router.use('/ranks', await dataRoute(RankModel, Rank.fromModel));
+router.use('/chakraSpes', await dataRoute(ChakraSpeModel, ChakraSpe.fromModel));
 router.use('/assets', express.static(path.resolve('assets')));
 
 export default router;
