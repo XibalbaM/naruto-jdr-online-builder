@@ -36,10 +36,10 @@ export const characterSchema = new mongoose.Schema({
 		of: Number,
 		required: true,
 		default: async function () {
-			const basesIds = await BaseModel.find().select('_id');
+			const basesIds = (await BaseModel.find()).map(base => base._id);
 			const bases = new Map();
-			basesIds.forEach(base => {
-				bases.set(base._id, 1);
+			basesIds.forEach(baseId => {
+				bases.set(baseId, 1);
 			});
 			return bases;
 		}
