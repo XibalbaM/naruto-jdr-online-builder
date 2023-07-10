@@ -18,8 +18,8 @@ import ClanModel from "./models/clan.model.js";
 import Clan from "./classes/clan.class.js";
 import RankModel from "./models/rank.model.js";
 import Rank from "./classes/rank.class.js";
-import ChakraSpeModel from "./models/chakraSpe.model";
-import ChakraSpe from "./classes/chakraSpe.class";
+import ChakraSpeModel from "./models/chakraSpe.model.js";
+import ChakraSpe from "./classes/chakraSpe.class.js";
 
 /**
  * The main router of the api.
