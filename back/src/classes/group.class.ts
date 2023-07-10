@@ -10,7 +10,7 @@ export default class Group {
     _id: mongoose.Types.ObjectId;
     name: string;
     village: mongoose.Types.ObjectId;
-    users: {role: "sensei" | "player", user: User}[];
+    users: {role: "sensei" | "player", user: mongoose.Types.ObjectId}[];
 
     /**
      * Creates a new group from a model

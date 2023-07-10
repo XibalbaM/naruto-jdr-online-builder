@@ -25,7 +25,8 @@ export const GroupSchema = new mongoose.Schema({
                 default: "player"
             },
             user: {
-                type: UserSchema,
+                type: mongoose.Types.ObjectId,
+                ref: "user",
                 required: true
             }
         }],
