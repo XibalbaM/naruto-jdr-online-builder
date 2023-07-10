@@ -51,7 +51,6 @@ export default class DataController {
     }
 
     get = (req: Request, res: Response) => {
-        if (!req.params.id) return res.status(400).json({error: "Bad request"});
         this.dataService.get(req.params.id).then((data) => {
             if (data) this.sendDataOr304(req, res, data);
             else res.status(404).json({error: "Not found"});
@@ -65,12 +64,10 @@ export default class DataController {
     }
 
     update = (req: Request, res: Response) => {
-        if (!req.params.id) return res.status(400).json({error: "Bad request"});
         this.dataService.update(req.params.id, req.body.data).then(() => res.status(200).json({message: "Successfully updated"})).catch((err) => res.status(500).json({error: "Internal server error"}));
     }
 
     delete = (req: Request, res: Response) => {
-        if (!req.params.id) return res.status(400).json({error: "Bad request"});
         this.dataService.delete(req.params.id).then(() => res.status(200).json({message: "Successfully deleted"})).catch((err) => {
             res.status(500).json({error: "Internal server error"});
             console.log(err);

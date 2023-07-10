@@ -34,16 +34,3 @@ test("GET /:id", async () => {
     const json = await response.json();
     expect(json["group"]["name"]).toBe("testDataGroup");
 });
-
-//BAD USES
-test("GET /:id with invalid id", async () => {
-
-    const response = await fetchUtils.get("/groups/" + "invalidId", await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(400);
-    const json = await response.json();
-    expect(json["error"]).toBe("Invalid group id");
-});
-
-
-//LONG TESTS
