@@ -13,7 +13,7 @@ test("GET /", async () => {
     expect(response.status).toBe(200);
     const json = await response.json() as Array<Village>;
     expect(json).toBeInstanceOf(Array);
-    expect(json.filter((data) => data.name === "Konoha")[0].logo).toBe("konoha.png");
+    expect(json.filter((data) => data.name === "Konoha")[0]).toBeDefined()
     konoha = json.filter((data) => data.name === "Konoha")[0];
 });
 
@@ -25,30 +25,27 @@ test("GET /:id", async () => {
     const json = await response.json() as Village;
     expect(json).toBeInstanceOf(Object);
     expect(json.name).toBe(konoha.name);
-    expect(json.logo).toBe(konoha.logo);
 });
 
 test("POST /", async () => {
 
-    const response = await fetchUtils.post("/villages", {data: {name: "Salut", logo: "test.png"}}, await fetchUtils.getAdminToken());
+    const response = await fetchUtils.post("/villages", {data: {name: "Salut"}}, await fetchUtils.getAdminToken());
 
     expect(response.status).toBe(201);
     const json = await response.json() as Village;
     expect(json).toBeInstanceOf(Object);
     expect(json.name).toBe("Salut");
-    expect(json.logo).toBe("test.png");
 
     const get = await fetchUtils.get(`/villages/${json._id}`);
     expect(get.status).toBe(200);
     const getJson = await get.json() as Village;
     expect(getJson).toBeInstanceOf(Object);
     expect(getJson.name).toBe("Salut");
-    expect(getJson.logo).toBe("test.png");
 });
 
 test("PUT /:id", async () => {
 
-    const response = await fetchUtils.put(`/villages/${konoha._id}`, {data: {name: "Coucou", logo: "test2.png"}}, await fetchUtils.getAdminToken());
+    const response = await fetchUtils.put(`/villages/${konoha._id}`, {data: {name: "Coucou"}}, await fetchUtils.getAdminToken());
     console.log(await response.json());
 
     expect(response.status).toBe(200);
@@ -58,7 +55,6 @@ test("PUT /:id", async () => {
     const getJson = await get.json() as Village;
     expect(getJson).toBeInstanceOf(Object);
     expect(getJson.name).toBe("Coucou");
-    expect(getJson.logo).toBe("test2.png");
 });
 
 test("DELETE /:id", async () => {
