@@ -9,6 +9,8 @@ import RoadModel from "../models/road.model.js";
 import SkillModel from "../models/skill.model.js";
 import ClanModel from "../models/clan.model.js";
 import RankModel from "../models/rank.model.js";
+import ChakraSpeModel from "../models/chakraSpe.model.js";
+import CharacterModel from "../models/character.model.js";
 
 /**
  * Clears the database witch the app currently connected to.
@@ -25,5 +27,8 @@ export async function clearDatabase() {
     await ClanModel.collection.drop();
     await SkillModel.collection.drop();
     await RankModel.collection.drop();
+    await ChakraSpeModel.collection.drop();
+    await CharacterModel.collection.drop();
+
     console.log("Database cleared");
 }
