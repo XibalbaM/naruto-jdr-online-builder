@@ -46,7 +46,6 @@ test("POST /", async () => {
 test("PUT /:id", async () => {
 
     const response = await fetchUtils.put(`/villages/${konoha._id}`, {data: {name: "Coucou"}}, await fetchUtils.getAdminToken());
-    console.log(await response.json());
 
     expect(response.status).toBe(200);
 
