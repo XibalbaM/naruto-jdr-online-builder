@@ -1,8 +1,7 @@
-import mongoose, {ObjectId} from "mongoose";
+import mongoose from "mongoose";
 import BaseModel from "./base.model.js";
 import ChakraSpeModel from "./chakraSpe.model.js";
 import SkillModel from "./skill.model.js";
-import Skill from "../classes/skill.class.js";
 
 /**
  * Represents a character in the application.
