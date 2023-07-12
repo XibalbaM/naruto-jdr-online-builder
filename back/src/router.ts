@@ -20,6 +20,7 @@ import RankModel from "./models/rank.model.js";
 import Rank from "./classes/rank.class.js";
 import ChakraSpeModel from "./models/chakraSpe.model.js";
 import ChakraSpe from "./classes/chakraSpe.class.js";
+import charactersRoute from "./routes/characters.route.js";
 
 /**
  * The main router of the api.
@@ -33,6 +34,7 @@ router.use('/auth', authRoute);
 router.use('/account', accountRoute);
 router.use('/groups', groupsRoute);
 router.use('/discord', discordRoute);
+router.use('/characters', charactersRoute);
 router.use('/villages', await dataRoute(VillageModel, Village.fromModel));
 router.use('/bases', await dataRoute(BaseModel, Base.fromModel));
 router.use('/roads', await dataRoute(RoadModel, Road.fromModel));

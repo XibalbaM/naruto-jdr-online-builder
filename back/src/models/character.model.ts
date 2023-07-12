@@ -1,6 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, {ObjectId} from "mongoose";
 import BaseModel from "./base.model.js";
 import ChakraSpeModel from "./chakraSpe.model.js";
+import SkillModel from "./skill.model.js";
+import Skill from "../classes/skill.class.js";
 
 /**
  * Represents a character in the application.
@@ -32,21 +34,33 @@ export const characterSchema = new mongoose.Schema({
 		default: 100
 	},
 	bases: {
-		type: Map,
-		of: Number,
-		required: true,
-		default: async function () {
-			const basesIds = (await BaseModel.find()).map(base => base._id);
-			const bases = new Map();
-			basesIds.forEach(baseId => {
-				bases.set(baseId, 1);
-			});
-			return bases;
-		}
+		type: [{
+			base: {
+				type: mongoose.Types.ObjectId,
+				ref: 'base',
+				required: true
+			},
+			level: {
+				type: Number,
+				required: true,
+				default: 1
+			}
+		}],
+		required: true
 	},
 	skills: {
-		type: Map,
-		of: Number,
+		type: [{
+			skill: {
+				type: mongoose.Types.ObjectId,
+				ref: 'skill',
+				required: true
+			},
+			level: {
+				type: Number,
+				required: true,
+				default: 1
+			}
+		}],
 		required: true
 	},
 	nindo: {
@@ -59,22 +73,40 @@ export const characterSchema = new mongoose.Schema({
 		default: 0
 	},
 	chakraSpes: {
-		type: Map,
-		of: Number,
-		required: true,
-		default: async function () {
-			const chakraSpesIds = await ChakraSpeModel.find().select('_id');
-			const chakraSpes = new Map();
-			chakraSpesIds.forEach(chakraSpe => {
-				chakraSpes.set(chakraSpe._id, 0);
-			});
-			return chakraSpes;
-		}
-	},
-	story: {
-		type: String,
+		type: [{
+			spe: {
+				type: mongoose.Types.ObjectId,
+				ref: 'chakraSpe',
+				required: true
+			},
+			level: {
+				type: Number,
+				required: true,
+				default: 1
+			}
+		}],
 		required: true
+	},
+	notes: {
+		type: String,
+		required: false
 	}
+});
+
+characterSchema.pre('save', async function (next) {
+	if (!this.bases || this.bases.length === 0) {
+		// @ts-ignore
+		this.bases = (await BaseModel.find()).map(base => base._id).map(id => ({base: id, level: 1}));
+	}
+	if (!this.skills || this.skills.length === 0) {
+		// @ts-ignore
+		this.skills = (await SkillModel.find()).map(skill => ({skill: skill._id, level: skill.type === "common" ? 1 : 0}));
+	}
+	if (!this.chakraSpes || this.chakraSpes.length === 0) {
+		// @ts-ignore
+		this.chakraSpes = (await ChakraSpeModel.find()).map(spe => spe._id).map(id => ({spe: id, level: 0}));
+	}
+	next();
 });
 
 export default mongoose.model('character', characterSchema);

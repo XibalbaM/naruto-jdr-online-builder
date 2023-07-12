@@ -11,12 +11,12 @@ export default class Character {
     village: mongoose.Types.ObjectId;
     road?: mongoose.Types.ObjectId;
     xp: number;
-    bases: Map<mongoose.Types.ObjectId, number>;
-    skills: Map<mongoose.Types.ObjectId, number>;
+    bases: {base: mongoose.Types.ObjectId, level: number}[];
+    skills: {skill: mongoose.Types.ObjectId, level: number}[];
     nindo: string;
     nindoPoints: number;
-    chakraSpes: Map<mongoose.Types.ObjectId, number>;
-    story: string;
+    chakraSpes: {spe: mongoose.Types.ObjectId, level: number}[];
+    notes: string;
 
     /**
      * Creates a new character from a model
@@ -35,7 +35,7 @@ export default class Character {
         character.nindo = modelCharacter.nindo;
         character.nindoPoints = modelCharacter.nindoPoints;
         character.chakraSpes = modelCharacter.chakraSpes;
-        character.story = modelCharacter.story;
+        character.notes = modelCharacter.notes;
 
         return character;
     }
