@@ -22,7 +22,7 @@ export default async function (model: Model<any>, modelToClass: (model: any) => 
     router.get("/", dataController.getAll);
     router.get("/:id", idOfMiddleware(model, "id"), dataController.get);
     router.post("/", authMiddleware(), adminMiddleware(), contentMiddleware({data: exempleData}), dataController.create);
-    router.put("/:id", authMiddleware(), adminMiddleware(), idOfMiddleware(model, "id"), contentMiddleware({data: {}}), dataController.update);
+    router.put("/:id", authMiddleware(), adminMiddleware(), idOfMiddleware(model, "id"), contentMiddleware({data: exempleData}), dataController.update);
     router.delete("/:id", authMiddleware(), adminMiddleware(), idOfMiddleware(model, "id"), dataController.delete);
 
     return router;

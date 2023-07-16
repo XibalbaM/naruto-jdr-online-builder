@@ -9,13 +9,12 @@ import BaseModel from "../../models/base.model";
 import ChakraSpeModel from "../../models/chakraSpe.model";
 import CharacterModel from "../../models/character.model";
 
-const characterData: Omit<Character, "_id" | "bases" | "skills" | "chakraSpes"> = {
+const characterData: Omit<Character, "_id" | "bases" | "skills" | "chakraSpes" | "nindoPoints"> = {
 	firstName: "test",
 	village: (await VillageModel.findOne())._id,
 	xp: 100,
 	notes: "test",
 	nindo: "test",
-	nindoPoints: 0,
 	clan: (await ClanModel.findOne())._id
 }
 
