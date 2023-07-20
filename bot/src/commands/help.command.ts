@@ -13,7 +13,6 @@ const command: SlashCommand = {
 			.sort((a, b) => a.command.name.localeCompare(b.command.name))
 			.map((value) => `**/${value.command.name}**\n${value.command.description}`)
 			.join("\n- ");
-
 		await Responses.successEmbed(interaction, "Liste des commandes", text);
 	}
 };
