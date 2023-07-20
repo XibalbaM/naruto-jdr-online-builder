@@ -10,6 +10,7 @@ const command: SlashCommand = {
 
         const text = "- " + interaction.client.slashCommands
             .filter(value => value.implemented === undefined || value.implemented)
+            .sort((a, b) => a.command.name.localeCompare(b.command.name))
             .map((value) => `**/${value.command.name}**\n${value.command.description}`)
             .join("\n- ");
 
