@@ -32,8 +32,7 @@ jobs:
           key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
 
           script: |
-            cd /home/discord
-            ./stop
+            pm2 stop DiscordBot
 
       - name: Remove old build files on VPS
         uses: appleboy/ssh-action@master
@@ -68,4 +67,4 @@ jobs:
             export DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
             export DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}
             export JWT_SECRET=${{ secrets.DISCORD_JWT_SECRET }}
-            npm run run &
+            pm2 start --name=DiscordBot main.js
