@@ -17,11 +17,8 @@ const command: SlashCommand = {
         }
         let input = interaction.options.getString("formule") || "1d10e10";
         input = input.toLowerCase().replace(/ /g, "");
-        console.log(input);
-        if (input.match(/^\d[0-9+\-\/*]+$/)) input = `1d10e10+${input}`;
-        console.log(input);
+        if (input.match(/^\d[0-9+\-\/*]*$/)) input = `1d10e10+${input}`;
         if (input.match(/^[+\-\/*][0-9+\-\/*]+$/)) input = `1d10e10${input}`;
-        console.log(input);
         try {
             const parseDiceRoll = DiceUtils.parseDiceRoll(input);
             await Responses.success(interaction, Messages.DICE.SUCCESS(input, parseDiceRoll.result, parseDiceRoll.details), false);
