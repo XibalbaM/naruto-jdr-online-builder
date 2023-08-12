@@ -1,3 +1,6 @@
+import Group from "./group.model";
+import Character from "./character.model";
+
 /**
  * Class representing a user.
  * @class User
@@ -8,11 +11,11 @@ export default class User {
   username?: string;
   profileImage?: string;
   isAdmin!: boolean;
-  groups: {_id: string, name: string, role: string}[] = [];
+  groups!: {role: "sensei" | "player", group: Group}[];
+  characters!: Character[]
   discordId?: string;
   discordUsername?: string;
   discordDiscriminator?: string;
-
 
   constructor(user: User) {
     Object.assign(this, user);
