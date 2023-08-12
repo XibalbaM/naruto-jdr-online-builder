@@ -5,5 +5,5 @@
 export default class Road {
   _id!: string;
   name!: string;
-  longName!: string;
+  qualification!: string;
 }
