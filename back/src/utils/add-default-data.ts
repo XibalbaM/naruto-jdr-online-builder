@@ -318,6 +318,51 @@ export default async function () {
             description: "TODO",
             type: "common"
         },
+        // Combat
+        {
+            name: "Armes exotiques",
+            base: basesId[2],
+            description: "TODO",
+            type: "combat"
+        },
+        {
+            name: "Gōken (École de combat)",
+            base: basesId[3],
+            description: "TODO",
+            type: "combat"
+        },
+        {
+            name: "Intimidation",
+            base: basesId[0],
+            description: "TODO",
+            type: "combat"
+        },
+        // Terrain
+        {
+            name: "Collecter des informations",
+            base: basesId[1],
+            description: "TODO",
+            type: "terrain"
+        },
+        {
+            name: "Manipulation",
+            base: basesId[3],
+            description: "TODO",
+            type: "terrain"
+        },
+        // Clan
+        {
+            name: "Kage",
+            base: basesId[4],
+            description: "TODO",
+            type: "clan"
+        },
+        {
+            name: "Résistances Émotionnelles",
+            base: basesId[5],
+            description: "TODO",
+            type: "clan"
+        }
     ]
     await SkillModel.insertMany(skills);
 
