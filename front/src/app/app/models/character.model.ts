@@ -1,26 +1,33 @@
-import Village from "./village.model";
-import Base from "./base.model";
-import Clan from "./clan.model";
-import Road from "./road.model";
-import Skill from "./skill.model";
-import Rank from "./rank.model";
-
 /**
  * Class representing a character
  * @class Character
  */
 export default class Character {
-  _id!: string;
-  firstName!: string;
-  clan!: Clan | number;
-  village!: Village | number;
-  road?: Road | number;
-  level!: string;
-  rank!: Rank;
-  xp!: number;
-  nindo!: string;
-  nindoPoints!: number;
-  story!: string;
-  bases!: Map<Base | number, number>;
-  skills!: Map<Skill | number, number>;
+	_id!: string;
+	firstName!: string;
+	clan!: string;
+	village!: string;
+	road?: string;
+	xp!: number;
+	bases: { base: string, level: number }[] = [];
+	skills: { skill: string, level: number }[] = [];
+	nindo!: string;
+	nindoPoints!: number;
+	chakraSpes: { spe: string, level: number }[] = [];
+	notes!: string;
+
+	constructor(character?: Character) {
+		if (character) Object.assign(this, character);
+	}
+
+	toCreate() {
+		return {
+			notes: this.notes,
+			firstName: this.firstName,
+			clan: this.clan,
+			village: this.village,
+			xp: this.xp,
+			nindo: this.nindo
+		}
+	}
 }
