@@ -11,7 +11,7 @@ export class XpToRankPipe implements PipeTransform {
     }
 
     transform(xp: number): Rank {
-        for (const rank of this.dataService.ranks.getValue().reverse()) {
+        for (const rank of this.dataService.ranks.getValue().sort((a, b) => b.minXp - a.minXp)) {
             if (rank.minXp < xp) {
                 return rank;
             }
