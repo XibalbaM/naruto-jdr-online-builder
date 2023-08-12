@@ -41,8 +41,9 @@ export async function requestEmail(email: string, discordId?: string): Promise<{
         }
     }
 
-    await emailService.sendConnectionEmail(email, getConnectionTokenFromEmail(email, discordId), !userDoc);
     emailSentCache.set(email, new Date().toString());
+
+    await emailService.sendConnectionEmail(email, getConnectionTokenFromEmail(email, discordId), !userDoc);
 
     return {code: 0, isRegistration: !userDoc};
 }
