@@ -29,6 +29,7 @@ export default class Character {
         character.firstName = modelCharacter.firstName;
         character.clan = modelCharacter.clan;
         character.village = modelCharacter.village;
+        character.road = modelCharacter.road || undefined;
         character.xp = modelCharacter.xp;
         character.bases = modelCharacter.bases;
         character.skills = modelCharacter.skills;
