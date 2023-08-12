@@ -42,6 +42,10 @@ router.use('/skills', await dataRoute(SkillModel, Skill.fromModel));
 router.use('/clans', await dataRoute(ClanModel, Clan.fromModel));
 router.use('/ranks', await dataRoute(RankModel, Rank.fromModel));
 router.use('/chakraSpes', await dataRoute(ChakraSpeModel, ChakraSpe.fromModel));
-router.use('/assets', express.static(path.resolve('assets')));
+router.use('/assets', express.static(path.resolve('assets'), {
+    maxAge: 1000 * 60 * 60 * 24 * 3,
+    etag: true,
+    lastModified: true
+}));
 
 export default router;
