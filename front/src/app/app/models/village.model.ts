@@ -5,5 +5,4 @@
 export default class Village {
   _id!: string;
   name!: string;
-  logo?: string;
 }
