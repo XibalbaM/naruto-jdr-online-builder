@@ -34,6 +34,10 @@ router.put('/:id/spes/:speId', authMiddleware(), idOfMiddleware(CharacterModel, 
 router.delete('/:id/spes/:speId', authMiddleware(), idOfMiddleware(CharacterModel, "id"), idOfMiddleware(ChakraSpeModel, "speId"), charactersController.removeSpe);
 router.post('/:id/notes', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({text: "string"}), charactersController.setNotes);
 router.post('/:id/xp', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({xp: 42}), charactersController.setXp);
+router.post('/:id/village', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({id: 'string'}), charactersController.setVillage);
+router.post('/:id/name', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({text: 'string'}), charactersController.setName);
+router.post('/:id/clan', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({id: 'string'}), charactersController.setClan);
+router.post('/:id/road', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({id: 'string'}), charactersController.setRoad);
 router.delete('/:id', authMiddleware(), idOfMiddleware(CharacterModel, "id"), charactersController.deleteCharacter);
 
 export default router;

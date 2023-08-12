@@ -8,6 +8,7 @@ import ClanModel from "../../models/clan.model";
 import BaseModel from "../../models/base.model";
 import ChakraSpeModel from "../../models/chakraSpe.model";
 import CharacterModel from "../../models/character.model";
+import RoadModel from "../../models/road.model";
 
 const characterData: Omit<Character, "_id" | "bases" | "skills" | "chakraSpes" | "nindoPoints"> = {
 	firstName: "test",
@@ -20,7 +21,6 @@ const characterData: Omit<Character, "_id" | "bases" | "skills" | "chakraSpes" |
 
 let characterId: string;
 
-//NORMAL USES
 test("POST / with character data", async () => {
 
 	const response = await fetchUtils.post("/characters", {character: characterData}, await fetchUtils.getTestToken());
@@ -91,12 +91,6 @@ test("POST /:characterId/bases/:baseId with invalid values", async () => {
 	expect(response.status).toBe(400);
 	let json = await response.json();
 	expect(json["error"]).toBe("Invalid value");
-
-	// response = await fetchUtils.post("/characters/" + characterId + "/bases/" + (await BaseModel.findOne({shortName: "COR"}))._id, {value: 6}, await fetchUtils.getTestToken());
-	//
-	// expect(response.status).toBe(400);
-	// json = await response.json();
-	// expect(json["error"]).toBe("Invalid value");
 });
 
 test("POST /:characterId/nindo", async () => {
@@ -162,6 +156,71 @@ test("POST /:characterId/xp", async () => {
 	expect(response.status).toBe(200);
 	const character = Character.fromModel(await CharacterModel.findById(characterId));
 	expect(character.xp).toBe(12);
+});
+
+test("POST /:characterId/village", async () => {
+    const kiriId = (await VillageModel.findOne({name: "Kiri"}))._id.toString();
+    let response = await fetchUtils.post("/characters/" + characterId + "/village", {id: kiriId}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(200);
+    let character = Character.fromModel(await CharacterModel.findById(characterId));
+    expect(character.village.toString()).toBe(kiriId);
+
+    response = await fetchUtils.post("/characters/" + characterId + "/village", {id: 'hello'}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(404);
+    const json = await response.json();
+    expect(json["error"]).toBe("Village not found");
+    character = Character.fromModel(await CharacterModel.findById(characterId));
+    expect(character.village.toString()).toBe(kiriId);
+});
+
+test("POST /:characterId/name", async () => {
+    const response = await fetchUtils.post("/characters/" + characterId + "/name", {text: "hello"}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(200);
+    const character = Character.fromModel(await CharacterModel.findById(characterId));
+    expect(character.firstName).toBe("hello");
+});
+
+test("POST /:characterId/clan", async () => {
+    const naraId = (await ClanModel.findOne({name: "Nara"}))._id.toString();
+    let response = await fetchUtils.post("/characters/" + characterId + "/clan", {id: naraId}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(200);
+    let character = Character.fromModel(await CharacterModel.findById(characterId));
+    expect(character.clan.toString()).toBe(naraId);
+    //TODO: Add clan attributes removal
+    response = await fetchUtils.post("/characters/" + characterId + "/clan", {id: 'hello'}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(404);
+    const json = await response.json();
+    expect(json["error"]).toBe("Clan not found");
+    character = Character.fromModel(await CharacterModel.findById(characterId));
+    expect(character.clan.toString()).toBe(naraId);
+});
+
+test("POST /:characterId/road", async () => {
+    const kriegstierId = (await RoadModel.findOne({name: "Kriegstier"}))._id.toString();
+    let response = await fetchUtils.post("/characters/" + characterId + "/road", {id: kriegstierId}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(200);
+    let character = Character.fromModel(await CharacterModel.findById(characterId));
+    expect(character.road.toString()).toBe(kriegstierId);
+
+    response = await fetchUtils.post("/characters/" + characterId + "/road", {id: ''}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(200);
+    character = Character.fromModel(await CharacterModel.findById(characterId));
+    expect(character.road).toBeUndefined();
+
+    response = await fetchUtils.post("/characters/" + characterId + "/road", {id: 'hello'}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(404);
+    const json = await response.json();
+    expect(json["error"]).toBe("Road not found");
+    character = Character.fromModel(await CharacterModel.findById(characterId));
+    expect(character.road).toBeUndefined();
 });
 
 test("DELETE /:characterId", async () => {
