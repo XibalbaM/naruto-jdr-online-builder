@@ -1,8 +1,10 @@
 import {Injectable} from "@angular/core";
 import Auth from "../models/auth.model";
 import {ApiService} from "./api.service";
-import { map, Observable, tap} from "rxjs";
+import {forkJoin, map, Observable, tap} from "rxjs";
 import User from "../models/user.model";
+import Group from "../models/group.model";
+import Character from "../models/character.model";
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +47,17 @@ export class AuthService {
       else localStorage.setItem('token', token);
       if (token) {
         this.apiService.doRequest<{user?: User, error?: string}>("GET", "/account").subscribe((response) => {
-          if (response.body && !response.body["error"] && response.body["user"]) this.auth.user = new User(response.body.user);
+          if (response.body && !response.body.error && response.body.user) {
+            forkJoin([
+                this.apiService.doRequest<{groups?: [Group], error?: string}>("GET", "/groups"),
+                this.apiService.doRequest<{characters?: [Character], error?: string}>("GET", "/characters")
+            ]).subscribe((responses) => {
+              const user = new User(response.body?.user!);
+              if (responses[0].body && !responses[0].body.error && responses[0].body.groups) user.groups = responses[0].body.groups.map((group) => ({role: "player", group: group})); //TODO: Rework when groups will be implemented
+              if (responses[1].body && !responses[1].body.error && responses[1].body.characters) user.characters = responses[1].body.characters;
+              this.auth.user = user;
+            });
+          }
           else this.auth.user = undefined;
         });
       } else {
