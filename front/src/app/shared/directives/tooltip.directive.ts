@@ -1,12 +1,9 @@
 import {
-    ApplicationRef,
     ComponentRef,
     Directive,
     ElementRef,
     EmbeddedViewRef,
-    Host,
     HostListener,
-    Injector,
     Input,
     OnDestroy,
     ViewContainerRef

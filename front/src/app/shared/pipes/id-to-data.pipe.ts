@@ -1,5 +1,4 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import ChakraSpe from "../../app/models/chakra-spe.model";
 
 @Pipe({
     name: 'idToData'

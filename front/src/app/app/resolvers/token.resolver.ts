@@ -1,5 +1,4 @@
 import {ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot} from "@angular/router";
-import User from "../models/user.model";
 import Auth from "../models/auth.model";
 import {inject} from "@angular/core";
 
