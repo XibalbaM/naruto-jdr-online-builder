@@ -13,7 +13,11 @@ export const chakraSpeSchema = new mongoose.Schema({
 	max: {
 		type: Number,
 		required: true
-	}
+	},
+    effect: {
+        type: String,
+        required: true
+    }
 });
 
 export default mongoose.model('chakraSpe', chakraSpeSchema);

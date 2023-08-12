@@ -433,43 +433,53 @@ export default async function () {
     const chakraSpes: Omit<ChakraSpe, "_id">[] = [
         {
             name: "Acéré",
-            max: 5
+            max: 5,
+            effect: "+{{1}} dégâts Armes"
         },
         {
             name: "Colossal",
-            max: 9
+            max: 9,
+            effect: "+{{100}} points de chakra"
         },
         {
             name: "Endurci",
-            max: 5
+            max: 5,
+            effect: "+{{1}} Vigueur, +{{50}} points de chakra"
         },
         {
             name: "Explosif",
-            max: 5
+            max: 5,
+            effect: "+{{2}} dégâts Taïjutsu"
         },
         {
             name: "Fulgurant",
-            max: 5
+            max: 5,
+            effect: "+{{2}} Initiative, +{{10}}m supplémentaire au Déplacement Simple dans un tour"
         },
         {
             name: "Héréditaire",
-            max: 3
+            max: 3,
+            effect: "+{{1}} utilisation de pouvoir de lignée actif supplémentaire par session"
         },
         {
             name: "Impérieux",
-            max: 5
+            max: 5,
+            effect: "+{{1}} Caractère, +{{50}} points de chakra"
         },
         {
             name: "Inépuisable",
-            max: 3
+            max: 3,
+            effect: "+{{1}}% à la régénération"
         },
         {
             name: "Puissant",
-            max: 1
+            max: 1,
+            effect: "Annule les paliers de réserve naturelle de chakra et les échecs automatiques liés aux Blessures"
         },
         {
             name: "Rémanent",
-            max: 1
+            max: 1,
+            effect: "Le chakra appliqué en petite quantité sur un objet ne disparaît pas et reste actif tant qu’un personnage le souhaite"
         }
     ]
     await ChakraSpeModel.insertMany(chakraSpes);

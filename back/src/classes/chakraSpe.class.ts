@@ -8,6 +8,7 @@ export default class ChakraSpe {
 	_id: ObjectId;
 	name: string;
 	max: number;
+    effect: string;
 
 	/**
 	 * Creates a new chakraSpe from a model
@@ -19,6 +20,7 @@ export default class ChakraSpe {
 		chakraSpe._id = modelChakraSpe._id;
 		chakraSpe.name = modelChakraSpe.name;
 		chakraSpe.max = modelChakraSpe.max;
+        chakraSpe.effect = modelChakraSpe.effect;
 
 		return chakraSpe;
 	}
