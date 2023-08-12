@@ -13,3 +13,4 @@ front/**/*
 
 # Credidentials
 src/config/env/*.environment.ts
+/codealike.json
