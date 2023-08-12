@@ -9,6 +9,5 @@ export default class Skill {
   name!: string;
   base!: Base | string;
   description!: string;
-  isCommon!: boolean;
-  isClan!: boolean;
+  type!: "common" | "combat" | "terrain" | "clan";
 }
