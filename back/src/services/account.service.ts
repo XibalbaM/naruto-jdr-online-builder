@@ -103,3 +103,26 @@ export async function removeDiscordAccount(userId: ObjectId): Promise<void> {
 
     await userModel.findByIdAndUpdate(userId, {$unset: {discordId: 1, discordUsername: 1, discordDiscriminator: 1}});
 }
+
+export async function getDiscordName(user: User): Promise<string> {
+    if (!User.fromModel(await userModel.findById(user._id)).discordId) throw new Error("User does not have a discord account");
+
+    const discordId = User.fromModel(await userModel.findById(user._id)).discordId;
+
+    const discordUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
+
+    return discordUser['nick'] || user.discordUsername;
+}
+
+export async function getDiscordPicture(user: User): Promise<string> {
+    if (!User.fromModel(await userModel.findById(user._id)).discordId) throw new Error("User does not have a discord account");
+
+    const discordId = User.fromModel(await userModel.findById(user._id)).discordId;
+
+    const guildUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
+    if (guildUser['avatar'])
+        return `https://cdn.discordapp.com/avatars/${user.discordId}/${guildUser['avatar']}?size=`;
+
+    const discordUser = await config.discord.rest.get(Routes.user(discordId));
+    return `https://cdn.discordapp.com/avatars/${user.discordId}/${discordUser['avatar']}?size=`;
+}

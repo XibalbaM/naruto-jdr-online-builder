@@ -35,7 +35,7 @@ export const UserSchema = new mongoose.Schema({
         required: true
     },
     characters: {
-type: [mongoose.Types.ObjectId],
+        type: [mongoose.Types.ObjectId],
         ref: 'character',
         default: [],
         required: true

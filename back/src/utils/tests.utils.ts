@@ -30,6 +30,7 @@ export async function init() {
 
 let testToken: string;
 let adminToken: string;
+const discordTestId = "569895047026180135";
 
 /**
  * Create accounts used for authenticated tests.
@@ -82,6 +83,22 @@ export async function createTestGroup() {
 export async function getTestGroupId(): Promise<string> {
     await databaseConnect;
     return (await groupModel.findOne({name: 'testDataGroup'}))._id.toString();
+}
+
+/**
+ * @returns the test group's id.
+ */
+export async function addDiscordAccountToTestAccount() {
+    await databaseConnect;
+    return userModel.findOneAndUpdate({email: "testdata@test.test"}, {discordId: discordTestId});
+}
+
+/**
+ * @returns the test group's id.
+ */
+export async function removeDiscordAccountFromTestAccount() {
+    await databaseConnect;
+    return userModel.findOneAndUpdate({email: "testdata@test.test"}, {$unset : {discordId: 1}});
 }
 
 /**

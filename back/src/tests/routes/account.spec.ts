@@ -2,6 +2,7 @@ import {test, expect} from "vitest";
 
 import * as fetchUtils from "../../utils/tests.utils.js";
 import config from "../../config/env";
+import {addDiscordAccountToTestAccount, removeDiscordAccountFromTestAccount} from "../../utils/tests.utils.js";
 
 //NORMAL USES
 test("POST /username with valid username", async () => {
@@ -42,6 +43,25 @@ test("DELETE /picture", async () => {
     expect(userData["user"]["profileImage"]).toBeUndefined();
 });
 
+test("GET /discord/name", async () => {
+    await addDiscordAccountToTestAccount();
+    const response = await fetchUtils.get("/account/discord/name", await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(200);
+    const json = await response.json();
+    expect(json["discordName"]).toBe("Test");
+});
+
+test("GET /discord/picture", async () => {
+
+    const response = await fetchUtils.get("/account/discord/picture", await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(200);
+    const json = await response.json();
+    expect(json["discordPicture"]).toBeDefined();
+    console.log(json["discordPicture"]);
+});
+
 test("DELETE /", async () => {
 
     const token = await fetchUtils.getTestToken();
@@ -80,4 +100,18 @@ test("POST /picture with invalid link", async () => {
     expect(response.status).toBe(400);
     const json = await response.json();
     expect(json["error"]).toBe("Link is not valid.");
+});
+
+test("GET /discord/name without discord account", async () => {
+    await removeDiscordAccountFromTestAccount();
+    const response = await fetchUtils.get("/account/discord/name", await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(404);
+});
+
+test("GET /discord/picture without discord account", async () => {
+
+    const response = await fetchUtils.get("/account/discord/picture", await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(404);
 });

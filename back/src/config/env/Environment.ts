@@ -116,6 +116,10 @@ export default class Environment {
          * The rest client for discord.
          */
         rest: REST;
+        /**
+         * The guild id of the discord application.
+         */
+        guildId: string;
     }
 
     constructor(data: Environment) {

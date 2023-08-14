@@ -173,3 +173,45 @@ export function removeDiscordAccount(req: Request, res: Response) {
             res.status(500).json({error: "Internal server error"});
     });
 }
+
+/**
+ * Handles DELETE requests to /account/discord
+ *
+ * Must be preceded by the authMiddleware
+ *
+ * Unlinks the discord account from the user
+ * @param req The request
+ * @param res The response
+ */
+export function getDiscordName(req: Request, res: Response) {
+
+    accountService.getDiscordName(req["user"]["_id"]).then((discordName) => {
+        res.status(200).json({discordName});
+    }).catch((err) => {
+        if (err.message === "User does not have a discord account")
+            res.status(404).json({error: "User does not have a discord account"});
+        else
+            res.status(500).json({error: "Internal server error"});
+    });
+}
+
+/**
+ * Handles DELETE requests to /account/discord
+ *
+ * Must be preceded by the authMiddleware
+ *
+ * Unlinks the discord account from the user
+ * @param req The request
+ * @param res The response
+ */
+export function getDiscordPicture(req: Request, res: Response) {
+
+    accountService.getDiscordPicture(req["user"]["_id"]).then((discordPicture) => {
+        res.status(200).json({discordPicture});
+    }).catch((err) => {
+        if (err.message === "User does not have a discord account")
+            res.status(404).json({error: "User does not have a discord account"});
+        else
+            res.status(500).json({error: "Internal server error"});
+    });
+}
