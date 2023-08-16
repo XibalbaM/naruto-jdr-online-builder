@@ -13,8 +13,6 @@ export default class User {
     groups: [mongoose.Types.ObjectId];
     characters: [mongoose.Types.ObjectId];
     discordId?: string;
-    discordUsername?: string;
-    discordDiscriminator?: string;
     discordSelectedGroup?: mongoose.Types.ObjectId;
     discordSelectedCharacter?: mongoose.Types.ObjectId;
 
@@ -33,8 +31,6 @@ export default class User {
         user.groups = modelUser.groups;
         user.characters = modelUser.characters;
         user.discordId = modelUser.discordId;
-        user.discordUsername = modelUser.discordUsername;
-        user.discordDiscriminator = modelUser.discordDiscriminator;
         user.discordSelectedGroup = modelUser.discordSelectedGroup;
         user.discordSelectedCharacter = modelUser.discordSelectedCharacter;
 

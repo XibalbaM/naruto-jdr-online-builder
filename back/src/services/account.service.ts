@@ -93,15 +93,13 @@ export async function addDiscordAccount(userId: ObjectId, discordCode: string): 
     const discordUser = await clientRest.get(Routes.user("@me"));
     if (await userModel.findOne({discordId: discordUser['id']})) throw new Error("Discord account already linked to another user");
 
-    await userModel.findByIdAndUpdate(userId, {discordId: discordUser['id'], discordUsername: discordUser['username'], discordDiscriminator: discordUser['discriminator']});
-
-    return discordUser['username'] + "#" + discordUser['discriminator'];
+    return getDiscordName(User.fromModel(await userModel.findByIdAndUpdate(userId, {discordId: discordUser['id']})));
 }
 
 export async function removeDiscordAccount(userId: ObjectId): Promise<void> {
     if (!User.fromModel(await userModel.findById(userId)).discordId) throw new Error("User does not have a discord account");
 
-    await userModel.findByIdAndUpdate(userId, {$unset: {discordId: 1, discordUsername: 1, discordDiscriminator: 1}});
+    await userModel.findByIdAndUpdate(userId, {$unset: {discordId: 1}});
 }
 
 export async function getDiscordName(user: User): Promise<string> {
@@ -109,9 +107,13 @@ export async function getDiscordName(user: User): Promise<string> {
 
     const discordId = User.fromModel(await userModel.findById(user._id)).discordId;
 
-    const discordUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
+    const discordMember = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
 
-    return discordUser['nick'] || user.discordUsername;
+    if (discordMember && discordMember['nick'])
+        return discordMember['nick'];
+
+    const discordUser = await config.discord.rest.get(Routes.user(discordId));
+    return discordUser['username'];
 }
 
 export async function getDiscordPicture(user: User): Promise<string> {

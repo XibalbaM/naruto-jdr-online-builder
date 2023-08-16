@@ -5,7 +5,7 @@ import userModel from "../models/user.model.js";
 import * as emailService from "./mail.service.js";
 import config from "../config/env.js";
 import User from "../classes/user.class.js";
-import {Routes} from "discord-api-types/v10";
+import {getDiscordName} from "./account.service.js";
 
 /**
  * A cache used to store addresses that have already requested a connection token recently.
@@ -161,9 +161,5 @@ export async function getUserFromDiscordToken(token: string): Promise<User> {
  */
 export async function addDiscordData(userId: any, discordId: string): Promise<string> {
 
-    const user = await config.discord.rest.get(Routes.user(discordId)) as {username: string, discriminator: string};
-
-    await userModel.findByIdAndUpdate(userId, {discordId: discordId, discordUsername: user.username, discordDiscriminator: user.discriminator});
-
-    return user.username + "#" + user.discriminator;
+    return getDiscordName(User.fromModel(await userModel.findByIdAndUpdate(userId, {discordId: discordId})));
 }

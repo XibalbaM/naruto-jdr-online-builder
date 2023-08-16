@@ -45,12 +45,6 @@ export const UserSchema = new mongoose.Schema({
         unique: true,
         sparse: true
     },
-    discordUsername: {
-        type: String
-    },
-    discordDiscriminator: {
-        type: String
-    },
     discordSelectedGroup: {
         type: mongoose.Types.ObjectId,
         ref: 'group'
