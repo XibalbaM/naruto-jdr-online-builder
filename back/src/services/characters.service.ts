@@ -10,6 +10,7 @@ import Skill from "../classes/skill.class.js";
 import VillageModel from "../models/village.model.js";
 import ClanModel from "../models/clan.model.js";
 import RoadModel from "../models/road.model.js";
+import RankModel from "../models/rank.model.js";
 
 export default class CharactersService {
 
@@ -56,6 +57,13 @@ export default class CharactersService {
         const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
         if (!userCharactersIds.includes(characterId as any)) {
             throw new Error("Character not found");
+        }
+        const character = await CharacterModel.findById(characterId);
+        const rankId = character.rank;
+        const rank = await RankModel.findById(rankId);
+        const maxBase = rank.maxBase;
+        if (value > maxBase) {
+            throw new Error("Invalid value");
         }
         await CharacterModel.updateOne({_id: characterId, "bases.base": baseId}, {$set: {"bases.$.level": value}});
     }
@@ -114,6 +122,17 @@ export default class CharactersService {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {xp});
+    }
+
+    static async setRank(userId: ObjectId, characterId: string, rank: string) {
+        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
+        if (!userCharactersIds.includes(characterId as any)) {
+            throw new Error("Character not found");
+        }
+        if (!mongoose.Types.ObjectId.isValid(rank) || !(await RankModel.findById(rank))) {
+            throw new Error("Rank not found");
+        }
+        await CharacterModel.findByIdAndUpdate(characterId, {rank});
     }
 
     static async setVillage(userId: ObjectId, characterId: string, village: string) {

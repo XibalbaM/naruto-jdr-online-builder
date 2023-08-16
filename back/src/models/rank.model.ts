@@ -14,6 +14,10 @@ export const rankSchema = new mongoose.Schema({
         type: Number,
         required: true,
         unique: true
+    },
+    maxBase: {
+        type: Number,
+        required: true
     }
 });
 

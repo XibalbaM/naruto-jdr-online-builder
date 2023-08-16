@@ -125,6 +125,19 @@ export function setXp(req: Request, res: Response) {
     });
 }
 
+export function setRank(req: Request, res: Response) {
+    CharactersService.setRank(req["user"]["_id"], req.params.id, req.body.id).then(() => res.sendStatus(200)).catch((error) => {
+        if (error.message === "Character not found") {
+            return res.status(404).json({error: "Character not found"});
+        } else if (error.message === "Rank not found") {
+            return res.status(404).json({error: "Rank not found"});
+        } else {
+            res.status(500).json({error: "Internal server error"});
+            console.error(error);
+        }
+    });
+}
+
 export function setVillage(req: Request, res: Response) {
     CharactersService.setVillage(req["user"]["_id"], req.params.id, req.body.id).then(() => res.sendStatus(200)).catch((error) => {
         if (error.message === "Character not found") {

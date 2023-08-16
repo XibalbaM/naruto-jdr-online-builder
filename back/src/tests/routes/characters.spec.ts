@@ -9,11 +9,13 @@ import BaseModel from "../../models/base.model";
 import ChakraSpeModel from "../../models/chakraSpe.model";
 import CharacterModel from "../../models/character.model";
 import RoadModel from "../../models/road.model";
+import RankModel from "../../models/rank.model";
 
 const characterData: Omit<Character, "_id" | "bases" | "skills" | "chakraSpes" | "nindoPoints"> = {
 	firstName: "test",
 	village: (await VillageModel.findOne())._id,
 	xp: 100,
+    rank: (await RankModel.findOne())._id,
 	notes: "test",
 	nindo: "test",
 	clan: (await ClanModel.findOne())._id
@@ -91,6 +93,12 @@ test("POST /:characterId/bases/:baseId with invalid values", async () => {
 	expect(response.status).toBe(400);
 	let json = await response.json();
 	expect(json["error"]).toBe("Invalid value");
+
+    response = await fetchUtils.post("/characters/" + characterId + "/bases/" + (await BaseModel.findOne({shortName: "COR"}))._id, {value: 6}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(400);
+    json = await response.json();
+    expect(json["error"]).toBe("Invalid value");
 });
 
 test("POST /:characterId/nindo", async () => {
@@ -156,6 +164,14 @@ test("POST /:characterId/xp", async () => {
 	expect(response.status).toBe(200);
 	const character = Character.fromModel(await CharacterModel.findById(characterId));
 	expect(character.xp).toBe(12);
+});
+
+test("POST /:characterId/rank", async () => {
+    const response = await fetchUtils.post("/characters/" + characterId + "/rank", {id: (await RankModel.findOne({name: "Genin, rang D"}))._id}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(200);
+    const character = Character.fromModel(await CharacterModel.findById(characterId));
+    expect(character.rank.toString()).toBe((await RankModel.findOne({name: "Genin, rang D"}))._id.toString());
 });
 
 test("POST /:characterId/village", async () => {

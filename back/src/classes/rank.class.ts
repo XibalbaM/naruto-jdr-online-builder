@@ -8,6 +8,7 @@ export default class Rank {
     _id: ObjectId;
     name: string;
     minXp: number;
+    maxBase: number;
 
     /**
      * Creates a new rank from a model
@@ -19,6 +20,7 @@ export default class Rank {
         rank._id = modelRank._id;
         rank.name = modelRank.name;
         rank.minXp = modelRank.minXp;
+        rank.maxBase = modelRank.maxBase;
 
         return rank;
     }

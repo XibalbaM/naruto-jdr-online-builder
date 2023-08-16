@@ -368,64 +368,84 @@ export default async function () {
 
     const ranks: Omit<Rank, "_id">[] = [
         {
+            name: "Cadet",
+            minXp: -1,
+            maxBase: 3
+        },
+        {
             name: "Genin, rang D",
-            minXp: 0
+            minXp: 0,
+            maxBase: 5
         },
         {
             name: "Genin, rang C",
-            minXp: 200
+            minXp: 200,
+            maxBase: 5
         },
         {
             name: "Genin, rang B",
-            minXp: 400
+            minXp: 400,
+            maxBase: 5
         },
         {
             name: "Genin, rang A",
-            minXp: 600
+            minXp: 600,
+            maxBase: 5
         },
         {
             name: "Chūnin, rang D",
-            minXp: 700
+            minXp: 700,
+            maxBase: 7
         },
         {
             name: "Chūnin, rang C",
-            minXp: 1000
+            minXp: 1000,
+            maxBase: 7
         },
         {
             name: "Chūnin, rang B",
-            minXp: 1300
+            minXp: 1300,
+            maxBase: 7
         },
         {
             name: "Chūnin, rang A",
-            minXp: 1600
+            minXp: 1600,
+            maxBase: 7
         },
         {
             name: "Jōnin, rang D",
-            minXp: 1700
+            minXp: 1700,
+            maxBase: 10
         },
         {
             name: "Jōnin, rang C",
-            minXp: 2200
+            minXp: 2200,
+            maxBase: 10
         },
         {
             name: "Jōnin, rang B",
-            minXp: 2700
+            minXp: 2700,
+            maxBase: 10
         },
         {
             name: "Jōnin, rang A",
-            minXp: 3200
+            minXp: 3200,
+            maxBase: 10
         },
         {
             name: "Sensei",
-            minXp: 4500
+            minXp: 4500,
+            maxBase: 12
         },
         {
             name: "Sanin",
-            minXp: 6500
+            minXp: 6500,
+            maxBase: 14
         },
         {
             name: "Kage",
-            minXp: 8500
+            minXp: 8500,
+            maxBase: 16
         }
     ]
     await RankModel.insertMany(ranks);

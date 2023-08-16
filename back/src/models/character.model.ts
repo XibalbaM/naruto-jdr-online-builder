@@ -32,6 +32,11 @@ export const characterSchema = new mongoose.Schema({
 		required: true,
 		default: 100
 	},
+    rank: {
+        type: mongoose.Types.ObjectId,
+        ref: 'rank',
+        required: true
+    },
 	bases: {
 		type: [{
 			base: {

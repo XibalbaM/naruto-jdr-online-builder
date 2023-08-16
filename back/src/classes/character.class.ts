@@ -11,6 +11,7 @@ export default class Character {
     village: mongoose.Types.ObjectId;
     road?: mongoose.Types.ObjectId;
     xp: number;
+    rank: mongoose.Types.ObjectId;
     bases: {base: mongoose.Types.ObjectId, level: number}[];
     skills: {skill: mongoose.Types.ObjectId, level: number}[];
     nindo: string;
@@ -31,6 +32,7 @@ export default class Character {
         character.village = modelCharacter.village;
         character.road = modelCharacter.road || undefined;
         character.xp = modelCharacter.xp;
+        character.rank = modelCharacter.rank;
         character.bases = modelCharacter.bases;
         character.skills = modelCharacter.skills;
         character.nindo = modelCharacter.nindo;
