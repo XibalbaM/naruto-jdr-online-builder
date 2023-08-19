@@ -22,15 +22,7 @@ export class TooltipDirective implements OnDestroy {
 
     @HostListener('mouseenter')
     onMouseEnter(): void {
-        if (this.componentRef === null) {
-            this.componentRef = this.viewContainerRef.createComponent<TooltipComponent>(TooltipComponent);
-            this.componentRef.instance.text = this.tooltip;
-            const domElem =
-                (this.componentRef.hostView as EmbeddedViewRef<any>)
-                    .rootNodes[0] as HTMLElement;
-            document.body.appendChild(domElem);
-            this.setTooltipComponentProperties();
-        }
+        this.create();
     }
 
     private setTooltipComponentProperties() {
@@ -48,8 +40,30 @@ export class TooltipDirective implements OnDestroy {
         this.destroy();
     }
 
+    @HostListener('touchstart')
+    onTouchStart(): void {
+        this.create();
+    }
+
+    @HostListener('touchend')
+    onTouchEnd(): void {
+        this.destroy();
+    }
+
     ngOnDestroy(): void {
         this.destroy();
+    }
+
+    create(): void {
+        if (this.componentRef === null) {
+            this.componentRef = this.viewContainerRef.createComponent<TooltipComponent>(TooltipComponent);
+            this.componentRef.instance.text = this.tooltip;
+            const domElem =
+                (this.componentRef.hostView as EmbeddedViewRef<any>)
+                    .rootNodes[0] as HTMLElement;
+            document.body.appendChild(domElem);
+            this.setTooltipComponentProperties();
+        }
     }
 
     destroy(): void {

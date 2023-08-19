@@ -1,6 +1,6 @@
-<div class="fixed bg-[#61616199] rounded-[4px] text-13 px-[6px] py-[2px] mt-[5px] -translate-x-1/2 z-50
-            before:w- before:h-0 before:border-x-[5px] before:border-x-transparent before:border-b-[5px] before:border-b-[#61616199]
-            before:absolute before:left-[calc(50px-5px)] before:top-[-5px]"
+<div #tooltip class="fixed bg-[#61616199] rounded-[4px] text-13 px-[6px] py-[2px] mt-[5px] -translate-x-1/2 z-50
+            before:h-0 before:border-x-[5px] before:border-x-transparent before:border-b-[5px] before:border-b-[#61616199]
+            before:absolute before:left-[calc(50px-5px)] before:-top-[4px]"
      [style.left]="left + 'px'" [style.top]="top + 'px'">
     {{text}}
 </div>
