@@ -1,0 +1,20 @@
+<app-spacer class="bg-light-dark my-[8px]"/>
+<div class="flex flex-row justify-between items-center">
+    <a [routerLink]="'competence/' + skill.skill._id"
+       class="space-x-[12px] flex flex-row items-center w-full h-[38px]">
+        <span [tooltip]="'Base : ' + (skill.skill.base | idToData:dataService.bases.getValue())?.fullName">{{skill.skill.name}}</span>
+        <span class="text-16 text-yellow px-[12px] py-[3px] bg-light-dark border border-lighter-dark rounded-[8px] ms-[12px]">{{skill.level}}</span>
+    </a>
+    <div class="flex flex-row">
+        <button (click)="changeValue.emit(skill.level - 1)" [disabled]="skill.level <= 1" class="change-button me-[3px]">
+            <svg width="14" height="2" viewBox="0 0 14 2" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 2H1C0.4 2 0 1.6 0 1C0 0.4 0.4 0 1 0H13C13.6 0 14 0.4 14 1C14 1.6 13.6 2 13 2Z"/>
+            </svg>
+        </button>
+        <button (click)="changeValue.emit(skill.level + 1)" [disabled]="skill.level >= baseLevel + 2" class="change-button">
+            <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 6H8V1C8 0.4 7.6 0 7 0C6.4 0 6 0.4 6 1V6H1C0.4 6 0 6.4 0 7C0 7.6 0.4 8 1 8H6V13C6 13.6 6.4 14 7 14C7.6 14 8 13.6 8 13V8H13C13.6 8 14 7.6 14 7C14 6.4 13.6 6 13 6Z"/>
+            </svg>
+        </button>
+    </div>
+</div>

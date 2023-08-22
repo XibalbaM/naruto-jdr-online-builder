@@ -11,6 +11,8 @@ import {ThirdStepComponent} from './components/create/third-step/third-step.comp
 import {CharacterListPreviewComponent} from './components/character-list-preview/character-list-preview.component';
 import {BaseComponent} from './components/base/base.component';
 import {SkillComponent} from './components/skill/skill.component';
+import {EditComponent} from './components/edit/edit.component';
+import {SkillItemComponent} from './components/skill-item/skill-item.component';
 import {CharacterToMaxSkillCountPipe} from "./pipes/character-to-max-skill-count.pipe";
 import {CharacterToMaxChakraPipe} from './pipes/character-to-max-chakra.pipe';
 import {CharacterToMaxChakraSpesPipe} from './pipes/character-to-max-chakra-spes.pipe';
@@ -36,6 +38,8 @@ import { CharacterToSkillReinforcementPipe } from './pipes/character-to-skill-re
         CharacterListPreviewComponent,
         BaseComponent,
         SkillComponent,
+        EditComponent,
+        SkillItemComponent,
         CharacterToMaxChakraPipe,
         CharacterToMaxChakraSpesPipe,
         CharacterToChakraControlPipe,
