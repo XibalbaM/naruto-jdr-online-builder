@@ -1,0 +1,78 @@
+<div class="w-full pt-[20px] pb-[15px] flex flex-row items-center justify-between relative">
+    <a class="flex flex-row items-center text-16 hover:underline self-start flex-shrink-0"
+       routerLink="..">
+        <svg class="me-[10px]" xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
+            <path d="M18.8945 5H3.41709L6.73367 1.7C7.13568 1.3 7.13568 0.7 6.73367 0.3C6.33166 -0.1 5.72864 -0.1 5.32663 0.3L0.301508 5.3C0.201005 5.4 0.201005 5.5 0.100502 5.5C0.100502 5.7 0 5.8 0 6C0 6.2 0.100502 6.3 0.100502 6.4C0.100502 6.5 0.201005 6.6 0.301508 6.7L5.32663 11.7C5.52764 11.9 5.82915 12 6.03015 12C6.23116 12 6.53266 11.9 6.73367 11.7C7.13568 11.3 7.13568 10.7 6.73367 10.3L3.41709 7H18.794C19.4975 7 20 6.6 20 6C20 5.4 19.4975 5 18.8945 5Z"
+                  fill="white"/>
+        </svg>
+        Retour
+    </a>
+    <h1 class="text-20 text-center w-full flex-shrink">Modifier</h1>
+    <p class="flex-shrink-0 px-[6px] py-[3px] bg-light-dark rounded-[6px] ms-[10px]"
+       [ngClass]="(character | characterToReamingXp) >= 0 ? 'text-blue' : 'text-orange'">{{(character | characterToReamingXp) >= 0 ? '↑' : '↓'}} {{character | characterToReamingXp}}
+        EXP</p>
+</div>
+<form class="w-full max-w-md" (ngSubmit)="submit()">
+    <div class="flex w-full mt-[50px] h-[52px]">
+        <div class="flex-shrink flex-grow labeled-select mr-[12px]">
+            <label>Village</label>
+            <select disabled name="village" [(ngModel)]="village" class="!text-yellow pl-[83px]">
+                <option *ngFor="let village of dataService.villages | async"
+                        [ngValue]="village">{{village.name | titlecase}}</option>
+            </select>
+        </div>
+        <div class="flex flex-shrink-0 items-center gray-box w-[52px]">
+            <img class="mx-auto" [src]="currentVillageLogo()">
+        </div>
+    </div>
+    <app-spacer class="my-[18px] bg-lighter-dark"></app-spacer>
+    <div class="labeled-input">
+        <label>Prénom</label>
+        <input type="text" name="firstName" [(ngModel)]="firstName" class="!text-yellow pl-[90px]"
+               placeholder="Ex: Mitsuo">
+    </div>
+    <div class="flex w-full mt-[18px] h-[52px]">
+        <div class="flex-shrink flex-grow labeled-select mr-[12px]">
+            <label>Clan</label>
+            <select name="clan" [(ngModel)]="clan" class="pl-[69px]" [class.!text-yellow]="clan">
+                <option selected disabled class="text-light-gray" [ngValue]="undefined">Choisir parmi la liste</option>
+                <option class="text-yellow" *ngFor="let clan of dataService.clans | async"
+                        [ngValue]="clan">{{clan.name | titlecase}}</option>
+            </select>
+        </div>
+        <div class="flex flex-shrink-0 items-center gray-box w-[52px]" [class.!bg-black]="!clan">
+            <img class="mx-auto x-[25px] h-[25px]" [src]="currentClanLogo()" alt="">
+        </div>
+    </div>
+    <div class="flex w-full flex-row items-center rounded-xl border h-[55px] p-[16px] border-lighter-dark mt-[18px]"
+         (click)="isRoadElement.checked = !isRoadElement.checked; isRoad = !isRoad">
+        <input #isRoadElement type="checkbox" id="isRoad" name="isRoad" [(ngModel)]="isRoad"
+               class="pointer-events-none appearance-none rounded-md border w-[21px] h-[21px] bg-light-dark border-lighter-dark checked:bg-yellow">
+        <label for="isRoad" class="pointer-events-none ms-[15px]">Je souhaite une Voie, pas une Lignée</label>
+    </div>
+    <div *ngIf="isRoad" class="labeled-select mt-[18px]">
+        <label>Voie</label>
+        <select name="road" [(ngModel)]="road" class="pl-[69px]" [class.!text-yellow]="road">
+            <option selected disabled class="text-light-gray" [ngValue]="undefined">Choisir parmi la liste</option>
+            <option class="text-yellow" *ngFor="let road of dataService.roads | async"
+                    [ngValue]="road">{{road.name + " - " + road.qualification}}</option>
+        </select>
+    </div>
+    <div class="labeled-input mt-[18px]">
+        <label>Points d’expérience</label>
+        <input type="number" name="xp" required [(ngModel)]="xp" class="!text-yellow pl-[166px]">
+    </div>
+    <div class="labeled-select mt-[18px]">
+        <label>Rang</label>
+        <select name="rank" [(ngModel)]="rank" class="pl-[69px]" [class.!text-yellow]="rank">
+            <option selected disabled class="text-light-gray" [ngValue]="undefined">Choisir parmi la liste</option>
+            <option class="text-yellow" *ngFor="let rank of dataService.ranks | async"
+                    [ngValue]="rank">{{rank.name}}</option>
+        </select>
+    </div>
+    <!--TODO-->
+    <button [disabled]="!hasChanges()" type="submit" class="bg-purple rounded-[10px] w-full py-[18px] mt-[50px] enabled:hover:bg-opacity-95
+                                                            disabled:bg-transparent disabled:border disabled:text-dark-gray disabled:border-lighter-dark">
+        Sauvegarder
+    </button>
+</form>

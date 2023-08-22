@@ -25,6 +25,7 @@ import { CharacterToChakraRegenPipe } from './pipes/character-to-chakra-regen.pi
 import { CharacterToSkillNaturalLevelPipe } from './pipes/character-to-skill-natural-level.pipe';
 import { CharacterToSkillTotalLevelPipe } from './pipes/character-to-skill-total-level.pipe';
 import { CharacterToInterceptionsPipe } from './pipes/character-to-interceptions.pipe';
+import {EditDetailsComponent} from "./components/edit-details/edit-details.component";
 import { WeightChakraSpeEffectByAmountPipe } from './pipes/weight-chakra-spe-effect-by-amount.pipe';
 import { CharacterToSkillReinforcementPipe } from './pipes/character-to-skill-reinforcement.pipe';
 
@@ -52,6 +53,7 @@ import { CharacterToSkillReinforcementPipe } from './pipes/character-to-skill-re
         CharacterToSkillNaturalLevelPipe,
         CharacterToSkillTotalLevelPipe,
         CharacterToInterceptionsPipe,
+        EditDetailsComponent,
         WeightChakraSpeEffectByAmountPipe,
         CharacterToSkillReinforcementPipe
     ],
