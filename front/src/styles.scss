@@ -13,13 +13,17 @@
         @apply w-full h-screen text-white font-neue bg-dark text-14 font-normal;
     }
 
-  //Removes the autofill background color
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    transition: background-color 600000s 0s, color 600000s 0s;
-  }
+    //Removes the autofill background color
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        transition: background-color 600000s 0s, color 600000s 0s;
+    }
+
+    a {
+        cursor: pointer;
+    }
 }
 
 @layer components {
