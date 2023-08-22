@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import Base from "../../../app/models/base.model";
 import {ActivatedRoute, Router} from "@angular/router";
-import Character from "../../../app/models/character.model";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
-import {BehaviorSubject, combineLatest, Subject} from "rxjs";
+import {combineLatest} from "rxjs";
 
 @Component({
     selector: 'app-base',

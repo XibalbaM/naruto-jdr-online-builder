@@ -1,8 +1,4 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {CharacterToSkillNaturalLevelPipe} from "./character-to-skill-natural-level.pipe";
-import {CharacterToBaseLevelPipe} from "./character-to-base-level.pipe";
-import {DataService} from "../../app/services/data.service";
-import {IdToDataPipe} from "../../shared/pipes/id-to-data.pipe";
 import Character from "../../app/models/character.model";
 import {map, Observable} from "rxjs";
 import {CharacterToSkillTotalLevelPipe} from "./character-to-skill-total-level.pipe";

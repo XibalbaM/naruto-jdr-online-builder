@@ -1,7 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import Character from "../../app/models/character.model";
-import {DataService} from "../../app/services/data.service";
-import {IdToDataPipe} from "../../shared/pipes/id-to-data.pipe";
 import {map, Observable} from "rxjs";
 
 @Pipe({

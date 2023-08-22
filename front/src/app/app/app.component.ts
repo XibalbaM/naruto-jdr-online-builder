@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
 import {BehaviorSubject, filter} from "rxjs";
 
 @Component({
