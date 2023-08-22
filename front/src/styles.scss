@@ -9,9 +9,9 @@
 //Applying default styles
 @layer base {
 
-  html {
-    @apply text-white font-neue bg-dark text-14 font-normal;
-  }
+    body {
+        @apply w-full h-screen text-white font-neue bg-dark text-14 font-normal;
+    }
 
   //Removes the autofill background color
   input:-webkit-autofill,
