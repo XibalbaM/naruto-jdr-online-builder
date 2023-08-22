@@ -1,0 +1,34 @@
+<h1 class="text-25 font-bold font-monument uppercase mb-[12px]">{{skill.name}}</h1>
+<p class="text-pink">{{skill.type | skillTypeToTypeName}}</p>
+<p class="text-pink">Base : {{base.fullName}} ({{base.shortName}})</p>
+<app-spacer class="bg-lighter-dark my-[30px]"/>
+<div class="grid grid-cols-2 grid-rows-2 max-w-md gap-[12px]">
+    <p class="bg-black px-[24px] py-[18px] rounded-[26px] row-start-1 row-span-1 col-start-1 col-span-1">
+        Base {{base.shortName}}
+        <span class="text-16 text-light px-[12px] bg-light-dark rounded-[8px] py-[3px] ms-[10px]">
+            {{baseLevel}}
+        </span>
+    </p>
+    <p class="bg-black px-[24px] py-[18px] rounded-[26px] row-start-1 row-span-1 col-start-2 col-span-1">
+        Score nat.
+        <span class="text-16 text-light px-[12px] bg-light-dark rounded-[8px] py-[3px] ms-[10px]">
+            {{skillLevel}}
+        </span>
+    </p>
+    <p class="bg-black px-[24px] py-[18px] rounded-[26px] row-start-2 row-span-1 col-start-1 col-span-2">
+        Score total
+        <span class="text-16 text-yellow px-[12px] bg-light-dark rounded-[8px] py-[3px] ms-[10px]">
+            {{baseLevel + skillLevel}}
+        </span>
+    </p>
+</div>
+<app-spacer class="bg-lighter-dark my-[30px]"/>
+<div *ngIf="skill.type != 'common'">
+    <button (click)="remove()" class="border border-orange font-light text-orange px-[28px] py-[16px] max-w-md w-full rounded-[10px] hover:bg-white hover:bg-opacity-5">
+        Supprimer la compétence
+    </button>
+    <app-spacer class="bg-lighter-dark my-[30px]"/>
+</div>
+<div class="font-light">
+    {{skill.description}}
+</div>
