@@ -1,34 +1,31 @@
-import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
+import {Component, Input, OnInit} from "@angular/core";
+import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
+import {BehaviorSubject, filter} from "rxjs";
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  title = "naruto-jdr-online-builder";
-  showNav: boolean = true;
-  imageBg: boolean = false;
-  private readonly imageBgPages: RegExp[] = [
-    /^\/connexion\/.*$/,
-    /^\/$/,
-  ];
+    $navbarType: BehaviorSubject<"default" | "character" | "characterWithNav" | "none"> = new BehaviorSubject<"default" | "character" | "characterWithNav" | "none">("default");
+    $currentRoute: BehaviorSubject<ActivatedRouteSnapshot> = new BehaviorSubject<ActivatedRouteSnapshot>(new ActivatedRouteSnapshot());
+    $bgMethode: BehaviorSubject<'none' | 'image' | 'imageNoRepeat' | 'custom'> = new BehaviorSubject<'none' | 'image' | 'imageNoRepeat' | 'custom'>('none');
 
-  constructor(private router: Router) {
-  }
+    constructor(private router: Router) {
+    }
 
-  ngOnInit(): void {
-    this.router.events.subscribe(() => {
-      this.showNav = !this.router.url.includes("/connexion");
-      for (let imageBgPage of this.imageBgPages) {
-        if (this.router.url.match(imageBgPage)) {
-          this.imageBg = true;
-          break;
-        } else {
-          this.imageBg = false;
-        }
-      }
-    });
-  }
+    ngOnInit(): void {
+        this.router.events.pipe(
+            filter((event) => event instanceof NavigationEnd)
+        ).subscribe(() => {
+            let currentRoute = this.router.routerState.snapshot.root;
+            while (currentRoute.firstChild) {
+                currentRoute = currentRoute.firstChild;
+            }
+            this.$navbarType.next(currentRoute.data['navbar'] || "default");
+            this.$bgMethode.next(currentRoute.data['bgMethode'] || 'none');
+            this.$currentRoute.next(currentRoute);
+        });
+    }
 }

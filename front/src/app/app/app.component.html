@@ -1,9 +1,9 @@
-<div [class]="imageBg ? 'image-bg' : ''" class="h-screen w-screen overflow-auto">
-  <app-nav *ngIf="showNav" class="fixed bottom-0 w-full bg-black h-[70px] lg:sticky lg:top-0 lg:bottom-auto z-30"></app-nav>
-  <app-notification></app-notification>
-  <div class="px-[15px]">
-    <div class="container mx-auto mt-[50px] mb-[70px] lg:mb-0">
-      <router-outlet></router-outlet>
+<div class="h-screen flex flex-col">
+    <app-nav class="z-30 flex-shrink-0"
+             [ngClass]="($navbarType | async) === 'default' ? 'fixed bottom-0 w-full lg:sticky lg:top-0 lg:bottom-auto': 'sticky top-0'"
+             *ngIf="($navbarType | async) !== 'none'" [$type]="$navbarType" [$currentRoute]="$currentRoute"/>
+    <app-notification class="w-full"/>
+    <div [ngClass]="($bgMethode | async) !== 'custom' ? (($bgMethode | async) === 'image' ? 'image-bg' : (($bgMethode | async) === 'none' ? '' : 'no-repeat-image-bg')) + ' pt-[50px] px-[15px]' : ''" class="h-full flex-shrink overflow-y-auto">
+        <router-outlet class="h-full"/>
     </div>
-  </div>
 </div>
