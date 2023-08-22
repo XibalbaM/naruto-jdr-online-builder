@@ -10,6 +10,7 @@ import {IdToDataPipe} from './pipes/id-to-data.pipe';
 import {CharacterToReamingXpPipe} from "./pipes/character-to-reaming-xp.pipe";
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './directives/tooltip.directive';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { TooltipDirective } from './directives/tooltip.directive';
         IdToDataPipe,
         CharacterToReamingXpPipe,
         TooltipComponent,
-        TooltipDirective
+        TooltipDirective,
+        SpinnerComponent
     ],
     imports: [
         CommonModule,
@@ -39,7 +41,8 @@ import { TooltipDirective } from './directives/tooltip.directive';
         XpToRankPipe,
         IdToDataPipe,
         CharacterToReamingXpPipe,
-        TooltipDirective
+        TooltipDirective,
+        SpinnerComponent
     ],
     providers: [
         RoleNamePipe,
