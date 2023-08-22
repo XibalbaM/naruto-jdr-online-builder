@@ -4,11 +4,11 @@
 <h2 class="font-bold uppercase font-monument text-20">identité</h2>
 <p class="font-light text-14 text-light">Un nouveau personnage commence au rang de Genin avec 100 points
     d’expérience.</p>
-<form class="w-full max-w-md">
+<form class="w-full max-w-md" (ngSubmit)="submit()">
     <div class="flex w-full mt-[50px] h-[52px]">
         <div class="flex-shrink flex-grow labeled-select mr-[12px]">
             <label>Village</label>
-            <select name="village" [(ngModel)]="village" class="!text-yellow pl-[83px]">
+            <select disabled name="village" [(ngModel)]="village" class="!text-yellow pl-[83px]">
                 <option *ngFor="let village of dataService.villages | async"
                         [ngValue]="village">{{village.name | titlecase}}</option>
             </select>
@@ -33,7 +33,7 @@
             </select>
         </div>
         <div class="flex flex-shrink-0 items-center gray-box w-[52px]" [class.!bg-black]="!clan">
-            <img class="mx-auto" [src]="currentClanLogo()" alt="">
+            <img class="mx-auto x-[25px] h-[25px]" [src]="currentClanLogo()" alt="">
         </div>
     </div>
     <div class="flex w-full flex-row items-center rounded-xl border h-[55px] p-[16px] border-lighter-dark mt-[18px]"
@@ -47,7 +47,7 @@
         <select name="road" [(ngModel)]="road" class="pl-[69px]" [class.!text-yellow]="road">
             <option selected disabled class="text-light-gray" [ngValue]="undefined">Choisir parmi la liste</option>
             <option class="text-yellow" *ngFor="let road of dataService.roads | async"
-                    [ngValue]="road">{{road.name + " - " + road.longName}}</option>
+                    [ngValue]="road">{{road.name + " - " + road.qualification}}</option>
         </select>
     </div>
     <div class="labeled-input mt-[18px]">
@@ -58,7 +58,7 @@
         <h3>Rang officiel</h3>
         <p class="w-fit rounded-xl text-yellow mt-[10px] bg-light-dark px-[12px] py-[4px]">{{(xp | xpToRank).name}}</p>
     </div>
-    <button [disabled]="!firstName || !clan || (isRoad && !road)" type="submit" (click)="submit()"
+    <button [disabled]="!firstName || !clan || (isRoad && !road)" type="submit"
             class="flex w-full flex-row items-center justify-center rounded-xl mb-[120px] group mt-[50px] h-[55px] bg-purple disabled:border-lighter-dark disabled:text-dark-gray disabled:border disabled:bg-black">
         Étape suivante
         <svg class="fill-white group-disabled:fill-dark-gray ms-[10px]" width="21" height="13" viewBox="0 0 21 13"

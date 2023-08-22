@@ -1,0 +1,31 @@
+<p class="text-14 text-yellow">Naruto jeu de rôle</p>
+<h1 class="font-bold uppercase text-28 font-monument mt-[5px]">créer un personnage</h1>
+<app-character-preview [character]="creationService.character" class="my-[50px]"></app-character-preview>
+<p class="font-light text-10 font-monument text-light-gray">03 / 03</p>
+<h2 class="font-bold uppercase font-monument text-20">compétences</h2>
+<p class="font-light text-14 text-light">Un nouveau personnage commence avec cinq compétences au choix parmi les compétences de combat et de terrain. Suivant
+	son clan, certaines seront obligatoires.</p>
+<app-spacer class="bg-lighter-dark mt-[50px] mb-[30px]"></app-spacer>
+<!--TODO: Compétences obligatoires-->
+<app-spacer class="bg-lighter-dark my-[30px]"></app-spacer>
+<h3 class="font-light uppercase font-monument text-10 mb-[16px] text-light-gray">
+	<span class="text-blue font-neue font-normal text-16 bg-light-dark rounded-xl me-[12px] px-[12px] py-[3px]">{{5 - skillIds.length}}</span>
+	compétences à choisir
+</h3>
+<div class="flex flex-col max-w-md space-y-[12px]">
+	<button (click)="addSkill(skill)" *ngFor="let skill of uncommonSkills" class="h-[50px] px-[24px] text-start" [ngClass]="skillIds.includes(skill._id) ? 'gray-box text-yellow hover:bg-lighter-dark' : 'black-box hover:bg-dark'">
+        {{skill.name}} ({{(skill.base | idToData:dataService.bases.getValue())?.shortName}})
+    </button>
+</div>
+<app-spacer class="bg-lighter-dark mt-[30px] mb-[50px]"></app-spacer>
+<div class="flex flex-row max-w-md mb-[120px]">
+	<button (click)="back()" class="h-[52px] px-[28px] border border-lighter-dark me-[12px] rounded-xl flex items-center">Retour</button>
+	<button (click)="submit()"
+	        class="h-[52px] flex-grow bg-purple rounded-xl flex items-center justify-center group disabled:cursor-default disabled:bg-black disabled:text-dark-gray"
+	        [disabled]="skillIds.length !== 5">
+		Finaliser
+		<svg class="ms-[10px] fill-white group-disabled:fill-dark-gray" xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12">
+			<path d="M1.10553 7L16.5829 7L13.2663 10.3C12.8643 10.7 12.8643 11.3 13.2663 11.7C13.6683 12.1 14.2714 12.1 14.6734 11.7L19.6985 6.7C19.799 6.6 19.799 6.5 19.8995 6.5C19.8995 6.3 20 6.2 20 6C20 5.8 19.8995 5.7 19.8995 5.6C19.8995 5.5 19.799 5.4 19.6985 5.3L14.6734 0.299999C14.4724 0.0999989 14.1709 -5.096e-07 13.9699 -5.27173e-07C13.7688 -5.44745e-07 13.4673 0.0999989 13.2663 0.299999C12.8643 0.699998 12.8643 1.3 13.2663 1.7L16.5829 5L1.20603 5C0.502513 5 5.7699e-07 5.4 5.24537e-07 6C4.72083e-07 6.6 0.502512 7 1.10553 7Z"/>
+		</svg>
+	</button>
+</div>

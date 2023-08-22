@@ -6,6 +6,9 @@ import {ListComponent} from './components/list/list.component';
 import {FirstStepComponent} from './components/create/first-step/first-step.component';
 import {SharedModule} from "../shared/shared.module";
 
+import {SecondStepComponent} from './components/create/second-step/second-step.component';
+import {CharacterPreviewComponent} from './components/create/character-preview/character-preview.component';
+import {ThirdStepComponent} from './components/create/third-step/third-step.component';
 import {CharacterToMaxSkillCountPipe} from "./pipes/character-to-max-skill-count.pipe";
 import {CharacterToMaxChakraPipe} from './pipes/character-to-max-chakra.pipe';
 import {CharacterToMaxChakraSpesPipe} from './pipes/character-to-max-chakra-spes.pipe';
@@ -23,7 +26,10 @@ import { CharacterToSkillReinforcementPipe } from './pipes/character-to-skill-re
 @NgModule({
     declarations: [
         ListComponent,
-        FirstStepComponent
+        FirstStepComponent,
+        SecondStepComponent,
+        CharacterPreviewComponent,
+        ThirdStepComponent,
         CharacterToMaxSkillCountPipe,
         CharacterToMaxChakraPipe,
         CharacterToMaxChakraSpesPipe,

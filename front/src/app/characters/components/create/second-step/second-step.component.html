@@ -1,0 +1,29 @@
+<p class="text-14 text-yellow">Naruto jeu de rôle</p>
+<h1 class="font-bold uppercase text-28 font-monument mt-[5px]">créer un personnage</h1>
+<app-character-preview [character]="creationService.character" class="my-[50px]"></app-character-preview>
+<p class="font-light text-10 font-monument text-light-gray">02 / 03</p>
+<h2 class="font-bold uppercase font-monument text-20">historique</h2>
+<p class="font-light text-14 text-light">Chaque personnage possède sa propre histoire, celles dont il hérite, son Nindo ainsi que ses propres liens et
+	conflits.</p>
+<app-spacer class="bg-lighter-dark mt-[50px] mb-[30px]"></app-spacer>
+<!--TODO: ARCS NARRATIFS-->
+<h3 class="font-bold uppercase font-monument text-16 mb-[12px]">nindo</h3>
+<p class="font-light text-14 text-light line-">Le Nindo, littéralement Voie du Ninja, représente une valeur, un principe auquel un personnage croit plus que
+	tout et qu’il ne trahira jamais.</p>
+<input type="text" [(ngModel)]="nindo" #nindoInput required class="max-w-md input h-[55px] ps-[24px] my-[50px] text-white" placeholder="Ex: La Volonté du Feu">
+<a class="default-link">Exemples de Nindo</a> <!--TODO: Add link-->
+<app-spacer class="bg-lighter-dark my-[30px]"></app-spacer>
+<h3 class="font-bold uppercase font-monument text-16 mb-[12px]">histoire personnelle</h3>
+<p class="font-light text-14 text-light line-">Qu’il soit heureux ou tragique, le passé d’un personnage lui plante les pieds fermement dans le monde et dans
+	l’histoire.</p>
+<textarea [(ngModel)]="story" class="max-w-md input h-[330px] py-[24px] px-[18px] my-[50px] text-white resize-none" placeholder="Votre texte ici"></textarea>
+<app-spacer class="bg-lighter-dark mt-[30px] mb-[50px]"></app-spacer>
+<div class="flex flex-row max-w-md mb-[120px]">
+	<button (click)="back()" class="h-[52px] px-[28px] border border-lighter-dark me-[12px] rounded-xl flex items-center">Retour</button>
+	<button (click)="submit()" class="h-[52px] flex-grow bg-purple rounded-xl flex items-center justify-center group disabled:cursor-default disabled:bg-black disabled:text-dark-gray" [disabled]="!nindoInput.validity.valid">
+		Étape suivante
+		<svg class="ms-[10px] fill-white group-disabled:fill-dark-gray" xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12">
+			<path d="M1.10553 7L16.5829 7L13.2663 10.3C12.8643 10.7 12.8643 11.3 13.2663 11.7C13.6683 12.1 14.2714 12.1 14.6734 11.7L19.6985 6.7C19.799 6.6 19.799 6.5 19.8995 6.5C19.8995 6.3 20 6.2 20 6C20 5.8 19.8995 5.7 19.8995 5.6C19.8995 5.5 19.799 5.4 19.6985 5.3L14.6734 0.299999C14.4724 0.0999989 14.1709 -5.096e-07 13.9699 -5.27173e-07C13.7688 -5.44745e-07 13.4673 0.0999989 13.2663 0.299999C12.8643 0.699998 12.8643 1.3 13.2663 1.7L16.5829 5L1.20603 5C0.502513 5 5.7699e-07 5.4 5.24537e-07 6C4.72083e-07 6.6 0.502512 7 1.10553 7Z"/>
+		</svg>
+	</button>
+</div>
