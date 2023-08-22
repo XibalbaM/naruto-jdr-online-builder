@@ -17,6 +17,7 @@ import {CharacterToMaxSkillCountPipe} from "./pipes/character-to-max-skill-count
 import {CharacterToMaxChakraPipe} from './pipes/character-to-max-chakra.pipe';
 import {CharacterToMaxChakraSpesPipe} from './pipes/character-to-max-chakra-spes.pipe';
 import {CharacterToChakraControlPipe} from './pipes/character-to-chakra-control.pipe';
+import { LineComponent } from './components/line/line.component';
 import { SkillTypeToTypeNamePipe } from './pipes/skill-type-to-type-name.pipe';
 import { CharacterToBaseLevelPipe } from './pipes/character-to-base-level.pipe';
 import { CharacterToChakraSpeAmountPipe } from './pipes/character-to-chakra-spe-amount.pipe';
@@ -43,6 +44,7 @@ import { CharacterToSkillReinforcementPipe } from './pipes/character-to-skill-re
         CharacterToMaxChakraPipe,
         CharacterToMaxChakraSpesPipe,
         CharacterToChakraControlPipe,
+        LineComponent,
         SkillTypeToTypeNamePipe,
         CharacterToBaseLevelPipe,
         CharacterToChakraSpeAmountPipe,
