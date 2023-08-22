@@ -161,7 +161,30 @@
         @apply bg-cover-y bg-no-repeat bg-[url('assets/images/backgrounds/bg-small.png')] xs:bg-repeat xs:bg-auto xs:bg-[url('assets/images/backgrounds/bg-large.png')]
     }
 
-  .gray-box {
-    @apply rounded-xl border bg-light-dark border-dark-gray;
-  }
+    .no-repeat-image-bg {
+        background: linear-gradient(to bottom,
+                rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 350px,
+                #12121200 350px, #121212FF 450px,
+                #121212FF 100%
+        ),
+        url('assets/images/backgrounds/bg-small.png') no-repeat;
+        background-size: cover;
+        @screen lg {
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 885px,
+                    #12121200 885px, #121212FF 985px,
+                    #121212FF 100%
+            ),
+            url('assets/images/backgrounds/bg-large.png') repeat;
+            background-size: auto;
+        }
+    }
+
+    .gray-box {
+        @apply rounded-xl border bg-light-dark border-dark-gray;
+    }
+
+    .black-box {
+        @apply rounded-xl border bg-black border-lighter-dark;
+    }
 }
