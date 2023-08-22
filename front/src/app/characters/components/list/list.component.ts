@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import Auth from "../../../app/models/auth.model";
 
 @Component({
   selector: 'app-list',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class ListComponent {
 
+  constructor(protected auth: Auth) {
+  }
 }
