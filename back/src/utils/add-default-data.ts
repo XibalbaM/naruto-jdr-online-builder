@@ -120,127 +120,127 @@ export default async function () {
         {
             name: "Aburame",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Akaba",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Akimichi",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Aniki",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Ao",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Eshimuro",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Hyūga",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Inuzuka",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Ishida",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Kagayaki",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Katō",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Kenta",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Kurama",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Mitokado",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Morino",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Munefuda",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Nara",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Sarutobi",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Senju",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Shimadoku",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Shimura",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Takeda",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Uchiha",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Utatane",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
         {
             name: "Yamanaka",
             village: konohaId,
-            description: "TODO"
+            description: "Arrive bientôt"
         },
     ]
     await ClanModel.insertMany(clans);
@@ -249,118 +249,316 @@ export default async function () {
         {
             name: "Armes Simples",
             base: basesId[2],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         {
             name: "Camouflage",
             base: basesId[4],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         {
             name: "Corps à Corps",
             base: basesId[3],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         {
             name: "Esquive",
             base: basesId[3],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         {
             name: "Gensou",
             base: basesId[5],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         {
             name: "Henge",
             base: basesId[4],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         {
             name: "Kawarimi",
             base: basesId[5],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         {
             name: "Mental",
             base: basesId[1],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         {
             name: "Parade",
             base: basesId[2],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         {
             name: "Physique",
             base: basesId[0],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         {
             name: "Survie",
             base: basesId[4],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         {
             name: "Vigilance",
             base: basesId[4],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "common"
         },
         // Combat
         {
             name: "Armes exotiques",
             base: basesId[2],
-            description: "TODO",
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Chūken (École de combat)",
+            base: basesId[3],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Coup spécial",
+            base: basesId[2],//TODO
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Doton",
+            base: basesId[4],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Futon",
+            base: basesId[4],
+            description: "Arrive bientôt",
             type: "combat"
         },
         {
             name: "Gōken (École de combat)",
             base: basesId[3],
-            description: "TODO",
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Jūken (École de combat)",
+            base: basesId[3],
+            description: "Arrive bientôt",
             type: "combat"
         },
         {
             name: "Intimidation",
             base: basesId[0],
-            description: "TODO",
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Katon",
+            base: basesId[4],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Premiers soins",
+            base: basesId[0],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Raïton",
+            base: basesId[4],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Régénération",
+            base: basesId[0],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Résistances Élémentaires (ELEM)",
+            base: basesId[4],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Résistances Environnementales (ENVI)",
+            base: basesId[0],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Résistances Physiques (PHY)",
+            base: basesId[0],
+description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Résistances Psychiques (PSY)",
+            base: basesId[1],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Science des Explosifs",
+base: basesId[2],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Science des Pièges",
+            base: basesId[2],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Suiton",
+base: basesId[4],
+            description: "Arrive bientôt",
+            type: "combat"
+        },
+        {
+            name: "Yūrioku",
+            base: basesId[3],
+            description: "Arrive bientôt",
             type: "combat"
         },
         // Terrain
         {
             name: "Collecter des informations",
             base: basesId[1],
-            description: "TODO",
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Éducation",
+            base: basesId[1],
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Empathie",
+            base: basesId[4],
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Faux Semblants",
+            base: basesId[3],
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Fūin",
+            base: basesId[3],
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Iryō",
+            base: basesId[3],
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Kuchiyose",
+            base: basesId[3],
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Lois et Traditions",
+            base: basesId[1],
+            description: "Arrive bientôt",
             type: "terrain"
         },
         {
             name: "Manipulation",
             base: basesId[3],
-            description: "TODO",
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Médecine",
+            base: basesId[1],
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Science des Drogues",
+            base: basesId[4],
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Science des Poisons",
+            base: basesId[4],
+            description: "Arrive bientôt",
+type: "terrain"
+        },
+        {
+            name: "Sentinelle",
+            base: basesId[3],
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Sixième Sens",
+            base: basesId[3],
+            description: "Arrive bientôt",
+            type: "terrain"
+        },
+        {
+            name: "Technologie",
+            base: basesId[2],
+            description: "Arrive bientôt",
             type: "terrain"
         },
         // Clan
         {
-            name: "Kage",
+            name: "Jiton",
             base: basesId[4],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "clan"
         },
         {
-            name: "Résistances Émotionnelles",
+            name: "Kage",
+            base: basesId[4],
+            description: "Arrive bientôt",
+            type: "clan"
+        },
+        {
+            name: "Kikaichū",
+            base: basesId[4],
+            description: "Arrive bientôt",
+            type: "clan"
+        },
+        {
+            name: "Mokuton",
+            base: basesId[4],
+            description: "Arrive bientôt",
+            type: "clan"
+        },
+        {
+            name: "Résistances Émotionnelles (EMO)",
             base: basesId[5],
-            description: "TODO",
+            description: "Arrive bientôt",
             type: "clan"
         }
     ]
