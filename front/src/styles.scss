@@ -36,106 +36,108 @@
         @apply flex items-center rounded-xl border bg-black text-start border-lighter-dark px-[24px] hocus:bg-dark;
     }
 
-  .labeled-input {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 53px;
+    .input {
+        appearance: none;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 1px solid $lighter-dark;
+        outline: none;
+        font-size: 14px;
+        border-radius: 12px;
+        background: $light-dark;
+        color: $light-gray;
 
-    & > label {
-      pointer-events: none;
-      position: absolute;
-      left: 24px;
-      display: flex;
-      align-items: center;
-      color: $white;
-      font-size: 14px;
+        &::placeholder {
+            color: $light-gray;
+        }
+
+        &:focus::placeholder {
+            color: $light-gray;
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            appearance: none;
+            margin: 0;
+        }
+
+        &[type=number] {
+            -moz-appearance: textfield;
+        }
     }
 
-    & > input {
-      appearance: none;
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: 1px solid $lighter-dark;
-      outline: none;
-      font-size: 14px;
-      border-radius: 12px;
-      background: $light-dark;
-      color: $light-gray;
-
-      &::placeholder {
-        color: $light-gray;
-      }
-
-      &:invalid {
+    .handle-invalid:invalid {
         border-color: $orange;
 
         &::placeholder {
-          color: $orange;
+            color: $orange;
         }
 
         &:focus {
-          border-color: $lighter-dark;
+            border-color: $lighter-dark;
         }
-      }
+    }
 
-      &:focus {
-        border-width: 2px;
+    .labeled-input {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 53px;
 
-        &::placeholder {
-          color: $light-gray;
+        & > label {
+            pointer-events: none;
+            position: absolute;
+            left: 24px;
+            display: flex;
+            align-items: center;
+            color: $white;
+            font-size: 14px;
         }
-      }
 
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        appearance: none;
-        margin: 0;
-      }
-
-      &[type=number] {
-        -moz-appearance: textfield;
-      }
-    }
-  }
-
-  .labeled-select {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 53px;
-
-    & > label {
-      pointer-events: none;
-      position: absolute;
-      left: 24px;
-      display: flex;
-      align-items: center;
-      color: $white;
-      font-size: 14px;
+        & > input {
+            @apply input
+        }
     }
 
-    & > select {
-      appearance: none;
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: 1px solid $lighter-dark;
-      outline: none;
-      font-size: 14px;
-      border-radius: 12px;
-      background-color: $light-dark;
-      color: $light-gray;
-      background-image: url("assets/images/dropdown.svg");
-      background-repeat: no-repeat;
-      background-position: right 18px center;
+    .labeled-select {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 53px;
 
-      &:focus {
-        border-width: 2px;
-      }
+        & > label {
+            pointer-events: none;
+            position: absolute;
+            left: 24px;
+            display: flex;
+            align-items: center;
+            color: $white;
+            font-size: 14px;
+        }
+
+        & > select {
+            appearance: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 1px solid $lighter-dark;
+            outline: none;
+            font-size: 14px;
+            border-radius: 12px;
+            background-color: $light-dark;
+            color: $light-gray;
+            &:enabled {
+                background-image: url("assets/images/dropdown.svg");
+                background-repeat: no-repeat;
+                background-position: right 18px center;
+            }
+
+            &:focus {
+                border-width: 2px;
+            }
+        }
     }
-  }
 }
 
 @layer utilities {
