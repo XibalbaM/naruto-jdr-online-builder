@@ -27,8 +27,8 @@ export class InputComponent {
      */
     onSubmit() {
         if (this.userEmail && !this.sent) {
+            this.sent = true;
             this.recaptchaV3Service.execute(this.environment.recaptchaSiteKey, 'login', (token) => {
-                this.sent = true;
                 this.authService.sendEmailRequest(this.userEmail!, token).subscribe((response) => {
                     this.router.navigate(['/connexion/reponse'], {
                         queryParams: {
@@ -40,6 +40,7 @@ export class InputComponent {
                 });
             }, {}, (error) => {
                 console.error(error)
+                this.sent = false;
             });
         }
     }
