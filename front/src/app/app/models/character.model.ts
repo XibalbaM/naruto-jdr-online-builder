@@ -9,6 +9,7 @@ export default class Character {
 	village!: string;
 	road?: string;
 	xp!: number;
+	rank!: string;
 	bases: { base: string, level: number }[] = [];
 	skills: { skill: string, level: number }[] = [];
 	nindo!: string;
@@ -21,13 +22,11 @@ export default class Character {
 	}
 
 	toCreate() {
-		return {
-			notes: this.notes,
-			firstName: this.firstName,
-			clan: this.clan,
-			village: this.village,
-			xp: this.xp,
-			nindo: this.nindo
-		}
+		const character: any = new Character(this);
+        delete character._id;
+        delete character.bases;
+        delete character.skills;
+        delete character.chakraSpes;
+        return character;
 	}
 }
