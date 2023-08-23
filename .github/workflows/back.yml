@@ -53,21 +53,21 @@ jobs:
                     script: |
                         cd /home/builder/app
                         npm install
-                        export NODE_ENV=prod
-                        export PROTOCOL=https
-                        export HTTPS_KEY=/etc/letsencrypt/live/builder.naruto-jdr.com/privkey.pem
-                        export HTTPS_CERT=/etc/letsencrypt/live/builder.naruto-jdr.com/fullchain.pem
-                        export MONGO_URL=mongodb+srv://builder:${{ secrets.DATABASE_PASS }}@cluster0.6po1kqr.mongodb.net/?retryWrites=true&w=majority
-                        export MONGO_DB_NAME=builder
-                        export JWT_SECRET=${{ secrets.JWT_SECRET }}
-                        export LOGIN_JWT_SECRET=${{ secrets.LOGIN_JWT_SECRET }}
-                        export EMAIL_USER=builder@naruto-jdr.com
-                        export EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
-                        export EMAIL_USERNAME=Builder Naruto JDR <builder@naruto-jdr.com>
-                        export SERVER_ADDRESS=builder.naruto-jdr.com
-                        export RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}
-                        export DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}
-                        export DISCORD_CLIENT_SECRET=${{ secrets.DISCORD_CLIENT_SECRET }}
-                        export DISCORD_GUILD_ID=${{ secrets.DISCORD_GUILD_ID }}
-                        export DISCORD_BOT_TOKEN=${{ secrets.DISCORD_TOKEN }}
+                        export NODE_ENV="prod"
+                        export PROTOCOL="https"
+                        export HTTPS_KEY="/etc/letsencrypt/live/builder.naruto-jdr.com/privkey.pem"
+                        export HTTPS_CERT="/etc/letsencrypt/live/builder.naruto-jdr.com/fullchain.pem"
+                        export MONGO_URL="mongodb+srv://builder:${{ secrets.DATABASE_PASS }}@cluster0.6po1kqr.mongodb.net/?retryWrites=true&w=majority"
+                        export MONGO_DB_NAME="builder"
+                        export JWT_SECRET="${{ secrets.JWT_SECRET }}"
+                        export LOGIN_JWT_SECRET="${{ secrets.LOGIN_JWT_SECRET }}"
+                        export EMAIL_USER="builder@naruto-jdr.com"
+                        export EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}"
+                        export EMAIL_USERNAME="Builder Naruto JDR <builder@naruto-jdr.com>"
+                        export SERVER_ADDRESS="builder.naruto-jdr.com"
+                        export RECAPTCHA_SECRET_KEY="${{ secrets.RECAPTCHA_SECRET_KEY }}"
+                        export DISCORD_CLIENT_ID="${{ secrets.DISCORD_CLIENT_ID }}"
+                        export DISCORD_CLIENT_SECRET="${{ secrets.DISCORD_CLIENT_SECRET }}"
+                        export DISCORD_GUILD_ID="${{ secrets.DISCORD_GUILD_ID }}"
+                        export DISCORD_BOT_TOKEN="${{ secrets.DISCORD_TOKEN }}"
                         pm2 start --name=Builder main.js --update-env
