@@ -21,7 +21,7 @@
                 Clan {{clan.name}}
             </div>
             <img class="py-[12px] px-[18px] border border-dark-gray rounded-[22px]"
-                 [src]="env.api_url + '/assets/villages/' + (character.village | idToData:dataService.villages.value)?.name.toLowerCase() + '-purple.svg'"
+                 [src]="env.api_url + '/assets/villages/' + ((character.village | idToData:dataService.villages.value)?.name || '').toLowerCase() + '-purple.svg'"
                  alt="Symbole du Village du ninja"/>
         </div>
         <app-spacer-graphical class="mt-[50px] mb-[30px]"/>
