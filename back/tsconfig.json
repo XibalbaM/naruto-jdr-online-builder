@@ -2,13 +2,13 @@
     "compilerOptions": {
         "module": "es2022",
         "target": "es2022",
-        "rootDir": "./",
+        "rootDir": "./src",
         "outDir": "./dist",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "moduleResolution": "Node"
     },
     "include": [
-        "./**/*"
+        "./src/**/*"
     ]
 }
