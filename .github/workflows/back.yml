@@ -25,6 +25,16 @@ jobs:
             -   name: Build
                 run: cd ./back && npm run build && cp ./package.json ./dist
 
+            -   name: Stop builder process on VPS
+                uses: appleboy/ssh-action@master
+                with:
+                    host: 45.147.97.184
+                    username: builder
+                    key: ${{ secrets.BUILDER_SSH_PRIVATE_KEY }}
+
+                    script: |
+                        pm2 stop Builder
+
             -   name: Remove old build files on VPS
                 uses: appleboy/ssh-action@master
                 with:
