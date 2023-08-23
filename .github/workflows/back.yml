@@ -80,4 +80,5 @@ jobs:
                         export DISCORD_CLIENT_SECRET="${{ secrets.DISCORD_CLIENT_SECRET }}"
                         export DISCORD_GUILD_ID="${{ secrets.DISCORD_GUILD_ID }}"
                         export DISCORD_BOT_TOKEN="${{ secrets.DISCORD_TOKEN }}"
+                        npm run add-default-data
                         pm2 start --name=Builder main.js --update-env
