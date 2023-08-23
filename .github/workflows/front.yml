@@ -1,0 +1,44 @@
+name: Builder's back-end deployment
+on:
+    push:
+        branches:
+            - master
+        paths:
+            - "front/**"
+    workflow_dispatch:
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v2
+
+            -   name: Set up Node.js
+                uses: actions/setup-node@v2
+                with:
+                    node-version: '18'
+
+            -   name: Install dependencies
+                run: cd ./front && npm install
+
+            -   name: Build
+                run: cd ./front && export NODE_ENV=production && npm run build
+
+            -   name: Remove old build files on VPS
+                uses: appleboy/ssh-action@master
+                with:
+                    host: 45.147.97.184
+                    username: builder
+                    key: ${{ secrets.BUILDER_SSH_PRIVATE_KEY }}
+
+                    script: |
+                        cd /home/builder/app/front
+                        rm -rf *
+
+            -   name: Transfer build files to VPS
+                run: |
+                    echo "${{ secrets.BUILDER_SSH_PRIVATE_KEY }}" > ./builder.key
+                    chmod 600 ./builder.key
+                    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./builder.key -r ./front/dist/naruto-jdr-online-builder/* builder@45.147.97.184:/home/builder/app/front
+                    rm ./builder.key
