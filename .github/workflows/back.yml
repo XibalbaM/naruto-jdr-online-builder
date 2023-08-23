@@ -55,8 +55,8 @@ jobs:
                         npm install
                         export NODE_ENV="prod"
                         export PROTOCOL="https"
-                        export HTTPS_KEY="/etc/letsencrypt/live/builder.naruto-jdr.com/privkey.pem"
-                        export HTTPS_CERT="/etc/letsencrypt/live/builder.naruto-jdr.com/fullchain.pem"
+                        export HTTPS_KEY="../key.pem"
+                        export HTTPS_CERT="../cert.pem"
                         export MONGO_URL="mongodb+srv://builder:${{ secrets.DATABASE_PASS }}@cluster0.6po1kqr.mongodb.net/?retryWrites=true&w=majority"
                         export MONGO_DB_NAME="builder"
                         export JWT_SECRET="${{ secrets.JWT_SECRET }}"
