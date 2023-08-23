@@ -23,7 +23,7 @@ jobs:
                 run: cd ./back && npm install
 
             -   name: Build
-                run: cd ./back && npm run build && cp ./package.json ./dist
+                run: cd ./back && npm run build && cp ./package.json ./dist && cp -r ./assets ./dist
 
             -   name: Stop builder process on VPS
                 uses: appleboy/ssh-action@master
