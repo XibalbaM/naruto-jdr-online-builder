@@ -23,7 +23,7 @@ jobs:
                 run: cd ./back && npm install
 
             -   name: Build
-                run: cd ./back && npm run build
+                run: cd ./back && npm run build && cp ./package.json ./dist
 
             -   name: Remove old build files on VPS
                 uses: appleboy/ssh-action@master
