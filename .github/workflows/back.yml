@@ -34,7 +34,7 @@ jobs:
 
                     script: |
                         cd /home/builder/app
-                        rm -vrf !("front")
+                        find . -maxdepth 1 ! -name "front" -exec rm -rf {} \;
 
             -   name: Transfer build files to VPS
                 run: |
