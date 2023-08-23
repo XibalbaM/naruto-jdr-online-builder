@@ -30,14 +30,14 @@ export function getUser(req: Request, res: Response) {
 export function updateUsername(req: Request, res: Response) {
 
     const username = req.body.username;
-    if (username.length >= config.user.username.minLength && username.length <= config.user.username.maxLength) {
+    if (username.length >= 3 && username.length <= 20) {
         accountService.updateUsername(req["user"]["_id"], username).then(() => {
             res.status(200).json({message: "Username updated."});
         }).catch((err) => {
             res.status(500).json({error: err.message});
         });
     } else {
-        res.status(400).json({error: `Username must be between ${config.user.username.minLength} and ${config.user.username.maxLength} characters.`});
+        res.status(400).json({error: `Username must be between 3 and 20 characters.`});
     }
 }
 

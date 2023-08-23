@@ -20,6 +20,14 @@ export default class Environment {
      */
     protocol: "http" | "https";
     /**
+     * The key for https.
+     */
+    httpsKey?: string;
+    /**
+     * The cert for https.
+     */
+    httpsCert?: string;
+    /**
      * The database connection string.
      */
     db: string;
@@ -68,24 +76,6 @@ export default class Environment {
      * The list of allowed image extensions.
      */
     allowedFileExtensions: string[] = ["png", "jpg", "jpeg", "webp", "svg"];
-    /**
-     * The config for the user model.
-     */
-    user: {
-        /**
-         * The config for the username field.
-         */
-        username: {
-            /**
-             * The minimum length for the username.
-             */
-            minLength: number;
-            /**
-             * The maximum length for the username.
-             */
-            maxLength: number;
-        }
-    }
 
     /**
      * The secret key for reCaptcha.

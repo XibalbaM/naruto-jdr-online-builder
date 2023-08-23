@@ -16,8 +16,8 @@ export const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         trim: true,
-        minLength: config.user.username.minLength,
-        maxLength: config.user.username.maxLength,
+        minLength: 3,
+        maxLength: 20,
     },
     profileImage: {
         type: String,

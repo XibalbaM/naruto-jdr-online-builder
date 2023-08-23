@@ -81,7 +81,7 @@ test("POST /username with invalid username", async () => {
 
     expect(response.status).toBe(400);
     const json = await response.json();
-    expect(json["error"]).toBe(`Username must be between ${config.user.username.minLength} and ${config.user.username.maxLength} characters.`);
+    expect(json["error"]).toBe(`Username must be between 3 and 20 characters.`);
 });
 
 test("POST /email with invalid email", async () => {
