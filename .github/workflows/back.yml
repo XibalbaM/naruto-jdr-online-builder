@@ -33,7 +33,7 @@ jobs:
                     key: ${{ secrets.BUILDER_SSH_PRIVATE_KEY }}
 
                     script: |
-                        pm2 stop Builder
+                        pm2 stop Builder 2> /dev/null
 
             -   name: Remove old build files on VPS
                 uses: appleboy/ssh-action@master
