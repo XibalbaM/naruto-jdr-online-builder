@@ -17,11 +17,11 @@
         </p>
         <div class="flex flex-row">
             <div class="flex flex-row me-[8px] bg-black py-[12px] px-[18px] rounded-[22px] items-center" *ngIf="(character.clan | idToData:dataService.clans.value) as clan">
-                <img class="x-[25px] h-[25px] me-[12px]" [src]="env.api_url + '/assets/clans/' + clan.name + '-purple.svg'" alt="Symbole du clan du ninja"/>
+                <img class="x-[25px] h-[25px] me-[12px]" [src]="env.api_url + '/assets/clans/' + clan.name.toLowerCase() + '-purple.svg'" alt="Symbole du clan du ninja"/>
                 Clan {{clan.name}}
             </div>
             <img class="py-[12px] px-[18px] border border-dark-gray rounded-[22px]"
-                 [src]="env.api_url + '/assets/villages/' + (character.village | idToData:dataService.villages.value)?.name + '-purple.svg'"
+                 [src]="env.api_url + '/assets/villages/' + (character.village | idToData:dataService.villages.value)?.name.toLowerCase() + '-purple.svg'"
                  alt="Symbole du Village du ninja"/>
         </div>
         <app-spacer-graphical class="mt-[50px] mb-[30px]"/>
