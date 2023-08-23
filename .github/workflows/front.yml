@@ -1,4 +1,4 @@
-name: Builder's back-end deployment
+name: Builder's front-end deployment
 on:
     push:
         branches:
