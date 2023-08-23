@@ -4,7 +4,7 @@ import * as fs from "fs";
 export default new Environment({
     env: 'prod',
     host: '127.0.0.1',
-    port: 80,
+    port: 443,
     protocol: process.env.PROTOCOL,
     httpsKey: fs.readFileSync(process.env.HTTPS_KEY).toString(),
     httpsCert: fs.readFileSync(process.env.HTTPS_CERT).toString(),
