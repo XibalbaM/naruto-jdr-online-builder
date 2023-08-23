@@ -29,7 +29,7 @@ export default new Environment({
         },
         username: process.env.EMAIL_USERNAME,
     },
-    loginUrl: `https://${process.env.SERVER_ADRESS}/connexion/`,
+    loginUrl: `https://${process.env.SERVER_ADDRESS}/connexion/`,
     reCaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY,
     discord: {
         clientId: process.env.DISCORD_CLIENT_ID,
