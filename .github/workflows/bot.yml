@@ -1,70 +1,71 @@
 name: Discord bot deployment
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - "bot/**"
+    push:
+        branches:
+            - master
+        paths:
+            - "bot/**"
+    workflow_dispatch:
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+    deploy:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
+            -   name: Set up Node.js
+                uses: actions/setup-node@v2
+                with:
+                    node-version: '18'
 
-      - name: Install dependencies
-        run: cd ./bot && npm install
+            -   name: Install dependencies
+                run: cd ./bot && npm install
 
-      - name: Build
-        run: cd ./bot && npm run build
+            -   name: Build
+                run: cd ./bot && npm run build
 
-      - name: Stop bot process on VPS
-        uses: appleboy/ssh-action@master
-        with:
-          host: 45.147.97.184
-          username: discord
-          key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
+            -   name: Stop bot process on VPS
+                uses: appleboy/ssh-action@master
+                with:
+                    host: 45.147.97.184
+                    username: discord
+                    key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
 
-          script: |
-            pm2 stop DiscordBot
+                    script: |
+                        pm2 stop DiscordBot
 
-      - name: Remove old build files on VPS
-        uses: appleboy/ssh-action@master
-        with:
-          host: 45.147.97.184
-          username: discord
-          key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
+            -   name: Remove old build files on VPS
+                uses: appleboy/ssh-action@master
+                with:
+                    host: 45.147.97.184
+                    username: discord
+                    key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
 
-          script: |
-            cd /home/discord
-            rm -rf bot
-            mkdir bot
+                    script: |
+                        cd /home/discord
+                        rm -rf bot
+                        mkdir bot
 
-      - name: Transfer build files to VPS
-        run: |
-          echo "${{ secrets.BOT_SSH_PRIVATE_KEY }}" > ./bot.key
-          chmod 600 ./bot.key
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./bot.key -r ./bot/dist/* discord@45.147.97.184:/home/discord/bot
-          rm ./bot.key
+            -   name: Transfer build files to VPS
+                run: |
+                    echo "${{ secrets.BOT_SSH_PRIVATE_KEY }}" > ./bot.key
+                    chmod 600 ./bot.key
+                    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./bot.key -r ./bot/dist/* discord@45.147.97.184:/home/discord/bot
+                    rm ./bot.key
 
-      - name: Restart bot on VPS
-        uses: appleboy/ssh-action@master
-        with:
-          host: 45.147.97.184
-          username: discord
-          key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
+            -   name: Restart bot on VPS
+                uses: appleboy/ssh-action@master
+                with:
+                    host: 45.147.97.184
+                    username: discord
+                    key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
 
-          script: |
-            cd /home/discord/bot
-            npm install
-            export NODE_ENV=prod
-            export DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
-            export DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}
-            export JWT_SECRET=${{ secrets.DISCORD_JWT_SECRET }}
-            pm2 start --name=DiscordBot main.js --update-env
+                    script: |
+                        cd /home/discord/bot
+                        npm install
+                        export NODE_ENV=prod
+                        export DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
+                        export DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}
+                        export JWT_SECRET=${{ secrets.JWT_SECRET }}
+                        pm2 start --name=DiscordBot main.js --update-env

@@ -1,0 +1,83 @@
+name: Builder's back-end deployment
+on:
+    push:
+        branches:
+            - master
+        paths:
+            - "back/**"
+    workflow_dispatch:
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v2
+
+            -   name: Set up Node.js
+                uses: actions/setup-node@v2
+                with:
+                    node-version: '18'
+
+            -   name: Install dependencies
+                run: cd ./back && npm install
+
+            -   name: Build
+                run: cd ./back && npm run build
+
+            -   name: Stop builder process on VPS
+                uses: appleboy/ssh-action@master
+                with:
+                    host: 45.147.97.184
+                    username: builder
+                    key: ${{ secrets.BUILDER_SSH_PRIVATE_KEY }}
+
+                    script: |
+                        pm2 stop Builder
+
+            -   name: Remove old build files on VPS
+                uses: appleboy/ssh-action@master
+                with:
+                    host: 45.147.97.184
+                    username: builder
+                    key: ${{ secrets.BUILDER_SSH_PRIVATE_KEY }}
+
+                    script: |
+                        cd /home/builder/app
+                        rm -vrf !("front")
+
+            -   name: Transfer build files to VPS
+                run: |
+                    echo "${{ secrets.BUILDER_SSH_PRIVATE_KEY }}" > ./builder.key
+                    chmod 600 ./builder.key
+                    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./builder.key -r ./builder/dist/* builder@45.147.97.184:/home/builder/app
+                    rm ./builder.key
+
+            -   name: Restart builder on VPS
+                uses: appleboy/ssh-action@master
+                with:
+                    host: 45.147.97.184
+                    username: builder
+                    key: ${{ secrets.BUILDER_SSH_PRIVATE_KEY }}
+
+                    script: |
+                        cd /home/builder/app
+                        npm install
+                        export NODE_ENV=prod
+                        export PROTOCOL=https
+                        export HTTPS_KEY=/etc/letsencrypt/live/builder.naruto-jdr.com/privkey.pem
+                        export HTTPS_CERT=/etc/letsencrypt/live/builder.naruto-jdr.com/fullchain.pem
+                        export MONGO_URL=mongodb+srv://builder:${{ secrets.DATABASE_PASS }}@cluster0.6po1kqr.mongodb.net/?retryWrites=true&w=majority
+                        export MONGO_DB_NAME=builder
+                        export JWT_SECRET=${{ secrets.JWT_SECRET }}
+                        export LOGIN_JWT_SECRET=${{ secrets.LOGIN_JWT_SECRET }}
+                        export EMAIL_USER=builder@naruto-jdr.com
+                        export EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
+                        export EMAIL_USERNAME=Builder Naruto JDR <builder@naruto-jdr.com>
+                        export SERVER_ADDRESS=builder.naruto-jdr.com
+                        export RECAPTCHA_SECRET_KEY=${{ secrets.RECAPTCHA_SECRET_KEY }}
+                        export DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}
+                        export DISCORD_CLIENT_SECRET=${{ secrets.DISCORD_CLIENT_SECRET }}
+                        export DISCORD_GUILD_ID=${{ secrets.DISCORD_GUILD_ID }}
+                        export DISCORD_BOT_TOKEN=${{ secrets.DISCORD_TOKEN }}
+                        pm2 start --name=Builder main.js --update-env
