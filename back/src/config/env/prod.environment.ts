@@ -1,12 +1,13 @@
 import Environment from "./Environment.js";
+import * as fs from "fs";
 
 export default new Environment({
     env: 'prod',
     host: '127.0.0.1',
     port: 80,
     protocol: process.env.PROTOCOL,
-    httpsKey: process.env.HTTPS_KEY,
-    httpsCert: process.env.HTTPS_CERT,
+    httpsKey: fs.readFileSync(process.env.HTTPS_KEY).toString(),
+    httpsCert: fs.readFileSync(process.env.HTTPS_CERT).toString(),
     db: process.env.MONGO_URL,
     dbName: process.env.MONGO_DB_NAME,
     jwt_secret: process.env.JWT_SECRET,
