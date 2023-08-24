@@ -463,7 +463,7 @@ export default async function () {
             description: "Arrive bientôt",
             line: {
                 skills: [
-                    await SkillModel.findOne({name: "Kikaichū"})
+                    (await SkillModel.findOne({name: "Kikaichū"}))._id
                 ]
             }
         },
@@ -489,7 +489,7 @@ export default async function () {
             description: "Arrive bientôt",
             line: {
                 skills: [
-                    await SkillModel.findOne({name: "Sumi"})
+                    (await SkillModel.findOne({name: "Sumi"}))._id
                 ]
             }
         },
@@ -587,7 +587,7 @@ export default async function () {
             description: "Arrive bientôt",
             line: {
                 skills: [
-                    await SkillModel.findOne({name: "Jiton"})
+                    (await SkillModel.findOne({name: "Jiton"}))._id
                 ]
             }
         },
@@ -597,7 +597,7 @@ export default async function () {
             description: "Arrive bientôt",
             line: {
                 skills: [
-                    await SkillModel.findOne({name: "Kage"})
+                    (await SkillModel.findOne({name: "Kage"}))._id
                 ]
             }
         },
@@ -615,9 +615,9 @@ export default async function () {
             description: "Arrive bientôt",
             line: {
                 skills: [
-                    await SkillModel.findOne({name: "Mokuton"}),
-                    await SkillModel.findOne({name: "Doton"}),
-                    await SkillModel.findOne({name: "Suiton"})
+                    (await SkillModel.findOne({name: "Mokuton"}))._id,
+                    (await SkillModel.findOne({name: "Doton"}))._id,
+                    (await SkillModel.findOne({name: "Suiton"}))._id
                 ]
             }
         },
@@ -667,7 +667,7 @@ export default async function () {
             description: "Arrive bientôt",
             line: {
                 skills: [
-                    await SkillModel.findOne({name: "Résistances Émotionnelles (EMO)"}),
+                    (await SkillModel.findOne({name: "Résistances Émotionnelles (EMO)"}))._id,
                 ]
             }
         },
