@@ -80,6 +80,12 @@
                             {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Physiques (PHY)" | async)!}}
                         </span>
                     </span>
+                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Émotionnelles (EMO)' | async)! > 0">
+                        EMO
+                        <span class="text-white">
+                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Émotionnelles (EMO)" | async)!}}
+                        </span>
+                    </span>
                 </p>
                 <p class="stat-box">
                     Caractère
