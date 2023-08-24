@@ -50,7 +50,7 @@ jobs:
                 run: |
                     echo "${{ secrets.BUILDER_SSH_PRIVATE_KEY }}" > ./builder.key
                     chmod 600 ./builder.key
-                    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./builder.key -r ./back/dist/.* ./back/dist/* builder@45.147.97.184:/home/builder/app
+                    rsync -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./builder.key" -r ./back/dist/ builder@45.147.97.184:/home/builder/app
                     rm ./builder.key
 
             -   name: Restart builder on VPS
