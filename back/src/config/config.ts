@@ -25,7 +25,7 @@ const config: Environment = {
     login_jwt_secret: process.env.LOGIN_JWT_SECRET,
     login_jwt_expiration: Number.parseInt(process.env.LOGIN_JWT_EXPIRATION),
     loginEmail: {
-        transport: env === 'prod' ? {
+        transport: {
             host: "smtp.zoho.eu",
             port: 465,
             secure: true,
@@ -37,7 +37,7 @@ const config: Environment = {
                 rejectUnauthorized: false,
                 cert: process.env.EMAIL_CERT ? fs.readFileSync(process.env.EMAIL_CERT) : undefined,
             }
-        } : JSON.parse(process.env.EMAIL_TRANSPORT.replaceAll("'", "\"")),
+        },
         username: process.env.EMAIL_USERNAME,
     },
     loginUrl: `${process.env.PROTOCOL}://${process.env.SERVER_ADDRESS}/connexion/`,
