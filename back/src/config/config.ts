@@ -35,7 +35,7 @@ const config: Environment = {
             },
             tls: {
                 rejectUnauthorized: false,
-                cert: process.env.EMAIL_CERT ? fs.readFileSync(process.env.EMAIL_CERT) : undefined,
+                cert: process.env.EMAIL_CERT ? fs.readFileSync(process.env.EMAIL_CERT).toString() : undefined,
             }
         },
         username: process.env.EMAIL_USERNAME,
