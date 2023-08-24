@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-import config from "../config/env.js";
-
 /**
  * Represents a user of the application.
  * A mongoose model is a wrapper on the MongoDB database.

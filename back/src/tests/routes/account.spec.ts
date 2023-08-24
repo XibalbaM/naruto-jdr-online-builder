@@ -1,7 +1,6 @@
 import {test, expect} from "vitest";
 
 import * as fetchUtils from "../../utils/tests.utils.js";
-import config from "../../config/env";
 import {addDiscordAccountToTestAccount, removeDiscordAccountFromTestAccount} from "../../utils/tests.utils.js";
 
 //NORMAL USES

@@ -2,7 +2,6 @@ import {Request, Response} from "express";
 
 import * as accountService from "../services/account.service.js";
 import * as imagesService from "../services/images.service.js";
-import config from "../config/env.js";
 
 /**
  * Handles GET requests to /account/user

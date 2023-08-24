@@ -1,4 +1,4 @@
-import config from "../config/env";
+import config from "../config/config.js";
 import userModel from "../models/user.model";
 import databaseConnect from "../database-connect";
 

@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
 import {Middleware} from "../middleware.type.js";
-import config from "../../config/env.js";
+import config from "../../config/config.js";
 
 /**
  * A function that returns a {@link Middleware} that checks if a valid captcha token is provided.

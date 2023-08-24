@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-import config from "../config/env.js";
+import config from "../config/config.js";
 import {getUserNameFromEmail} from "./account.service.js";
 
 /**

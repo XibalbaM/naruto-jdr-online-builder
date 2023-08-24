@@ -3,7 +3,7 @@ import {Routes} from "discord-api-types/v10";
 import {makeURLSearchParams, REST} from "@discordjs/rest";
 
 import userModel from "../models/user.model.js";
-import config from "../config/env.js";
+import config from "../config/config.js";
 import User from "../classes/user.class.js";
 
 /**

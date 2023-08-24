@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 import {Middleware} from "./middleware.type.js";
-import config from "../config/env.js";
+import config from "../config/config.js";
 
 /**
  * Return a middleware that log every request.

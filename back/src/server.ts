@@ -3,7 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import https from 'https';
 
-import config from "./config/env.js";
+import config from "./config/config.js";
 import router from './router.js';
 import logMiddleware from "./middlewares/log.middleware.js";
 

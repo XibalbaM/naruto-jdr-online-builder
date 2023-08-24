@@ -1,5 +1,4 @@
 import ImageSourceConfig from "./ImageSourceConfig.js";
-import defaultImageSource from "./image-source.js";
 import {REST} from "@discordjs/rest";
 
 export default class Environment {
@@ -71,11 +70,11 @@ export default class Environment {
     /**
      * The list of allowed image hosts.
      */
-    imageSource: ImageSourceConfig[] = defaultImageSource;
+    imageSource: ImageSourceConfig[];
     /**
      * The list of allowed image extensions.
      */
-    allowedFileExtensions: string[] = ["png", "jpg", "jpeg", "webp", "svg"];
+    allowedFileExtensions: string[];
 
     /**
      * The secret key for reCaptcha.
@@ -110,10 +109,5 @@ export default class Environment {
          * The guild id of the discord application.
          */
         guildId: string;
-    }
-
-    constructor(data: Environment) {
-        Object.assign(this, data);
-        this.discord.rest = new REST({version: '10', authPrefix: "Bot"}).setToken(this.discord.botToken);
     }
 };

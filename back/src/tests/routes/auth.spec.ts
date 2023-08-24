@@ -3,7 +3,7 @@ import * as jwt from "jsonwebtoken";
 
 import * as fetchUtils from "../../utils/tests.utils.js";
 import * as authService from "../../services/auth.service.js";
-import config from "../../config/env.js";
+import config from "../../config/config.js";
 
 const userEmail = {
     email: "test@test.test",
