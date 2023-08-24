@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="flex w-full flex-row items-center rounded-xl border h-[55px] p-[16px] border-lighter-dark mt-[18px]"
-         (click)="isRoadElement.checked = !isRoadElement.checked; isRoad = !isRoad">
+         (click)="isRoadElement.checked = !isRoadElement.checked; isRoad = !isRoad; this.road = isRoad ? this.road : undefined">
         <input #isRoadElement type="checkbox" id="isRoad" name="isRoad" [(ngModel)]="isRoad"
                class="pointer-events-none appearance-none rounded-md border w-[21px] h-[21px] bg-light-dark border-lighter-dark checked:bg-yellow">
         <label for="isRoad" class="pointer-events-none ms-[15px]">Je souhaite une Voie, pas une Lignée</label>
