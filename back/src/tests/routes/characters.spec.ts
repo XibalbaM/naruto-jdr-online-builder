@@ -65,7 +65,6 @@ test("POST /:characterId/skills/:skillId", async () => {
 });
 
 test("POST /:characterId/skills/:skillId with invalid values", async () => {
-	//TODO UNALLOWED SKILL, REMOVING CLAN SKILL
 	let response = await fetchUtils.post("/characters/" + characterId + "/skills/" + (await SkillModel.findOne({name: "Armes Simples"}))._id, {value: 6}, await fetchUtils.getTestToken());
 
 	expect(response.status).toBe(400);
@@ -77,6 +76,12 @@ test("POST /:characterId/skills/:skillId with invalid values", async () => {
 	expect(response.status).toBe(400);
 	json = await response.json();
 	expect(json["error"]).toBe("Invalid value");
+
+    response = await fetchUtils.post("/characters/" + characterId + "/skills/" + (await SkillModel.findOne({name: "Kage"}))._id, {value: 1}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(400);
+    json = await response.json();
+    expect(json["error"]).toBe("Not allowed skill");
 });
 
 test("POST /:characterId/bases/:baseId", async () => {

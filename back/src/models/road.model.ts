@@ -14,6 +14,10 @@ export const roadSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    line: {
+        type: mongoose.Schema.Types.Mixed,
+        required: true
     }
 });
 

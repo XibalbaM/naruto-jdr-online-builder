@@ -11,6 +11,7 @@ import VillageModel from "../models/village.model.js";
 import ClanModel from "../models/clan.model.js";
 import RoadModel from "../models/road.model.js";
 import RankModel from "../models/rank.model.js";
+import Clan from "../classes/clan.class.js";
 
 export default class CharactersService {
 
@@ -46,6 +47,9 @@ export default class CharactersService {
         const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
         if (!userCharactersIds.includes(characterId as any)) {
             throw new Error("Character not found");
+        }
+        if (skill.type === "clan" && !Clan.fromModel(await ClanModel.findById(character.clan)).line.skills.find(skill => skill.toString() === skillId)) {
+            throw new Error("Not allowed skill");
         }
         await CharacterModel.updateOne({_id: characterId, "skills.skill": skillId}, {$set: {"skills.$.level": value}});
     }

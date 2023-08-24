@@ -18,6 +18,10 @@ export const clanSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    line: {
+        type: mongoose.Schema.Types.Mixed,
+        required: true
     }
 });
 

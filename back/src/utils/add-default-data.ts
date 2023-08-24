@@ -92,159 +92,6 @@ export default async function () {
         basesId.push(await BaseModel.findOne({fullName: base.fullName}));
     }
 
-    const roads: Omit<Road, "_id">[] = [
-        {
-            name: "Shōkan-shi",
-            qualification: "Voie du Genjutsu"
-        },
-        {
-            name: "Ninpō",
-            qualification: "Voie du Ninjutsu"
-        },
-        {
-            name: "Kriegstier",
-            qualification: "Voie des Armes"
-        },
-        {
-            name: "Kugutsu",
-            qualification: "Voie du Marionnettiste"
-        },
-        {
-            name: "Hachimon",
-            qualification: "Voie du Taïjutsu"
-        }
-    ]
-    await RoadModel.insertMany(roads);
-
-    const clans: Omit<Clan, "_id">[] = [
-        {
-            name: "Aburame",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Akaba",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Akimichi",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Aniki",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Ao",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Eshimuro",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Hyūga",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Inuzuka",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Ishida",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Kagayaki",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Katō",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Kenta",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Kurama",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Mitokado",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Morino",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Munefuda",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Nara",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Sarutobi",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Senju",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Shimadoku",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Shimura",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Takeda",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Uchiha",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Utatane",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-        {
-            name: "Yamanaka",
-            village: konohaId,
-            description: "Arrive bientôt"
-        },
-    ]
-    await ClanModel.insertMany(clans);
-
     const skills: (Omit<Skill, "_id"> | Omit<Skill, "_id" | "isClan">)[] = [
         {
             name: "Armes Simples",
@@ -406,7 +253,7 @@ export default async function () {
         {
             name: "Résistances Physiques (PHY)",
             base: basesId[0],
-description: "Arrive bientôt",
+            description: "Arrive bientôt",
             type: "combat"
         },
         {
@@ -417,7 +264,7 @@ description: "Arrive bientôt",
         },
         {
             name: "Science des Explosifs",
-base: basesId[2],
+            base: basesId[2],
             description: "Arrive bientôt",
             type: "combat"
         },
@@ -429,7 +276,7 @@ base: basesId[2],
         },
         {
             name: "Suiton",
-base: basesId[4],
+            base: basesId[4],
             description: "Arrive bientôt",
             type: "combat"
         },
@@ -510,7 +357,7 @@ base: basesId[4],
             name: "Science des Poisons",
             base: basesId[4],
             description: "Arrive bientôt",
-type: "terrain"
+            type: "terrain"
         },
         {
             name: "Sentinelle",
@@ -560,9 +407,272 @@ type: "terrain"
             base: basesId[5],
             description: "Arrive bientôt",
             type: "clan"
+        },
+        {
+            name: "Sumi",
+            base: basesId[4],
+            description: "Arrive bientôt",
+            type: "clan"
         }
     ]
     await SkillModel.insertMany(skills);
+
+    const roads: Omit<Road, "_id">[] = [
+        {
+            name: "Shōkan-shi",
+            qualification: "Voie du Genjutsu",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Ninpō",
+            qualification: "Voie du Ninjutsu",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Kriegstier",
+            qualification: "Voie des Armes",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Kugutsu",
+            qualification: "Voie du Marionnettiste",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Hachimon",
+            qualification: "Voie du Taïjutsu",
+            line: {
+                skills: []
+            }
+        }
+    ]
+    await RoadModel.insertMany(roads);
+
+    const clans: Omit<Clan, "_id">[] = [
+        {
+            name: "Aburame",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: [
+                    await SkillModel.findOne({name: "Kikaichū"})
+                ]
+            }
+        },
+        {
+            name: "Akaba",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Akimichi",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Aniki",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: [
+                    await SkillModel.findOne({name: "Sumi"})
+                ]
+            }
+        },
+        {
+            name: "Ao",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Eshimuro",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Hyūga",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Inuzuka",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Ishida",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Kagayaki",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Katō",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Kenta",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Kurama",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Mitokado",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Morino",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Munefuda",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: [
+                    await SkillModel.findOne({name: "Jiton"})
+                ]
+            }
+        },
+        {
+            name: "Nara",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: [
+                    await SkillModel.findOne({name: "Kage"})
+                ]
+            }
+        },
+        {
+            name: "Sarutobi",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Senju",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: [
+                    await SkillModel.findOne({name: "Mokuton"}),
+                    await SkillModel.findOne({name: "Doton"}),
+                    await SkillModel.findOne({name: "Suiton"})
+                ]
+            }
+        },
+        {
+            name: "Shimadoku",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Shimura",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Takeda",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Uchiha",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Utatane",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: []
+            }
+        },
+        {
+            name: "Yamanaka",
+            village: konohaId,
+            description: "Arrive bientôt",
+            line: {
+                skills: [
+                    await SkillModel.findOne({name: "Résistances Émotionnelles (EMO)"}),
+                ]
+            }
+        },
+    ]
+    await ClanModel.insertMany(clans);
 
     const ranks: Omit<Rank, "_id">[] = [
         {
