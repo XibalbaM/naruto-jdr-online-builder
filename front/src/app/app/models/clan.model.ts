@@ -1,3 +1,5 @@
+import Line from "./line.model";
+
 /**
  * Class representing a clan.
  * @class Clan
@@ -7,4 +9,5 @@ export default class Clan {
   name!: string;
   village!: string;
   description!: string;
+  line!: Line;
 }
