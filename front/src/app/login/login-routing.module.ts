@@ -4,9 +4,9 @@ import {InputComponent} from "./components/input/input.component";
 import {CallbackComponent} from "./components/callback/callback.component";
 
 const routes: Routes = [
-  { path: '', component: InputComponent },
-  { path: 'reponse', component: CallbackComponent },
-  { path: ':token', component: CallbackComponent },
+  { path: '', component: InputComponent, title: "Connexion — Naruto jdr" },
+  { path: 'reponse', component: CallbackComponent, title: "Connexion — Naruto jdr" },
+  { path: ':token', component: CallbackComponent, title: "Connexion — Naruto jdr" },
 ];
 
 @NgModule({
