@@ -8,6 +8,7 @@ import Clan from "../../../../app/models/clan.model";
 import Character from "../../../../app/models/character.model";
 import Road from "../../../../app/models/road.model";
 import {IdToDataPipe} from "../../../../shared/pipes/id-to-data.pipe";
+import {map} from "rxjs";
 
 @Component({
     selector: 'app-first-step',
@@ -22,6 +23,11 @@ export class FirstStepComponent implements OnInit {
     xp: number = this.creationService.character.xp || 100;
     isRoad: boolean = !!this.creationService.character.road;
     road?: Road = this.creationService.character.road ? this.idToData.transform(this.creationService.character.road, this.dataService.roads.getValue()) : undefined;
+    $clans = this.dataService.clans.pipe(
+        map((clans) => {
+            return clans.sort((a, b) => a.name.localeCompare(b.name))
+        })
+    );
 
     constructor(private creationService: CreationService, private router: Router, public dataService: DataService, private env: Environment, private idToData: IdToDataPipe) {
     }

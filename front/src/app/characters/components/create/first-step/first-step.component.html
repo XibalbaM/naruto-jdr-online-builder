@@ -28,7 +28,7 @@
             <label>Clan</label>
             <select name="clan" [(ngModel)]="clan" class="pl-[69px]" [class.!text-yellow]="clan">
                 <option selected disabled class="text-light-gray" [ngValue]="undefined">Choisir parmi la liste</option>
-                <option class="text-yellow" *ngFor="let clan of dataService.clans | async"
+                <option class="text-yellow" *ngFor="let clan of $clans | async"
                         [ngValue]="clan">{{clan.name | titlecase}}</option>
             </select>
         </div>
