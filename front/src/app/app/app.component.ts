@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
 import {BehaviorSubject, filter} from "rxjs";
 
@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
     $navbarType: BehaviorSubject<"default" | "character" | "characterWithNav" | "none"> = new BehaviorSubject<"default" | "character" | "characterWithNav" | "none">("default");
     $currentRoute: BehaviorSubject<ActivatedRouteSnapshot> = new BehaviorSubject<ActivatedRouteSnapshot>(new ActivatedRouteSnapshot());
     $bgMethode: BehaviorSubject<'none' | 'image' | 'imageNoRepeat' | 'custom'> = new BehaviorSubject<'none' | 'image' | 'imageNoRepeat' | 'custom'>('none');
+    @ViewChild("scrollHolder") scrollHolder!: ElementRef<HTMLDivElement>;
 
     constructor(private router: Router) {
     }
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
             this.$navbarType.next(currentRoute.data['navbar'] || "default");
             this.$bgMethode.next(currentRoute.data['bgMethode'] || 'none');
             this.$currentRoute.next(currentRoute);
+            this.scrollHolder.nativeElement.scrollTop = 0;
         });
     }
 }
