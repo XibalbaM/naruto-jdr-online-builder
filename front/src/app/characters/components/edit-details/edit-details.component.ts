@@ -55,11 +55,11 @@ export class EditDetailsComponent {
     }
 
     currentVillageLogo() {
-        return this.env.api_url + '/assets/villages/' + this.village.name + '-yellow.svg';
+        return this.env.api_url + '/assets/villages/' + this.village.name.toLowerCase() + '-yellow.svg';
     }
 
     currentClanLogo() {
-        return this.clan ? this.env.api_url + '/assets/clans/' + this.clan.name + '-white.svg' : '';
+        return this.clan ? this.env.api_url + '/assets/clans/' + this.clan.name.toLowerCase() + '-white.svg' : '';
     }
 
     submit() {
