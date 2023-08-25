@@ -24,6 +24,10 @@
     a {
         cursor: pointer;
     }
+
+    dialog {
+        @apply bg-transparent;
+    }
 }
 
 @layer components {
@@ -33,7 +37,7 @@
     }
 
     .black-button {
-        @apply flex items-center rounded-xl border bg-black text-start border-lighter-dark px-[24px] hocus:bg-dark;
+        @apply flex items-center rounded-xl border bg-black text-start border-lighter-dark px-[24px] hover:bg-dark;
     }
 
     .input {

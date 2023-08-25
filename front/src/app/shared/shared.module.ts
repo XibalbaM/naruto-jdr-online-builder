@@ -11,6 +11,7 @@ import {CharacterToReamingXpPipe} from "./pipes/character-to-reaming-xp.pipe";
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
         CharacterToReamingXpPipe,
         TooltipComponent,
         TooltipDirective,
-        SpinnerComponent
+        SpinnerComponent,
+        ModalComponent
     ],
     imports: [
         CommonModule,
@@ -42,7 +44,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
         IdToDataPipe,
         CharacterToReamingXpPipe,
         TooltipDirective,
-        SpinnerComponent
+        SpinnerComponent,
+        ModalComponent
     ],
     providers: [
         RoleNamePipe,
