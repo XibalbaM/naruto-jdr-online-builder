@@ -2,16 +2,27 @@ import {Middleware} from "./middleware.type";
 import {Model, Types} from "mongoose";
 
 /**
- * Return a middleware that check if an url parameter is a valid id for the given model
+ * Return a middleware that checks if an url parameter is a valid id for the given model
  * @param model The model of the database.
  * @param parameterName The name of the url parameter.
+ * @param inBody If the id is in the body of the request. If false, the id is in the url parameters.
  */
-export default function (model: Model<any>, parameterName: string): Middleware {
-	return (req, res, next) => {
-		if (!req.params[parameterName] || !Types.ObjectId.isValid(req.params[parameterName]) || !model.exists({_id: req.params[parameterName]})) {
-			res.status(404).json({error: `${model.modelName} not found`});
-			return;
-		}
-		next();
-	}
+export default function (model: Model<any>, parameterName: string, inBody: boolean = false): Middleware {
+    if (inBody) {
+        return (req, res, next) => {
+            if (!req.body[parameterName] || !Types.ObjectId.isValid(req.body[parameterName]) || !model.exists({_id: req.body[parameterName]})) {
+                res.status(404).json({error: `${model.modelName} not found`});
+                return;
+            }
+            next();
+        }
+    } else {
+        return (req, res, next) => {
+            if (!req.params[parameterName] || !Types.ObjectId.isValid(req.params[parameterName]) || !model.exists({_id: req.params[parameterName]})) {
+                res.status(404).json({error: `${model.modelName} not found`});
+                return;
+            }
+            next();
+        }
+    }
 }
