@@ -11,7 +11,7 @@ import CharacterModel from "../../models/character.model";
 import RoadModel from "../../models/road.model";
 import RankModel from "../../models/rank.model";
 
-const characterData: Omit<Character, "_id" | "bases" | "skills" | "chakraSpes" | "nindoPoints"> = {
+const characterData: Omit<Character, "_id" | "bases" | "skills" | "chakraSpes" | "nindoPoints" | "isPredrawn"> = {
 	firstName: "test",
 	village: (await VillageModel.findOne())._id,
 	xp: 100,

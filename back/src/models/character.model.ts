@@ -94,7 +94,12 @@ export const characterSchema = new mongoose.Schema({
 	notes: {
 		type: String,
 		required: false
-	}
+	},
+    isPredrawn: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
 });
 
 characterSchema.pre('save', async function (next) {

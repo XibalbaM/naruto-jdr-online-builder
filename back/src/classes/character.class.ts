@@ -18,6 +18,7 @@ export default class Character {
     nindoPoints: number;
     chakraSpes: {spe: mongoose.Types.ObjectId, level: number}[];
     notes: string;
+    isPredrawn: boolean;
 
     /**
      * Creates a new character from a model
@@ -39,6 +40,7 @@ export default class Character {
         character.nindoPoints = modelCharacter.nindoPoints;
         character.chakraSpes = modelCharacter.chakraSpes;
         character.notes = modelCharacter.notes;
+        character.isPredrawn = modelCharacter.isCommon === undefined ? false : modelCharacter.isCommon;
 
         return character;
     }

@@ -31,9 +31,11 @@ export default class CharactersService {
 
     static async getCharacter(userId: ObjectId, characterId: string) {
         const character = Character.fromModel(await CharacterModel.findById(characterId));
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-        if (!userCharactersIds.includes(characterId as any)) {
-            throw new Error("Character not found");
+        if (!character.isPredrawn) {
+            const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
+            if (!userCharactersIds.includes(characterId as any)) {
+                throw new Error("Character not found");
+            }
         }
         return character;
     }
