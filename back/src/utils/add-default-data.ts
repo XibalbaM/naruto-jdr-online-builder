@@ -774,6 +774,7 @@ export default async function () {
             ]
             await RankModel.collection.drop();
             await RankModel.insertMany(ranks);
+            break;
         }
         case "chakraSpe": {
             const chakraSpes: Omit<ChakraSpe, "_id">[] = [
@@ -830,6 +831,7 @@ export default async function () {
             ]
             await ChakraSpeModel.collection.drop();
             await ChakraSpeModel.insertMany(chakraSpes);
+            break;
         }
     }
 }
