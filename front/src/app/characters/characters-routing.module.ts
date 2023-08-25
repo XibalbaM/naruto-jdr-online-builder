@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {ActivatedRouteSnapshot, RouterModule, Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {ListComponent} from "./components/list/list.component";
 import {FirstStepComponent} from "./components/create/first-step/first-step.component";
 import {SecondStepComponent} from "./components/create/second-step/second-step.component";
@@ -10,58 +10,6 @@ import {EditComponent} from "./components/edit/edit.component";
 import {LineComponent} from "./components/line/line.component";
 import {UserResolver} from "../app/resolvers/user.resolver";
 import {EditDetailsComponent} from "./components/edit-details/edit-details.component";
-import {map, Observable, of, zip} from "rxjs";
-
-const characterNameFromRoute = (route: ActivatedRouteSnapshot): Observable<string> => {
-    if (route.paramMap.has('characterId')) {
-        return of(route.paramMap.get('characterId')!);
-    } else {
-        return of('');
-    }
-}
-
-const baseNameFromRoute = (route: ActivatedRouteSnapshot): Observable<string> => {
-    if (route.paramMap.has('id')) {
-        return of(route.paramMap.get('id')!);
-    } else {
-        return of('');
-    }
-}
-
-const skillNameFromRoute = (route: ActivatedRouteSnapshot): Observable<string> => {
-    if (route.paramMap.has('characterId')) {
-        return of(route.paramMap.get('characterId')!);
-    } else {
-        return of('');
-    }
-}
-
-const setDataInText = (text: string, route: ActivatedRouteSnapshot): Observable<string> => {
-    const observables: Observable<any>[] = [];
-    if (text.includes('{{characterName}}')) {
-        observables.push(characterNameFromRoute(route));
-    } else {
-        observables.push(of(''));
-    }
-    if (text.includes('{{baseName}}')) {
-        observables.push(baseNameFromRoute(route));
-    } else {
-        observables.push(of(''));
-    }
-    if (text.includes('{{skillName}}')) {
-        observables.push(skillNameFromRoute(route));
-    } else {
-        observables.push(of(''));
-    }
-    if (observables.length > 0) {
-        return zip(observables).pipe(
-            map((data) => {
-                return text.replace('{{characterName}}', data[0]).replace('{{baseName}}', data[1]).replace('{{skillName}}', data[2]);
-            })
-        );
-    }
-    return of(text);
-}
 
 const routes: Routes = [
     {path: '', component: ListComponent, resolve: {user: UserResolver}, data: {bgMethode: "none"}, title: "Liste de personnages — Naruto jdr"},
@@ -75,23 +23,23 @@ const routes: Routes = [
     },
     {
         path: ':characterId/base/:id', component: BaseComponent, data: {navbar: "character", bgMethode: "imageNoRepeat"}, resolve: {user: UserResolver},
-        title: (route) => setDataInText("Base {{baseName}} de {{characterName}}, Fiche de personnage — Naruto jdr", route)
+        title: "Base — Fiche de personnage — Naruto jdr"
     },
     {
         path: ':characterId/competence/:id', component: SkillComponent, data: {navbar: "character", bgMethode: "imageNoRepeat"}, resolve: {user: UserResolver},
-        title: (route) => setDataInText("Compétence {{skillName}} de {{characterName}}, Fiche de personnage — Naruto jdr", route)
+        title: "Compétence — Fiche de personnage — Naruto jdr"
     },
     {
         path: ':characterId/lignee', component: LineComponent, data: {navbar: "characterWithNav", bgMethode: 'image'},
-        title: (route) => setDataInText("Lignée de {{characterName}}, Fiche de personnage — Naruto jdr", route)
+        title: "Fiche de personnage — Naruto jdr"
     },
     {
         path: ':characterId/details', component: EditDetailsComponent, data: {navbar: "none", bgMethode: 'custom'},
-        title: (route) => setDataInText("{{characterName}}, Fiche de personnage — Modification — Naruto jdr", route)
+        title: "Fiche de personnage — Modification — Naruto jdr"
     },
     {
         path: ':characterId', component: EditComponent, data: {navbar: "characterWithNav", bgMethode: "custom"}, resolve: {user: UserResolver},
-        title: (route) => setDataInText("Mitsuo du clan Kurama, Fiche de personnage — Naruto jdr", route)
+        title: "Fiche de personnage — Naruto jdr"
     }
 ];
 

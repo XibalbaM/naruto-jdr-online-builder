@@ -12,6 +12,7 @@ import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import Rank from "../../../app/models/rank.model";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-edit-details',
@@ -35,7 +36,8 @@ export class EditDetailsComponent {
 
     constructor(private router: Router, private route: ActivatedRoute, private auth: Auth,
                 protected dataService: DataService, private env: Environment, private idToData: IdToDataPipe,
-                private characterService: CharacterService, private notificationService: NotificationService) {}
+                private characterService: CharacterService, private notificationService: NotificationService,
+                private title: Title) {}
 
     ngOnInit() {
         combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded()]).subscribe(([params, user]) => {
@@ -48,6 +50,7 @@ export class EditDetailsComponent {
                 this.isRoad = !!this.character.road;
                 this.road = this.character.road ? this.idToData.transform(this.character.road, this.dataService.roads.getValue()) : undefined;
                 this.rank = this.idToData.transform(this.character.rank, this.dataService.ranks.getValue())!;
+                this.title.setTitle(`${this.character.firstName} ${this.clan.name}, Modification — Fiche de personnage — Naruto jdr`)
             } else {
                 this.router.navigate(['/personnages']);
             }

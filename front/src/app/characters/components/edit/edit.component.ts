@@ -11,6 +11,7 @@ import {BehaviorSubject, combineLatest} from "rxjs";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import Base from "../../../app/models/base.model";
+import {Title} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-edit',
@@ -28,7 +29,8 @@ export class EditComponent implements OnInit, AfterViewInit {
 
     constructor(private activeRoute: ActivatedRoute, protected router: Router, protected auth: Auth,
                 protected dataService: DataService, private idToData: IdToDataPipe, private changeDetectorRef: ChangeDetectorRef,
-                protected env: Environment, private characterService: CharacterService, private notificationService: NotificationService) {
+                protected env: Environment, private characterService: CharacterService, private notificationService: NotificationService,
+                private title: Title) {
     }
 
     ngOnInit() {
@@ -52,6 +54,7 @@ export class EditComponent implements OnInit, AfterViewInit {
                 });
                 this.$character.next(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
                 this.notes = this.$character.value.notes.replaceAll("\n", "<br />");
+                this.title.setTitle(`${this.$character.getValue().firstName} ${this.idToData.transform(this.$character.getValue().clan, this.dataService.clans.getValue())?.name}, Fiche de personnage — Naruto jdr`)
             } else {
                 this.router.navigate(['/personnages']);
             }
