@@ -62,7 +62,6 @@ export class CreationService {
 		return this.apiService.doRequest<{ character: Character }>("POST", "/characters", {character: new Character(this.character).toCreate()}).pipe(
 			map((response) => {
 				if (response.status !== 201 || !response.body || !response.body.character) {
-					console.log(response);
 					throw new Error("Error while creating the character.");
 				} else {
 					return response.body.character;
@@ -72,7 +71,6 @@ export class CreationService {
 				return zip([
 					of(character),
 					...skillIds.map((skillId) => this.apiService.doRequest("POST", "/characters/" + character._id + "/skills/" + skillId, {value: 1}).pipe(map((response) => {
-						console.log(response);
 						return response.status === 200;
 					})))
 				]);

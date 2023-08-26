@@ -39,7 +39,6 @@ export class ThirdStepComponent implements OnInit {
 		if (this.skillIds.length === 5) {
 			this.creationService.stepThree(this.skillIds).subscribe(({success, id}) => {
 				if (success) {
-					console.log(this.creationService.step);
 					this.router.navigateByUrl("/personnages/" + id);
 				} else {
 					this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la création du personnage.");
@@ -56,6 +55,5 @@ export class ThirdStepComponent implements OnInit {
 		} else {
 			this.skillIds = this.skillIds.filter(id => id !== skill._id);
 		}
-		console.log(this.skillIds);
 	}
 }
