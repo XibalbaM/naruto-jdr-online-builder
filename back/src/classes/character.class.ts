@@ -40,7 +40,7 @@ export default class Character {
         character.nindoPoints = modelCharacter.nindoPoints;
         character.chakraSpes = modelCharacter.chakraSpes;
         character.notes = modelCharacter.notes;
-        character.isPredrawn = modelCharacter.isCommon === undefined ? false : modelCharacter.isCommon;
+        character.isPredrawn = modelCharacter.isPredrawn === undefined ? false : modelCharacter.isPredrawn;
 
         return character;
     }
