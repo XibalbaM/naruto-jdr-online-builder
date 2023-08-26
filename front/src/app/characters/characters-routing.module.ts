@@ -10,6 +10,7 @@ import {EditComponent} from "./components/edit/edit.component";
 import {LineComponent} from "./components/line/line.component";
 import {UserResolver} from "../app/resolvers/user.resolver";
 import {EditDetailsComponent} from "./components/edit-details/edit-details.component";
+import {PredrawnComponent} from "./components/predrawn/predrawn.component";
 
 const routes: Routes = [
     {path: '', component: ListComponent, resolve: {user: UserResolver}, data: {bgMethode: "none"}, title: "Liste de personnages — Naruto jdr"},
@@ -21,6 +22,7 @@ const routes: Routes = [
             {path: '3', component: ThirdStepComponent, title: "Création de personnage — Étape 3 — Naruto jdr"}
         ]
     },
+    {path: 'pretires', component: PredrawnComponent, resolve: {user: UserResolver}, data: {bgMethode: "none"}, title: "Personnages prétirés — Naruto jdr"},
     {
         path: ':characterId/base/:id', component: BaseComponent, data: {navbar: "character", bgMethode: "imageNoRepeat"}, resolve: {user: UserResolver},
         title: "Base — Fiche de personnage — Naruto jdr"

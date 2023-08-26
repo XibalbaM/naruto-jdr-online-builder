@@ -1,0 +1,25 @@
+<dialog #addDialog>
+    <app-modal mtitle="Prendre un personnage prétiré" [mtext]="'Voulez vous prendre le personnage prétiré ' + characterToAdd?.firstName + ' ' + (characterToAdd?.clan | idToData:dataService.clans.getValue())?.name + '.'">
+        <div class="flex justify-between items-center space-x-[18px]">
+            <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full"
+                    (click)="addDialog.close()">Retour
+            </button>
+            <button class="h-[52px] px-[28px] bg-purple rounded-[10px] hover:bg-opacity-90 w-full" (click)="addDialog.close(); takePredrawn(characterToAdd?._id!)">
+                Ajouter
+            </button>
+        </div>
+    </app-modal>
+</dialog>
+
+<a class="text-16 text-yellow hover:underline" routerLink="/personnages">Retour</a>
+<h1 class="font-bold uppercase text-28 font-monument mt-[25px] mb-[15px]">personnages prétirés</h1>
+<h2 class="text-14 text-gray">Naruto jeu de rôle</h2>
+<app-spacer-graphical class="my-[50px]"/>
+<app-predrawn-preview (click)="characterToAdd = character" *ngFor="let character of characters" [character]="character"/>
+<app-spacer class="my-[50px] bg-lighter-dark"/>
+<a href="" class="block w-fit font-bold uppercase text-20 font-monument text-purple-gradient">→ discord</a>
+<a href="" class="block w-fit font-bold uppercase text-20 font-monument text-purple-gradient">→ actual plays</a>
+<a href="" class="block w-fit font-bold uppercase text-20 font-monument text-purple-gradient">→ ressources</a>
+<app-spacer-graphical class="mt-[50px] mb-[30px]"/>
+<p class="font-light mb-[50px] text-14">Ninja Builder est une app de création de personnage pour Naruto jeu de rôle.</p>
+<p class="text-dark-gray text-14 mb-[180px]">Naruto-jdr.com <span class="ms-[25px]">2004-2023</span></p>

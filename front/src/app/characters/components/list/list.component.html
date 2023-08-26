@@ -1,18 +1,24 @@
 <a class="text-16 text-yellow" routerLink="/personnages/creation">+ Créer</a>
 <h1 class="font-bold uppercase text-28 font-monument mt-[25px] mb-[15px]">liste des personnages</h1>
-<p class="text-14 text-gray">Naruto jeu de rôle</p>
+<h2 class="text-14 text-gray">Naruto jeu de rôle</h2>
 <app-spacer-graphical class="my-[50px]"/>
 <app-character-list-preview *ngFor="let character of (auth.userObservableOnceLoaded() | async)?.characters" [character]="character"/>
 <a routerLink="/personnages/creation"
-   class="w-full justify-center black-button h-[76px]">
+   class="w-full justify-center black-button h-[76px] mb-[50px]">
     <svg class="fill-pink" width="20" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 0H9.5V9H0.5V11H9.5V20H11.5V11H20.5V9H11.5V0Z"/>
     </svg>
+</a>
+<h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[18px]">commu</h2>
+<a routerLink="/personnages/pretires" class="flex w-full flex-col gray-box py-[25px] px-[15px] hover:bg-lighter-dark">
+    <span class="mb-[12px] text-22">Prétirés</span>
+    <span class="font-light uppercase text-pink me-[12px]">créés par la communauté</span>
+    <span class="font-light text-light-gray">Genin à Sensei</span>
 </a>
 <app-spacer class="my-[50px] bg-lighter-dark"/>
 <a href="" class="block w-fit font-bold uppercase text-20 font-monument text-purple-gradient">→ discord</a>
 <a href="" class="block w-fit font-bold uppercase text-20 font-monument text-purple-gradient">→ actual plays</a>
 <a href="" class="block w-fit font-bold uppercase text-20 font-monument text-purple-gradient">→ ressources</a>
 <app-spacer-graphical class="mt-[50px] mb-[30px]"/>
-<p class="mb-[50px] text-14 font-light">Ninja Builder est une app de création de personnage pour Naruto jeu de rôle.</p>
+<p class="font-light mb-[50px] text-14">Ninja Builder est une app de création de personnage pour Naruto jeu de rôle.</p>
 <p class="text-dark-gray text-14 mb-[180px]">Naruto-jdr.com <span class="ms-[25px]">2004-2023</span></p>
