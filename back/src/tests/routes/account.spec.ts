@@ -58,7 +58,6 @@ test("GET /discord/picture", async () => {
     expect(response.status).toBe(200);
     const json = await response.json();
     expect(json["discordPicture"]).toBeDefined();
-    console.log(json["discordPicture"]);
 });
 
 test("DELETE /", async () => {

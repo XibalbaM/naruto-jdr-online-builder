@@ -28,7 +28,6 @@ export function getCharacter(req: Request, res: Response) {
 }
 
 export function setSkill(req: Request, res: Response) {
-    console.log(req.body);
     CharactersService.setSkill(req["user"]["_id"], req.params.id, req.params.skillId, req.body.value).then(() => res.sendStatus(200)).catch((error) => {
         if (error.message === "Character not found") {
             return res.status(404).json({error: "Character not found"});

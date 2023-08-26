@@ -70,7 +70,7 @@ export default class DataController {
     delete = (req: Request, res: Response) => {
         this.dataService.delete(req.params.id).then(() => res.status(200).json({message: "Successfully deleted"})).catch((err) => {
             res.status(500).json({error: "Internal server error"});
-            console.log(err);
+            console.error(err);
         });
     }
 }
