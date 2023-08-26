@@ -16,5 +16,6 @@ const router = Router();
 router.post('/', contentMiddleware({id: "id"}), idOfMiddleware(CharacterModel, "id", true), authMiddleware(), adminMiddleware(), PredrawnController.add);
 router.delete('/:id', idOfMiddleware(CharacterModel, "id"), authMiddleware(), adminMiddleware(), PredrawnController.remove);
 router.get('/', PredrawnController.list);
+router.put('/:id', idOfMiddleware(CharacterModel, "id"), authMiddleware(), PredrawnController.take);
 
 export default router;

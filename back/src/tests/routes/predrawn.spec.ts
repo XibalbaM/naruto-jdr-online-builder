@@ -6,7 +6,7 @@ import VillageModel from "../../models/village.model";
 import RankModel from "../../models/rank.model";
 import ClanModel from "../../models/clan.model";
 
-const characterId = (await CharacterModel.create({
+const character = {
     firstName: "test",
     village: (await VillageModel.findOne())._id,
     xp: 100,
@@ -14,13 +14,19 @@ const characterId = (await CharacterModel.create({
     notes: "test",
     nindo: "test",
     clan: (await ClanModel.findOne())._id
-}))._id;
+}
+
+const characterId = (await CharacterModel.create(character))._id;
+let predrawnId: string;
 
 test("POST /", async () => {
 
     const response = await fetchUtils.post("/predrawn", {id: characterId.toString()}, await fetchUtils.getAdminToken());
 
     expect(response.status).toBe(201);
+    const json: any = await response.json();
+    expect(json.id).toBeDefined();
+    predrawnId = json.id;
 });
 
 test("GET /", async () => {
@@ -33,9 +39,19 @@ test("GET /", async () => {
     expect(json.characters[0]).toBeTypeOf("string");
 });
 
+test("PUT /:id", async () => {
+
+    const response = await fetchUtils.put(`/predrawn/${predrawnId.toString()}`, {}, await fetchUtils.getTestToken());
+
+    expect(response.status).toBe(201);
+    const json: any = await response.json();
+    expect(json.character).toBeDefined();
+    expect(json.character.clan.toString()).toBe(character.clan.toString());
+});
+
 test("DELETE /:id", async () => {
 
-    const response = await fetchUtils.del(`/predrawn/${characterId.toString()}`, await fetchUtils.getAdminToken());
+    const response = await fetchUtils.del(`/predrawn/${predrawnId.toString()}`, await fetchUtils.getAdminToken());
 
     expect(response.status).toBe(200);
 
