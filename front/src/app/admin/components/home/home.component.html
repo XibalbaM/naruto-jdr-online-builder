@@ -1,0 +1,32 @@
+<dialog #addDialog>
+    <app-modal mtitle="Ajouter un prétiré" [mtext]="'Êtes vous sûr de vouloir ajouter ' + characterToChange?.firstName + '?'" (close)="addDialog.close()">
+        <div class="flex justify-between items-center space-x-[18px]">
+            <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full"
+                    (click)="addDialog.close()">Retour
+            </button>
+            <button class="h-[52px] px-[28px] bg-purple rounded-[10px] hover:bg-opacity-90 w-full" (click)="addDialog.close(); add()">
+                Ajouter
+            </button>
+        </div>
+    </app-modal>
+</dialog>
+<dialog #removeDialog>
+    <app-modal mtitle="Retirer un prétiré" [mtext]="'Êtes vous sûr de vouloir retirer ' + characterToChange?.firstName + '?'" (close)="removeDialog.close()">
+        <div class="flex justify-between items-center space-x-[18px]">
+            <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full"
+                    (click)="removeDialog.close()">Retour
+            </button>
+            <button class="h-[52px] px-[28px] bg-red rounded-[10px] hover:bg-opacity-90 w-full" (click)="removeDialog.close(); remove()">
+                Retirer
+            </button>
+        </div>
+    </app-modal>
+</dialog>
+
+<h1>Prétirés</h1>
+<h2>Vos personnages (cliquez dessus pour les ajouter)</h2>
+<button (click)="addDialog.show(); characterToChange = character"
+        *ngFor="let character of $characters | async">{{character.firstName + ' ' + (character.clan | idToData:dataService.clans.getValue())?.name}}</button>
+<h2>Personnages prétirés (cliquez dessus pour les retirer)</h2>
+<button (click)="removeDialog.show(); characterToChange = character"
+        *ngFor="let character of $predrawnCharacters | async">{{character.firstName + ' ' + (character.clan | idToData:dataService.clans.getValue())?.name}}</button>
