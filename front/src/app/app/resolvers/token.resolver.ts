@@ -2,4 +2,4 @@ import {ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot} from "@angular/r
 import Auth from "../models/auth.model";
 import {inject} from "@angular/core";
 
-export const UserResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot, auth: Auth = inject(Auth)) => auth.tokenObservableOnceLoaded();
+export const TokenResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot, auth: Auth = inject(Auth)) => auth.tokenObservableOnceLoaded();
