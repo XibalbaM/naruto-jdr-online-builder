@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CreationService} from "../../../services/creation.service";
 import {Router} from "@angular/router";
 import {DataService} from "../../../../app/services/data.service";
@@ -11,15 +11,12 @@ import {IdToDataPipe} from "../../../../shared/pipes/id-to-data.pipe";
 	templateUrl: './third-step.component.html',
 	styleUrls: ['./third-step.component.scss']
 })
-export class ThirdStepComponent implements OnInit {
+export class ThirdStepComponent implements OnInit, OnDestroy {
     clanSkills: string[] = !this.creationService.character.road
         ? this.idToData.transform(this.creationService.character.clan, this.dataService.clans.getValue())?.line.skills || []
         : [];
 	uncommonSkills: Skill[] = this.dataService.skills.getValue().filter(skill => skill.type !== 'common' && skill.type !== 'clan').filter(skill => !this.clanSkills.includes(skill._id));
-	skillIds: string[] = [
-        ...(this.creationService.character.skills.map(skill => skill.skill) || []),
-        ...this.clanSkills
-    ];
+	skillIds: string[] = this.creationService.tempSkillIds.length > 0 ? this.creationService.tempSkillIds : [...this.clanSkills];
 
 	constructor(protected creationService: CreationService, private router: Router, protected dataService: DataService,
                 private notificationService: NotificationService, private idToData: IdToDataPipe) {
@@ -31,7 +28,11 @@ export class ThirdStepComponent implements OnInit {
 		}
 	}
 
-	back() {
+    ngOnDestroy() {
+        this.creationService.tempSkillIds = this.skillIds;
+    }
+
+    back() {
 		this.router.navigateByUrl("/personnages/creation/" + --this.creationService.step)
 	}
 

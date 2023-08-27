@@ -16,6 +16,7 @@ export class CreationService {
 
 	character: Character = new Character();
 	step: number = 1;
+    tempSkillIds: string[] = [];
 
 	constructor(private dataService: DataService, private rankPipe: XpToRankPipe, private apiService: ApiService, private auth: Auth) {
 	}
@@ -90,6 +91,7 @@ export class CreationService {
             }),
 			tap((character) => {
 				this.character = new Character();
+                this.tempSkillIds = [];
 				this.step = 1;
 				if (this.auth.user) {
 					this.auth.user = {

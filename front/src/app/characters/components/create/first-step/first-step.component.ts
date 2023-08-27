@@ -35,8 +35,6 @@ export class FirstStepComponent implements OnInit {
     ngOnInit(): void {
         if (this.creationService.step !== 1) {
             this.router.navigate(['/personnages/creation/' + this.creationService.step]);
-        } else {
-            this.creationService.character = new Character();
         }
     }
 
