@@ -290,7 +290,7 @@ export default async function () {
             },
             {
                 name: "Yūrioku",
-                base: basesId[3],
+                base: basesId[5],
                 description: "Arrive bientôt",
                 type: "combat"
             },
@@ -315,25 +315,25 @@ export default async function () {
             },
             {
                 name: "Faux Semblants",
-                base: basesId[3],
+                base: basesId[5],
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Fūin",
-                base: basesId[3],
+                base: basesId[5],
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Iryō",
-                base: basesId[3],
+                base: basesId[5],
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Kuchiyose",
-                base: basesId[3],
+                base: basesId[5],
                 description: "Arrive bientôt",
                 type: "terrain"
             },
@@ -369,13 +369,13 @@ export default async function () {
             },
             {
                 name: "Sentinelle",
-                base: basesId[3],
+                base: basesId[5],
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Sixième Sens",
-                base: basesId[3],
+                base: basesId[5],
                 description: "Arrive bientôt",
                 type: "terrain"
             },
