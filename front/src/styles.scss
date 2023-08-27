@@ -191,4 +191,14 @@
     .black-box {
         @apply rounded-xl border bg-black border-lighter-dark;
     }
+
+    .font-monument {
+        font-family: PP Monument Extended, sans-serif;
+        letter-spacing: normal;
+    }
+
+    .font-neue {
+        font-family: "PP Neue Montreal", sans-serif;
+        letter-spacing: 0.42px;
+    }
 }

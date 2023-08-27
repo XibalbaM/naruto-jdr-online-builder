@@ -28,10 +28,6 @@ module.exports = {
             "dark": "#121212",
             "black": "#030505"
         },
-        fontFamily: {
-            "monument": ['PP Monument Extended', 'sans-serif'],
-            "neue": ['PP Neue Montreal', 'sans-serif'],
-        },
         fontWeight: {
             light: 400,
             normal: 500,
