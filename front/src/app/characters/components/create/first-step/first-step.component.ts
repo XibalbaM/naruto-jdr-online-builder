@@ -5,7 +5,6 @@ import {DataService} from "../../../../app/services/data.service";
 import Village from "../../../../app/models/village.model";
 import Environment from "../../../../../environments/environment.interface";
 import Clan from "../../../../app/models/clan.model";
-import Character from "../../../../app/models/character.model";
 import Road from "../../../../app/models/road.model";
 import {IdToDataPipe} from "../../../../shared/pipes/id-to-data.pipe";
 import {map} from "rxjs";

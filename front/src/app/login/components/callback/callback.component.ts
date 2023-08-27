@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ContentChild, ElementRef, OnInit, TemplateRef, ViewChild} from "@angular/core";
+import {AfterContentInit, Component} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import Environment from "../../../../environments/environment.interface";
 import {AuthService} from "../../../app/services/auth.service";
