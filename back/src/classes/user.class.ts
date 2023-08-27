@@ -13,8 +13,6 @@ export default class User {
     groups: [mongoose.Types.ObjectId];
     characters: [mongoose.Types.ObjectId];
     discordId?: string;
-    discordSelectedGroup?: mongoose.Types.ObjectId;
-    discordSelectedCharacter?: mongoose.Types.ObjectId;
 
     /**
      * Creates a new user from a model
@@ -31,8 +29,6 @@ export default class User {
         user.groups = modelUser.groups;
         user.characters = modelUser.characters;
         user.discordId = modelUser.discordId;
-        user.discordSelectedGroup = modelUser.discordSelectedGroup;
-        user.discordSelectedCharacter = modelUser.discordSelectedCharacter;
 
         return user;
     }

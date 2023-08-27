@@ -42,14 +42,6 @@ export const UserSchema = new mongoose.Schema({
         type: String,
         unique: true,
         sparse: true
-    },
-    discordSelectedGroup: {
-        type: mongoose.Types.ObjectId,
-        ref: 'group'
-    },
-    discordSelectedCharacter: {
-        type: mongoose.Types.ObjectId,
-        ref: 'character'
     }
 });
 
