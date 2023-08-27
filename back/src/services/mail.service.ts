@@ -397,7 +397,7 @@ const accountCreationTemplate = (connectionToken: string) => {
                                             <td align="left" style="padding:0;Margin:0;padding-top:25px;padding-bottom:25px">
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:33px;color:#333333;font-size:22px">
                                                 <strong style="color: #030505">Votre lien de validation<br><span style="color:#800080"><a target="_blank"
-                                                                                                                                          style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#b72ebc;font-size:14px"
+                                                                                                                                          style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#b72ebc;font-size:20px"
                                                                                                                                           href="${config.loginUrl + connectionToken}">builder.naruto-jdr.com/validation</a></span></strong>
                                               </p></td>
                                           </tr>
@@ -983,7 +983,7 @@ const connectionTemplate = (connectionToken: string, username: string) => {
                                             <td align="left" style="padding:0;Margin:0;padding-top:25px;padding-bottom:25px">
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:33px;color:#333333;font-size:22px">
                                                 <strong style="color: #030505">Votre lien de validation<br><span style="color:#800080"><a target="_blank"
-                                                                                                                                          style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#b72ebc;font-size:14px"
+                                                                                                                                          style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#b72ebc;font-size:20px"
                                                                                                                                           href="${config.loginUrl + connectionToken}">builder.naruto-jdr.com/validation</a></span></strong>
                                               </p></td>
                                           </tr>
@@ -1190,7 +1190,7 @@ export async function sendConnectionEmail(to: string, connectionToken: string, i
     await transporter.sendMail({
         from: config.loginEmail.username,
         to: to,
-        subject: isRegistration ? "Inscription" : "Connexion",
+        subject: isRegistration ? "Création de compte" : "Demande de connexion",
         html: isRegistration ? accountCreationTemplate(connectionToken) : connectionTemplate(connectionToken, username)
     });
 }
