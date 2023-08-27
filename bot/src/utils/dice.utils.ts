@@ -75,8 +75,7 @@ export default class DiceUtils {
             total += values.reduce((a, b) => a + b, 0);
         }
         let rollsTexts = JSON.stringify(rolls).replace(/,/g, ", ").replace(/"/g, "");
-        if (rolls.length === 1) rollsTexts = rollsTexts.substring(1, rollsTexts.length - 1);
-        return {value: total, details: isSingle ? (Number(rollsTexts) === total ? undefined : rollsTexts) : "(" + input + " : " + rollsTexts + ")"};
+        return {value: total, details: isSingle ? (Number(rollsTexts) === total ? undefined : rollsTexts) : rollsTexts};
     }
 
     static randomIntMax(max: number): number {

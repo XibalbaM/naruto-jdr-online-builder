@@ -6,7 +6,9 @@ export default class Messages {
     static DICE = {
         INVALID_INPUT: "La formule n'est pas valide.",
         D: "https://tenor.com/view/gad-elmaleh-r%C3%A9ponse-d-qui-veut-gagner-des-millions-gif-19797483",
-	    SUCCESS: (input: string, result: number, details?: string) => `Jet : \`[${input}]\`${details ? `Détails : \`${details}\`` : ""} Résultat : \`${result}\``
+	    SUCCESS: (input: string, result: number, details: string | undefined, username: string, label: string | null) =>
+            (label ? `Jet de ${username} [${label}]` : `Jet de ${username}`) +
+            ` :\nJet : \`[${input}]\`${details ? `Détails : \`${details}\`` : ""} Résultat : \`${result}\``
     }
 
     static LINKING = {

@@ -9,19 +9,21 @@ const command: SlashCommand = {
     command: new SlashCommandBuilder()
         .setName("jet")
         .setDescription("Permet de lancer des dés. Si un nombre est fournit, lance 1d10e10 avec le nombre en bonus.")
-        .addStringOption(builder => builder.setName("formule").setDescription("Les dés à lancer ou le bonus a appliquer").setRequired(false)),
+        .addStringOption(builder => builder.setName("formule").setDescription("Les dés à lancer ou le bonus a appliquer").setRequired(true))
+        .addStringOption(builder => builder.setName("label").setDescription("Un label pour reconnaître le jet").setRequired(false)),
     async execute(interaction) {
-        if (interaction.options.getString("formule")?.toLowerCase() === "réponse d") {
+        if (interaction.options.getString("formule", true).toLowerCase() === "réponse d") {
             await Responses.easterEgg(interaction, Messages.DICE.D);
             return;
         }
-        let input = interaction.options.getString("formule") || "1d10e10";
+        let input = interaction.options.getString("formule", true);
         input = input.toLowerCase().replace(/ /g, "");
         if (input.match(/^\d[0-9+\-\/*]*$/)) input = `1d10e10+${input}`;
         if (input.match(/^[+\-\/*][0-9+\-\/*]+$/)) input = `1d10e10${input}`;
         try {
             const parseDiceRoll = DiceUtils.parseDiceRoll(input);
-            await Responses.success(interaction, Messages.DICE.SUCCESS(input, parseDiceRoll.result, parseDiceRoll.details), false);
+            const username = interaction.guild?.members.cache.get(interaction.user.id)?.displayName || interaction.user.username;
+            await Responses.success(interaction, Messages.DICE.SUCCESS(input, parseDiceRoll.result, parseDiceRoll.details, username, interaction.options.getString("label")), false);
         } catch (e) {
             switch (e.message) {
                 case "Invalid input":
