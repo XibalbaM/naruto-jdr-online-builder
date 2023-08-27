@@ -23,7 +23,7 @@ export default function (basePath: string): Middleware {
                 }
             } catch (ignored) {}
         }
-        console.log(`${new Date().toString()}: ${req.method} ${basePath + req.path} from ${req.ip} with ${JSON.stringify(req.body)} as ${id} ${type ? `(${type})` : ""}`);
+        console.log(`${new Date().toISOString()}: ${req.method} ${basePath + req.path} from ${req.ip} with ${JSON.stringify(req.body)} as ${id} ${type ? `(${type})` : ""}`);
         next();
     }
 }
