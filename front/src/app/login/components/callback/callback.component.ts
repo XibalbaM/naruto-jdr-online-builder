@@ -17,7 +17,6 @@ export class CallbackComponent implements AfterContentInit {
   viewMode: "text" | "registration" = "text";
   email: string = "";
   text: string = "";
-  showBack: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private environment: Environment, private authService: AuthService, private notificationService: NotificationService) {}
 
@@ -54,7 +53,6 @@ export class CallbackComponent implements AfterContentInit {
           }
         });
       } else {
-        this.showBack = true;
         this.route.queryParams.subscribe(params => {
           this.email = params["email"];
           const email = `<span class="text-pink">${this.email}</span>`;
