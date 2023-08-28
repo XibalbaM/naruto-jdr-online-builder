@@ -139,7 +139,7 @@ export class EditComponent implements OnInit, AfterViewInit {
             })
             .filter((skill: { skill: Skill, level: number }) => skill.skill.base === data.base._id)
             .map((skill: { skill: Skill, level: number }) => skill.level)
-            .sort((a, b) => b - a)[0];
+            .sort((a, b) => b - a)[0] || 0;
         return data.level > skill - 2;
     }
 
