@@ -12,6 +12,7 @@ const router = Router();
 
 router.post('/', captchaMiddleware(), authController.requestEmail);
 router.get('/refresh', authMiddleware(), authController.refreshToken);
+router.get('/logout', authController.logout);
 router.get('/:code', authController.login);
 
 export default router;

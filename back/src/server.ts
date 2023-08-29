@@ -1,5 +1,5 @@
 import express from 'express';
-import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import path from 'path';
 import https from 'https';
 
@@ -14,13 +14,9 @@ import logMiddleware from "./middlewares/log.middleware.js";
 const app = express();
 
 // Add the middlewares
-app.use(cors({
-    credentials: true,
-    allowedHeaders: '*',
-    exposedHeaders: '*'
-}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
 
 // Add the router for the api
 app.use('/api', logMiddleware("/api"), router);

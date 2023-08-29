@@ -48,7 +48,7 @@ test("GET /discord/name", async () => {
 
     expect(response.status).toBe(200);
     const json = await response.json();
-    expect(json["discordName"]).toBe("Test");
+    expect(json["discordName"]).toBe("xibalbam");
 });
 
 test("GET /discord/picture", async () => {
@@ -66,6 +66,10 @@ test("DELETE /", async () => {
     const response = await fetchUtils.del("/account", token);
 
     expect(response.status).toBe(200);
+    const cookies = response.headers.get("set-cookie").split(", ").map(cookie => cookie.split("; ")[0]);
+    expect(cookies.find(cookie => cookie === "token=")).toBeDefined();
+    expect(cookies.find(cookie => cookie === "isLogged=false")).toBeDefined();
+
     const userData = await fetchUtils.get("/account", token);
     expect(userData.status).toBe(401);
 

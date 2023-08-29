@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import * as authService from "../services/auth.service.js";
+import config from "../config/config.js";
 
 /**
  * Handles requests to /auth
@@ -47,9 +48,10 @@ export function requestEmail(req: Request, res: Response) {
 export function refreshToken(req: Request, res: Response) {
 
     authService.generateToken(req["user"]["_id"]).then(token => {
-        res.status(200).json({token: token});
+        res.cookie("token", token, {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", true, {maxAge: config.jwt_expiration}).sendStatus(200);
     }).catch(err => {
-        res.status(500).json({error: "Internal server error"});
+        res.clearCookie("token", {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration}).status(500)
+            .json({error: "Internal server error"});
         console.error(err);
     });
 }
@@ -66,19 +68,31 @@ export function login(req: Request, res: Response) {
     const code = req.params.code;
 
     authService.useCode(code).then((data) => {
-        if (data.isFirstLogin) {
-            res.status(201).json({token: data.token, discordUsername: data.discordUsername});
-        } else {
-            res.status(200).json({token: data.token, discordUsername: data.discordUsername});
-        }
+        res.status(data.isFirstLogin ? 201 : 200).cookie("token", data.token, {
+            maxAge: config.jwt_expiration,
+            httpOnly: true
+        }).cookie("isLogged", true, {maxAge: config.jwt_expiration})
+            .json({discordUsername: data.discordUsername});
     }).catch((err) => {
         if (err.message === "Invalid code") {
-            res.status(400).json({error: "Invalid code"});
+            res.status(400).clearCookie("token", {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration})
+                .json({error: "Invalid code"});
         } else if (err.message === "jwt expired") {
-            res.status(418).json({error: "Code expired"});
+            res.status(418).clearCookie("token", {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration})
+                .json({error: "Code expired"});
         } else {
-            res.status(500).json({error: "Internal server error"});
+            res.status(500).clearCookie("token", {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration})
+                .json({error: "Internal server error"});
             console.error(err);
         }
     });
+}
+
+/**
+ * Handles requests to /auth/logout
+ *
+ * Used to unset the token cookies
+ */
+export function logout(req: Request, res: Response) {
+    res.clearCookie("token", {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration}).sendStatus(200);
 }

@@ -27,11 +27,9 @@ test("login link received for a new email", async () => {
     const response = await fetchUtils.get("/auth/" + code);
 
     expect(response.status).toBe(201);
-
-    const json = await response.json();
-    expect(json["token"]).toBeDefined();
-    expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
-
+    const cookies = response.headers.get("set-cookie").split(", ").map(cookie => cookie.split("; ")[0]);
+    expect(cookies.find(cookie => cookie.startsWith("token="))).toBeDefined();
+    expect(cookies.find(cookie => cookie === "isLogged=true")).toBeDefined();
 });
 
 test("POST / with a registered email", async () => {
@@ -50,10 +48,9 @@ test("login link received for an existing email", async () => {
     const response = await fetchUtils.get("/auth/" + code);
 
     expect(response.status).toBe(200);
-
-    const json = await response.json();
-    expect(json["token"]).toBeDefined();
-    expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
+    const cookies = response.headers.get("set-cookie").split(", ").map(cookie => cookie.split("; ")[0]);
+    expect(cookies.find(cookie => cookie.startsWith("token="))).toBeDefined();
+    expect(cookies.find(cookie => cookie === "isLogged=true")).toBeDefined();
 });
 
 test("POST /refresh", async () => {
@@ -61,10 +58,9 @@ test("POST /refresh", async () => {
     const response = await fetchUtils.get("/auth/refresh", await fetchUtils.getTestToken());
 
     expect(response.status).toBe(200);
-
-    const json = await response.json();
-    expect(json["token"]).toBeDefined();
-    expect(jwt.verify(json["token"], config.jwt_secret)["id"]).toBeDefined();
+    const cookies = response.headers.get("set-cookie").split(", ").map(cookie => cookie.split("; ")[0]);
+    expect(cookies.find(cookie => cookie.startsWith("token="))).toBeDefined();
+    expect(cookies.find(cookie => cookie === "isLogged=true")).toBeDefined();
 });
 
 //BAD USES
@@ -96,9 +92,11 @@ test("GET /:code with an invalid code", async () => {
     const response = await fetchUtils.get("/auth/invalid");
 
     expect(response.status).toBe(400);
-
     const json = await response.json();
     expect(json["error"]).toBe("Invalid code");
+    const cookies = response.headers.get("set-cookie").split(", ").map(cookie => cookie.split("; ")[0]);
+    expect(cookies.find(cookie => cookie === "token=")).toBeDefined();
+    expect(cookies.find(cookie => cookie === "isLogged=false")).toBeDefined();
 });
 
 //LONG TESTS
@@ -114,4 +112,7 @@ test("GET /:code with an expired code", async () => {
     expect(response.status).toBe(418);
     const json = await response.json();
     expect(json["error"]).toBe("Code expired");
+    const cookies = response.headers.get("set-cookie").split(", ").map(cookie => cookie.split("; ")[0]);
+    expect(cookies.find(cookie => cookie === "token=")).toBeDefined();
+    expect(cookies.find(cookie => cookie === "isLogged=false")).toBeDefined();
 }, {timeout: 10000});

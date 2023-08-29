@@ -15,7 +15,7 @@ mongoose.connection.on("error", (error) => {
 });
 mongoose.connection.on("connected", () => {
 
-    console.log(`Connected to database`);
+    console.log(`Connected to database ${config.dbName}`);
 
     if (config.env === "test" || config.env === "development") {
         mongoose.set("debug", true);

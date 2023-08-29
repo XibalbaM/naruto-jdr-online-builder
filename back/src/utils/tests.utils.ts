@@ -110,7 +110,7 @@ export async function removeDiscordAccountFromTestAccount() {
 export function get(url: string, token?: string): Promise<Response> {
     return fetch(processUrl(url), {
         headers: {
-            'Authorization': token ? `Bearer ${token}` : undefined
+            'cookie': token ? `token=${token}` : undefined
         }
     });
 }
@@ -128,7 +128,7 @@ export function post(url: string, body: any, token?: string): Promise<Response> 
         body: JSON.stringify(body),
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token ? `Bearer ${token}` : undefined
+            'cookie': token ? `token=${token}` : undefined
         }
     });
 }
@@ -146,7 +146,7 @@ export function put(url: string, body: any, token?: string): Promise<Response> {
         body: JSON.stringify(body),
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token ? `Bearer ${token}` : undefined
+            'cookie': token ? `token=${token}` : undefined
         }
     });
 }
@@ -161,7 +161,7 @@ export function del(url: string, token?: string): Promise<Response> {
     return fetch(processUrl(url), {
         method: 'DELETE',
         headers: {
-            'Authorization': token ? `Bearer ${token}` : undefined
+            'cookie': token ? `token=${token}` : undefined
         }
     });
 }

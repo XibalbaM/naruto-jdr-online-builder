@@ -7,9 +7,9 @@ import * as authService from "../../services/auth.service.js";
  */
 export default function (): Middleware {
     return function (req, res, next) {
-        const tokenHeader = req.headers.authorization;
-        if (tokenHeader && tokenHeader.split(' ')[0] === 'Bearer') {
-            authService.getUserFromToken(tokenHeader.split(' ')[1]).then(user => {
+        const token: string | undefined = req.cookies.token;
+        if (token && token !== 'none') {
+            authService.getUserFromToken(token).then(user => {
                 req['user'] = user;
                 next();
             }).catch(() => {
