@@ -39,7 +39,8 @@ export default class DataController {
         if (ifNoneMatch) {
             const etag = this.getETag(data);
             if (etag === ifNoneMatch) {
-                return res.status(304).json({message: "Not modified"});
+                console.log("The ressource wasn't modified.");
+                return res.sendStatus(304);
             }
         }
         res.set("ETag", this.getETag(data));
@@ -47,24 +48,24 @@ export default class DataController {
     }
 
     getAll = (req: Request, res: Response) => {
-        this.dataService.getAll().then((data) => this.sendDataOr304(req, res, data)).catch((err) => res.status(500).json({error: "Internal server error"}));
+        this.dataService.getAll().then((data) => this.sendDataOr304(req, res, data)).catch(() => res.status(500).json({error: "Internal server error"}));
     }
 
     get = (req: Request, res: Response) => {
         this.dataService.get(req.params.id).then((data) => {
             if (data) this.sendDataOr304(req, res, data);
             else res.status(404).json({error: "Not found"});
-        }).catch((err) => {
+        }).catch(() => {
             res.status(500).json({error: "Internal server error"});
         });
     }
 
     create = (req: Request, res: Response) => {
-        this.dataService.create(req.body.data).then((data) => res.status(201).json(data)).catch((err) => res.status(500).json({error: "Internal server error"}));
+        this.dataService.create(req.body.data).then((data) => res.status(201).json(data)).catch(() => res.status(500).json({error: "Internal server error"}));
     }
 
     update = (req: Request, res: Response) => {
-        this.dataService.update(req.params.id, req.body.data).then(() => res.status(200).json({message: "Successfully updated"})).catch((err) => res.status(500).json({error: "Internal server error"}));
+        this.dataService.update(req.params.id, req.body.data).then(() => res.status(200).json({message: "Successfully updated"})).catch(() => res.status(500).json({error: "Internal server error"}));
     }
 
     delete = (req: Request, res: Response) => {
