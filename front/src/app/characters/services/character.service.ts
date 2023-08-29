@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {combineLatest, map, Observable, tap} from "rxjs";
 import {ApiService} from "../../app/services/api.service";
 import Auth from "../../app/models/auth.model";
+import {AuthService} from "../../app/services/auth.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CharacterService {
 
-    constructor(private apiService: ApiService, private auth: Auth) {
-    }
+    constructor(private apiService: ApiService, private auth: Auth, private authService: AuthService) {}
 
     removeSkill(id: string, characterId: string): Observable<boolean> {
         return this.setSkillLevel(characterId, id, 0);
@@ -128,7 +128,7 @@ export class CharacterService {
             map((results) => results.every((result) => result)),
             tap((success) => {
                 if (success)
-                    this.auth.refreshUser();
+                    this.authService.refreshUser();
             })
         );
     }

@@ -7,13 +7,6 @@ import {BehaviorSubject, filter, Observable} from "rxjs";
  */
 export default class Auth {
     /**
-     * The token of the user, as a JWT, if the user is connected.
-     *
-     * Takes the form of a BehaviorSubject to be able to be observed.
-     * @private
-     */
-    private _token = new BehaviorSubject<string | undefined>(undefined);
-    /**
      * The user data, if the user is connected.
      *
      * Takes the form of a BehaviorSubject to be able to be observed.
@@ -48,28 +41,7 @@ export default class Auth {
         );
     }
 
-    refreshUser() {
-        this.tokenObservable().next(this.token);
-    }
-
-    get token(): string | undefined {
-        return this._token.getValue();
-    }
-
-    set token(token: string | undefined) {
-        this._token.next(token);
-    }
-
-    tokenObservable(): BehaviorSubject<string | undefined> {
-        return this._token;
-    }
-
-    /**
-     * Same as {@link userObservableOnceLoaded}, but for the token
-     */
-    tokenObservableOnceLoaded(): Observable<string> {
-        return this._token.pipe(
-            filter((token): token is string => token !== undefined)
-        );
+    static checkTokenCookie(): boolean {
+        return document.cookie.includes('isLogged=true');
     }
 }

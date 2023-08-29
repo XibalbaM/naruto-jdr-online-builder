@@ -3,6 +3,7 @@ import Auth from "../../../app/models/auth.model";
 import {AccountService} from "../../../app/services/account.service";
 import {Router} from "@angular/router";
 import {NotificationService} from "../../../app/services/notification.service";
+import {AuthService} from "../../../app/services/auth.service";
 
 @Component({
     selector: "app-edit",
@@ -13,7 +14,8 @@ export class EditComponent {
 
     pp?: string;
 
-    constructor(public auth: Auth, private accountService: AccountService, private router: Router, private notificationService: NotificationService) {
+    constructor(public auth: Auth, private accountService: AccountService, private router: Router,
+                private notificationService: NotificationService, private authService: AuthService) {
     }
 
     changeUsername(username: string) {
@@ -70,8 +72,10 @@ export class EditComponent {
     }
 
     disconnect() {
-        this.auth.token = undefined;
-        this.router.navigateByUrl("/");
-        this.notificationService.showNotification("Déconnexion", "Vous avez bien été déconnecté.");
+        this.authService.logout().subscribe(() => {
+            this.router.navigateByUrl("/");
+            this.notificationService.showNotification("Déconnexion", "Vous avez bien été déconnecté.");
+            }
+        );
     }
 }
