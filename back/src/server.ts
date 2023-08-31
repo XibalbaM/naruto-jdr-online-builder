@@ -21,11 +21,11 @@ app.use(cookieParser());
 // Add the router for the api
 app.use('/api', logMiddleware("/api"), router);
 // Add the router for the frontend
-app.use('/', express.static(path.resolve('front'), {
+app.use('/', express.static(path.resolve('front'), config.env === 'production' ? {
     maxAge: 1000 * 60 * 60 * 3,
     etag: true,
     lastModified: true
-}));
+} : {}));
 app.use((req, res) => {
     res.sendFile(path.resolve('front/index.html'));
 });
