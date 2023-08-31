@@ -39,7 +39,6 @@ export default class DataController {
         if (ifNoneMatch) {
             const etag = this.getETag(data);
             if (etag === ifNoneMatch) {
-                console.log("The ressource wasn't modified.");
                 return res.sendStatus(304);
             }
         }
