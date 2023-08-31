@@ -1,8 +1,9 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../app/services/auth.service";
 import {ReCaptchaV3Service} from "ngx-captcha";
 import Environment from "../../../../environments/environment.interface";
+import Auth from "../../../app/models/auth.model";
 
 @Component({
     selector: 'app-input',
@@ -12,12 +13,17 @@ import Environment from "../../../../environments/environment.interface";
 /**
  * The component where the user can log in or create his account.
  */
-export class InputComponent {
+export class InputComponent implements OnInit {
 
     userEmail?: string;
     sent = false;
 
-    constructor(private router: Router, private authService: AuthService, private recaptchaV3Service: ReCaptchaV3Service, private environment: Environment) {
+    constructor(private router: Router, private authService: AuthService, private recaptchaV3Service: ReCaptchaV3Service, private environment: Environment) {}
+
+    ngOnInit() {
+        if (Auth.checkTokenCookie()) {
+            this.router.navigateByUrl('/personnages');
+        }
     }
 
     /**
