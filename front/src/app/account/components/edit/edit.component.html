@@ -39,7 +39,7 @@
         </ng-container>
     </p>
     <app-spacer-graphical class="my-[50px]"></app-spacer-graphical>
-    <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[18px]">équipes</h2>
+    <!--<h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[18px]">équipes</h2>
     <ul>
         <li *ngFor="let group of user.groups">
             <a [routerLink]="['/group', group.group._id]"
@@ -57,7 +57,7 @@
             <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 0H9.5V9H0.5V11H9.5V20H11.5V11H20.5V9H11.5V0Z"/>
         </svg>
     </a>
-    <app-spacer class="my-[50px] bg-lighter-dark"></app-spacer>
+    <app-spacer class="my-[50px] bg-lighter-dark"></app-spacer>-->
     <form (ngSubmit)="changeUsername(usernameField.value)" class="flex max-w-md flex-col mb-[50px]">
         <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[18px]">nom du compte</h2>
         <input type="text"
@@ -68,7 +68,7 @@
                minlength="3"
                maxlength="20"
                required
-               class="input h-[55px] text-16 mb-[12px] ps-[24px] focus:border-gray">
+               class="input h-[55px] text-16 mb-[12px] ps-[24px]">
         <button [disabled]="usernameField.invalid || usernameField.value === user.username"
                 type="submit"
                 class="w-full black-button h-[55px] text-16 text-pink disabled:text-dark-gray disabled:cursor-default disabled:hover:bg-black">
@@ -82,7 +82,7 @@
                #emailField="ngModel"
                ngModel="{{user.email}}"
                required
-               class="input h-[55px] text-16 mb-[12px] ps-[24px] focus:border-gray">
+               class="input h-[55px] text-16 mb-[12px] ps-[24px]">
         <button [disabled]="emailField.invalid || emailField.value === user.email"
                 type="submit"
                 class="w-full black-button h-[55px] text-16 text-pink disabled:text-dark-gray disabled:cursor-default disabled:hover:bg-black">
