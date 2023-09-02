@@ -42,4 +42,12 @@ export default class Messages {
     }
 
     static EASTER_EGG = "Vous avez trouvé un easter egg !";
+
+    static SENSEI_MODE_CHANGED(newSenseiMode: boolean) {
+        return `Le mode sensei est maintenant ${newSenseiMode ? "activé" : "désactivé"}.`;
+    }
+
+    static SENSEI_MODE_NOT_CHANGED(senseiMode: boolean) {
+        return `Le mode sensei est déjà ${senseiMode ? "activé" : "désactivé"}.`;
+    }
 }

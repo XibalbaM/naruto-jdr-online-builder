@@ -2,6 +2,7 @@ import {ComponentType, SlashCommandBuilder} from "discord.js";
 import Responses from "../utils/responses.utils.js";
 import {SlashCommand} from "../classes.js";
 import rules from "../datas/rules.js";
+import StateService from "../services/state.service.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
@@ -15,7 +16,7 @@ const command: SlashCommand = {
         ),
     async execute(interaction) {
 
-        const name = interaction.options.getString("règle", true) as keyof typeof rules;
+        const name = interaction.options.get("règle", true).value as keyof typeof rules;
 
         let description: string;
 
@@ -40,7 +41,7 @@ const command: SlashCommand = {
                 description = "Cette règle n'existe pas ou n'est pas implémentée."
         }
 
-        await Responses.successEmbed(interaction, name, description);
+        await Responses.successEmbed(interaction, name, description, !StateService.isInSenseiMode(interaction.user.id));
     }
 };
 

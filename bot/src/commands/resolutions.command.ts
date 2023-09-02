@@ -1,7 +1,8 @@
-import {ComponentType, SlashCommandBuilder} from "discord.js";
+import {SlashCommandBuilder} from "discord.js";
 import Responses from "../utils/responses.utils.js";
 import {SlashCommand} from "../classes.js";
 import resolutions from "../datas/resolutions.js";
+import StateService from "../services/state.service.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
@@ -15,9 +16,9 @@ const command: SlashCommand = {
         ),
     async execute(interaction) {
 
-        const message = "- " + resolutions[interaction.options.getString("compétence", true) as keyof typeof resolutions].join("\n- ");
+        const message = "- " + resolutions[interaction.options.get("compétence", true).value as keyof typeof resolutions].join("\n- ");
 
-        await Responses.successEmbed(interaction, "Résolutions narratives de la compétence " + interaction.options.getString("compétence", true), message);
+        await Responses.successEmbed(interaction, "Résolutions narratives de la compétence " + interaction.options.get("compétence", true).value, message, !StateService.isInSenseiMode(interaction.user.id));
     }
 };
 

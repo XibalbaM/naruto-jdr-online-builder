@@ -52,12 +52,13 @@ export default class Responses {
         });
     }
 
-    static async successEmbed(interaction: AcceptedInteraction, title: string, text: string, components: any[] = []) {
+    static async successEmbed(interaction: AcceptedInteraction, title: string, text: string, ephemeral: boolean = true, components: any[] = []) {
         return await interaction.reply({
             embeds: [
                 new EmbedBuilder().setTitle(title).setDescription(text).setColor("Random")
             ],
-            components
+            components,
+            ephemeral
         });
     }
 

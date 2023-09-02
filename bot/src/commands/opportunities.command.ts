@@ -1,8 +1,9 @@
-import {ComponentType, SlashCommandBuilder} from "discord.js";
+import {SlashCommandBuilder} from "discord.js";
 import opportunities from "../datas/opportunities.js";
 import Responses from "../utils/responses.utils.js";
 
 import {SlashCommand} from "../classes.js";
+import StateService from "../services/state.service.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
@@ -12,7 +13,7 @@ const command: SlashCommand = {
 
         const message = "- " + opportunities.join("\n- ");
 
-        await Responses.successEmbed(interaction, "Opportunités", message);
+        await Responses.successEmbed(interaction, "Opportunités", message, !StateService.isInSenseiMode(interaction.user.id));
     }
 };
 
