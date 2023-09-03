@@ -69,12 +69,13 @@ export class DataService {
             if (response.status === 304) {
                 this.datas[dataId].next(JSON.parse(currentDatas!).data);
             } else if (response.status === 200 && response.headers.get('Etag') && response.body) {
+                const data = (response.body).sort((a, b) => (a.name ?? a.shortName).localeCompare((b.name ?? b.shortName)));
                 const storedData = {
                     etag: response.headers.get('Etag')!,
-                    data: response.body!
+                    data: data
                 }
                 localStorage.setItem(dataId, JSON.stringify(storedData));
-                this.datas[dataId].next(response.body!);
+                this.datas[dataId].next(data);
             } else {
                 console.error('Error while getting data from API : ', response.body);
                 localStorage.removeItem(dataId);
