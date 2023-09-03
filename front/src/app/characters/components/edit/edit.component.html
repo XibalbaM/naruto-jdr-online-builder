@@ -62,38 +62,38 @@
                 <p class="stat-box">
                     Vigueur
                     <span class="text-yellow ms-[12px] stat-box__value">{{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)!}}</span>
-                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Élémentaires (ELEM)' | async)! > 0">
+                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Élémentaires' | async)! > 0">
                         ELEM
                         <span class="text-white">
-                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Élémentaires (ELEM)" | async)!}}
+                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Élémentaires" | async)!}}
                         </span>
                     </span>
-                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Environnementales (ENVI)' | async)! > 0">
+                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Environnementales' | async)! > 0">
                         ENVI
                         <span class="text-white">
-                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Environnementales (ENVI)" | async)!}}
+                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Environnementales" | async)!}}
                         </span>
                     </span>
-                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Physiques (PHY)' | async)! > 0">
+                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Physiques' | async)! > 0">
                         PHY
                         <span class="text-white">
-                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Physiques (PHY)" | async)!}}
+                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Physiques" | async)!}}
                         </span>
                     </span>
-                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Émotionnelles (EMO)' | async)! > 0">
+                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Émotionnelles' | async)! > 0">
                         EMO
                         <span class="text-white">
-                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Émotionnelles (EMO)" | async)!}}
+                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Émotionnelles" | async)!}}
                         </span>
                     </span>
                 </p>
                 <p class="stat-box">
                     Caractère
                     <span class="text-yellow ms-[12px] stat-box__value">{{2 + ($character | characterToBaseLevel:'ESP' | async)! + ($character | characterToChakraSpeAmount:'Impérieux' | async)!}}</span>
-                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Psychiques (PSY)' | async)! > 0">
-                        SPY
+                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Psychiques' | async)! > 0">
+                        PSY
                         <span class="text-white">
-                            {{2 + ($character | characterToBaseLevel:'ESP' | async)! + ($character | characterToChakraSpeAmount:'Impérieux' | async)! + ($character | characterToSkillReinforcement:"Résistances Psychiques (PSY)" | async)!}}
+                            {{2 + ($character | characterToBaseLevel:'ESP' | async)! + ($character | characterToChakraSpeAmount:'Impérieux' | async)! + ($character | characterToSkillReinforcement:"Résistances Psychiques" | async)!}}
                         </span>
                     </span>
                 </p>
