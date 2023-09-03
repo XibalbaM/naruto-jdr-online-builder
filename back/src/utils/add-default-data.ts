@@ -181,7 +181,7 @@ export default async function () {
                 type: "combat"
             },
             {
-                name: "Chūken (École de combat)",
+                name: "Chūken",
                 base: basesId[3],
                 description: "Arrive bientôt",
                 type: "combat"
@@ -205,13 +205,13 @@ export default async function () {
                 type: "combat"
             },
             {
-                name: "Gōken (École de combat)",
+                name: "Gōken",
                 base: basesId[3],
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
-                name: "Jūken (École de combat)",
+                name: "Jūken",
                 base: basesId[3],
                 description: "Arrive bientôt",
                 type: "combat"
@@ -247,25 +247,25 @@ export default async function () {
                 type: "combat"
             },
             {
-                name: "Résistances Élémentaires (ELEM)",
+                name: "Résistances Élémentaires",
                 base: basesId[4],
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
-                name: "Résistances Environnementales (ENVI)",
+                name: "Résistances Environnementales",
                 base: basesId[0],
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
-                name: "Résistances Physiques (PHY)",
+                name: "Résistances Physiques",
                 base: basesId[0],
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
-                name: "Résistances Psychiques (PSY)",
+                name: "Résistances Psychiques",
                 base: basesId[1],
                 description: "Arrive bientôt",
                 type: "combat"
@@ -289,7 +289,7 @@ export default async function () {
                 type: "combat"
             },
             {
-                name: "Yūrioku",
+                name: "Yūryoku",
                 base: basesId[5],
                 description: "Arrive bientôt",
                 type: "combat"
@@ -411,7 +411,7 @@ export default async function () {
                 type: "clan"
             },
             {
-                name: "Résistances Émotionnelles (EMO)",
+                name: "Résistances Émotionnelles",
                 base: basesId[5],
                 description: "Arrive bientôt",
                 type: "clan"
@@ -684,7 +684,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await SkillModel.findOne({name: "Résistances Émotionnelles (EMO)"}))._id,
+                        (await SkillModel.findOne({name: "Résistances Émotionnelles"}))._id,
                     ]
                 }
             },
