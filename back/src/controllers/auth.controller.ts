@@ -48,9 +48,9 @@ export function requestEmail(req: Request, res: Response) {
 export function refreshToken(req: Request, res: Response) {
 
     authService.generateToken(req["user"]["_id"]).then(token => {
-        res.cookie("token", token, {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", true, {maxAge: config.jwt_expiration}).sendStatus(200);
+        res.cookie("token", token, {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", true, {maxAge: config.jwt_expiration_in_ms}).sendStatus(200);
     }).catch(err => {
-        res.clearCookie("token", {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration}).status(500)
+        res.clearCookie("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms}).status(500)
             .json({error: "Internal server error"});
         console.error(err);
     });
@@ -69,19 +69,19 @@ export function login(req: Request, res: Response) {
 
     authService.useCode(code).then((data) => {
         res.status(data.isFirstLogin ? 201 : 200).cookie("token", data.token, {
-            maxAge: config.jwt_expiration,
+            maxAge: config.jwt_expiration_in_ms,
             httpOnly: true
-        }).cookie("isLogged", true, {maxAge: config.jwt_expiration})
+        }).cookie("isLogged", true, {maxAge: config.jwt_expiration_in_ms})
             .json({discordUsername: data.discordUsername});
     }).catch((err) => {
         if (err.message === "Invalid code") {
-            res.status(400).clearCookie("token", {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration})
+            res.status(400).clearCookie("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
                 .json({error: "Invalid code"});
         } else if (err.message === "jwt expired") {
-            res.status(418).clearCookie("token", {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration})
+            res.status(418).clearCookie("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
                 .json({error: "Code expired"});
         } else {
-            res.status(500).clearCookie("token", {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration})
+            res.status(500).clearCookie("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
                 .json({error: "Internal server error"});
             console.error(err);
         }
@@ -94,5 +94,5 @@ export function login(req: Request, res: Response) {
  * Used to unset the token cookies
  */
 export function logout(req: Request, res: Response) {
-    res.clearCookie("token", {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration}).sendStatus(200);
+    res.clearCookie("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration}).sendStatus(200);
 }

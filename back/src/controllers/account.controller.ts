@@ -116,7 +116,7 @@ export function deletePicture(req: Request, res: Response) {
 export function deleteAccount(req: Request, res: Response) {
 
     accountService.deleteAccount(req["user"]["_id"]).then(() => {
-        res.status(200).clearCookie("token", {maxAge: config.jwt_expiration, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration})
+        res.status(200).clearCookie("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
             .json({message: "Account deleted."});
     }).catch((err) => {
         res.status(500).json({error: err.message});

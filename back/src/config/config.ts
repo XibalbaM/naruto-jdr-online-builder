@@ -22,6 +22,7 @@ const config: Environment = {
     dbName: process.env.MONGO_DB_NAME,
     jwt_secret: process.env.JWT_SECRET,
     jwt_expiration: Number.parseInt(process.env.JWT_EXPIRATION),
+    jwt_expiration_in_ms: Number.parseInt(process.env.JWT_EXPIRATION) * 1000,
     login_jwt_secret: process.env.LOGIN_JWT_SECRET,
     login_jwt_expiration: Number.parseInt(process.env.LOGIN_JWT_EXPIRATION),
     loginEmail: {

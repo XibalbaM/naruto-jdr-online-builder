@@ -43,6 +43,10 @@ export default class Environment {
      */
     jwt_expiration: number;
     /**
+     * The expiration time for JWT tokens in ms.
+     */
+    jwt_expiration_in_ms: number;
+    /**
      * The secret to use for JWT tokens for login.
      */
     login_jwt_secret: string;
