@@ -5,9 +5,9 @@ import Line from "./line.model";
  * @class Clan
  */
 export default class Clan {
-  _id!: string;
-  name!: string;
-  village!: string;
-  description!: string;
-  line!: Line;
+    _id!: string;
+    name!: string;
+    village!: string;
+    description!: string;
+    line!: Line;
 }

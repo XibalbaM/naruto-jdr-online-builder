@@ -7,8 +7,4 @@ export default class ChakraSpe {
 	name!: string;
 	max!: number;
     effect!: string;
-
-	constructor(spe: ChakraSpe) {
-		Object.assign(this, spe);
-	}
 }

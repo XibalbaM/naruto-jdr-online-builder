@@ -3,8 +3,8 @@
  * @class Base
  */
 export default class Base {
-  _id!: string;
-  fullName!: string;
-  shortName!: string;
-  description!: string;
+    _id!: string;
+    fullName!: string;
+    shortName!: string;
+    description!: string;
 }

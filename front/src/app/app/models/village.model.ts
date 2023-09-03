@@ -3,6 +3,6 @@
  * @class Village
  */
 export default class Village {
-  _id!: string;
-  name!: string;
+    _id!: string;
+    name!: string;
 }

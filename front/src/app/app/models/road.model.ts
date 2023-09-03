@@ -5,8 +5,8 @@ import Line from "./line.model";
  * @class Road
  */
 export default class Road {
-  _id!: string;
-  name!: string;
-  qualification!: string;
-  line!: Line
+    _id!: string;
+    name!: string;
+    qualification!: string;
+    line!: Line;
 }
