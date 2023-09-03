@@ -6,7 +6,7 @@
 		<span class="bg-black px-[6px] pt-[3px] pb-[4px] mr-[12px] rounded-[10px]" [ngClass]="((character | characterToReamingXp) || 0) >= 0 ? 'text-blue' : 'text-orange'">
             {{((character | characterToReamingXp) || 0) >= 0 ? '↑' : '↓'}} {{Math.abs((character | characterToReamingXp) || 0)}}
         </span>
-		<span class="text-pink me-[12px] font-light text-12">TEAM 12</span> <!--TODO-->
+<!--		<span class="text-pink me-[12px] font-light text-12">TEAM 12</span> &lt;!&ndash;TODO&ndash;&gt;-->
 		<span class="text-light-gray font-light text-12">{{(character.rank | idToData:dataService.ranks.getValue())?.name}}</span>
 	</div>
 </a>

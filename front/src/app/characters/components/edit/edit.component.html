@@ -2,15 +2,15 @@
     <div class="px-[15px]">
         <h1 class="font-bold font-monument uppercase text-25">{{character.firstName}} {{(character.clan | idToData:(dataService.clans | async))?.name}}</h1>
         <p class="py-[12px]">
-        <span class="px-[6px] py-[3px] bg-black rounded-[10px]"
+        <span class="px-[6px] py-[3px] bg-black rounded-[10px] me-[12px]"
               [ngClass]="(($character | characterToReamingXp | async) || 0) >= 0 ? 'text-blue' : 'text-orange'">
             {{(($character | characterToReamingXp | async) || 0) >= 0 ? '↑' : '↓'}} {{Math.abs(($character | characterToReamingXp | async) || 0)}} <span
                 class="text-dark-gray">/</span> {{character.xp}}
         </span>
-            <span class="mx-[12px] text-pink text-12 font-light">
+            <!--<span class="mx-[12px] text-pink text-12 font-light">
             TEAM X (ANBU)
-                <!--TODO TEAM-->
-        </span>
+                &lt;!&ndash;TODO TEAM&ndash;&gt;
+        </span>-->
             <span class="font-light text-12 text-light-gray">
             {{(character.rank | idToData:dataService.ranks.getValue())?.name}}
         </span>
