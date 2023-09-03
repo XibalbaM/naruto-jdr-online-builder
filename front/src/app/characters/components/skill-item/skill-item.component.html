@@ -3,7 +3,7 @@
     <a [routerLink]="'competence/' + skill.skill._id"
        class="space-x-[12px] flex flex-row items-center w-full h-[38px]">
         <span [tooltip]="'Base : ' + (skill.skill.base | idToData:dataService.bases.getValue())?.fullName">{{skill.skill.name}}</span>
-        <span class="text-16 text-yellow px-[12px] py-[3px] bg-light-dark border border-lighter-dark rounded-[8px] ms-[12px]">{{skill.level}}</span>
+        <span class="text-16 text-yellow px-[12px] py-[3px] bg-light-dark border border-lighter-dark rounded-[8px] ms-[12px]">{{skill.level + baseLevel}}</span>
     </a>
     <div class="flex flex-row">
         <button (click)="changeValue.emit(skill.level - 1)" [disabled]="skill.level <= 1" class="change-button me-[3px]">
