@@ -1,5 +1,5 @@
 <dialog #addDialog>
-    <app-modal mtitle="Ajouter un prétiré" [mtext]="'Êtes vous sûr de vouloir ajouter ' + characterToChange?.firstName + '?'" (close)="addDialog.close()">
+    <app-modal mtitle="Ajouter un prétiré" [mtext]="'Êtes vous sûr de vouloir ajouter ' + characterToChange?.firstName + '?'" (close)="addDialog.close()" [dialog]="addDialog">
         <div class="flex justify-between items-center space-x-[18px]">
             <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full"
                     (click)="addDialog.close()">Retour
@@ -11,7 +11,7 @@
     </app-modal>
 </dialog>
 <dialog #removeDialog>
-    <app-modal mtitle="Retirer un prétiré" [mtext]="'Êtes vous sûr de vouloir retirer ' + characterToChange?.firstName + '?'" (close)="removeDialog.close()">
+    <app-modal mtitle="Retirer un prétiré" [mtext]="'Êtes vous sûr de vouloir retirer ' + characterToChange?.firstName + '?'" (close)="removeDialog.close()" [dialog]="removeDialog">
         <div class="flex justify-between items-center space-x-[18px]">
             <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full"
                     (click)="removeDialog.close()">Retour

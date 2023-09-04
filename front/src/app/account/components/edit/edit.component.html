@@ -1,5 +1,5 @@
 <dialog #deleteAccountDialog>
-    <app-modal mtitle="Supprimer le compte" mtext="Êtes vous sûr de vouloir supprimer votre compte ?" (close)="deleteAccountDialog.close()">
+    <app-modal mtitle="Supprimer le compte" mtext="Êtes vous sûr de vouloir supprimer votre compte ?" (close)="deleteAccountDialog.close()" [dialog]="deleteAccountDialog">
         <div class="flex justify-between items-center space-x-[18px]">
             <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full" (click)="deleteAccountDialog.close()">Retour</button>
             <button class="h-[52px] px-[28px] bg-red rounded-[10px] hover:bg-opacity-90 w-full" (click)="deleteAccountDialog.close(); deleteAccount()">Supprimer</button>
@@ -7,7 +7,7 @@
     </app-modal>
 </dialog>
 <dialog #changePpDialog>
-    <app-modal mtitle="Changer l'image de profile"  (close)="changePpDialog.close()"
+    <app-modal mtitle="Changer l'image de profile"  (close)="changePpDialog.close()" [dialog]="changePpDialog"
                mtext="Entrez le lien de votre nouvelle image de profile. Seuls certains sites sont authorisés pour des raisons de sécurité. Si vous n'avez pas encore mis votre image de profile en ligne, vous pouvez utiliser <a href='https://imgur.com/upload' class='default-link'>imgur</a>. Pensez a prendre le lien direct ! (clic droit -> ouvrir l'image dans un nouvel onglet)">
         <input class="input h-[52px] ps-[24px] text-white" [(ngModel)]="pp" #ppLink="ngModel" required type="text" placeholder="https://i.imgur.com/4ILisqH.jpeg">
         <div class="flex justify-between items-center mt-[12px] space-x-[18px]">
@@ -21,7 +21,7 @@
     </app-modal>
 </dialog>
 <dialog #deletePpDialog>
-    <app-modal mtitle="Supprimer l'image de profile" mtext="Êtes vous sûr de vouloir supprimer votre image de profile ?" (close)="deletePpDialog.close()">
+    <app-modal mtitle="Supprimer l'image de profile" mtext="Êtes vous sûr de vouloir supprimer votre image de profile ?" (close)="deletePpDialog.close()" [dialog]="deletePpDialog">
         <div class="flex justify-between items-center space-x-[18px]">
             <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full" (click)="deletePpDialog.close()">Retour</button>
             <button class="h-[52px] px-[28px] bg-red rounded-[10px] hover:bg-opacity-90 w-full" (click)="deletePpDialog.close(); deletePp()">Supprimer</button>
