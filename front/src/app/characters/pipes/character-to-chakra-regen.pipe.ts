@@ -24,6 +24,6 @@ export class CharacterToChakraRegenPipe implements PipeTransform {
     }
 
     processCharacter(character: Character): number {
-        return this.characterToMaxChakra.transform(character) * (1 + this.characterToChakraSpeAmount.transform(character, 'Inépuisable')) / 100;
+        return Math.floor(this.characterToMaxChakra.transform(character) * (1 + this.characterToChakraSpeAmount.transform(character, 'Inépuisable')) / 100);
     }
 }
