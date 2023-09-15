@@ -12,6 +12,7 @@ import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { BgComponent } from './components/bg/bg.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { ModalComponent } from './components/modal/modal.component';
         TooltipComponent,
         TooltipDirective,
         SpinnerComponent,
-        ModalComponent
+        ModalComponent,
+        BgComponent
     ],
     imports: [
         CommonModule,
@@ -45,7 +47,8 @@ import { ModalComponent } from './components/modal/modal.component';
         CharacterToReamingXpPipe,
         TooltipDirective,
         SpinnerComponent,
-        ModalComponent
+        ModalComponent,
+        BgComponent
     ],
     providers: [
         RoleNamePipe,
