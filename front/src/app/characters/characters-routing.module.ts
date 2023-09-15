@@ -40,7 +40,7 @@ const routes: Routes = [
         title: "Fiche de personnage — Modification — Naruto jdr"
     },
     {
-        path: ':characterId', component: EditComponent, data: {navbar: "characterWithNav", bgMethode: "custom"}, resolve: {user: UserResolver},
+        path: ':characterId', component: EditComponent, data: {navbar: "characterWithNav", bgMethode: "imageNoRepeat"}, resolve: {user: UserResolver},
         title: "Fiche de personnage — Naruto jdr"
     }
 ];

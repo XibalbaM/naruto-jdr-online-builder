@@ -1,164 +1,167 @@
-<div class="no-repeat-image-bg pt-[50px]" *ngIf="$character | async as character">
-    <div class="px-[15px]">
-        <h1 class="font-bold font-monument uppercase text-25">{{character.firstName}} {{(character.clan | idToData:(dataService.clans | async))?.name}}</h1>
-        <p class="py-[12px]">
+<div class="pt-[50px]" *ngIf="$character | async as character">
+    <h1 class="font-bold font-monument uppercase text-25">{{character.firstName}} {{(character.clan | idToData:(dataService.clans | async))?.name}}</h1>
+    <p class="py-[12px]">
         <span class="px-[6px] py-[3px] bg-black rounded-[10px] me-[12px]"
               [ngClass]="(($character | characterToReamingXp | async) || 0) >= 0 ? 'text-blue' : 'text-orange'">
             {{(($character | characterToReamingXp | async) || 0) >= 0 ? '↑' : '↓'}} {{Math.abs(($character | characterToReamingXp | async) || 0)}} <span
                 class="text-dark-gray">/</span> {{character.xp}}
         </span>
-            <!--<span class="mx-[12px] text-pink text-12 font-light">
-            TEAM X (ANBU)
-                &lt;!&ndash;TODO TEAM&ndash;&gt;
-        </span>-->
-            <span class="font-light text-12 text-light-gray">
+        <!--<span class="mx-[12px] text-pink text-12 font-light">
+        TEAM X (ANBU)
+            &lt;!&ndash;TODO TEAM&ndash;&gt;
+    </span>-->
+        <span class="font-light text-12 text-light-gray">
             {{(character.rank | idToData:dataService.ranks.getValue())?.name}}
         </span>
-        </p>
-        <div class="flex flex-row">
-            <div class="flex flex-row me-[8px] bg-black py-[12px] px-[18px] rounded-[22px] items-center" *ngIf="(character.clan | idToData:dataService.clans.value) as clan">
-                <img class="x-[25px] h-[25px] me-[12px]" [src]="env.api_url + '/assets/clans/' + clan.name.toLowerCase() + '-purple.svg'" alt="Symbole du clan du ninja"/>
-                Clan {{clan.name}}
-            </div>
-            <img class="py-[12px] px-[18px] border border-dark-gray rounded-[22px]"
-                 [src]="env.api_url + '/assets/villages/' + ((character.village | idToData:dataService.villages.value)?.name || '').toLowerCase() + '-purple.svg'"
-                 alt="Symbole du Village du ninja"/>
+    </p>
+    <div class="flex flex-row">
+        <div class="flex flex-row me-[8px] bg-black py-[12px] px-[18px] rounded-[22px] items-center"
+             *ngIf="(character.clan | idToData:dataService.clans.value) as clan">
+            <img class="x-[25px] h-[25px] me-[12px]" [src]="env.api_url + '/assets/clans/' + clan.name.toLowerCase() + '-purple.svg'"
+                 alt="Symbole du clan du ninja"/>
+            Clan {{clan.name}}
         </div>
-        <app-spacer-graphical class="mt-[50px] mb-[30px]"/>
-        <section>
-            <h2 class="text-light-gray text-10 font-light font-monument uppercase mb-[10px]">bases</h2>
-            <div *ngFor="let baseData of character.bases">
-                <app-spacer class="bg-light-dark my-[8px]"/>
-                <div *ngIf="(baseData.base | idToData:(dataService.bases | async)) as base"
-                     class="flex-row flex justify-between items-center">
-                    <a class="space-x-[12px] flex flex-row items-center w-full h-[38px]"
-                       [routerLink]="'base/' + base._id">
-                        <img class="w-[32px] h-[32px] p-[9px] bg-pink rounded-[10px]"
-                             [src]="env.api_url + '/assets/bases/' + base.shortName.toLowerCase() + '.svg'"
-                             alt="Icon de la base">
-                        <span>{{base.fullName}}</span>
-                        <span class="text-gray-zambezi">({{base.shortName}})</span>
-                        <span class="text-16 text-yellow px-[12px] py-[3px] bg-light-dark border border-lighter-dark rounded-[8px]">{{baseData.level}}</span>
-                    </a>
-                    <div class="flex flex-row">
-                        <button (click)="decreaseBaseLevel(base, baseData.level)" [disabled]="!canBaseLevelReduced({base, level: baseData.level})"
-                                class="change-button me-[3px]">
-                            <svg width="14" height="2" viewBox="0 0 14 2" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13 2H1C0.4 2 0 1.6 0 1C0 0.4 0.4 0 1 0H13C13.6 0 14 0.4 14 1C14 1.6 13.6 2 13 2Z"/>
-                            </svg>
-                        </button>
-                        <button (click)="increaseBaseLevel(base, baseData.level)" [disabled]="baseData.level >= ((character.rank | idToData:dataService.ranks.getValue())?.maxBase || 0)" class="change-button">
-                            <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13 6H8V1C8 0.4 7.6 0 7 0C6.4 0 6 0.4 6 1V6H1C0.4 6 0 6.4 0 7C0 7.6 0.4 8 1 8H6V13C6 13.6 6.4 14 7 14C7.6 14 8 13.6 8 13V8H13C13.6 8 14 7.6 14 7C14 6.4 13.6 6 13 6Z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <app-spacer class="bg-light-dark mt-[8px]"/>
-        </section>
-        <section class="mt-[50px] space-y-[12px]">
-            <div class="space-y-[12px] lg:flex lg:flex-row lg:space-y-0 lg:space-x-[12px]">
-                <p class="stat-box">
-                    Vigueur
-                    <span class="text-yellow ms-[12px] stat-box__value">{{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)!}}</span>
-                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Élémentaires' | async)! > 0">
-                        ELEM
-                        <span class="text-white">
-                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Élémentaires" | async)!}}
-                        </span>
-                    </span>
-                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Environnementales' | async)! > 0">
-                        ENVI
-                        <span class="text-white">
-                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Environnementales" | async)!}}
-                        </span>
-                    </span>
-                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Physiques' | async)! > 0">
-                        PHY
-                        <span class="text-white">
-                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Physiques" | async)!}}
-                        </span>
-                    </span>
-                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Émotionnelles' | async)! > 0">
-                        EMO
-                        <span class="text-white">
-                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Émotionnelles" | async)!}}
-                        </span>
-                    </span>
-                </p>
-                <p class="stat-box">
-                    Caractère
-                    <span class="text-yellow ms-[12px] stat-box__value">{{2 + ($character | characterToBaseLevel:'ESP' | async)! + ($character | characterToChakraSpeAmount:'Impérieux' | async)!}}</span>
-                    <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Psychiques' | async)! > 0">
-                        PSY
-                        <span class="text-white">
-                            {{2 + ($character | characterToBaseLevel:'ESP' | async)! + ($character | characterToChakraSpeAmount:'Impérieux' | async)! + ($character | characterToSkillReinforcement:"Résistances Psychiques" | async)!}}
-                        </span>
-                    </span>
-                </p>
-            </div>
-            <div class="stat-box space-y-[12px]">
-                <p>Chakra<span class="text-blue ms-[12px] stat-box__value">{{$character | characterToMaxChakra | async}}</span></p>
-                <p>Régénération /tour<span class="text-blue ms-[12px] stat-box__value">{{$character | characterToChakraRegen | async}}</span></p>
-                <p>Contrôle du chakra<span class="text-blue ms-[12px] stat-box__value">{{$character | characterToChakraControl | async}}</span></p>
-            </div>
-            <div class="space-y-[12px] lg:flex lg:flex-row lg:space-y-0 lg:space-x-[12px]">
-                <p class="stat-box">
-                    Initiative
-                    <span class="stat-box__value text-yellow ms-[12px]">
-                1D10 +{{($character | characterToSkillTotalLevel:'Physique' | async)! + (($character | characterToChakraSpeAmount:'Fulgurant' | async)! * 2)}}
-            </span>
-                </p>
-                <p class="stat-box">
-                    Interceptions
-                    <span class="stat-box__value text-blue ms-[12px]">ARM {{$character | characterToInterceptions:'ARM' | async}}</span>
-                    <span class="stat-box__value text-blue ms-[12px]">TAI {{$character | characterToInterceptions:'TAI' | async}}</span>
-                </p>
-            </div>
-            <div class="flex flex-row space-x-[12px]">
-                <p class="stat-box">
-                    Dég. ARM
-                    <span class="stat-box__value text-blue ms-[12px]">
-                    {{
-                        ($character | characterToBaseLevel:'COR' | async)!
-                        + ($character | characterToBaseLevel:'ARM' |async)!
-                        + (($character | characterToChakraSpeAmount:'Acéré' | async)! * 2)
-                        }}
-                </span>
-                </p>
-                <p class="stat-box">
-                    Dég. TAI
-                    <span class="stat-box__value text-blue ms-[12px]">
-                    {{
-                        ($character | characterToBaseLevel:'COR' | async)!
-                        + ($character | characterToBaseLevel:'TAI' | async)!
-                        + (($character | characterToChakraSpeAmount:'Explosif' | async)! * 2)
-                        }}
-                </span>
-                </p>
-            </div>
-            <div class="stat-box flex flex-row justify-between items-center">
-                <p>
-                    Nindo
-                    <span class="stat-box__value text-yellow ms-[12px]">{{character.nindoPoints}}</span>
-                </p>
+        <img class="py-[12px] px-[18px] border border-dark-gray rounded-[22px]"
+             [src]="env.api_url + '/assets/villages/' + ((character.village | idToData:dataService.villages.value)?.name || '').toLowerCase() + '-purple.svg'"
+             alt="Symbole du Village du ninja"/>
+    </div>
+    <app-spacer-graphical class="mt-[50px] mb-[30px]"/>
+    <section>
+        <h2 class="text-light-gray text-10 font-light font-monument uppercase mb-[10px]">bases</h2>
+        <div *ngFor="let baseData of character.bases">
+            <app-spacer class="bg-light-dark my-[8px]"/>
+            <div *ngIf="(baseData.base | idToData:(dataService.bases | async)) as base"
+                 class="flex-row flex justify-between items-center">
+                <a class="space-x-[12px] flex flex-row items-center w-full h-[38px]"
+                   [routerLink]="'base/' + base._id">
+                    <img class="w-[32px] h-[32px] p-[9px] bg-pink rounded-[10px]"
+                         [src]="env.api_url + '/assets/bases/' + base.shortName.toLowerCase() + '.svg'"
+                         alt="Icon de la base">
+                    <span>{{base.fullName}}</span>
+                    <span class="text-gray-zambezi">({{base.shortName}})</span>
+                    <span class="text-16 text-yellow px-[12px] py-[3px] bg-light-dark border border-lighter-dark rounded-[8px]">{{baseData.level}}</span>
+                </a>
                 <div class="flex flex-row">
-                    <button (click)="setNindoPoints(character.nindoPoints - 1)" [disabled]="character.nindoPoints < 1" class="change-button me-[3px]">
+                    <button (click)="decreaseBaseLevel(base, baseData.level)" [disabled]="!canBaseLevelReduced({base, level: baseData.level})"
+                            class="change-button me-[3px]">
                         <svg width="14" height="2" viewBox="0 0 14 2" xmlns="http://www.w3.org/2000/svg">
                             <path d="M13 2H1C0.4 2 0 1.6 0 1C0 0.4 0.4 0 1 0H13C13.6 0 14 0.4 14 1C14 1.6 13.6 2 13 2Z"/>
                         </svg>
                     </button>
-                    <button (click)="setNindoPoints(character.nindoPoints + 1)" class="change-button">
+                    <button (click)="increaseBaseLevel(base, baseData.level)"
+                            [disabled]="baseData.level >= ((character.rank | idToData:dataService.ranks.getValue())?.maxBase || 0)" class="change-button">
                         <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
                             <path d="M13 6H8V1C8 0.4 7.6 0 7 0C6.4 0 6 0.4 6 1V6H1C0.4 6 0 6.4 0 7C0 7.6 0.4 8 1 8H6V13C6 13.6 6.4 14 7 14C7.6 14 8 13.6 8 13V8H13C13.6 8 14 7.6 14 7C14 6.4 13.6 6 13 6Z"/>
                         </svg>
                     </button>
                 </div>
             </div>
-        </section>
-    </div>
-    <section class="mt-[50px] py-[50px] bg-black px-[15px]">
+        </div>
+        <app-spacer class="bg-light-dark mt-[8px]"/>
+    </section>
+    <section class="mt-[50px] space-y-[12px]">
+        <div class="space-y-[12px] lg:flex lg:flex-row lg:space-y-0 lg:space-x-[12px]">
+            <p class="stat-box">
+                Vigueur
+                <span class="text-yellow ms-[12px] stat-box__value">{{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)!}}</span>
+                <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Élémentaires' | async)! > 0">
+                        ELEM
+                        <span class="text-white">
+                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Élémentaires" | async)!}}
+                        </span>
+                    </span>
+                <span class="text-pink ms-[12px] stat-box__value"
+                      *ngIf="($character | characterToSkillNaturalLevel:'Résistances Environnementales' | async)! > 0">
+                        ENVI
+                        <span class="text-white">
+                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Environnementales" | async)!}}
+                        </span>
+                    </span>
+                <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Physiques' | async)! > 0">
+                        PHY
+                        <span class="text-white">
+                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Physiques" | async)!}}
+                        </span>
+                    </span>
+                <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Émotionnelles' | async)! > 0">
+                        EMO
+                        <span class="text-white">
+                            {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Émotionnelles" | async)!}}
+                        </span>
+                    </span>
+            </p>
+            <p class="stat-box">
+                Caractère
+                <span class="text-yellow ms-[12px] stat-box__value">{{2 + ($character | characterToBaseLevel:'ESP' | async)! + ($character | characterToChakraSpeAmount:'Impérieux' | async)!}}</span>
+                <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Psychiques' | async)! > 0">
+                        PSY
+                        <span class="text-white">
+                            {{2 + ($character | characterToBaseLevel:'ESP' | async)! + ($character | characterToChakraSpeAmount:'Impérieux' | async)! + ($character | characterToSkillReinforcement:"Résistances Psychiques" | async)!}}
+                        </span>
+                    </span>
+            </p>
+        </div>
+        <div class="stat-box space-y-[12px]">
+            <p>Chakra<span class="text-blue ms-[12px] stat-box__value">{{$character | characterToMaxChakra | async}}</span></p>
+            <p>Régénération /tour<span class="text-blue ms-[12px] stat-box__value">{{$character | characterToChakraRegen | async}}</span></p>
+            <p>Contrôle du chakra<span class="text-blue ms-[12px] stat-box__value">{{$character | characterToChakraControl | async}}</span></p>
+        </div>
+        <div class="space-y-[12px] lg:flex lg:flex-row lg:space-y-0 lg:space-x-[12px]">
+            <p class="stat-box">
+                Initiative
+                <span class="stat-box__value text-yellow ms-[12px]">
+                1D10 +{{($character | characterToSkillTotalLevel:'Physique' | async)! + (($character | characterToChakraSpeAmount:'Fulgurant' | async)! * 2)}}
+            </span>
+            </p>
+            <p class="stat-box">
+                Interceptions
+                <span class="stat-box__value text-blue ms-[12px]">ARM {{$character | characterToInterceptions:'ARM' | async}}</span>
+                <span class="stat-box__value text-blue ms-[12px]">TAI {{$character | characterToInterceptions:'TAI' | async}}</span>
+            </p>
+        </div>
+        <div class="flex flex-row space-x-[12px]">
+            <p class="stat-box">
+                Dég. ARM
+                <span class="stat-box__value text-blue ms-[12px]">
+                    {{
+                    ($character | characterToBaseLevel:'COR' | async)!
+                    + ($character | characterToBaseLevel:'ARM' |async)!
+                    + (($character | characterToChakraSpeAmount:'Acéré' | async)! * 2)
+                    }}
+                </span>
+            </p>
+            <p class="stat-box">
+                Dég. TAI
+                <span class="stat-box__value text-blue ms-[12px]">
+                    {{
+                    ($character | characterToBaseLevel:'COR' | async)!
+                    + ($character | characterToBaseLevel:'TAI' | async)!
+                    + (($character | characterToChakraSpeAmount:'Explosif' | async)! * 2)
+                    }}
+                </span>
+            </p>
+        </div>
+        <div class="stat-box flex flex-row justify-between items-center">
+            <p>
+                Nindo
+                <span class="stat-box__value text-yellow ms-[12px]">{{character.nindoPoints}}</span>
+            </p>
+            <div class="flex flex-row">
+                <button (click)="setNindoPoints(character.nindoPoints - 1)" [disabled]="character.nindoPoints < 1" class="change-button me-[3px]">
+                    <svg width="14" height="2" viewBox="0 0 14 2" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 2H1C0.4 2 0 1.6 0 1C0 0.4 0.4 0 1 0H13C13.6 0 14 0.4 14 1C14 1.6 13.6 2 13 2Z"/>
+                    </svg>
+                </button>
+                <button (click)="setNindoPoints(character.nindoPoints + 1)" class="change-button">
+                    <svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 6H8V1C8 0.4 7.6 0 7 0C6.4 0 6 0.4 6 1V6H1C0.4 6 0 6.4 0 7C0 7.6 0.4 8 1 8H6V13C6 13.6 6.4 14 7 14C7.6 14 8 13.6 8 13V8H13C13.6 8 14 7.6 14 7C14 6.4 13.6 6 13 6Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="mt-[50px] py-[50px] relative z-10">
+        <app-bg class="bg-black"/>
         <h2 class="text-light-gray text-10 font-light font-monument uppercase mb-[10px]">compétences communes</h2>
         <app-skill-item *ngFor="let skill of commonSkills" [skill]="skill" [baseLevel]="getBaseLevelBySkill(skill.skill)"
                         (changeValue)="setSkillLevel(skill.skill, $event)"/>
@@ -177,7 +180,8 @@
     <section>
         <!--TODO: INVENTORY-->
     </section>
-    <section class="bg-black px-[15px] py-[50px]">
+    <section class="py-[50px] relative z-10">
+        <app-bg class="bg-black"/>
         <h2 class="mb-[18px]">
             <span class="stat-box__value text-blue me-[12px]">{{character | characterToMaxChakraSpes}}</span>
             <span class="text-light-gray text-10 font-light font-monument uppercase">spécialisations de chakra</span>
@@ -192,7 +196,8 @@
             <p class="bg-light-gray">{{spe.chakraSpe.effect | weightChakraSpeEffectByAmount:spe.level}}</p>
             <app-spacer class="bg-light-dark my-[12px]"/>
         </div>
-        <button (click)="changeSpe()" class="bg-black border border-lighter-dark rounded-[10px] px-[24px] py-[18px] flex flex-row justify-between items-center w-full max-w-md">
+        <button (click)="changeSpe()"
+                class="bg-black border border-lighter-dark rounded-[10px] px-[24px] py-[18px] flex flex-row justify-between items-center w-full max-w-md">
             <span class="text-16">Éditer</span>
             <svg width="6" height="11" viewBox="0 0 6 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0.266515 8.96756L3.80182 5.49553L0.266515 2.02349C-0.0888383 1.6745 -0.0888383 1.11074 0.266515 0.761745C0.621868 0.412752 1.1959 0.412752 1.55125 0.761745L5.73349 4.86913C6.08884 5.21812 6.08884 5.78188 5.73349 6.13087L1.55125 10.2383C1.1959 10.5872 0.621868 10.5872 0.266515 10.2383C-0.0797267 9.88926 -0.0888383 9.31656 0.266515 8.96756Z"
@@ -200,7 +205,7 @@
             </svg>
         </button>
     </section>
-    <section class="mt-[50px] mb-[75px] lg:mb-[150px] px-[15px]">
+    <section class="mt-[50px] mb-[75px] lg:mb-[150px]">
         <h2 class="text-light-gray text-10 font-light font-monument uppercase mb-[18px]">notes</h2>
         <div class="bg-light-dark border border-dark-gray px-[12px] py-[18px] rounded-[10px]">
             <p id="notes" [ngClass]="{'line-clamp-[8]': shouldTruncNotes}" class="overflow-hidden leading-[160%]">

@@ -1,9 +1,12 @@
-<div class="h-screen flex flex-col">
+<div class="flex h-full flex-col">
     <app-nav class="z-30 flex-shrink-0"
              [ngClass]="($navbarType | async) === 'default' ? 'fixed bottom-0 w-full lg:sticky lg:top-0 lg:bottom-auto': 'sticky top-0'"
              *ngIf="($navbarType | async) !== 'none'" [$type]="$navbarType" [$currentRoute]="$currentRoute"/>
     <app-notification class="w-full"/>
-    <div #scrollHolder [ngClass]="($bgMethode | async) !== 'custom' ? (($bgMethode | async) === 'image' ? 'image-bg' : (($bgMethode | async) === 'none' ? '' : 'no-repeat-image-bg')) + ' pt-[50px] px-[15px]' : ''" class="h-full flex-shrink overflow-y-auto">
-        <router-outlet class="h-full"/>
+    <div #scrollHolder [ngClass]="($bgMethode | async) === 'image' ? 'image-bg' : (($bgMethode | async) === 'none' ? '' : 'no-repeat-image-bg')"
+         class="h-full flex-shrink overflow-x-hidden overflow-y-auto !bg-local">
+        <div class="max-w-[1024px] mx-auto pt-[50px] px-[15px]">
+            <router-outlet class="h-full"/>
+        </div>
     </div>
 </div>

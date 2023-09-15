@@ -10,7 +10,7 @@ import {BehaviorSubject, filter} from "rxjs";
 export class AppComponent implements OnInit {
     $navbarType: BehaviorSubject<"default" | "character" | "characterWithNav" | "none"> = new BehaviorSubject<"default" | "character" | "characterWithNav" | "none">("default");
     $currentRoute: BehaviorSubject<ActivatedRouteSnapshot> = new BehaviorSubject<ActivatedRouteSnapshot>(new ActivatedRouteSnapshot());
-    $bgMethode: BehaviorSubject<'none' | 'image' | 'imageNoRepeat' | 'custom'> = new BehaviorSubject<'none' | 'image' | 'imageNoRepeat' | 'custom'>('none');
+    $bgMethode: BehaviorSubject<'none' | 'image' | 'imageNoRepeat'> = new BehaviorSubject<'none' | 'image' | 'imageNoRepeat'>('none');
     @ViewChild("scrollHolder") scrollHolder!: ElementRef<HTMLDivElement>;
 
     constructor(private router: Router) {
