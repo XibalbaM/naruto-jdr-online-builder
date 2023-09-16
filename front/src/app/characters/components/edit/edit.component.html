@@ -1,4 +1,4 @@
-<div class="pt-[50px]" *ngIf="$character | async as character">
+<div *ngIf="$character | async as character">
     <h1 class="font-bold font-monument uppercase text-25">{{character.firstName}} {{(character.clan | idToData:(dataService.clans | async))?.name}}</h1>
     <p class="py-[12px]">
         <span class="px-[6px] py-[3px] bg-black rounded-[10px] me-[12px]"

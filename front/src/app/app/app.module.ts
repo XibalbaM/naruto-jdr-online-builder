@@ -9,35 +9,37 @@ import {environment} from "../../environments/environment";
 import Auth from "./models/auth.model";
 import {AuthService} from "./services/auth.service";
 import {SharedModule} from "../shared/shared.module";
-import {NavComponent} from './components/nav/nav.component';
+import {NormalNavbarComponent} from './components/normal-navbar/normal-navbar.component';
 import {NotificationComponent} from './components/notification/notification.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DataService} from "./services/data.service";
+import {BackNavbarComponent} from "./components/back-navbar/back-navbar.component";
 
 const init = (authService: AuthService, dataService: DataService) => {
-  authService.init();
-  dataService.init();
+    authService.init();
+    dataService.init();
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavComponent,
-    NotificationComponent
-  ],
-  imports: [
-    SharedModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
-  providers: [
-    {provide: Environment, useValue: environment},
-    {provide: Auth, useValue: new Auth()},
-    {provide: APP_INITIALIZER, useFactory: init, deps: [AuthService, DataService]}
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        NormalNavbarComponent,
+        NotificationComponent,
+        BackNavbarComponent
+    ],
+    imports: [
+        SharedModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        HttpClientModule
+    ],
+    providers: [
+        {provide: Environment, useValue: environment},
+        {provide: Auth, useValue: new Auth()},
+        {provide: APP_INITIALIZER, useFactory: init, deps: [AuthService, DataService]}
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

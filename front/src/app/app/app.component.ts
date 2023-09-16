@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, inject, InjectionToken, Injector, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
 import {BehaviorSubject, filter} from "rxjs";
 
@@ -8,12 +8,14 @@ import {BehaviorSubject, filter} from "rxjs";
     styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-    $navbarType: BehaviorSubject<"default" | "character" | "characterWithNav" | "none"> = new BehaviorSubject<"default" | "character" | "characterWithNav" | "none">("default");
-    $currentRoute: BehaviorSubject<ActivatedRouteSnapshot> = new BehaviorSubject<ActivatedRouteSnapshot>(new ActivatedRouteSnapshot());
+    $navbar: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+    $navbarDataInjector: BehaviorSubject<Injector> = new BehaviorSubject<Injector>(this.createNavbarDataInjector(null));
     $bgClass: BehaviorSubject<string> = new BehaviorSubject<string>('');
     @ViewChild("scrollHolder") scrollHolder!: ElementRef<HTMLDivElement>;
 
-    constructor(private router: Router) {
+    private readonly injector = inject(Injector);
+
+    constructor(protected router: Router) {
     }
 
     ngOnInit(): void {
@@ -24,10 +26,27 @@ export class AppComponent implements OnInit {
             while (currentRoute.firstChild) {
                 currentRoute = currentRoute.firstChild;
             }
-            this.$navbarType.next(currentRoute.data['navbar'] || "default");
+            this.$navbar.next(currentRoute.data['navbar'] || null);
             this.$bgClass.next(currentRoute.data['bgClass'] || '');
-            this.$currentRoute.next(currentRoute);
+            this.$navbarDataInjector.next(this.createNavbarDataInjector(new NavbarData(currentRoute)));
             this.scrollHolder.nativeElement.scrollTop = 0;
         });
     }
+
+    private createNavbarDataInjector(navbarData: NavbarData | null) {
+        return Injector.create({
+            parent: this.injector,
+            providers: [
+                {provide: NAVBAR_DATA_TOKEN, useValue: navbarData}
+            ]
+        })
+    }
 }
+
+export class NavbarData {
+
+    constructor(public currentRoute: ActivatedRouteSnapshot) {
+    }
+}
+
+export const NAVBAR_DATA_TOKEN = new InjectionToken<NavbarData | null>("navbarData");

@@ -30,6 +30,7 @@ import { WeightChakraSpeEffectByAmountPipe } from './pipes/weight-chakra-spe-eff
 import { CharacterToSkillReinforcementPipe } from './pipes/character-to-skill-reinforcement.pipe';
 import { PredrawnComponent } from './components/predrawn/predrawn.component';
 import { PredrawnPreviewComponent } from './components/predrawn-preview/predrawn-preview.component';
+import { CharacterNavbarComponent } from './components/character-navbar/character-navbar.component';
 
 @NgModule({
     declarations: [
@@ -59,7 +60,8 @@ import { PredrawnPreviewComponent } from './components/predrawn-preview/predrawn
         WeightChakraSpeEffectByAmountPipe,
         CharacterToSkillReinforcementPipe,
         PredrawnComponent,
-        PredrawnPreviewComponent
+        PredrawnPreviewComponent,
+        CharacterNavbarComponent
     ],
     imports: [
         CommonModule,

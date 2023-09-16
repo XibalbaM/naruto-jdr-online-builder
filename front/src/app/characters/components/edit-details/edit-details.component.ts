@@ -15,9 +15,9 @@ import Rank from "../../../app/models/rank.model";
 import {Title} from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-edit-details',
-  templateUrl: './edit-details.component.html',
-  styleUrls: ['./edit-details.component.scss']
+    selector: 'app-edit-details',
+    templateUrl: './edit-details.component.html',
+    styleUrls: ['./edit-details.component.scss']
 })
 export class EditDetailsComponent {
     character!: Character;
@@ -37,7 +37,8 @@ export class EditDetailsComponent {
     constructor(private router: Router, private route: ActivatedRoute, private auth: Auth,
                 protected dataService: DataService, private env: Environment, private idToData: IdToDataPipe,
                 private characterService: CharacterService, private notificationService: NotificationService,
-                private title: Title) {}
+                private title: Title) {
+    }
 
     ngOnInit() {
         combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded()]).subscribe(([params, user]) => {
