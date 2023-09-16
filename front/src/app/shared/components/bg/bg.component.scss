@@ -1,4 +1,4 @@
 :host {
     display: block;
-    @apply absolute inset-0 -z-10 left-[-15px] w-screen;
+    @apply absolute inset-0 -left-[4096px] -z-10 max-w-[1024px] px-[4096px];
 }
