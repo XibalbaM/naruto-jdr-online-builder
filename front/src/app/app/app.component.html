@@ -3,7 +3,7 @@
              [ngClass]="($navbarType | async) === 'default' ? 'fixed bottom-0 w-full lg:sticky lg:top-0 lg:bottom-auto': 'sticky top-0'"
              *ngIf="($navbarType | async) !== 'none'" [$type]="$navbarType" [$currentRoute]="$currentRoute"/>
     <app-notification class="w-full"/>
-    <div #scrollHolder [ngClass]="($bgMethode | async) === 'image' ? 'image-bg' : (($bgMethode | async) === 'none' ? '' : 'no-repeat-image-bg')"
+    <div #scrollHolder [ngClass]="$bgClass | async"
          class="h-full flex-shrink overflow-x-hidden overflow-y-auto !bg-local">
         <div class="max-w-[1024px] mx-auto pt-[50px] px-[15px]">
             <router-outlet class="h-full"/>

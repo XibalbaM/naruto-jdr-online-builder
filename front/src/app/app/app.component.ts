@@ -10,7 +10,7 @@ import {BehaviorSubject, filter} from "rxjs";
 export class AppComponent implements OnInit {
     $navbarType: BehaviorSubject<"default" | "character" | "characterWithNav" | "none"> = new BehaviorSubject<"default" | "character" | "characterWithNav" | "none">("default");
     $currentRoute: BehaviorSubject<ActivatedRouteSnapshot> = new BehaviorSubject<ActivatedRouteSnapshot>(new ActivatedRouteSnapshot());
-    $bgMethode: BehaviorSubject<'none' | 'image' | 'imageNoRepeat'> = new BehaviorSubject<'none' | 'image' | 'imageNoRepeat'>('none');
+    $bgClass: BehaviorSubject<string> = new BehaviorSubject<string>('');
     @ViewChild("scrollHolder") scrollHolder!: ElementRef<HTMLDivElement>;
 
     constructor(private router: Router) {
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
                 currentRoute = currentRoute.firstChild;
             }
             this.$navbarType.next(currentRoute.data['navbar'] || "default");
-            this.$bgMethode.next(currentRoute.data['bgMethode'] || 'none');
+            this.$bgClass.next(currentRoute.data['bgClass'] || '');
             this.$currentRoute.next(currentRoute);
             this.scrollHolder.nativeElement.scrollTop = 0;
         });
