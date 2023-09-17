@@ -13,8 +13,14 @@ import config from "../config/config.js";
  * @param req The request
  * @param res The response
  */
-export function getUser(req: Request, res: Response) {
-
+export async function getUser(req: Request, res: Response) {
+    try {
+        if (req["user"].discordId) {
+            req["user"].discordName = await accountService.getDiscordName(req["user"])
+            if (!req["user"].profileImage)
+                req["user"].profileImage = await accountService.getDiscordPicture(req["user"])
+        }
+    } catch (ignored) {}
     res.status(200).json({user: req["user"]});
 }
 
@@ -116,7 +122,10 @@ export function deletePicture(req: Request, res: Response) {
 export function deleteAccount(req: Request, res: Response) {
 
     accountService.deleteAccount(req["user"]["_id"]).then(() => {
-        res.status(200).clearCookie("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
+        res.status(200).clearCookie("token", {
+            maxAge: config.jwt_expiration_in_ms,
+            httpOnly: true
+        }).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
             .json({message: "Account deleted."});
     }).catch((err) => {
         res.status(500).json({error: err.message});
@@ -150,6 +159,7 @@ export function addDiscordAccount(req: Request, res: Response) {
                 break;
             default:
                 res.status(500).json({error: "Internal server error"});
+                console.error(err);
         }
     });
 }

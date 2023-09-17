@@ -14,6 +14,7 @@ export default class User {
   groups!: {role: "sensei" | "player", group: Group}[];
   characters!: Character[]
   discordId?: string;
+  discordUsername?: string;
 
   constructor(user: User) {
     Object.assign(this, user);
