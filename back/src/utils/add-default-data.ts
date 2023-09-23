@@ -188,7 +188,13 @@ export default async function () {
             },
             {
                 name: "Coup spécial",
-                base: basesId[2],//TODO
+                base: basesId[2],
+                description: "Arrive bientôt",
+                type: "combat"
+            },
+            {
+                name: "Coup spécial",
+                base: basesId[3],
                 description: "Arrive bientôt",
                 type: "combat"
             },
