@@ -1,5 +1,5 @@
 <div class="w-full bg-black px-[15px]">
-    <div class="flex flex-row justify-between pt-[20px] pb-[15px] mx-auto container h-[70px] items-center">
+    <div class="container mx-auto flex flex-row items-center justify-between pt-[20px] pb-[15px] h-[70px]">
         <a class="flex flex-row items-center text-16 hover:underline"
            routerLink="..">
             <svg class="me-[10px]" xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
@@ -18,8 +18,8 @@
         </div>
     </div>
 </div>
-<div class="w-full bg-cover bg-[url('assets/images/backgrounds/character-nav-bg.webp')] h-full px-[15px]">
-    <div class="container w-full mx-auto h-[45px] flex flex-row items-center overflow-x-scroll scrollbar:hidden whitespace-nowrap space-x-[4px]">
+<div class="w-full bg-cover bg-[url('assets/images/backgrounds/character-nav-bg.webp')] h-fit px-[15px] overflow-hidden">
+    <div class="container mx-auto flex scrollbar:hidden w-full flex-row items-center overflow-x-scroll whitespace-nowrap h-[45px] space-x-[4px]">
         <a [routerLink]="'/personnages/' + ($character | async)?._id" [routerLinkActiveOptions]="{exact: true}"
            routerLinkActive="box-border px-[12px] border border-pink text-pink bg-black rounded-[8px] cursor-default hover:no-underline"
            class="px-[13px] py-[6px] hover:underline">
