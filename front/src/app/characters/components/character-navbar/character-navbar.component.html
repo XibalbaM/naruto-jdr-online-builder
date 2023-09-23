@@ -20,7 +20,6 @@
 </div>
 <div class="w-full bg-cover bg-[url('assets/images/backgrounds/character-nav-bg.webp')] h-full px-[15px]">
     <div class="container w-full mx-auto h-[45px] flex flex-row items-center overflow-x-scroll scrollbar:hidden whitespace-nowrap space-x-[4px]">
-        <!--TODO: REVIEW ASSETS-->
         <a [routerLink]="'/personnages/' + ($character | async)?._id" [routerLinkActiveOptions]="{exact: true}"
            routerLinkActive="box-border px-[12px] border border-pink text-pink bg-black rounded-[8px] cursor-default hover:no-underline"
            class="px-[13px] py-[6px] hover:underline">
