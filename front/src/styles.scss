@@ -165,6 +165,15 @@
         -webkit-text-fill-color: transparent;
     }
 
+    a.text-purple-gradient {
+        border-bottom: 2px solid;
+
+        &:hover {
+            border-image-slice: 1;
+            border-image-source: linear-gradient(267.71deg, #FCA3A7 0%, #7C00FF 100%);
+        }
+    }
+
     .image-bg {
         background: url("assets/images/backgrounds/bg.webp") repeat;
         background-size: auto;
