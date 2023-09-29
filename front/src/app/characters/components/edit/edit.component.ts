@@ -7,7 +7,7 @@ import Skill from "../../../app/models/skill.model";
 import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
 import ChakraSpe from "../../../app/models/chakra-spe.model";
 import Environment from "../../../../environments/environment.interface";
-import {BehaviorSubject, combineLatest} from "rxjs";
+import {BehaviorSubject, combineLatest, every, merge, Observable} from "rxjs";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import Base from "../../../app/models/base.model";
@@ -77,8 +77,33 @@ export class EditComponent implements OnInit, AfterViewInit {
 
     decreaseBaseLevel(base: Base, currentLevel: number) {
         if (this.canBaseLevelReduced({base, level: currentLevel})) {
-            this.setBaseLevel(base, currentLevel - 1);
+            this.decreaseSkillLevelsIfNeeded({base, level: currentLevel}).subscribe((success) => {
+                if (success)
+                    this.setBaseLevel(base, currentLevel - 1);
+                else
+                    this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du niveau de la base, si le problème persiste, contactez nous');
+            });
         }
+    }
+
+    decreaseSkillLevelsIfNeeded(data: { base: Base, level: number }): Observable<boolean> {
+        const character = this.$character.getValue();
+        const skillsToDecrease = character.skills
+            .filter(skill => skill.level > 0)
+            .map((skill: { skill: string, level: number }) => {
+                return {
+                    skill: this.idToData.transform(skill.skill, this.dataService.skills.value)!,
+                    level: skill.level
+                }
+            })
+            .filter((skill: { skill: Skill, level: number }) => skill.skill.base === data.base._id)
+            .filter((skill: { skill: Skill, level: number }) => skill.level >= data.level + 2);
+        const requests = merge(...skillsToDecrease.map((skill: { skill: Skill, level: number }) => {
+            return this.characterService.setSkillLevel(character._id, skill.skill._id, skill.level - 1);
+        }))
+        return requests.pipe(
+            every((success: boolean) => success)
+        );
     }
 
     setSkillLevel(skill: Skill, level: number) {
@@ -125,22 +150,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     canBaseLevelReduced(data: {base: Base, level: number}): boolean {
-        if (data.level <= 1) {
-            return false;
-        }
-        const character = this.$character.getValue();
-        const skill = character.skills
-            .filter(skill => skill.level > 0)
-            .map((skill: { skill: string, level: number }) => {
-                return {
-                    skill: this.idToData.transform(skill.skill, this.dataService.skills.value)!,
-                    level: skill.level
-                }
-            })
-            .filter((skill: { skill: Skill, level: number }) => skill.skill.base === data.base._id)
-            .map((skill: { skill: Skill, level: number }) => skill.level)
-            .sort((a, b) => b - a)[0] || 0;
-        return data.level > skill - 2;
+        return data.level > 1;
     }
 
     protected readonly Math = Math;
