@@ -7,21 +7,7 @@
     <div class="w-[100px]"><!--Placeholder--></div>
   </div>
   <div class="w-full border bg-black p-[25px] border-light-dark rounded-[26px] max-w-[350px]">
-    <p *ngIf="viewMode === 'text'" [innerHtml]="text"></p>
-    <ng-container *ngIf="viewMode === 'registration'">
-      <h1 class="text-25">Pas de compte</h1>
-      <h2 class="text-13 text-light-gray">Votre email n’est rattaché à aucun compte existant</h2>
-      <app-spacer class="my-[20px] bg-light-dark"></app-spacer>
-      <p class="text-16">
-        Afin d’utiliser Ninja Builder, un compte personnel est nécessaire.<br/><br/>
-
-        Si vous souhaitez créer un compte sur l’application, vous avez déjà reçu un lien de validation sur votre email :<br />
-        <span class="text-pink">{{email}}</span><br />
-        Il suffit de cliquer dessus et le tour est joué :)<br /><br />
-
-        Ce lien est valide seulement 5mn
-      </p>
-    </ng-container>
+      <p [innerHtml]="text"></p>
   </div>
 </main>
 <app-footer></app-footer>

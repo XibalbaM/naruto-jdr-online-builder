@@ -1,3 +1,7 @@
+<dialog #dialog ngModel>
+    <app-modal (close)="dialog.close()" [dialog]="dialog" [mtext]="popupText" [mtitle]="popupTitle">
+    </app-modal>
+</dialog>
 <main class="flex h-full w-full flex-col items-center justify-around">
 	<app-logo class="w-[100px] h-[100px] mt-[125px] mb-[80px]"></app-logo>
 	<form class="w-full px-4 max-w-[350px] space-y-3">
