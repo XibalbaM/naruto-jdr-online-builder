@@ -28,11 +28,6 @@ module.exports = {
             "dark": "#121212",
             "black": "#030505"
         },
-        fontWeight: {
-            light: 400,
-            normal: 500,
-            bold: 700,
-        },
         fontSize: {
             10: '10px',
             12: '12px',

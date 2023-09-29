@@ -214,6 +214,20 @@
 
     .font-neue {
         font-family: "PP Neue Montreal", sans-serif;
+        line-height: 160%;
+    }
+
+    .font-bold {
+        font-weight: 700;
+    }
+
+    .font-normal {
+        font-weight: 500;
+        letter-spacing: 0.48px;
+    }
+
+    .font-light {
+        font-weight: 400;
         letter-spacing: 0.42px;
     }
 }
