@@ -24,7 +24,13 @@ const routes: Routes = [
             {path: '3', component: ThirdStepComponent, title: "Création de personnage — Étape 3 — Naruto jdr"}
         ]
     },
-    {path: 'pretires', component: PredrawnComponent, resolve: {user: UserResolver}, data: {bgClass: "no-repeat-image-bg"}, title: "Personnages prétirés — Naruto jdr"},
+    {
+        path: 'pretires',
+        component: PredrawnComponent,
+        resolve: {user: UserResolver},
+        data: {bgClass: "no-repeat-image-bg", navbar: BackNavbarComponent, navbarText: "Liste de personnages"},
+        title: "Personnages prétirés — Naruto jdr"
+    },
     {
         path: ':characterId/base/:id', component: BaseComponent, data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", backAmount: 2}, resolve: {user: UserResolver},
         title: "Base — Fiche de personnage — Naruto jdr"
