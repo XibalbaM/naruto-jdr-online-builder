@@ -3,7 +3,7 @@
     <app-notification class="w-full"/>
     <div #scrollHolder [ngClass]="$bgClass | async"
          class="h-full flex-shrink overflow-x-hidden overflow-y-auto !bg-local">
-        <div class="max-w-[1024px] mx-auto px-[15px]" [ngClass]="($navbar | async) ? 'pt-[50px]' : ''">
+        <div [ngClass]="($navbar | async) ? 'pt-[50px]' : ''" class="max-w-[1024px] mx-auto px-[15px] xl:px-0">
             <router-outlet class="h-full"/>
         </div>
     </div>
