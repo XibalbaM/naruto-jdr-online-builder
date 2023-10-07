@@ -53,7 +53,7 @@ export class EditComponent implements OnInit, AfterViewInit {
                     });
                 });
                 this.$character.next(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
-                this.notes = this.$character.value.notes || "Pas de notes";
+                this.notes = this.$character.value.notes || "Pas encore de notes.";
                 this.title.setTitle(`${this.$character.getValue().firstName} ${this.idToData.transform(this.$character.getValue().clan, this.dataService.clans.getValue())?.name}, Fiche de personnage — Naruto jdr`)
             } else {
                 this.router.navigate(['/personnages']);
