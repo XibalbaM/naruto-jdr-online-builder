@@ -23,8 +23,8 @@
     <span class="rounded-xl font-normal text-blue font-neue text-16 bg-light-dark me-[12px] px-[12px] py-[3px]">{{5 - skillIds.length}}</span>
     compétences à choisir
 </h3>
-<div class="grid grid-cols-1 gap-[15px] md:grid-cols-2 lg:grid-cols-3">
-    <button (click)="addSkill(skill)" *ngFor="let skill of uncommonSkills" class="text-start h-[50px] px-[24px] max-w-md col-span-1 row-span-1"
+<div class="grid grid-cols-1 gap-[10px] md:grid-cols-2 lg:grid-cols-3">
+    <button (click)="addSkill(skill)" *ngFor="let skill of uncommonSkills" class="text-start h-[48px] px-[24px] max-w-md col-span-1 row-span-1"
             [ngClass]="skillIds.includes(skill._id) ? 'gray-box text-yellow hover:bg-lighter-dark' : 'black-box hover:bg-dark'">
         {{skill.name}} ({{(skill.base | idToData:dataService.bases.getValue())?.shortName}})
     </button>
