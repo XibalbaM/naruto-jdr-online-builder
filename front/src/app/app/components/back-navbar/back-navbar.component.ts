@@ -11,6 +11,6 @@ export class BackNavbarComponent {
 
     navbarData = inject(NAVBAR_DATA_TOKEN);
     backAmount = this.navbarData?.currentRoute.data["backAmount"] || 1;
-    backUrl = inject(Location).path().split('/').slice(0, -this.backAmount).join('/');
+    backUrl = this.navbarData?.currentRoute.data["navbarBackUrl"] || inject(Location).path().split('/').slice(0, -this.backAmount).join('/');
     text?: string = this.navbarData?.currentRoute.data["navbarText"];
 }
