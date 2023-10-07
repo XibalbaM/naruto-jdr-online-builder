@@ -46,7 +46,7 @@ const config: Environment = {
     discord: {
         clientId: process.env.DISCORD_CLIENT_ID,
         clientSecret: process.env.DISCORD_CLIENT_SECRET,
-        redirectUri: `${process.env.PROTOCOL}://${process.env.SERVER_ADRESS}/compte/discord`,
+        redirectUri: `${process.env.PROTOCOL}://${process.env.SERVER_ADDRESS}/compte/discord`,
         botToken: process.env.DISCORD_BOT_TOKEN,
         guildId: process.env.DISCORD_GUILD_ID,
         rest: new REST({version: '10', authPrefix: "Bot"}).setToken(process.env.DISCORD_BOT_TOKEN)
