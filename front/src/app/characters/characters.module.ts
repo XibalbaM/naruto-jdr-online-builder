@@ -32,6 +32,7 @@ import {PredrawnComponent} from './components/predrawn/predrawn.component';
 import {PredrawnPreviewComponent} from './components/predrawn-preview/predrawn-preview.component';
 import {CharacterNavbarComponent} from './components/character-navbar/character-navbar.component';
 import {NindoExemplesComponent} from "./components/nindo-exemples/nindo-exemples.component";
+import {NotesComponent} from './components/notes/notes.component';
 
 @NgModule({
     declarations: [
@@ -63,7 +64,8 @@ import {NindoExemplesComponent} from "./components/nindo-exemples/nindo-exemples
         PredrawnComponent,
         PredrawnPreviewComponent,
         CharacterNavbarComponent,
-        NindoExemplesComponent
+        NindoExemplesComponent,
+        NotesComponent
     ],
     imports: [
         CommonModule,

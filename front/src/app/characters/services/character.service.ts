@@ -123,6 +123,18 @@ export class CharacterService {
         );
     }
 
+    setNotes(characterId: string, notes: string, multi: boolean = false) {
+        return this.apiService.doRequest('POST', CharacterApiEndpoints.NOTES(characterId), {text: notes}).pipe(
+            map((response) => response.status === 200),
+            tap((success) => {
+                if (success && !multi) {
+                    this.auth.user!.characters.find((character) => character._id === characterId)!.notes = notes;
+                    this.auth.userObservable().next(this.auth.user);
+                }
+            })
+        );
+    }
+
     multiRequest(requests: Observable<boolean>[]): Observable<boolean> {
         return combineLatest(requests).pipe(
             map((results) => results.every((result) => result)),
@@ -161,5 +173,8 @@ export const CharacterApiEndpoints = {
     },
     RANK(characterId: string): string {
         return `/characters/${characterId}/rank`;
+    },
+    NOTES(characterId: string): string {
+        return `/characters/${characterId}/notes`;
     }
 }

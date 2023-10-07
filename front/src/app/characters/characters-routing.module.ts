@@ -15,6 +15,7 @@ import {NormalNavbarComponent} from "../app/components/normal-navbar/normal-navb
 import {CharacterNavbarComponent} from "./components/character-navbar/character-navbar.component";
 import {BackNavbarComponent} from "../app/components/back-navbar/back-navbar.component";
 import {NindoExemplesComponent} from "./components/nindo-exemples/nindo-exemples.component";
+import {NotesComponent} from "./components/notes/notes.component";
 
 const routes: Routes = [
     {path: '', component: ListComponent, resolve: {user: UserResolver}, title: "Liste de personnages — Naruto jdr", data: {navbar: NormalNavbarComponent}},
@@ -48,6 +49,13 @@ const routes: Routes = [
     {
         path: ':characterId/details', component: EditDetailsComponent, data: {bgClass: '!bg-black'}, resolve: {user: UserResolver},
         title: "Fiche de personnage — Modification — Naruto jdr"
+    },
+    {
+        path: ':characterId/notes',
+        component: NotesComponent,
+        data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", navbarText: "Fiche de personnage"},
+        resolve: {user: UserResolver},
+        title: "Fiche de personnage — Notes — Naruto jdr"
     },
     {
         path: ':characterId', component: EditComponent, data: {navbar: CharacterNavbarComponent, bgClass: "large-no-repeat-image-bg"}, resolve: {user: UserResolver},

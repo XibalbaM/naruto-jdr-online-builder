@@ -8,11 +8,12 @@ import {RoleNamePipe} from './pipes/role-name.pipe';
 import {XpToRankPipe} from './pipes/xp-to-rank.pipe';
 import {IdToDataPipe} from './pipes/id-to-data.pipe';
 import {CharacterToReamingXpPipe} from "./pipes/character-to-reaming-xp.pipe";
-import { TooltipComponent } from './components/tooltip/tooltip.component';
-import { TooltipDirective } from './directives/tooltip.directive';
-import { SpinnerComponent } from './components/spinner/spinner.component';
-import { ModalComponent } from './components/modal/modal.component';
-import { BgComponent } from './components/bg/bg.component';
+import {TooltipComponent} from './components/tooltip/tooltip.component';
+import {TooltipDirective} from './directives/tooltip.directive';
+import {SpinnerComponent} from './components/spinner/spinner.component';
+import {ModalComponent} from './components/modal/modal.component';
+import {BgComponent} from './components/bg/bg.component';
+import {NgsContenteditableModule} from "@ng-stack/contenteditable";
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { BgComponent } from './components/bg/bg.component';
     imports: [
         CommonModule,
         NgOptimizedImage,
-        FormsModule
+        FormsModule,
+        NgsContenteditableModule
     ],
     exports: [
         CommonModule,
@@ -48,7 +50,8 @@ import { BgComponent } from './components/bg/bg.component';
         TooltipDirective,
         SpinnerComponent,
         ModalComponent,
-        BgComponent
+        BgComponent,
+        NgsContenteditableModule
     ],
     providers: [
         RoleNamePipe,
