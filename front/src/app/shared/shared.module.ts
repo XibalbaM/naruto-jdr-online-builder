@@ -14,6 +14,7 @@ import {SpinnerComponent} from './components/spinner/spinner.component';
 import {ModalComponent} from './components/modal/modal.component';
 import {BgComponent} from './components/bg/bg.component';
 import {NgsContenteditableModule} from "@ng-stack/contenteditable";
+import {MarkdownModule} from "ngx-markdown";
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import {NgsContenteditableModule} from "@ng-stack/contenteditable";
         CommonModule,
         NgOptimizedImage,
         FormsModule,
-        NgsContenteditableModule
+        NgsContenteditableModule,
+        MarkdownModule.forRoot()
     ],
     exports: [
         CommonModule,
@@ -51,7 +53,8 @@ import {NgsContenteditableModule} from "@ng-stack/contenteditable";
         SpinnerComponent,
         ModalComponent,
         BgComponent,
-        NgsContenteditableModule
+        NgsContenteditableModule,
+        MarkdownModule
     ],
     providers: [
         RoleNamePipe,
