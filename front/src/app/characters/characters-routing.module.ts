@@ -14,6 +14,7 @@ import {PredrawnComponent} from "./components/predrawn/predrawn.component";
 import {NormalNavbarComponent} from "../app/components/normal-navbar/normal-navbar.component";
 import {CharacterNavbarComponent} from "./components/character-navbar/character-navbar.component";
 import {BackNavbarComponent} from "../app/components/back-navbar/back-navbar.component";
+import {NindoExemplesComponent} from "./components/nindo-exemples/nindo-exemples.component";
 
 const routes: Routes = [
     {path: '', component: ListComponent, resolve: {user: UserResolver}, title: "Liste de personnages — Naruto jdr", data: {navbar: NormalNavbarComponent}},
@@ -21,6 +22,7 @@ const routes: Routes = [
             {path: '', redirectTo: '1', pathMatch: 'full'},
             {path: '1', component: FirstStepComponent, title: "Création de personnage — Étape 1 — Naruto jdr"},
             {path: '2', component: SecondStepComponent, title: "Création de personnage — Étape 2 — Naruto jdr"},
+            {path: '2/exemples-nindo', component: NindoExemplesComponent, data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", backAmount: 1, navbarText: "Historique"}, title: "Création de personnage — Exemples de nindo — Naruto jdr"},
             {path: '3', component: ThirdStepComponent, title: "Création de personnage — Étape 3 — Naruto jdr"}
         ]
     },

@@ -17,20 +17,21 @@ import {CharacterToMaxSkillCountPipe} from "./pipes/character-to-max-skill-count
 import {CharacterToMaxChakraPipe} from './pipes/character-to-max-chakra.pipe';
 import {CharacterToMaxChakraSpesPipe} from './pipes/character-to-max-chakra-spes.pipe';
 import {CharacterToChakraControlPipe} from './pipes/character-to-chakra-control.pipe';
-import { LineComponent } from './components/line/line.component';
-import { SkillTypeToTypeNamePipe } from './pipes/skill-type-to-type-name.pipe';
-import { CharacterToBaseLevelPipe } from './pipes/character-to-base-level.pipe';
-import { CharacterToChakraSpeAmountPipe } from './pipes/character-to-chakra-spe-amount.pipe';
-import { CharacterToChakraRegenPipe } from './pipes/character-to-chakra-regen.pipe';
-import { CharacterToSkillNaturalLevelPipe } from './pipes/character-to-skill-natural-level.pipe';
-import { CharacterToSkillTotalLevelPipe } from './pipes/character-to-skill-total-level.pipe';
-import { CharacterToInterceptionsPipe } from './pipes/character-to-interceptions.pipe';
+import {LineComponent} from './components/line/line.component';
+import {SkillTypeToTypeNamePipe} from './pipes/skill-type-to-type-name.pipe';
+import {CharacterToBaseLevelPipe} from './pipes/character-to-base-level.pipe';
+import {CharacterToChakraSpeAmountPipe} from './pipes/character-to-chakra-spe-amount.pipe';
+import {CharacterToChakraRegenPipe} from './pipes/character-to-chakra-regen.pipe';
+import {CharacterToSkillNaturalLevelPipe} from './pipes/character-to-skill-natural-level.pipe';
+import {CharacterToSkillTotalLevelPipe} from './pipes/character-to-skill-total-level.pipe';
+import {CharacterToInterceptionsPipe} from './pipes/character-to-interceptions.pipe';
 import {EditDetailsComponent} from "./components/edit-details/edit-details.component";
-import { WeightChakraSpeEffectByAmountPipe } from './pipes/weight-chakra-spe-effect-by-amount.pipe';
-import { CharacterToSkillReinforcementPipe } from './pipes/character-to-skill-reinforcement.pipe';
-import { PredrawnComponent } from './components/predrawn/predrawn.component';
-import { PredrawnPreviewComponent } from './components/predrawn-preview/predrawn-preview.component';
-import { CharacterNavbarComponent } from './components/character-navbar/character-navbar.component';
+import {WeightChakraSpeEffectByAmountPipe} from './pipes/weight-chakra-spe-effect-by-amount.pipe';
+import {CharacterToSkillReinforcementPipe} from './pipes/character-to-skill-reinforcement.pipe';
+import {PredrawnComponent} from './components/predrawn/predrawn.component';
+import {PredrawnPreviewComponent} from './components/predrawn-preview/predrawn-preview.component';
+import {CharacterNavbarComponent} from './components/character-navbar/character-navbar.component';
+import {NindoExemplesComponent} from "./components/nindo-exemples/nindo-exemples.component";
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import { CharacterNavbarComponent } from './components/character-navbar/characte
         CharacterToSkillReinforcementPipe,
         PredrawnComponent,
         PredrawnPreviewComponent,
-        CharacterNavbarComponent
+        CharacterNavbarComponent,
+        NindoExemplesComponent
     ],
     imports: [
         CommonModule,

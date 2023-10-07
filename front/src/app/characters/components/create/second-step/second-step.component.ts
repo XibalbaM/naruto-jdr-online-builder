@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CreationService} from "../../../services/creation.service";
 import {Router} from "@angular/router";
 
@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 	templateUrl: './second-step.component.html',
 	styleUrls: ['./second-step.component.scss']
 })
-export class SecondStepComponent implements OnInit {
+export class SecondStepComponent implements OnInit, OnDestroy {
 	nindo: string = this.creationService.character.nindo || '';
 	story: string = this.creationService.character.notes || '';
 
@@ -18,6 +18,11 @@ export class SecondStepComponent implements OnInit {
 			this.router.navigate(['/personnages/creation/' + this.creationService.step]);
 		}
 	}
+
+    ngOnDestroy(): void {
+        this.creationService.character.nindo = this.nindo;
+        this.creationService.character.notes = this.story;
+    }
 
 	back() {
 		this.router.navigateByUrl("/personnages/creation/" + --this.creationService.step)

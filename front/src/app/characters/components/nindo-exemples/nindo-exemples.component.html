@@ -1,0 +1,13 @@
+<h1 class="text-25 font-monument font-bold uppercase mb-[12px]">exemples de nindo</h1>
+<p class="font-light">Le Nindo, littéralement Voie du Ninja, représente un idéal, un désir ou un drame central au personnage qu’il ne trahira jamais. Même le
+    plus vile des ninjas
+    possède un Nindo et le met en pratique.</p>
+<app-spacer class="bg-lighter-dark mt-[30px] mb-[18px]"/>
+<div *ngFor="let exemple of exemples">
+    <h2 (click)="creationService.character.nindo = exemple.description; router.navigateByUrl(backUrl)"
+        class="text-16, text-pink mb-[8px] default-link">
+        {{exemple.title}}
+    </h2>
+    <p class="font-light text-light">{{exemple.description}}</p>
+    <app-spacer class="bg-lighter-dark my-[18px]"/>
+</div>
