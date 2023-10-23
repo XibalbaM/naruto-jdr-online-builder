@@ -14,7 +14,8 @@ import {SpinnerComponent} from './components/spinner/spinner.component';
 import {ModalComponent} from './components/modal/modal.component';
 import {BgComponent} from './components/bg/bg.component';
 import {NgsContenteditableModule} from "@ng-stack/contenteditable";
-import {MarkdownModule} from "ngx-markdown";
+import {MarkdownModule, MarkedOptions} from "ngx-markdown";
+import {markedOptionsFactory} from "./marked-options.factory";
 
 @NgModule({
     declarations: [
@@ -36,7 +37,7 @@ import {MarkdownModule} from "ngx-markdown";
         NgOptimizedImage,
         FormsModule,
         NgsContenteditableModule,
-        MarkdownModule.forRoot()
+        MarkdownModule.forRoot({markedOptions: {provide: MarkedOptions, useFactory: markedOptionsFactory}})
     ],
     exports: [
         CommonModule,
