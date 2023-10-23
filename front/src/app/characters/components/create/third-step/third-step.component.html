@@ -13,8 +13,8 @@
     <div class="flex max-w-md flex-col space-y-[12px]">
         <div *ngFor="let skill of clanSkills"
              class="text-start py-[18px] px-[24px] gray-box text-yellow">
-                {{(skill | idToData:dataService.skills.getValue())?.name}}
-                ({{((skill | idToData:dataService.skills.getValue())?.base | idToData:dataService.bases.getValue())?.shortName}})
+            {{(skill | idToData:dataService.skills.getValue())?.name}}
+            ({{((skill | idToData:dataService.skills.getValue())?.base | idToData:dataService.bases.getValue())?.shortName}})
         </div>
     </div>
     <app-spacer class="bg-lighter-dark my-[30px]"></app-spacer>
@@ -24,7 +24,7 @@
     compétences à choisir
 </h3>
 <div class="grid grid-cols-1 gap-[10px] md:grid-cols-2 lg:grid-cols-3">
-    <button (click)="addSkill(skill)" *ngFor="let skill of uncommonSkills" class="text-start h-[48px] px-[24px] max-w-md col-span-1 row-span-1"
+    <button (click)="addSkill(skill)" *ngFor="let skill of uncommonSkills" class="col-span-1 row-span-1 max-w-md text-start h-[48px] px-[24px] text-14"
             [ngClass]="skillIds.includes(skill._id) ? 'gray-box text-yellow hover:bg-lighter-dark' : 'black-box hover:bg-dark'">
         {{skill.name}} ({{(skill.base | idToData:dataService.bases.getValue())?.shortName}})
     </button>
