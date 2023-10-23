@@ -1,3 +1,9 @@
+<div *ngIf="skillIds.length < 5" class="fixed bottom-[70px] lg:bottom-0 left-0 purple-gradient w-full h-[50px] items-center flex flex-row px-[15px]">
+    <p class="mx-auto w-full max-w-[1024px]">
+        <span class="rounded-xl font-normal text-blue font-neue text-16 bg-light-dark me-[12px] px-[12px] py-[3px]">{{5 - skillIds.length}}</span>
+        Compétences a choisir
+    </p>
+</div>
 <p class="text-14 text-yellow">Naruto jeu de rôle</p>
 <h1 class="font-bold uppercase text-28 font-monument mt-[5px]">créer un personnage</h1>
 <app-character-preview [character]="creationService.character" class="my-[50px]"></app-character-preview>
