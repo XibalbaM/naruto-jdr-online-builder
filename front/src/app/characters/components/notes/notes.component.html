@@ -1,13 +1,16 @@
 <h1 class="text-25 font-bold font-monument uppercase">notes</h1>
 <form (ngSubmit)="submit()" class="mb-[30px]">
-    <div [(ngModel)]="notes" class="input min-h-[330px] !h-fit py-[24px] px-[18px] my-[30px] text-white " editable name="notes">{{character.notes}}</div>
+    <div [(ngModel)]="notes" class="input min-h-[330px] !h-fit py-[24px] px-[18px] my-[30px] text-white" editable name="notes"
+         propValueAccessor="innerHTML">{{character.notes}}</div>
     <div class="flex flex-row gap-[10px]">
         <button [disabled]="notes === character.notes" class="bg-purple rounded-[10px] w-full py-[18px] enabled:hover:bg-opacity-95
                                                             disabled:bg-black disabled:text-dark-gray" type="submit">
             Enregistrer
         </button>
-        <button (click)="goBack()" class="bg-transparent border border-dark-gray rounded-[10px] w-full py-[18px] enabled:hover:bg-light-dark">
+        <button (click)="goBack()" [disabled]="notes === character.notes" class="bg-transparent border border-dark-gray rounded-[10px] w-full py-[18px] enabled:hover:bg-light-dark
+                                                                                    disabled:text-dark-gray">
             Fermer
         </button>
     </div>
 </form>
+<div (click)="goToFormatHelp()" class="default-link w-fit mx-auto mb-[30px]">Aide de mise en forme</div>
