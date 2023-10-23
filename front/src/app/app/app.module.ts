@@ -14,6 +14,7 @@ import {NotificationComponent} from './components/notification/notification.comp
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DataService} from "./services/data.service";
 import {BackNavbarComponent} from "./components/back-navbar/back-navbar.component";
+import {MarkdownHelpComponent} from './components/markdown-help/markdown-help.component';
 
 const init = (authService: AuthService, dataService: DataService) => {
     authService.init();
@@ -25,7 +26,8 @@ const init = (authService: AuthService, dataService: DataService) => {
         AppComponent,
         NormalNavbarComponent,
         NotificationComponent,
-        BackNavbarComponent
+        BackNavbarComponent,
+        MarkdownHelpComponent
     ],
     imports: [
         SharedModule,
