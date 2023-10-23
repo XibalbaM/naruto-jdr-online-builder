@@ -293,7 +293,7 @@ const accountCreationTemplate = (connectionToken: string) => {
                              align="center"
                              cellpadding="0"
                              cellspacing="0"
-                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px;border-radius:26px">
+                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px;border-radius:26px;Margin:25px 0 0">
                         <tbody>
                           <tr>
                             <td align="left" style="padding:0;Margin:0;padding-top:15px;padding-left:40px;padding-right:40px">
@@ -862,7 +862,7 @@ const connectionTemplate = (connectionToken: string, username: string) => {
                              align="center"
                              cellpadding="0"
                              cellspacing="0"
-                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px;border-radius:26px">
+                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px;border-radius:26px;Margin:25px 0 0">
                         <tbody>
                           <tr>
                             <td align="left" style="padding:0;Margin:0;padding-top:15px;padding-left:40px;padding-right:40px">
