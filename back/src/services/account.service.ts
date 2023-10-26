@@ -123,7 +123,7 @@ export async function getDiscordPicture(user: User): Promise<string> {
 
     const guildUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
     if (guildUser['avatar'])
-        return `https://cdn.discordapp.com/avatars/${user.discordId}/${guildUser['avatar']}?size=`;
+        return `https://cdn.discordapp.com/guilds/${config.discord.guildId}/users/${discordId}/avatars/${guildUser['avatar']}?size=`;
 
     const discordUser = await config.discord.rest.get(Routes.user(discordId));
     return `https://cdn.discordapp.com/avatars/${user.discordId}/${discordUser['avatar']}?size=`;
