@@ -166,8 +166,8 @@
         <app-skill-item *ngFor="let skill of commonSkills" [skill]="skill" [baseLevel]="getBaseLevelBySkill(skill.skill)"
                         (changeValue)="setSkillLevel(skill.skill, $event)"/>
         <app-spacer class="bg-light-dark mt-[8px] mb-[50px]"/>
-        <h2 class="mb-[10px] flex flex-row">
-            <span class="stat-box__value text-blue me-[12px]">{{$character | characterToMaxSkillCount | async}}</span>
+        <h2 class="mb-[10px] flex flex-row items-center">
+            <span class="stat-box__value text-blue me-[12px] h-[26px]">{{$character | characterToMaxSkillCount | async}}</span>
             <span class="text-light-gray text-10 font-light font-monument uppercase">compétences <br/>combat, terrain, clan</span>
         </h2>
         <app-skill-item *ngFor="let skill of uncommonSkills" [skill]="skill" [baseLevel]="getBaseLevelBySkill(skill.skill)"
