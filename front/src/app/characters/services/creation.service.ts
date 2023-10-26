@@ -3,7 +3,6 @@ import Character from "../../app/models/character.model";
 import Village from "../../app/models/village.model";
 import Clan from "../../app/models/clan.model";
 import Road from "../../app/models/road.model";
-import {DataService} from "../../app/services/data.service";
 import {XpToRankPipe} from "../../shared/pipes/xp-to-rank.pipe";
 import {catchError, map, mergeMap, Observable, of, tap, zip} from "rxjs";
 import {ApiService} from "../../app/services/api.service";
@@ -18,7 +17,7 @@ export class CreationService {
 	step: number = 1;
     tempSkillIds: string[] = [];
 
-	constructor(private dataService: DataService, private rankPipe: XpToRankPipe, private apiService: ApiService, private auth: Auth) {
+    constructor(private rankPipe: XpToRankPipe, private apiService: ApiService, private auth: Auth) {
 	}
 
 	/**
