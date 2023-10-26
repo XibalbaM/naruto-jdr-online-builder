@@ -1,3 +1,9 @@
+<div *ngIf="skillIds.length < 5" class="fixed bottom-[70px] lg:bottom-0 left-0 purple-gradient w-full h-[50px] items-center flex flex-row px-[15px]">
+    <p class="mx-auto w-full max-w-[1024px]">
+        <span class="rounded-xl font-normal text-blue font-neue text-16 bg-light-dark me-[12px] px-[12px] py-[3px]">{{5 - skillIds.length}}</span>
+        Compétences a choisir
+    </p>
+</div>
 <a (click)="back()" class="group flex flex-row items-center">
     <svg fill="none" height="13" viewBox="0 0 20 13" width="20" xmlns="http://www.w3.org/2000/svg">
         <path d="M18.8945 5.5H3.41709L6.73367 2.2C7.13568 1.8 7.13568 1.2 6.73367 0.8C6.33166 0.4 5.72864 0.4 5.32663 0.8L0.301508 5.8C0.201005 5.9 0.201005 6 0.100502 6C0.100502 6.2 0 6.3 0 6.5C0 6.7 0.100502 6.8 0.100502 6.9C0.100502 7 0.201005 7.1 0.301508 7.2L5.32663 12.2C5.52764 12.4 5.82915 12.5 6.03015 12.5C6.23116 12.5 6.53266 12.4 6.73367 12.2C7.13568 11.8 7.13568 11.2 6.73367 10.8L3.41709 7.5H18.794C19.4975 7.5 20 7.1 20 6.5C20 5.9 19.4975 5.5 18.8945 5.5Z"
