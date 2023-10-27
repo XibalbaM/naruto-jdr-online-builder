@@ -19,7 +19,7 @@ export class ModalComponent {
             const overlay = document.createElement('div');
             overlay.classList.add('z-40', 'bg-purple', 'opacity-20', 'absolute', 'top-0', 'start-0', 'w-screen', 'h-screen');
             overlay.id = 'overlay';
-            overlay.addEventListener('click', () => this.dialog.close());
+            overlay.addEventListener('click', () => this.close.emit());
             document.body.appendChild(overlay);
             show.call(this.dialog);
         }
