@@ -160,4 +160,8 @@ export class EditComponent implements OnInit, AfterViewInit {
         character.chakraSpes[0].level += 1;
         this.$character.next(character);
     }
+
+    usedChakraSpes(): number {
+        return this.chakraSpes.reduce((acc, current) => acc + current.level, 0);
+    }
 }
