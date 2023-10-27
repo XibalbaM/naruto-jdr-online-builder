@@ -13,7 +13,9 @@ import {AuthService} from "../../../app/services/auth.service";
 export class EditComponent {
 
     pp?: string;
-    deleteNameConfirm = ""
+    deleteNameConfirm = "";
+    newEmail?: string = undefined;
+    newEmailConfirm = "";
 
     constructor(public auth: Auth, private accountService: AccountService, private router: Router,
                 private notificationService: NotificationService, private authService: AuthService) {
@@ -29,14 +31,16 @@ export class EditComponent {
         });
     }
 
-    changeEmail(email: string) {
-        this.accountService.setEmail(email).subscribe((result) => {
-            if (result.success) {
-                this.notificationService.showNotification("Adresse email modifié !", "Votre adresse email a bien été modifié.");
-            } else {
-                this.notificationService.showNotification("Erreur", result.error || "Une erreur est survenue.");
-            }
-        });
+    changeEmail() {
+        if (this.newEmail === this.newEmailConfirm) {
+            this.accountService.setEmail(this.newEmail).subscribe((result) => {
+                if (result.success) {
+                    this.notificationService.showNotification("Adresse email modifié !", "Votre adresse email a bien été modifié.");
+                } else {
+                    this.notificationService.showNotification("Erreur", result.error || "Une erreur est survenue.");
+                }
+            });
+        }
     }
 
     deleteAccount() {

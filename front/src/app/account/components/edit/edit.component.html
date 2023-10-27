@@ -14,6 +14,24 @@
         </button>
     </app-modal>
 </dialog>
+<dialog #changeEmailDialog>
+    <app-modal (close)="changeEmailDialog.close(); newEmailConfirm = ''" *ngIf="(auth.userObservableOnceLoaded() | async) as user"
+               [dialog]="changeEmailDialog"
+               mtext="<span class='text-16'>En cliquant sur le bouton “Valider” juste en dessous, votre adresse email sera modifiée. L'accès a votre boite mail
+               étant obligatoire pour vous connecter, assurez vous d'avoir accès à l'adresse email que vous rentrez. <br/><br/><span class='text-orange'>Nous ne
+               pouvons pas vous garantir de récupérer votre compte en cas de problème, meme si nous feront notre possible.</span></span>"
+               mtitle="Changer mon adresse email">
+        <h2 class="text-10 text-light-gray font-light font-monument uppercase">confirmer votre nouvelle adresse email</h2>
+        <input [(ngModel)]="newEmailConfirm" class="input px-[24px] py-[17px] text-white mt-[18px] mb-[30px] placeholder-light-gray font-16"
+               placeholder="Ex: Mitsuo@naruto-jdr.com"
+               type="text">
+        <button (click)="changeEmailDialog.close(); changeEmail()"
+                [disabled]="newEmailConfirm.toLowerCase() !== newEmail?.toLowerCase()"
+                class="black-button px-[28px] h-[52px] disabled:text-dark-gray disabled:hover:bg-black">
+            Valider
+        </button>
+    </app-modal>
+</dialog>
 <dialog #changePpDialog>
     <app-modal mtitle="Changer l'image de profile"  (close)="changePpDialog.close()" [dialog]="changePpDialog"
                mtext="Entrez le lien de votre nouvelle image de profile. Seuls certains sites sont authorisés pour des raisons de sécurité. Si vous n'avez pas encore mis votre image de profile en ligne, vous pouvez utiliser <a href='https://imgur.com/upload' class='default-link'>imgur</a>. Pensez a prendre le lien direct ! (clic droit -> ouvrir l'image dans un nouvel onglet)">
@@ -83,7 +101,7 @@
             Modifier
         </button>
     </form>
-    <form (ngSubmit)="changeEmail(emailField.value)" class="flex max-w-md flex-col mb-[50px]">
+    <form (ngSubmit)="newEmail = emailField.value; changeEmailDialog.show()" class="flex max-w-md flex-col mb-[50px]">
         <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[18px]">email</h2>
         <input type="text"
                name="email"
