@@ -69,7 +69,7 @@ export class DataService {
             if (response.status === 304) {
                 this.datas[dataId].next(JSON.parse(currentDatas!).data);
             } else if (response.status === 200 && response.headers.get('Etag') && response.body) {
-                const data = (response.body).sort((a, b) => (a.name ?? a._id).localeCompare((b.name ?? b._id)));
+                const data = (response.body).sort((a, b) => dataId === "skills" ? a.name.localeCompare(b.name) : a._id.localeCompare(b._id));
                 const storedData = {
                     etag: response.headers.get('Etag')!,
                     data: data
