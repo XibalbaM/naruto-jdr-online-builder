@@ -1,6 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import Character from "../../app/models/character.model";
-import {DataService} from "../../app/services/data.service";
 import {map, Observable} from "rxjs";
 import {CharacterToBaseLevelPipe} from "./character-to-base-level.pipe";
 
@@ -9,7 +8,7 @@ import {CharacterToBaseLevelPipe} from "./character-to-base-level.pipe";
 })
 export class CharacterToChakraControlPipe implements PipeTransform {
 
-    constructor(private dataService: DataService, private characterToBaseLevel: CharacterToBaseLevelPipe) {
+    constructor(private characterToBaseLevel: CharacterToBaseLevelPipe) {
     }
 
     transform(character: Observable<Character>): Observable<number>;
