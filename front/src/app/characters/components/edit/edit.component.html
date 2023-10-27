@@ -174,8 +174,21 @@
                         (changeValue)="setSkillLevel(skill.skill, $event)"/>
         <app-spacer class="bg-light-dark mt-[8px]"/>
     </section>
-    <section>
+    <section class="relative z-10 py-[50px]">
+        <app-bg class="image-bg"/>
         <!--TODO: HEALTH-->
+        <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[10px]">équipement</h2>
+        <app-spacer class="my-[18px] bg-light-dark"/>
+        <button class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90">
+            <div>
+                <span class="stat-box__value text-blue me-[10px] h-[26px]">3</span>
+                Équipements essentiels à choisir
+            </div>
+            <svg fill="none" height="10" viewBox="0 0 6 10" width="6" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.266515 8.46756L3.80182 4.99553L0.266515 1.52349C-0.0888383 1.1745 -0.0888383 0.610738 0.266515 0.261745C0.621868 -0.0872483 1.1959 -0.0872483 1.55125 0.261745L5.73349 4.36913C6.08884 4.71812 6.08884 5.28188 5.73349 5.63087L1.55125 9.73825C1.1959 10.0872 0.621868 10.0872 0.266515 9.73825C-0.0797267 9.38926 -0.0888383 8.81656 0.266515 8.46756Z"
+                      fill="white"/>
+            </svg>
+        </button>
     </section>
     <section>
         <!--TODO: INVENTORY-->
@@ -196,12 +209,15 @@
             <p class="bg-light-gray">{{spe.chakraSpe.effect | weightChakraSpeEffectByAmount:spe.level}}</p>
             <app-spacer class="bg-light-dark my-[12px]"/>
         </div>
-        <button (click)="changeSpe()"
-                class="bg-black border border-lighter-dark rounded-[10px] px-[24px] py-[18px] flex flex-row justify-between items-center w-full max-w-md">
-            <span class="text-16">Éditer</span>
-            <svg width="6" height="11" viewBox="0 0 6 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.266515 8.96756L3.80182 5.49553L0.266515 2.02349C-0.0888383 1.6745 -0.0888383 1.11074 0.266515 0.761745C0.621868 0.412752 1.1959 0.412752 1.55125 0.761745L5.73349 4.86913C6.08884 5.21812 6.08884 5.78188 5.73349 6.13087L1.55125 10.2383C1.1959 10.5872 0.621868 10.5872 0.266515 10.2383C-0.0797267 9.88926 -0.0888383 9.31656 0.266515 8.96756Z"
-                      fill="#EE88FF"/>
+        <button *ngIf="((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 0"
+                class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90">
+            <div>
+                <span class="stat-box__value text-blue me-[10px] h-[26px]">{{(($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()}}</span>
+                Spécialisation de chakra disponible
+            </div>
+            <svg fill="none" height="10" viewBox="0 0 6 10" width="6" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.266515 8.46756L3.80182 4.99553L0.266515 1.52349C-0.0888383 1.1745 -0.0888383 0.610738 0.266515 0.261745C0.621868 -0.0872483 1.1959 -0.0872483 1.55125 0.261745L5.73349 4.36913C6.08884 4.71812 6.08884 5.28188 5.73349 5.63087L1.55125 9.73825C1.1959 10.0872 0.621868 10.0872 0.266515 9.73825C-0.0797267 9.38926 -0.0888383 8.81656 0.266515 8.46756Z"
+                      fill="white"/>
             </svg>
         </button>
     </section>
