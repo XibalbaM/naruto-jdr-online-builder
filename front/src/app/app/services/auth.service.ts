@@ -49,6 +49,9 @@ export class AuthService {
                             group: group
                         })); //TODO: Rework when groups will be implemented
                         if (responses[1].body && !responses[1].body.error && responses[1].body.characters) user.characters = responses[1].body.characters;
+                        for (let character of user.characters) {
+                            character.bases = character.bases.sort((a, b) => a.base.localeCompare(b.base));
+                        }
                         this.auth.user = user;
                     });
                 } else this.auth.user = undefined;
