@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import Auth from "../models/auth.model";
 
 @Injectable({
@@ -10,7 +10,7 @@ import Auth from "../models/auth.model";
  *
  * If not, redirect to the login page
  */
-export class AuthenticatedGuard implements CanActivate {
+export class AuthenticatedGuard {
 
     constructor(private router: Router) {
     }

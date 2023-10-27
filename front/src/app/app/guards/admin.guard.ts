@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from "@angular/router";
 import {map, Observable, take, tap} from "rxjs";
 import Auth from "../models/auth.model";
 
@@ -11,7 +11,7 @@ import Auth from "../models/auth.model";
  *
  * If not, redirect to the home page
  */
-export class AdminGuard implements CanActivate {
+export class AdminGuard {
 
     constructor(private router: Router, private auth: Auth) {}
 
