@@ -27,6 +27,17 @@ export function getCharacter(req: Request, res: Response) {
     });
 }
 
+export function copyCharacter(req: Request, res: Response) {
+    CharactersService.copyCharacter(req["user"]["_id"], req.params.id).then((character) => res.status(200).json({character})).catch((error) => {
+        if (error.message === "Character not found") {
+            return res.status(404).json({error: "Character not found"});
+        } else {
+            res.status(500).json({error: "Internal server error"});
+            console.error(error);
+        }
+    });
+}
+
 export function setSkill(req: Request, res: Response) {
     CharactersService.setSkill(req["user"]["_id"], req.params.id, req.params.skillId, req.body.value).then(() => res.sendStatus(200)).catch((error) => {
         if (error.message === "Character not found") {

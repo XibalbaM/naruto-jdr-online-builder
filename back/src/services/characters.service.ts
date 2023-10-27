@@ -15,6 +15,12 @@ import Clan from "../classes/clan.class.js";
 
 export default class CharactersService {
 
+    static async canUserReadCharacter(userId: ObjectId, character: Character) {
+        if (character.isPredrawn) return true;
+        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
+        return userCharactersIds.includes(character._id)
+    }
+
     static async listCharacters(user: User) {
         const characters: Character[] = [];
         for (let character of user.characters) {
@@ -31,13 +37,22 @@ export default class CharactersService {
 
     static async getCharacter(userId: ObjectId, characterId: string) {
         const character = Character.fromModel(await CharacterModel.findById(characterId));
-        if (!character.isPredrawn) {
-            const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-            if (!userCharactersIds.includes(characterId as any)) {
-                throw new Error("Character not found");
-            }
+        if (!await this.canUserReadCharacter(userId, character)) {
+            throw new Error("Character not found");
         }
         return character;
+    }
+
+    static async copyCharacter(userId: ObjectId, characterId: string) {
+        const character = Character.fromModel(await CharacterModel.findById(characterId));
+        if (!this.canUserReadCharacter(userId, character)) {
+            throw new Error("Character not found");
+        }
+        delete character._id;
+        character.isPredrawn = false;
+        const newCharacter = Character.fromModel(await CharacterModel.create(character));
+        await UserModel.findByIdAndUpdate(userId, {$push: {characters: newCharacter._id}});
+        return newCharacter;
     }
 
     static async setSkill(userId: ObjectId, characterId: string, skillId: string, value: number) {

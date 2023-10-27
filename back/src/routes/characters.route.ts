@@ -27,6 +27,7 @@ router.post('/', authMiddleware(), contentMiddleware({
 }), charactersController.create);
 router.get('/', authMiddleware(), charactersController.getCharacters);
 router.get('/:id', authMiddleware(), idOfMiddleware(CharacterModel, "id"), charactersController.getCharacter);
+router.put('/:id', authMiddleware(), idOfMiddleware(CharacterModel, "id"), charactersController.copyCharacter);
 router.post('/:id/skills/:skillId', authMiddleware(), idOfMiddleware(CharacterModel, "id"), idOfMiddleware(SkillModel, "skillId"), contentMiddleware({value: 42}), charactersController.setSkill);
 router.post('/:id/bases/:baseId', authMiddleware(), idOfMiddleware(CharacterModel, "id"), idOfMiddleware(BaseModel, "baseId"), contentMiddleware({value: 42}), charactersController.setBase);
 router.post('/:id/nindo', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({text: "string"}), charactersController.setNindo);
