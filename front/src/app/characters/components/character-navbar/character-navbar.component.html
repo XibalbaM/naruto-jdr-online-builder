@@ -1,3 +1,13 @@
+<popper-content #options>
+    <div class="flex flex-col px-[24px] py-[20px]">
+        <a [routerLink]="['personnages',($character | async)?._id,'details']" class="w-full my-[10px] text-16 text-blue h-[26px] hover:underline">Modifier</a>
+        <a class="w-full my-[10px] text-16 h-[26px] hover:underline">Créer une copie</a>
+        <a class="w-full my-[10px] text-16 h-[26px] hover:underline">Rejoindre un groupe</a>
+        <a class="w-full my-[10px] text-16 h-[26px] hover:underline">Créer un groupe</a>
+        <app-spacer class="bg-lighter-dark mt-[15px]"/>
+        <a class="w-full my-[13px] text-16 text-orange hover:underline">Supprimer le personnage</a>
+    </div>
+</popper-content>
 <div class="w-full bg-black px-[15px]">
     <div class="container mx-auto flex flex-row items-center justify-between pt-[20px] pb-[15px] h-[70px]">
         <a class="flex flex-row items-center text-16 hover:underline"
@@ -8,13 +18,28 @@
             </svg>
             Retour
         </a>
-        <div>
-            <a [routerLink]="'/personnages/' + ($character | async)?._id + '/details'" class="text-16 hover:underline">Modifier</a>
+        <div class="flex flex-row gap-[10px]">
             <span class="text-14 px-[6px] py-[3px] bg-light-dark rounded-[6px] ms-[10px]"
                   [ngClass]="(($character | characterToReamingXp | async) || 0) >= 0 ? 'text-blue' : 'text-orange'">
-                          {{(($character | characterToReamingXp | async) || 0) >= 0 ? '↑' : '↓'}} {{Math.abs(($character | characterToReamingXp | async) || 0)}}
+                {{(($character | characterToReamingXp | async) || 0) >= 0 ? '↑' : '↓'}} {{Math.abs(($character | characterToReamingXp | async) || 0)}}
                 EXP
-                        </span>
+            </span>
+            <div [popperHideOnClickOutside]="true"
+                 [popperPlacement]="NgxPopperjsPlacements.BOTTOMEND"
+                 [popperStyles]="{'borderWidth':'1px','backgroundColor':'#030505','width':'270px','border-color':'#2F2F2F','border-radius':'8px'}"
+                 [popperTrigger]="NgxPopperjsTriggers.click"
+                 [popper]="options"
+                 class="cursor-pointer border-2 px-[5px] rounded-[8px] border-lighter-dark h-[29px] hover:bg-dark"
+                 popperApplyArrowClass="hidden">
+                <svg fill="none" height="25" viewBox="0 0 24 25" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 13.5C12.5523 13.5 13 13.0523 13 12.5C13 11.9477 12.5523 11.5 12 11.5C11.4477 11.5 11 11.9477 11 12.5C11 13.0523 11.4477 13.5 12 13.5Z"
+                          stroke="#DFDFDF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    <path d="M19 13.5C19.5523 13.5 20 13.0523 20 12.5C20 11.9477 19.5523 11.5 19 11.5C18.4477 11.5 18 11.9477 18 12.5C18 13.0523 18.4477 13.5 19 13.5Z"
+                          stroke="#DFDFDF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    <path d="M5 13.5C5.55228 13.5 6 13.0523 6 12.5C6 11.9477 5.55228 11.5 5 11.5C4.44772 11.5 4 11.9477 4 12.5C4 13.0523 4.44772 13.5 5 13.5Z"
+                          stroke="#DFDFDF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                </svg>
+            </div>
         </div>
     </div>
 </div>

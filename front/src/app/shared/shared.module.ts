@@ -16,6 +16,7 @@ import {BgComponent} from './components/bg/bg.component';
 import {NgsContenteditableModule} from "@ng-stack/contenteditable";
 import {MarkdownModule, MarkedOptions} from "ngx-markdown";
 import {markedOptionsFactory} from "./marked-options.factory";
+import {NgxPopperjsModule} from "ngx-popperjs";
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import {markedOptionsFactory} from "./marked-options.factory";
         NgOptimizedImage,
         FormsModule,
         NgsContenteditableModule,
-        MarkdownModule.forRoot({markedOptions: {provide: MarkedOptions, useFactory: markedOptionsFactory}})
+        MarkdownModule.forRoot({markedOptions: {provide: MarkedOptions, useFactory: markedOptionsFactory}}),
+        NgxPopperjsModule.forRoot({})
     ],
     exports: [
         CommonModule,
@@ -55,7 +57,8 @@ import {markedOptionsFactory} from "./marked-options.factory";
         ModalComponent,
         BgComponent,
         NgsContenteditableModule,
-        MarkdownModule
+        MarkdownModule,
+        NgxPopperjsModule
     ],
     providers: [
         RoleNamePipe,

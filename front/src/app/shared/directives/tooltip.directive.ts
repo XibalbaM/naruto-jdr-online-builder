@@ -1,15 +1,7 @@
-import {
-    ComponentRef,
-    Directive,
-    ElementRef,
-    EmbeddedViewRef,
-    HostListener,
-    Input,
-    OnDestroy,
-    ViewContainerRef
-} from '@angular/core';
+import {ComponentRef, Directive, ElementRef, EmbeddedViewRef, HostListener, Input, OnDestroy, ViewContainerRef} from '@angular/core';
 import {TooltipComponent} from "../components/tooltip/tooltip.component";
 
+//TODO: Rewrite using popper.js
 @Directive({
     selector: '[tooltip]'
 })

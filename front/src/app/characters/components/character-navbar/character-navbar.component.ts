@@ -2,8 +2,8 @@ import {Component, inject} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import Character from "../../../app/models/character.model";
 import Auth from "../../../app/models/auth.model";
-import {Router} from "@angular/router";
 import {NAVBAR_DATA_TOKEN} from "../../../app/app.component";
+import {NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
 
 @Component({
   selector: 'app-character-navbar',
@@ -28,4 +28,6 @@ export class CharacterNavbarComponent {
     }
 
     protected readonly Math = Math;
+    protected readonly NgxPopperjsTriggers = NgxPopperjsTriggers;
+    protected readonly NgxPopperjsPlacements = NgxPopperjsPlacements;
 }
