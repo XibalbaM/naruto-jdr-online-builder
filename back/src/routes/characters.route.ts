@@ -24,6 +24,17 @@ router.post('/', authMiddleware(), contentMiddleware({
         rank: "string",
 		nindo: "string"
 	}
+}, {
+    character: {
+        notes: "string",
+        firstName: "string",
+        clan: "string",
+        village: "string",
+        xp: 42,
+        rank: "string",
+        nindo: "string",
+        road: "string"
+    }
 }), charactersController.create);
 router.get('/', authMiddleware(), charactersController.getCharacters);
 router.get('/:id', authMiddleware(), idOfMiddleware(CharacterModel, "id"), charactersController.getCharacter);
