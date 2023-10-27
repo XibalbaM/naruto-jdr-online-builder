@@ -13,3 +13,6 @@ dist/
 
 # Angular
 .angular/
+
+# Private environment files
+src/environments/environment*.ts
