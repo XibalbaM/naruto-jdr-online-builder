@@ -1,6 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import Character from "../../app/models/character.model";
 import {CharacterToChakraControlPipe} from "./character-to-chakra-control.pipe";
+import {map, Observable} from "rxjs";
 
 @Pipe({
     name: 'characterToMaxChakraSpes'
@@ -31,7 +32,12 @@ export class CharacterToMaxChakraSpesPipe implements PipeTransform {
 
     constructor(private characterToChakraControl: CharacterToChakraControlPipe) {}
 
-    transform(character: Character): number {
-        return this.chakraSpesPerChakraControl[this.characterToChakraControl.transform(character) as keyof typeof this.chakraSpesPerChakraControl];
+    transform(character: Character): number
+    transform(character: Observable<Character>): Observable<number>
+    transform(character: Observable<Character> | Character): Observable<number> | number {
+        if (character instanceof Character)
+            return this.chakraSpesPerChakraControl[this.characterToChakraControl.transform(character) as keyof typeof this.chakraSpesPerChakraControl];
+        else
+            return character.pipe(map(character => this.chakraSpesPerChakraControl[this.characterToChakraControl.transform(character) as keyof typeof this.chakraSpesPerChakraControl]));
     }
 }
