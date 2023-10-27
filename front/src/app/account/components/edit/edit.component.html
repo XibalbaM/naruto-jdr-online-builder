@@ -1,9 +1,17 @@
 <dialog #deleteAccountDialog>
-    <app-modal mtitle="Supprimer le compte" mtext="Êtes vous sûr de vouloir supprimer votre compte ?" (close)="deleteAccountDialog.close()" [dialog]="deleteAccountDialog">
-        <div class="flex justify-between items-center space-x-[18px]">
-            <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full" (click)="deleteAccountDialog.close()">Retour</button>
-            <button class="h-[52px] px-[28px] bg-red rounded-[10px] hover:bg-opacity-90 w-full" (click)="deleteAccountDialog.close(); deleteAccount()">Supprimer</button>
-        </div>
+    <app-modal (close)="deleteAccountDialog.close(); deleteNameConfirm = ''" *ngIf="(auth.userObservableOnceLoaded() | async) as user"
+               [dialog]="deleteAccountDialog"
+               mtext="<span class='text-16'>En cliquant sur le bouton “Supprimer” juste en dessous, votre compte et tous vos personnages seront définitivement effacés. Il n’y a ni sauvegarde ni backup des données de l’application. <br/><br/><span class='text-orange'>Toute suppression est définitive.</span></span>"
+               mtitle="supprimer mon compte">
+        <h2 class="text-10 text-light-gray font-light font-monument uppercase">taper votre nom d'utilisateur</h2>
+        <input [(ngModel)]="deleteNameConfirm" [placeholder]="user?.username || 'Ninja Sans Nom'"
+               class="input px-[24px] py-[17px] text-white mt-[18px] mb-[30px] placeholder-light-gray font-16"
+               type="text">
+        <button (click)="deleteAccountDialog.close(); deleteAccount()"
+                [disabled]="deleteNameConfirm.toLowerCase() !== (user?.username || 'Ninja Sans Nom').toLowerCase()"
+                class="black-button px-[28px] h-[52px] disabled:text-dark-gray disabled:hover:bg-black">
+            Supprimer mon compte
+        </button>
     </app-modal>
 </dialog>
 <dialog #changePpDialog>

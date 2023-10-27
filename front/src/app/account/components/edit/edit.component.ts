@@ -13,6 +13,7 @@ import {AuthService} from "../../../app/services/auth.service";
 export class EditComponent {
 
     pp?: string;
+    deleteNameConfirm = ""
 
     constructor(public auth: Auth, private accountService: AccountService, private router: Router,
                 private notificationService: NotificationService, private authService: AuthService) {
@@ -78,4 +79,6 @@ export class EditComponent {
             }
         );
     }
+
+    protected readonly console = console;
 }
