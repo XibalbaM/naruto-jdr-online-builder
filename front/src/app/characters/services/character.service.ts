@@ -3,6 +3,7 @@ import {combineLatest, map, Observable, tap} from "rxjs";
 import {ApiService} from "../../app/services/api.service";
 import Auth from "../../app/models/auth.model";
 import {AuthService} from "../../app/services/auth.service";
+import Character from "../../app/models/character.model";
 
 @Injectable({
     providedIn: 'root'
@@ -129,6 +130,35 @@ export class CharacterService {
             tap((success) => {
                 if (success && !multi) {
                     this.auth.user!.characters.find((character) => character._id === characterId)!.notes = notes;
+                    this.auth.userObservable().next(this.auth.user);
+                }
+            })
+        );
+    }
+
+    copyCharacter(characterId: string): Observable<{
+        character?: Character,
+        success: boolean
+    }> {
+        return this.apiService.doRequest<{
+            character: Character
+        }>('PUT', `/characters/${characterId}`).pipe(
+            map((response) => ({character: response.body?.character, success: response.status === 200})),
+            tap((data) => {
+                if (data.success) {
+                    this.auth.user!.characters.push(data.character!);
+                    this.auth.userObservable().next(this.auth.user);
+                }
+            })
+        );
+    }
+
+    deleteCharacter(characterId: string): Observable<boolean> {
+        return this.apiService.doRequest('DELETE', `/characters/${characterId}`).pipe(
+            map((response) => response.status === 200),
+            tap((success) => {
+                if (success) {
+                    this.auth.user!.characters = this.auth.user!.characters.filter((character) => character._id !== characterId);
                     this.auth.userObservable().next(this.auth.user);
                 }
             })

@@ -1,13 +1,26 @@
 <popper-content #options>
     <div class="flex flex-col px-[24px] py-[20px]">
         <a [routerLink]="['personnages',($character | async)?._id,'details']" class="w-full my-[10px] text-16 text-blue h-[26px] hover:underline">Modifier</a>
-        <a class="w-full my-[10px] text-16 h-[26px] hover:underline">Créer une copie</a>
+        <a (click)="copyCharacter()" class="w-full my-[10px] text-16 h-[26px] hover:underline">Créer une copie</a><!--
         <a class="w-full my-[10px] text-16 h-[26px] hover:underline">Rejoindre un groupe</a>
-        <a class="w-full my-[10px] text-16 h-[26px] hover:underline">Créer un groupe</a>
+        <a class="w-full my-[10px] text-16 h-[26px] hover:underline">Créer un groupe</a>-->
         <app-spacer class="bg-lighter-dark mt-[15px]"/>
-        <a class="w-full my-[13px] text-16 text-orange hover:underline">Supprimer le personnage</a>
+        <a (click)="deleteDialog.show()" class="w-full my-[13px] text-16 text-orange hover:underline">Supprimer le personnage</a>
     </div>
 </popper-content>
+<dialog #deleteDialog>
+    <app-modal (close)="deleteDialog.close()" [dialog]="deleteDialog" mtext="<span class='text-16'>En cliquant sur le bouton “Supprimer” juste en dessous, ce personnage sera définitivement effacé. Il n’y a ni sauvegarde ni backup des données de l’application. <br/><br/><span class='text-orange'>Toute suppression est définitive.</span></span>"
+               mtitle="supprimer le personnage">
+        <h2 class="text-10 text-light-gray font-light font-monument uppercase">taper votre nom d'utilisateur</h2>
+        <input [(ngModel)]="deleteNameConfirm" [placeholder]="(($character | async)?.firstName || '') + ' ' + ((($character | async)?.clan | idToData:dataService.clans.getValue())?.name || '')" class="input px-[24px] py-[17px] text-white mt-[18px] mb-[30px] placeholder-light-gray font-16"
+               type="text">
+        <button (click)="deleteDialog.close(); deleteCharacter()"
+                [disabled]="deleteNameConfirm.toLowerCase() !== ((($character | async)?.firstName || '') + ' ' + ((($character | async)?.clan | idToData:dataService.clans.getValue())?.name || '')).toLowerCase()"
+                class="black-button px-[28px] h-[52px] disabled:text-dark-gray disabled:hover:bg-black">
+            Supprimer le personnage
+        </button>
+    </app-modal>
+</dialog>
 <div class="w-full bg-black px-[15px]">
     <div class="container mx-auto flex flex-row items-center justify-between pt-[20px] pb-[15px] h-[70px]">
         <a class="flex flex-row items-center text-16 hover:underline"
