@@ -1,12 +1,12 @@
 <div *ngIf="$character | async as character">
-    <h1 class="font-bold font-monument uppercase text-25">{{character.firstName}} {{(character.clan | idToData:(dataService.clans | async))?.name}}</h1>
+    <h1 class="font-bold uppercase font-monument text-25">{{character.firstName}} {{(character.clan | idToData:(dataService.clans | async))?.name}}</h1>
     <p class="py-[12px]">
-        <span class="px-[6px] py-[3px] bg-black rounded-[10px] me-[12px]"
+        <span class="bg-black px-[6px] py-[3px] rounded-[10px] me-[12px]"
               [ngClass]="(($character | characterToReamingXp | async) || 0) >= 0 ? 'text-blue' : 'text-orange'">
             {{(($character | characterToReamingXp | async) || 0) >= 0 ? '↑' : '↓'}} {{Math.abs(($character | characterToReamingXp | async) || 0)}} <span
                 class="text-dark-gray">/</span> {{character.xp}}
         </span>
-        <!--<span class="mx-[12px] text-pink text-12 font-light">
+        <!--<span class="font-light mx-[12px] text-pink text-12">
         TEAM X (ANBU)
             &lt;!&ndash;TODO TEAM&ndash;&gt;
     </span>-->
@@ -15,31 +15,31 @@
         </span>
     </p>
     <div class="flex flex-row">
-        <div class="flex flex-row me-[8px] bg-black py-[12px] px-[18px] rounded-[22px] items-center"
+        <div class="flex flex-row items-center bg-black me-[8px] py-[12px] px-[18px] rounded-[22px]"
              *ngIf="(character.clan | idToData:dataService.clans.value) as clan">
             <img class="x-[25px] h-[25px] me-[12px]" [src]="env.api_url + '/assets/clans/' + clan.name.toLowerCase() + '-purple.svg'"
                  alt="Symbole du clan du ninja"/>
             Clan {{clan.name}}
         </div>
-        <img class="py-[12px] px-[18px] border border-dark-gray rounded-[22px]"
+        <img class="border py-[12px] px-[18px] border-dark-gray rounded-[22px]"
              [src]="env.api_url + '/assets/villages/' + ((character.village | idToData:dataService.villages.value)?.name || '').toLowerCase() + '-purple.svg'"
              alt="Symbole du Village du ninja"/>
     </div>
     <app-spacer-graphical class="mt-[50px] mb-[30px]"/>
     <section>
-        <h2 class="text-light-gray text-10 font-light font-monument uppercase mb-[10px]">bases</h2>
+        <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[10px]">bases</h2>
         <div *ngFor="let baseData of character.bases">
             <app-spacer class="bg-light-dark my-[8px]"/>
             <div *ngIf="(baseData.base | idToData:(dataService.bases | async)) as base"
-                 class="flex-row flex justify-between items-center">
-                <a class="space-x-[12px] flex flex-row items-center w-full h-[38px]"
+                 class="flex flex-row items-center justify-between">
+                <a class="flex w-full flex-row items-center space-x-[12px] h-[38px]"
                    [routerLink]="'base/' + base._id">
                     <img class="w-[32px] h-[32px] p-[9px] bg-pink rounded-[10px]"
                          [src]="env.api_url + '/assets/bases/' + base.shortName.toLowerCase() + '.svg'"
                          alt="Icon de la base">
                     <span>{{base.fullName}}</span>
                     <span class="text-gray-zambezi">({{base.shortName}})</span>
-                    <span class="text-16 text-yellow px-[12px] py-[3px] bg-light-dark border border-lighter-dark rounded-[8px]">{{baseData.level}}</span>
+                    <span class="border text-16 text-yellow px-[12px] py-[3px] bg-light-dark border-lighter-dark rounded-[8px]">{{baseData.level}}</span>
                 </a>
                 <div class="flex flex-row">
                     <button (click)="decreaseBaseLevel(base, baseData.level)" [disabled]="!canBaseLevelReduced({base, level: baseData.level})"
@@ -60,7 +60,7 @@
         <app-spacer class="bg-light-dark mt-[8px]"/>
     </section>
     <section class="mt-[50px] space-y-[12px]">
-        <div class="space-y-[12px] lg:flex lg:flex-row lg:space-y-0 lg:space-x-[12px]">
+        <div class="space-y-[12px] lg:space-y-0 lg:space-x-[12px] lg:flex lg:flex-row">
             <p class="stat-box">
                 Vigueur
                 <span class="text-yellow ms-[12px] stat-box__value">{{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)!}}</span>
@@ -106,7 +106,7 @@
             <p>Régénération /tour<span class="text-blue ms-[12px] stat-box__value">{{$character | characterToChakraRegen | async}}</span></p>
             <p>Contrôle du chakra<span class="text-blue ms-[12px] stat-box__value">{{$character | characterToChakraControl | async}}</span></p>
         </div>
-        <div class="space-y-[12px] lg:flex lg:flex-row lg:space-y-0 lg:space-x-[12px]">
+        <div class="space-y-[12px] lg:space-y-0 lg:space-x-[12px] lg:flex lg:flex-row">
             <p class="stat-box">
                 Initiative
                 <span class="stat-box__value text-yellow ms-[12px]">
@@ -141,7 +141,7 @@
                 </span>
             </p>
         </div>
-        <div class="stat-box flex flex-row justify-between items-center">
+        <div class="flex flex-row items-center justify-between stat-box">
             <p>
                 Nindo
                 <span class="stat-box__value text-yellow ms-[12px]">{{character.nindoPoints}}</span>
@@ -160,15 +160,15 @@
             </div>
         </div>
     </section>
-    <section class="mt-[50px] py-[50px] relative z-10">
+    <section class="relative z-10 mt-[50px] py-[50px]">
         <app-bg class="bg-black"/>
-        <h2 class="text-light-gray text-10 font-light font-monument uppercase mb-[10px]">compétences communes</h2>
+        <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[10px]">compétences communes</h2>
         <app-skill-item *ngFor="let skill of commonSkills" [skill]="skill" [baseLevel]="getBaseLevelBySkill(skill.skill)"
                         (changeValue)="setSkillLevel(skill.skill, $event)"/>
         <app-spacer class="bg-light-dark mt-[8px] mb-[50px]"/>
-        <h2 class="mb-[10px] flex flex-row items-center">
+        <h2 class="flex flex-row items-center mb-[10px]">
             <span class="stat-box__value text-blue me-[12px] h-[26px]">{{$character | characterToMaxSkillCount | async}}</span>
-            <span class="text-light-gray text-10 font-light font-monument uppercase">compétences <br/>combat, terrain, clan</span>
+            <span class="font-light uppercase text-light-gray text-10 font-monument">compétences <br/>combat, terrain, clan</span>
         </h2>
         <app-skill-item *ngFor="let skill of uncommonSkills" [skill]="skill" [baseLevel]="getBaseLevelBySkill(skill.skill)"
                         (changeValue)="setSkillLevel(skill.skill, $event)"/>
@@ -190,14 +190,11 @@
             </svg>
         </button>
     </section>
-    <section>
-        <!--TODO: INVENTORY-->
-    </section>
-    <section class="py-[50px] relative z-10">
+    <section class="relative z-10 py-[50px]">
         <app-bg class="bg-black"/>
         <h2 class="mb-[18px]">
-            <span class="stat-box__value text-blue me-[12px]">{{character | characterToMaxChakraSpes}}</span>
-            <span class="text-light-gray text-10 font-light font-monument uppercase">spécialisations de chakra</span>
+            <span class="stat-box__value text-blue me-[12px]">{{$character | characterToMaxChakraSpes | async}}</span>
+            <span class="font-light uppercase text-light-gray text-10 font-monument">spécialisations de chakra</span>
         </h2>
         <app-spacer class="bg-light-dark mb-[12px]"/>
         <div *ngFor="let spe of chakraSpes">
@@ -222,15 +219,15 @@
         </button>
     </section>
     <section class="mt-[50px] mb-[75px] lg:mb-[150px]">
-        <h2 class="text-light-gray text-10 font-light font-monument uppercase mb-[18px]">notes</h2>
-        <div class="bg-light-dark border border-dark-gray px-[12px] py-[18px] rounded-[10px]">
+        <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[18px]">notes</h2>
+        <div class="border bg-light-dark border-dark-gray px-[12px] py-[18px] rounded-[10px]">
             <p id="notes" [ngClass]="{'line-clamp-[8]': shouldTruncNotes}" class="overflow-hidden leading-[160%]">
                 <span markdown>{{notes}}</span>
                 <span *ngIf="shouldTruncNotes">...</span>
             </p>
             <button *ngIf="shouldTruncNotes" (click)="shouldTruncNotes = false" class="mt-[12px] mb-[30px] text-pink hover:underline">Tout lire</button>
             <app-spacer class="bg-light-dark mb-[18px]"/>
-            <a class="bg-black border border-lighter-dark hover:bg-dark rounded-[10px] px-[24px] py-[18px] flex flex-row justify-between items-center w-full max-w-md"
+            <a class="flex w-full max-w-md flex-row items-center justify-between border bg-black border-lighter-dark rounded-[10px] px-[24px] py-[18px] hover:bg-dark"
                routerLink="notes">
                 <span class="text-16">Éditer</span>
                 <svg width="6" height="11" viewBox="0 0 6 11" fill="none" xmlns="http://www.w3.org/2000/svg">
