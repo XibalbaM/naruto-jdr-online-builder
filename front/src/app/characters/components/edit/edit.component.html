@@ -1,3 +1,35 @@
+<div *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 0) || ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0"
+     class="fixed right-0 bottom-0 left-0 z-30 flex h-[70px] flex-row items-center justify-between px-[18px] py-[17px] purple-gradient hover:bg-opacity-95 cursor-pointer">
+    <div class="flex flex-row items-center">
+        <div class="stat-box__value text-blue me-[10px] h-[26px]">
+            <span *ngIf="((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0">
+                {{(($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length}}
+            </span>
+            <span *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 0) && ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0"
+                  class="text-gray-zambezi text-16 mx-[5px]">
+                /
+            </span>
+            <span *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 0)">
+                {{(($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()}}
+            </span>
+        </div>
+        <div class="flex flex-col">
+            <div *ngIf="((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0">
+                Nouvelle{{((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 1 ? 's' : ''}}
+                compétence{{((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 1 ? 's' : ''}}
+                disponible{{((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 1 ? 's' : ''}}
+            </div>
+            <div *ngIf="((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 0">
+                Spécialisation{{((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 1 ? 's' : ''}} de chakra
+                disponible{{((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 1 ? 's' : ''}}
+            </div>
+        </div>
+    </div>
+    <svg fill="none" height="10" viewBox="0 0 6 10" width="6" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.266515 8.46756L3.80182 4.99553L0.266515 1.52349C-0.0888383 1.1745 -0.0888383 0.610738 0.266515 0.261745C0.621868 -0.0872483 1.1959 -0.0872483 1.55125 0.261745L5.73349 4.36913C6.08884 4.71812 6.08884 5.28188 5.73349 5.63087L1.55125 9.73825C1.1959 10.0872 0.621868 10.0872 0.266515 9.73825C-0.0797267 9.38926 -0.0888383 8.81656 0.266515 8.46756Z"
+              fill="white"/>
+    </svg>
+</div>
 <div *ngIf="$character | async as character">
     <h1 class="font-bold uppercase font-monument text-25">{{character.firstName}} {{(character.clan | idToData:(dataService.clans | async))?.name}}</h1>
     <p class="py-[12px]">
@@ -214,7 +246,8 @@
                 class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90">
             <div>
                 <span class="stat-box__value text-blue me-[10px] h-[26px]">{{(($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()}}</span>
-                Spécialisation de chakra disponible
+                Spécialisation{{((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 1 ? 's' : ''}} de chakra
+                disponible{{((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 1 ? 's' : ''}}
             </div>
             <svg fill="none" height="10" viewBox="0 0 6 10" width="6" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0.266515 8.46756L3.80182 4.99553L0.266515 1.52349C-0.0888383 1.1745 -0.0888383 0.610738 0.266515 0.261745C0.621868 -0.0872483 1.1959 -0.0872483 1.55125 0.261745L5.73349 4.36913C6.08884 4.71812 6.08884 5.28188 5.73349 5.63087L1.55125 9.73825C1.1959 10.0872 0.621868 10.0872 0.266515 9.73825C-0.0797267 9.38926 -0.0888383 8.81656 0.266515 8.46756Z"
