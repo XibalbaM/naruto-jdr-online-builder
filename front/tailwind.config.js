@@ -13,6 +13,7 @@ module.exports = {
             "inherit": "inherit",
             "pink": "#EE88FF",
             "purple": "#8044FF",
+            "dark-purple": "#6b3af2",
             "yellow": "#FFCD3C",
             "orange": "#FF631E",
             "red": "#F44",
