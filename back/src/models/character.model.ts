@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import BaseModel from "./base.model.js";
-import ChakraSpeModel from "./chakraSpe.model.js";
 import SkillModel from "./skill.model.js";
 
 /**
@@ -77,19 +76,9 @@ export const characterSchema = new mongoose.Schema({
         default: 1
 	},
 	chakraSpes: {
-		type: [{
-			spe: {
-				type: mongoose.Types.ObjectId,
-				ref: 'chakraSpe',
-				required: true
-			},
-			level: {
-				type: Number,
-				required: true,
-				default: 1
-			}
-		}],
-		required: true
+        type: [mongoose.Types.ObjectId],
+        required: true,
+        default: []
 	},
 	notes: {
 		type: String,
@@ -110,10 +99,6 @@ characterSchema.pre('save', async function (next) {
 	if (!this.skills || this.skills.length === 0) {
 		// @ts-ignore
 		this.skills = (await SkillModel.find()).map(skill => ({skill: skill._id, level: skill.type === "common" ? 1 : 0}));
-	}
-	if (!this.chakraSpes || this.chakraSpes.length === 0) {
-		// @ts-ignore
-		this.chakraSpes = (await ChakraSpeModel.find()).map(spe => spe._id).map(id => ({spe: id, level: 0}));
 	}
 	next();
 });

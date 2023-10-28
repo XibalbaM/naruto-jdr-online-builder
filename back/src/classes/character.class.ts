@@ -16,7 +16,7 @@ export default class Character {
     skills: {skill: mongoose.Types.ObjectId, level: number}[];
     nindo: string;
     nindoPoints: number;
-    chakraSpes: {spe: mongoose.Types.ObjectId, level: number}[];
+    chakraSpes: mongoose.Types.ObjectId[];
     notes: string;
     isPredrawn: boolean;
 

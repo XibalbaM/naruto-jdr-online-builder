@@ -1,4 +1,4 @@
-import {test, expect} from "vitest";
+import {expect, test} from "vitest";
 
 import * as fetchUtils from "../../utils/tests.utils.js";
 import VillageModel from "../../models/village.model";
@@ -122,37 +122,21 @@ test("POST /:characterId/nindoPoints", async () => {
 	expect(character.nindoPoints).toBe(12);
 });
 
-test("PUT /:characterId/spes/:speId", async () => {
+test("POST /:characterId/spes/:speIndex", async () => {
 	const speId = (await ChakraSpeModel.findOne({name: "Rémanent"}))._id;
-	const response = await fetchUtils.put("/characters/" + characterId + "/spes/" + speId, {}, await fetchUtils.getTestToken());
+    const response = await fetchUtils.post("/characters/" + characterId + "/spes/0", {id: speId}, await fetchUtils.getTestToken());
 
 	expect(response.status).toBe(200);
 	const character = Character.fromModel(await CharacterModel.findById(characterId));
-	expect(character.chakraSpes.find((spe) => spe.spe.toString() === speId.toString()).level).toBe(1);
+    expect(character.chakraSpes[0].toString()).toBe(speId.toString());
 });
 
-test("PUT /:characterId/spes/:speId with already maxed spe", async () => {
-	const response = await fetchUtils.put("/characters/" + characterId + "/spes/" + (await ChakraSpeModel.findOne({name: "Rémanent"}))._id, {}, await fetchUtils.getTestToken());
+test("POST /:characterId/spes/:speIndex with not allowed index", async () => {
+    const response = await fetchUtils.post("/characters/" + characterId + "/spes/1", {id: (await ChakraSpeModel.findOne({name: "Rémanent"}))._id}, await fetchUtils.getTestToken());
 
 	expect(response.status).toBe(400);
 	const json = await response.json();
-	expect(json["error"]).toBe("Spe already maxed");
-});
-
-test("DELETE /:characterId/spes/:speId", async () => {
-	const response = await fetchUtils.del("/characters/" + characterId + "/spes/" + (await ChakraSpeModel.findOne({name: "Rémanent"}))._id, await fetchUtils.getTestToken());
-
-	expect(response.status).toBe(200);
-	const character = Character.fromModel(await CharacterModel.findById(characterId));
-	expect(character.chakraSpes.find(async (spe) => spe.spe === (await ChakraSpeModel.findOne({name: "Rémanent"}))._id).level).toBe(0);
-});
-
-test("DELETE /:characterId/spes/:speId with already 0 spe", async () => {
-	const response = await fetchUtils.del("/characters/" + characterId + "/spes/" + (await ChakraSpeModel.findOne({name: "Rémanent"}))._id, await fetchUtils.getTestToken());
-
-	expect(response.status).toBe(400);
-	const json = await response.json();
-	expect(json["error"]).toBe("Spe already at 0");
+    expect(json["error"]).toBe("Spe not yet unlocked");
 });
 
 test("POST /:characterId/notes", async () => {

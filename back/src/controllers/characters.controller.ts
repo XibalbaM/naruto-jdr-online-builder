@@ -88,25 +88,14 @@ export function setNindoPoints(req: Request, res: Response) {
     });
 }
 
-export function addSpe(req: Request, res: Response) {
-    CharactersService.changeSpe(req["user"]["_id"], req.params.id, req.params.speId, "add").then(() => res.sendStatus(200)).catch((error) => {
+export function setSpe(req: Request, res: Response) {
+    CharactersService.setSpe(req["user"]["_id"], req.params.id, Number(req.params["speIndex"]), req.body["id"]).then(() => res.sendStatus(200)).catch((error) => {
         if (error.message === "Character not found") {
             return res.status(404).json({error: "Character not found"});
         } else if (error.message === "Spe already maxed") {
             return res.status(400).json({error: "Spe already maxed"});
-        } else {
-            res.status(500).json({error: "Internal server error"});
-            console.error(error);
-        }
-    });
-}
-
-export function removeSpe(req: Request, res: Response) {
-    CharactersService.changeSpe(req["user"]["_id"], req.params.id, req.params.speId, "remove").then(() => res.sendStatus(200)).catch((error) => {
-        if (error.message === "Character not found") {
-            return res.status(404).json({error: "Character not found"});
-        } else if (error.message === "Spe already at 0") {
-            return res.status(400).json({error: "Spe already at 0"});
+        } else if (error.message === "Spe not yet unlocked") {
+            return res.status(400).json({error: "Spe not yet unlocked"});
         } else {
             res.status(500).json({error: "Internal server error"});
             console.error(error);

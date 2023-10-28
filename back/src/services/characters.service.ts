@@ -12,6 +12,7 @@ import ClanModel from "../models/clan.model.js";
 import RoadModel from "../models/road.model.js";
 import RankModel from "../models/rank.model.js";
 import Clan from "../classes/clan.class.js";
+import BaseModel from "../models/base.model.js";
 
 export default class CharactersService {
 
@@ -114,19 +115,46 @@ export default class CharactersService {
         await CharacterModel.findByIdAndUpdate(characterId, {nindoPoints});
     }
 
-    static async changeSpe(userId: ObjectId, characterId: string, speId: string, action: "add" | "remove") {
+    static async setSpe(userId: ObjectId, characterId: string, speIndex: number, speId: string) {
         const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
         if (!userCharactersIds.includes(characterId as any)) {
             throw new Error("Character not found");
         }
         const character = Character.fromModel(await CharacterModel.findById(characterId));
-        const spe = ChakraSpe.fromModel(await ChakraSpeModel.findById(speId));
-        if (action === "add" && character.chakraSpes.find(spe => spe.spe.toString() === speId).level === spe.max) {
-            throw new Error("Spe already maxed");
-        } else if (action === "remove" && character.chakraSpes.find(spe => spe.spe.toString() === speId).level === 0) {
-            throw new Error("Spe already at 0");
+        console.log("dzqdzqdczqdzqdz", speIndex, speId, (await this.calculateMaxChakraSpes(character)))
+        if (speIndex >= (await this.calculateMaxChakraSpes(character))) {
+            throw new Error("Spe not yet unlocked");
         }
-        await CharacterModel.updateOne({_id: characterId, "chakraSpes.spe": speId}, {$inc: {"chakraSpes.$.level": action === "add" ? 1 : -1}});
+        const spe = ChakraSpe.fromModel(await ChakraSpeModel.findById(speId));
+        if (character.chakraSpes.filter(spe => spe.toString() === speId).length > spe.max) {
+            throw new Error("Spe already maxed");
+        }
+        const newChakraSpes = character.chakraSpes;
+        newChakraSpes[speIndex] = new mongoose.Types.ObjectId(speId);
+        await CharacterModel.findByIdAndUpdate(characterId, {chakraSpes: newChakraSpes});
+    }
+
+    private static async calculateMaxChakraSpes(character: Character): Promise<number> {
+        const corBaseId = (await BaseModel.findOne({shortName: "COR"}))._id;
+        const espBaseId = (await BaseModel.findOne({shortName: "ESP"}))._id;
+        const chakraControl = character.bases.filter(base => base.base === corBaseId || base.base === espBaseId).reduce((acc, base) => acc + base.level, 0);
+        let maxChakraSpes = 1;
+        if (chakraControl >= 5) {
+            maxChakraSpes += 1;
+        }
+        if (chakraControl >= 10) {
+            maxChakraSpes += 2;
+        }
+        if (chakraControl >= 14) {
+            maxChakraSpes += 2;
+        }
+        if (chakraControl >= 20) {
+            maxChakraSpes += 3;
+        }
+        if (chakraControl >= 24) {
+            maxChakraSpes += 5;
+        }
+        return maxChakraSpes;
     }
 
     static async setNotes(userId: ObjectId, characterId: string, text: string) {
