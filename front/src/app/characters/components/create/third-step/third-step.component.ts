@@ -5,6 +5,8 @@ import {DataService} from "../../../../app/services/data.service";
 import Skill from "../../../../app/models/skill.model";
 import {NotificationService} from "../../../../app/services/notification.service";
 import {IdToDataPipe} from "../../../../shared/pipes/id-to-data.pipe";
+import {ReCaptchaV3Service} from "ngx-captcha";
+import Environment from "../../../../../environments/environment.interface";
 
 @Component({
 	selector: 'app-third-step',
@@ -19,7 +21,8 @@ export class ThirdStepComponent implements OnInit, OnDestroy {
 	skillIds: string[] = this.creationService.tempSkillIds.length > 0 ? this.creationService.tempSkillIds : [...this.clanSkills];
 
 	constructor(protected creationService: CreationService, private router: Router, protected dataService: DataService,
-                private notificationService: NotificationService, private idToData: IdToDataPipe) {
+                private notificationService: NotificationService, private idToData: IdToDataPipe, private captchaService: ReCaptchaV3Service,
+                private env: Environment) {
 	}
 
 	ngOnInit(): void {
@@ -38,13 +41,17 @@ export class ThirdStepComponent implements OnInit, OnDestroy {
 
 	submit() {
 		if (this.skillIds.length === 5) {
-			this.creationService.stepThree(this.skillIds).subscribe(({success, id}) => {
-				if (success) {
-					this.router.navigateByUrl("/personnages/" + id);
-				} else {
-					this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la création du personnage.");
-				}
-			});
+            this.captchaService.execute(this.env.recaptchaSiteKey, 'character_creation', (token) => {
+                this.creationService.stepThree(this.skillIds, token).subscribe(({success, id}) => {
+                    if (success) {
+                        this.router.navigateByUrl("/personnages/" + id);
+                    } else {
+                        this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la création du personnage.");
+                    }
+                });
+            }, {}, (error) => {
+                this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la validation du captcha. Réessayez dans quelques secondes ou contactez nous !");
+            })
 		}
 	}
 

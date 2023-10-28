@@ -56,10 +56,14 @@ export class CreationService {
 	/**
 	 * Get data from the third step of the creation process.
 	 * @param skillIds The skills of the character, including the clan skills.
+     * @param token The google recaptcha token.
 	 */
-	stepThree(skillIds: string[]): Observable<{success: boolean, id?: string}> {
+    stepThree(skillIds: string[], token: string): Observable<{ success: boolean, id?: string }> {
 
-		return this.apiService.doRequest<{ character: Character }>("POST", "/characters", {character: new Character(this.character).toCreate()}).pipe(
+        return this.apiService.doRequest<{ character: Character }>("POST", "/characters", {
+            character: new Character(this.character).toCreate(),
+            captcha: token
+        }).pipe(
 			map((response) => {
 				if (response.status !== 201 || !response.body || !response.body.character) {
 					throw new Error("Error while creating the character.");
