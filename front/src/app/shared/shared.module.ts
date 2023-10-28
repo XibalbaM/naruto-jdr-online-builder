@@ -13,10 +13,8 @@ import {TooltipDirective} from './directives/tooltip.directive';
 import {SpinnerComponent} from './components/spinner/spinner.component';
 import {ModalComponent} from './components/modal/modal.component';
 import {BgComponent} from './components/bg/bg.component';
-import {NgsContenteditableModule} from "@ng-stack/contenteditable";
-import {MarkdownModule, MarkedOptions} from "ngx-markdown";
-import {markedOptionsFactory} from "./marked-options.factory";
 import {NgxPopperjsModule} from "ngx-popperjs";
+import {AutosizeModule} from "ngx-autosize";
 
 @NgModule({
     declarations: [
@@ -37,8 +35,7 @@ import {NgxPopperjsModule} from "ngx-popperjs";
         CommonModule,
         NgOptimizedImage,
         FormsModule,
-        NgsContenteditableModule,
-        MarkdownModule.forRoot({markedOptions: {provide: MarkedOptions, useFactory: markedOptionsFactory}}),
+        AutosizeModule,
         NgxPopperjsModule.forRoot({})
     ],
     exports: [
@@ -56,8 +53,7 @@ import {NgxPopperjsModule} from "ngx-popperjs";
         SpinnerComponent,
         ModalComponent,
         BgComponent,
-        NgsContenteditableModule,
-        MarkdownModule,
+        AutosizeModule,
         NgxPopperjsModule
     ],
     providers: [

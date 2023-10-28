@@ -33,6 +33,8 @@ import {PredrawnPreviewComponent} from './components/predrawn-preview/predrawn-p
 import {CharacterNavbarComponent} from './components/character-navbar/character-navbar.component';
 import {NindoExemplesComponent} from "./components/nindo-exemples/nindo-exemples.component";
 import {NotesComponent} from './components/notes/notes.component';
+import {NgxMarkdownItModule} from "ngx-markdown-it";
+import MarkdownIt from "markdown-it";
 
 @NgModule({
     declarations: [
@@ -70,7 +72,8 @@ import {NotesComponent} from './components/notes/notes.component';
     imports: [
         CommonModule,
         CharactersRoutingModule,
-        SharedModule
+        SharedModule,
+        NgxMarkdownItModule.forRoot({plugins: [(test: MarkdownIt) => console.log('test')]}),
     ],
     providers: [
         CharacterToChakraControlPipe,

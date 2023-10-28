@@ -259,7 +259,7 @@
         <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[18px]">notes</h2>
         <div class="border bg-light-dark border-dark-gray px-[12px] py-[18px] rounded-[10px]">
             <p id="notes" [ngClass]="{'line-clamp-[8]': shouldTruncNotes}" class="overflow-hidden leading-[160%]">
-                <span markdown>{{notes}}</span>
+                <markdown-it [markdown]="notes" class="inline"/>
                 <span *ngIf="shouldTruncNotes">...</span>
             </p>
             <button *ngIf="shouldTruncNotes" (click)="shouldTruncNotes = false" class="mt-[12px] mb-[30px] text-pink hover:underline">Tout lire</button>
