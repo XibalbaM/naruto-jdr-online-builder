@@ -6,6 +6,7 @@ import idOfMiddleware from "../middlewares/id-of.middleware.js";
 import CharacterModel from "../models/character.model.js";
 import SkillModel from "../models/skill.model.js";
 import BaseModel from "../models/base.model.js";
+import captchaMiddleware from "../middlewares/security/captcha.middleware.js";
 
 /**
  * The router for the /character path.
@@ -13,7 +14,7 @@ import BaseModel from "../models/base.model.js";
  */
 const router = Router();
 
-router.post('/', authMiddleware(), contentMiddleware({
+router.post('/', captchaMiddleware(), authMiddleware(), contentMiddleware({
 	character: {
 		notes: "string",
 		firstName: "string",
@@ -22,7 +23,7 @@ router.post('/', authMiddleware(), contentMiddleware({
 		xp: 42,
         rank: "string",
 		nindo: "string"
-	}
+    }, captcha: "string"
 }, {
     character: {
         notes: "string",
@@ -33,7 +34,7 @@ router.post('/', authMiddleware(), contentMiddleware({
         rank: "string",
         nindo: "string",
         road: "string"
-    }
+    }, captcha: "string"
 }), charactersController.create);
 router.get('/', authMiddleware(), charactersController.getCharacters);
 router.get('/:id', authMiddleware(), idOfMiddleware(CharacterModel, "id"), charactersController.getCharacter);

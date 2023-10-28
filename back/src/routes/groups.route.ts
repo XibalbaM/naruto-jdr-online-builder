@@ -5,6 +5,7 @@ import * as groupsController from "../controllers/groups.controller.js";
 import contentMiddleware from "../middlewares/content.middleware.js";
 import idOfMiddleware from "../middlewares/id-of.middleware.js";
 import GroupModel from "../models/group.model.js";
+import captchaMiddleware from "../middlewares/security/captcha.middleware.js";
 
 /**
  * The router for the /groups path.
@@ -12,7 +13,7 @@ import GroupModel from "../models/group.model.js";
  */
 const router = Router();
 
-router.post('/', contentMiddleware({name: "name", village: undefined}), authMiddleware(), groupsController.create);
+router.post('/', captchaMiddleware(), contentMiddleware({name: "name", village: undefined}), authMiddleware(), groupsController.create);
 router.get('/', authMiddleware(), groupsController.list);
 router.get('/:id', authMiddleware(), idOfMiddleware(GroupModel, "id"), groupsController.get);
 
