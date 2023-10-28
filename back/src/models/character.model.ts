@@ -74,7 +74,7 @@ export const characterSchema = new mongoose.Schema({
 	nindoPoints: {
 		type: Number,
 		required: true,
-		default: 0
+        default: 1
 	},
 	chakraSpes: {
 		type: [{
