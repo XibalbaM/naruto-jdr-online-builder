@@ -54,7 +54,27 @@
         </div>
     </app-modal>
 </dialog>
-
+<dialog #discordConnectDialog>
+    <app-modal (close)="discordConnectDialog.close()"
+               [dialog]="discordConnectDialog"
+               mtext="Cette action permet à Moot-kun d’accéder aux données de vos personnages et de les utiliser sur le serveur. Vous pourrez par exemple faire des jets de compétences directement avec vos stats pendant les parties et pleins d’autre chose." mtitle="Connecter le compte à discord">
+        <div class="flex flex-row gap-[18px] items-center justify-between">
+            <button (click)="discordConnectDialog.close()" class="w-full h-[52px] rounded-[10px] border border-dark-gray hover:bg-dark">Non merci</button>
+            <a [href]="env.discordLogUrl" class="w-full bg-purple hover:bg-opacity-90 h-[52px] flex justify-center items-center rounded-[10px]">Connecter</a>
+        </div>
+    </app-modal>
+</dialog>
+<dialog #discordDisconnectDialog>
+    <app-modal (close)="discordDisconnectDialog.close()"
+               [dialog]="discordDisconnectDialog"
+               mtext="Vous êtes sur le point de déconnecter votre compte de discord. Vous ne pourrez plus utiliser les fonctionnalités liées à votre compte sur le serveur. Vous pourrez toujours vous reconnecter plus tard." mtitle="Déconnecter le compte de discord">
+        <div class="flex flex-row gap-[18px] items-center justify-between">
+            <button (click)="discordDisconnectDialog.close()" class="w-full h-[52px] rounded-[10px] border border-dark-gray hover:bg-dark">Annuler</button>
+            <a (click)="discordDisconnectDialog.close()" class="w-full bg-orange hover:bg-opacity-90 h-[52px] flex justify-center items-center rounded-[10px]"
+               routerLink="discord/deconnexion">Déconnexion</a>
+        </div>
+    </app-modal>
+</dialog>
 <div *ngIf="(auth.userObservableOnceLoaded() | async) as user">
     <p class="text-yellow text-16">Mon profile</p>
     <h1 class="font-bold uppercase text-28 font-monument my-[25px]">{{user?.username || "Ninja Sans Nom"}}</h1>
@@ -101,6 +121,15 @@
             Modifier
         </button>
     </form>
+    <button (click)="user.discordId ? discordDisconnectDialog.show() : discordConnectDialog.show()"
+            class="mb-[50px] gap-[10px] flex flex-row items-center justify-start px-[24px] bg-dark-purple rounded-[10px] w-full max-w-md h-[70px] hover:bg-opacity-90">
+        <svg fill="none" height="25" viewBox="0 0 33 25" width="33" xmlns="http://www.w3.org/2000/svg">
+            <path d="M27.9541 2.50996C25.786 1.55745 23.4971 0.881713 21.146 0.5C20.8243 1.0519 20.5332 1.61973 20.2739 2.20112C17.7695 1.83898 15.2226 1.83898 12.7182 2.20112C12.4588 1.61979 12.1677 1.05197 11.8461 0.5C9.49346 0.884937 7.20308 1.56228 5.03276 2.51494C0.724136 8.632 -0.443865 14.5971 0.140135 20.4776C2.66338 22.2665 5.4876 23.627 8.49005 24.5C9.16611 23.6275 9.76434 22.7018 10.2784 21.7329C9.30203 21.383 8.35966 20.9512 7.46221 20.4427C7.6984 20.2783 7.92941 20.109 8.15263 19.9446C10.764 21.123 13.6142 21.734 16.4999 21.734C19.3857 21.734 22.2359 21.123 24.8473 19.9446C25.0731 20.1214 25.3041 20.2908 25.5377 20.4427C24.6385 20.9521 23.6944 21.3846 22.7163 21.7354C23.2297 22.7039 23.828 23.6287 24.5046 24.5C27.5097 23.6305 30.336 22.2707 32.8597 20.4801C33.545 13.6606 31.6891 7.75031 27.9541 2.50996ZM11.0181 16.8611C9.39071 16.8611 8.04621 15.444 8.04621 13.7005C8.04621 11.957 9.34399 10.5274 11.0129 10.5274C12.6819 10.5274 14.016 11.957 13.9874 13.7005C13.9589 15.444 12.6767 16.8611 11.0181 16.8611ZM21.9818 16.8611C20.3518 16.8611 19.0124 15.444 19.0124 13.7005C19.0124 11.957 20.3102 10.5274 21.9818 10.5274C23.6533 10.5274 24.977 11.957 24.9485 13.7005C24.9199 15.444 23.6403 16.8611 21.9818 16.8611Z"
+                  fill="white"/>
+        </svg>
+        <span *ngIf="!user.discordId">Connecter le compte à Discord</span>
+        <span *ngIf="user.discordId">Déconnecter le compte Discord</span>
+    </button>
     <form (ngSubmit)="newEmail = emailField.value; changeEmailDialog.show()" class="flex max-w-md flex-col mb-[50px]">
         <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[18px]">email</h2>
         <input type="text"

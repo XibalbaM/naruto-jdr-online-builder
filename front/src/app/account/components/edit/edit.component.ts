@@ -4,6 +4,7 @@ import {AccountService} from "../../../app/services/account.service";
 import {Router} from "@angular/router";
 import {NotificationService} from "../../../app/services/notification.service";
 import {AuthService} from "../../../app/services/auth.service";
+import Environment from "../../../../environments/environment.interface";
 
 @Component({
     selector: "app-edit",
@@ -18,7 +19,7 @@ export class EditComponent {
     newEmailConfirm = "";
 
     constructor(public auth: Auth, private accountService: AccountService, private router: Router,
-                private notificationService: NotificationService, private authService: AuthService) {
+                private notificationService: NotificationService, private authService: AuthService, protected env: Environment) {
     }
 
     changeUsername(username: string) {
