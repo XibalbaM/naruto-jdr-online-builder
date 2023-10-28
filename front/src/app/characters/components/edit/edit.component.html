@@ -1,16 +1,16 @@
-<div *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 0) || ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0"
+<div *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 0) || ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0"
      class="fixed right-0 bottom-0 left-0 z-30 flex h-[70px] flex-row items-center justify-between px-[18px] py-[17px] purple-gradient hover:bg-opacity-95 cursor-pointer">
     <div class="flex flex-row items-center">
         <div class="stat-box__value text-blue me-[10px] h-[26px]">
             <span *ngIf="((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0">
                 {{(($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length}}
             </span>
-            <span *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 0) && ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0"
+            <span *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 0) && ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0"
                   class="text-gray-zambezi text-16 mx-[5px]">
                 /
             </span>
-            <span *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 0)">
-                {{(($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()}}
+            <span *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 0)">
+                {{(($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)}}
             </span>
         </div>
         <div class="flex flex-col">
@@ -19,9 +19,10 @@
                 compétence{{((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 1 ? 's' : ''}}
                 disponible{{((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 1 ? 's' : ''}}
             </div>
-            <div *ngIf="((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 0">
-                Spécialisation{{((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 1 ? 's' : ''}} de chakra
-                disponible{{((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 1 ? 's' : ''}}
+            <div *ngIf="((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 0">
+                Spécialisation{{((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 1 ? 's' : ''}} de
+                chakra
+                disponible{{((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 1 ? 's' : ''}}
             </div>
         </div>
     </div>
@@ -233,21 +234,21 @@
             <span class="font-light uppercase text-light-gray text-10 font-monument">spécialisations de chakra</span>
         </h2>
         <app-spacer class="bg-light-dark mb-[12px]"/>
-        <div *ngFor="let spe of chakraSpes">
-            <p class="mb-[12px]">
-                {{spe.chakraSpe.name}}
+        <div *ngFor="let spe of character.chakraSpes">
+            <!--<p class="mb-[12px]">
+                {{spe}}
                 <span class="stat-box__value text-yellow mx-[12px]">x{{spe.level}}</span>
                 <span class="text-dark-gray">{{spe.chakraSpe.max}} Max</span>
             </p>
             <p class="bg-light-gray">{{spe.chakraSpe.effect | weightChakraSpeEffectByAmount:spe.level}}</p>
-            <app-spacer class="bg-light-dark my-[12px]"/>
+            <app-spacer class="bg-light-dark my-[12px]"/>-->
         </div>
-        <button *ngIf="((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 0"
+        <button *ngIf="((($character | characterToMaxChakraSpes | async) || 0) - character.chakraSpes.length) > 0"
                 class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90">
             <div>
-                <span class="stat-box__value text-blue me-[10px] h-[26px]">{{(($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()}}</span>
-                Spécialisation{{((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 1 ? 's' : ''}} de chakra
-                disponible{{((($character | characterToMaxChakraSpes | async) || 0) - usedChakraSpes()) > 1 ? 's' : ''}}
+                <span class="stat-box__value text-blue me-[10px] h-[26px]">{{(($character | characterToMaxChakraSpes | async) || 0) - character.chakraSpes.length}}</span>
+                Spécialisation{{((($character | characterToMaxChakraSpes | async) || 0) - character.chakraSpes.length) > 1 ? 's' : ''}} de chakra
+                disponible{{((($character | characterToMaxChakraSpes | async) || 0) - character.chakraSpes.length) > 1 ? 's' : ''}}
             </div>
             <svg fill="none" height="10" viewBox="0 0 6 10" width="6" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0.266515 8.46756L3.80182 4.99553L0.266515 1.52349C-0.0888383 1.1745 -0.0888383 0.610738 0.266515 0.261745C0.621868 -0.0872483 1.1959 -0.0872483 1.55125 0.261745L5.73349 4.36913C6.08884 4.71812 6.08884 5.28188 5.73349 5.63087L1.55125 9.73825C1.1959 10.0872 0.621868 10.0872 0.266515 9.73825C-0.0797267 9.38926 -0.0888383 8.81656 0.266515 8.46756Z"

@@ -5,7 +5,6 @@ import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
 import Skill from "../../../app/models/skill.model";
 import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
-import ChakraSpe from "../../../app/models/chakra-spe.model";
 import Environment from "../../../../environments/environment.interface";
 import {BehaviorSubject, combineLatest, every, merge, Observable} from "rxjs";
 import {CharacterService} from "../../services/character.service";
@@ -23,7 +22,6 @@ export class EditComponent implements OnInit, AfterViewInit {
     $character: BehaviorSubject<Character> = new BehaviorSubject<Character>(new Character());
     commonSkills: { skill: Skill, level: number }[] = [];
     uncommonSkills: { skill: Skill, level: number }[] = [];
-    chakraSpes: { chakraSpe: ChakraSpe, level: number }[] = [];
     shouldTruncNotes: boolean = false;
     notes!: string;
 
@@ -45,12 +43,6 @@ export class EditComponent implements OnInit, AfterViewInit {
                     });
                     this.commonSkills = skills.filter((data: { skill: Skill, level: number }) => data.skill.type === 'common');
                     this.uncommonSkills = skills.filter((data: { skill: Skill, level: number }) => data.skill.type !== 'common');
-                    this.chakraSpes = character.chakraSpes.filter(chakraSpe => chakraSpe.level > 0).map((data: { spe: string, level: number }) => {
-                        return {
-                            chakraSpe: this.idToData.transform(data.spe, this.dataService.chakraSpes.value)!,
-                            level: data.level
-                        }
-                    });
                 });
                 this.$character.next(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
                 this.notes = this.$character.value.notes || "Pas encore de notes.";
@@ -154,14 +146,4 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     protected readonly Math = Math;
-
-    changeSpe() {
-        const character = this.$character.getValue();
-        character.chakraSpes[0].level += 1;
-        this.$character.next(character);
-    }
-
-    usedChakraSpes(): number {
-        return this.chakraSpes.reduce((acc, current) => acc + current.level, 0);
-    }
 }

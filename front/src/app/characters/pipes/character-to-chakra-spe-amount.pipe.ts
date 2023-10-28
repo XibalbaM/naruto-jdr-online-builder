@@ -24,6 +24,6 @@ export class CharacterToChakraSpeAmountPipe implements PipeTransform {
     }
 
     processCharacter(character: Character, speName: string): number {
-        return character.chakraSpes.find(spe => spe.spe === this.dataService.chakraSpes.getValue().find(spe => spe.name === speName)?._id)?.level || 0;
+        return character.chakraSpes.filter(spe => spe === this.dataService.chakraSpes.getValue().find(spe => spe.name === speName)?._id).length;
     }
 }

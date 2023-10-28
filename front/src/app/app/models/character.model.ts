@@ -14,7 +14,7 @@ export default class Character {
 	skills: { skill: string, level: number }[] = [];
 	nindo!: string;
 	nindoPoints!: number;
-	chakraSpes: { spe: string, level: number }[] = [];
+    chakraSpes: string[] = [];
 	notes!: string;
 
 	constructor(character?: Character) {
