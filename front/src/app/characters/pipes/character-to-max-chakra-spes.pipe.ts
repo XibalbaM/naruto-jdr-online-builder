@@ -13,10 +13,10 @@ export class CharacterToMaxChakraSpesPipe implements PipeTransform {
     transform(character: Character): number
     transform(character: Observable<Character>): Observable<number>
     transform(character: Observable<Character> | Character): Observable<number> | number {
-        if (character instanceof Character)
-            return this.processCharacter(character);
-        else
+        if (character instanceof Observable<Character>)
             return character.pipe(map(character => this.processCharacter(character)));
+        else
+            return this.processCharacter(character);
     }
 
     processCharacter(character: Character): number {
