@@ -34,7 +34,7 @@ import {CharacterNavbarComponent} from './components/character-navbar/character-
 import {NindoExemplesComponent} from "./components/nindo-exemples/nindo-exemples.component";
 import {NotesComponent} from './components/notes/notes.component';
 import {NgxMarkdownItModule} from "ngx-markdown-it";
-import MarkdownIt from "markdown-it";
+import {markdownPluginUnderline} from "./markdown-plugins";
 
 @NgModule({
     declarations: [
@@ -73,7 +73,9 @@ import MarkdownIt from "markdown-it";
         CommonModule,
         CharactersRoutingModule,
         SharedModule,
-        NgxMarkdownItModule.forRoot({plugins: [(test: MarkdownIt) => console.log('test')]}),
+        NgxMarkdownItModule.forRoot({
+            plugins: [markdownPluginUnderline],
+        }),
     ],
     providers: [
         CharacterToChakraControlPipe,

@@ -15,6 +15,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DataService} from "./services/data.service";
 import {BackNavbarComponent} from "./components/back-navbar/back-navbar.component";
 import {MarkdownHelpComponent} from './components/markdown-help/markdown-help.component';
+import {CharactersModule} from "../characters/characters.module";
 
 const init = (authService: AuthService, dataService: DataService) => {
     authService.init();
@@ -34,7 +35,8 @@ const init = (authService: AuthService, dataService: DataService) => {
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        CharactersModule
     ],
     providers: [
         {provide: Environment, useValue: environment},

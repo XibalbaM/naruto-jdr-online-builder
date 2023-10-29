@@ -17,7 +17,7 @@ import {BackNavbarComponent} from "../app/components/back-navbar/back-navbar.com
 import {NindoExemplesComponent} from "./components/nindo-exemples/nindo-exemples.component";
 import {NotesComponent} from "./components/notes/notes.component";
 
-const routes: Routes = [
+export const routes: Routes = [
     {path: '', component: ListComponent, resolve: {user: UserResolver}, title: "Liste de personnages — Naruto jdr", data: {navbar: NormalNavbarComponent}},
     {path: 'creation', data: {navbar: NormalNavbarComponent}, children: [
             {path: '', redirectTo: '1', pathMatch: 'full'},
