@@ -259,7 +259,7 @@
     <section class="mt-[50px] mb-[75px] lg:mb-[150px]">
         <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[18px]">notes</h2>
         <div class="border bg-light-dark border-dark-gray px-[12px] py-[18px] rounded-[10px]">
-            <p id="notes" [ngClass]="{'line-clamp-[8]': shouldTruncNotes}" class="overflow-hidden leading-[160%]">
+            <p [ngClass]="{'line-clamp-[8]': shouldTruncNotes}" class="overflow-hidden leading-160" id="notes">
                 <markdown-it [markdown]="notes" class="inline"/>
                 <span *ngIf="shouldTruncNotes">...</span>
             </p>
