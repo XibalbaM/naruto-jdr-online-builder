@@ -144,7 +144,7 @@ export class EditComponent implements OnInit, AfterViewInit {
                 this.$character.next(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
                 this.notes = this.$character.value.notes || "Pas encore de notes.";
                 this.$character.getValue().chakraSpes.forEach((chakraSpe) => {
-                    const chakraSpeData = this.characterChakraSpes.sort((a, b) => a.number - b.number).find(spe => spe.chakraSpe._id === chakraSpe);
+                    const chakraSpeData = this.characterChakraSpes.slice().sort((a, b) => b.number - a.number).find(spe => spe.chakraSpe._id === chakraSpe);
                     if (chakraSpeData) {
                         this.characterChakraSpes.push({chakraSpe: chakraSpeData.chakraSpe, number: chakraSpeData.number + 1});
                     } else {
