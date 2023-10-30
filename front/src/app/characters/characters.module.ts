@@ -26,7 +26,6 @@ import {CharacterToSkillNaturalLevelPipe} from './pipes/character-to-skill-natur
 import {CharacterToSkillTotalLevelPipe} from './pipes/character-to-skill-total-level.pipe';
 import {CharacterToInterceptionsPipe} from './pipes/character-to-interceptions.pipe';
 import {EditDetailsComponent} from "./components/edit-details/edit-details.component";
-import {WeightChakraSpeEffectByAmountPipe} from './pipes/weight-chakra-spe-effect-by-amount.pipe';
 import {CharacterToSkillReinforcementPipe} from './pipes/character-to-skill-reinforcement.pipe';
 import {PredrawnComponent} from './components/predrawn/predrawn.component';
 import {PredrawnPreviewComponent} from './components/predrawn-preview/predrawn-preview.component';
@@ -63,7 +62,6 @@ import {markdownPluginUnderline} from "./markdown-plugins";
         CharacterToSkillTotalLevelPipe,
         CharacterToInterceptionsPipe,
         EditDetailsComponent,
-        WeightChakraSpeEffectByAmountPipe,
         CharacterToSkillReinforcementPipe,
         PredrawnComponent,
         PredrawnPreviewComponent,
