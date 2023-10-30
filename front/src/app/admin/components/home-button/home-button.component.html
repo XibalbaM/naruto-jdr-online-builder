@@ -1,0 +1,9 @@
+<a [ngClass]="disabled ? 'text-gray-zambezi cursor-default' : 'text-yellow hover:bg-opacity-95'"
+   [routerLink]="disabled ? undefined : link"
+   class="flex w-full max-w-md flex-row items-center justify-between border bg-light-dark border-lighter-dark px-[24px] py-[18px] rounded-[10px] text-16">
+    {{text}}
+    <svg fill="none" height="11" viewBox="0 0 6 11" width="6" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.266515 8.96756L3.80182 5.49553L0.266515 2.02349C-0.0888383 1.6745 -0.0888383 1.11074 0.266515 0.761745C0.621868 0.412752 1.1959 0.412752 1.55125 0.761745L5.73349 4.86913C6.08884 5.21812 6.08884 5.78188 5.73349 6.13087L1.55125 10.2383C1.1959 10.5872 0.621868 10.5872 0.266515 10.2383C-0.0797267 9.88926 -0.0888383 9.31656 0.266515 8.96756Z"
+              fill="#A3A5A2"/>
+    </svg>
+</a>

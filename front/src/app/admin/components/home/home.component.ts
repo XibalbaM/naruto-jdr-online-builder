@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
     $characters: BehaviorSubject<Character[]> = new BehaviorSubject<Character[]>([]);
     $predrawnCharacters: BehaviorSubject<Character[]> = new BehaviorSubject<Character[]>([]);
     characterToChange?: Character;
+    readonly = false;
 
     constructor(private predrawnService: PredrawnService, private auth: Auth, protected dataService: DataService, private notificationService: NotificationService) {}
 

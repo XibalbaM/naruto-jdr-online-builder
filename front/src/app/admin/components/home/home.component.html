@@ -1,32 +1,63 @@
-<dialog #addDialog>
-    <app-modal mtitle="Ajouter un prétiré" [mtext]="'Êtes vous sûr de vouloir ajouter ' + characterToChange?.firstName + '?'" (close)="addDialog.close()" [dialog]="addDialog">
-        <div class="flex justify-between items-center space-x-[18px]">
-            <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full"
-                    (click)="addDialog.close()">Retour
-            </button>
-            <button class="h-[52px] px-[28px] bg-purple rounded-[10px] hover:bg-opacity-90 w-full" (click)="addDialog.close(); add()">
-                Ajouter
-            </button>
-        </div>
-    </app-modal>
-</dialog>
-<dialog #removeDialog>
-    <app-modal mtitle="Retirer un prétiré" [mtext]="'Êtes vous sûr de vouloir retirer ' + characterToChange?.firstName + '?'" (close)="removeDialog.close()" [dialog]="removeDialog">
-        <div class="flex justify-between items-center space-x-[18px]">
-            <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full"
-                    (click)="removeDialog.close()">Retour
-            </button>
-            <button class="h-[52px] px-[28px] bg-red rounded-[10px] hover:bg-opacity-90 w-full" (click)="removeDialog.close(); remove()">
-                Retirer
-            </button>
-        </div>
-    </app-modal>
-</dialog>
+<svg class="mb-[30px]" fill="none" height="26" viewBox="0 0 24 26" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path clip-rule="evenodd" d="M10.2867 0.450505C10.8089 0.154922 11.3996 0 12 0C12.6004 0 13.1911 0.154922 13.7133 0.450505L13.7154 0.451696L22.2671 5.25051L22.271 5.25267C22.7933 5.54881 23.2294 5.9759 23.5337 6.4929C23.8381 7.01003 23.9994 7.59811 24 8.19797V8.19901V17.801V17.802C23.9994 18.4019 23.8381 18.99 23.5337 19.5071C23.2294 20.0241 22.7933 20.4512 22.271 20.7473L22.2671 20.7495L13.7154 25.5483L13.7135 25.5494C13.1912 25.8451 12.6004 26 12 26C11.3996 26 10.8088 25.8451 10.2865 25.5494L10.2846 25.5483L1.73285 20.7495L1.72901 20.7473C1.20671 20.4512 0.770642 20.0241 0.46633 19.5071C0.161935 18.99 0.0006271 18.4019 0 17.802V17.801V8.19901V8.19797C0.0006271 7.59811 0.161935 7.01003 0.46633 6.4929C0.770642 5.9759 1.20671 5.54881 1.72901 5.25268L1.73285 5.2505L1.73285 5.25051L10.2846 0.451696L10.2867 0.450505ZM13 23.6564L21.2846 19.0075L21.2862 19.0066C21.5056 18.8818 21.6857 18.7039 21.8101 18.4926C21.9347 18.2808 21.9997 18.042 22 17.7999V8.20006C22 8.18885 21.9998 8.17765 21.9995 8.16646L13 13.5662V23.6564ZM11 13.5662V23.6564L2.71543 19.0075L2.71381 19.0066C2.49438 18.8818 2.31434 18.704 2.18991 18.4926C2.06533 18.2809 2.00033 18.0423 2 17.8004V8.19962C2.00002 8.18856 2.00017 8.1775 2.00045 8.16646L11 13.5662ZM12 2C11.743 2 11.4915 2.0665 11.271 2.19151L11.2672 2.19369L11.2671 2.19368L3.34363 6.63999L12 11.8338L20.6564 6.63999L12.7329 2.19368L12.729 2.19152L12.729 2.19151C12.5085 2.0665 12.257 2 12 2Z"
+          fill="#FFCD3C"
+          fill-rule="evenodd"/>
+</svg>
+<h1 class="large-title mb-[12px]">espace admin</h1>
+<p class="font-light text-light leading-160">Gestion de générale de l'application, réservée à l'équipe de supers admins.</p>
+<app-spacer class="my-[30px] bg-lighter-dark"/>
+<h2 class="small-title mb-[18px]">général</h2>
+<div class="flex flex-col gap-[12px] mb-[30px]">
+    <app-home-button [disabled]="true" link="comptes" text="Comptes"/>
+    <app-home-button [disabled]="true" link="groupes" text="Groupes"/>
+    <app-home-button [disabled]="true" link="pretires" text="Prétirés"/>
+</div>
+<h2 class="small-title mb-[18px]">game design</h2>
+<div class="flex flex-col gap-[12px] mb-[30px]">
+    <app-home-button [disabled]="true" link="arcs" text="Arcs narratifs"/>
+    <app-home-button [disabled]="true" link="equipements" text="Équipements"/>
+    <app-home-button [disabled]="true" link="lignees" text="Lignées"/>
+    <app-home-button [disabled]="true" link="specialisations-de-chakra" text="Spécialisations de chakra"/>
+</div>
+<h2 class="small-title mb-[18px]">textes</h2>
+<div class="flex flex-col gap-[12px] mb-[30px]">
+    <app-home-button [disabled]="true" link="bases" text="Bases"/>
+    <app-home-button [disabled]="true" link="competences" text="Compétences"/>
+</div>
+<app-spacer/>
+<input [(ngModel)]="readonly" class="appearance-none" id="readonly" name="readonly" type="checkbox">
+<label class="flex w-full max-w-md flex-row items-center justify-start border px-[18px] gap-[15px] border-lighter-dark py-[14px] mb-[18px] rounded-[10px]"
+       for="readonly">
+    <svg *ngIf="!readonly; else readonlyOn" fill="none" height="37" viewBox="0 0 48 37" width="48" xmlns="http://www.w3.org/2000/svg">
+        <path clip-rule="evenodd" d="M18.7478 3.07432C20.1466 2.99367 21.5438 3.00012 22.9426 3.00012C22.9523 3.00012 30.0308 3.00012 30.0308 3.00012C31.457 3.00012 32.8542 2.99367 34.2522 3.07432C35.5232 3.1469 36.7613 3.30173 37.9937 3.6477C40.5879 4.37512 42.8534 5.89446 44.491 8.04848C46.1189 10.1888 47 12.8089 47 15.4993C47 18.1928 46.1189 20.8113 44.491 22.9516C42.8534 25.1049 40.5879 26.625 37.9937 27.3524C36.7613 27.6984 35.5232 27.8524 34.2522 27.9258C32.8542 28.0065 31.457 27.9992 30.0582 27.9992C30.0485 27.9992 22.9684 28 22.9684 28C21.5438 27.9992 20.1466 28.0065 18.7478 27.9258C17.4776 27.8524 16.2395 27.6984 15.0071 27.3524C12.4129 26.625 10.1474 25.1049 8.50984 22.9516C6.8819 20.8113 6 18.1928 6 15.5001C6 12.8089 6.8819 10.1888 8.50984 8.04848C10.1474 5.89446 12.4129 4.37512 15.0071 3.6477C16.2395 3.30173 17.4776 3.1469 18.7478 3.07432Z"
+              fill="#1F1F1F"
+              fill-rule="evenodd" stroke="#2F2F2F"/>
+        <g filter="url(#filter0_dd_2623_1716)">
+            <path clip-rule="evenodd" d="M18.5 26C24.299 26 29 21.299 29 15.5C29 9.70101 24.299 5 18.5 5C12.701 5 8 9.70101 8 15.5C8 21.299 12.701 26 18.5 26Z"
+                  fill="white" fill-rule="evenodd"/>
+        </g>
+        <defs>
+            <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="37" id="filter0_dd_2623_1716" width="37" x="0" y="0">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                <feOffset dy="3"/>
+                <feGaussianBlur stdDeviation="0.5"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"/>
+                <feBlend in2="BackgroundImageFix" mode="normal" result="effect1_dropShadow_2623_1716"/>
+                <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                <feOffset dy="3"/>
+                <feGaussianBlur stdDeviation="4"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/>
+                <feBlend in2="effect1_dropShadow_2623_1716" mode="normal" result="effect2_dropShadow_2623_1716"/>
+                <feBlend in="SourceGraphic" in2="effect2_dropShadow_2623_1716" mode="normal" result="shape"/>
+            </filter>
+        </defs>
+    </svg>
+    <ng-template #readonlyOn>
 
-<h1>Prétirés</h1>
-<h2>Vos personnages (cliquez dessus pour les ajouter)</h2>
-<button (click)="addDialog.show(); characterToChange = character"
-        *ngFor="let character of $characters | async">{{character.firstName + ' ' + (character.clan | idToData:dataService.clans.getValue())?.name}}</button>
-<h2>Personnages prétirés (cliquez dessus pour les retirer)</h2>
-<button (click)="removeDialog.show(); characterToChange = character"
-        *ngFor="let character of $predrawnCharacters | async">{{character.firstName + ' ' + (character.clan | idToData:dataService.clans.getValue())?.name}}</button>
+    </ng-template>
+    Passer en lecture seule
+</label>
+<p class="mb-[150px] text-light-gray">
+    Le mode lecture seule permet de consulter les contenus sans les options d’édition.
+</p>
