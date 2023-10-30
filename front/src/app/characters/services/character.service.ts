@@ -136,6 +136,18 @@ export class CharacterService {
         );
     }
 
+    setChakraSpe(characterId: string, speIndex: number, speId: string, multi: boolean = false): Observable<boolean> {
+        return this.apiService.doRequest('POST', CharacterApiEndpoints.CHAKRA_SPE(characterId, speIndex), {id: speId}).pipe(
+            map((response) => response.status === 200),
+            tap((success) => {
+                if (success && !multi) {
+                    this.auth.user!.characters.find((character) => character._id === characterId)!.chakraSpes[speIndex] = speId;
+                    this.auth.userObservable().next(this.auth.user);
+                }
+            })
+        );
+    }
+
     copyCharacter(characterId: string): Observable<{
         character?: Character,
         success: boolean
@@ -206,5 +218,8 @@ export const CharacterApiEndpoints = {
     },
     NOTES(characterId: string): string {
         return `/characters/${characterId}/notes`;
+    },
+    CHAKRA_SPE(characterId: string, speIndex: number): string {
+        return `/characters/${characterId}/spes/${speIndex}`;
     }
 }

@@ -33,6 +33,8 @@ import {PredrawnPreviewComponent} from './components/predrawn-preview/predrawn-p
 import {CharacterNavbarComponent} from './components/character-navbar/character-navbar.component';
 import {NindoExemplesComponent} from "./components/nindo-exemples/nindo-exemples.component";
 import {NotesComponent} from './components/notes/notes.component';
+import {ChakraSpesComponent} from './components/chrakra-spes/chakra-spes.component';
+import {SetChakraSpeComponent} from './components/set-chakra-spe/set-chakra-spe.component';
 import {NgxMarkdownItModule} from "ngx-markdown-it";
 import {markdownPluginUnderline} from "./markdown-plugins";
 
@@ -67,7 +69,9 @@ import {markdownPluginUnderline} from "./markdown-plugins";
         PredrawnPreviewComponent,
         CharacterNavbarComponent,
         NindoExemplesComponent,
-        NotesComponent
+        NotesComponent,
+        ChakraSpesComponent,
+        SetChakraSpeComponent
     ],
     imports: [
         CommonModule,
@@ -83,7 +87,8 @@ import {markdownPluginUnderline} from "./markdown-plugins";
         CharacterToMaxChakraPipe,
         CharacterToChakraSpeAmountPipe,
         CharacterToSkillNaturalLevelPipe,
-        CharacterToSkillTotalLevelPipe
+        CharacterToSkillTotalLevelPipe,
+        CharacterToMaxChakraSpesPipe
     ]
 })
 export class CharactersModule {

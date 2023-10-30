@@ -16,6 +16,8 @@ import {CharacterNavbarComponent} from "./components/character-navbar/character-
 import {BackNavbarComponent} from "../app/components/back-navbar/back-navbar.component";
 import {NindoExemplesComponent} from "./components/nindo-exemples/nindo-exemples.component";
 import {NotesComponent} from "./components/notes/notes.component";
+import {ChakraSpesComponent} from "./components/chrakra-spes/chakra-spes.component";
+import {SetChakraSpeComponent} from "./components/set-chakra-spe/set-chakra-spe.component";
 
 export const routes: Routes = [
     {path: '', component: ListComponent, resolve: {user: UserResolver}, title: "Liste de personnages — Naruto jdr", data: {navbar: NormalNavbarComponent}},
@@ -56,6 +58,20 @@ export const routes: Routes = [
         data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", navbarText: "Fiche de personnage"},
         resolve: {user: UserResolver},
         title: "Fiche de personnage — Notes — Naruto jdr"
+    },
+    {
+        path: ':characterId/specialisations-de-chakra',
+        component: ChakraSpesComponent,
+        data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", navbarText: "Fiche de personnage"},
+        resolve: {user: UserResolver},
+        title: "Fiche de personnage — Spécialisations de chakra — Naruto jdr"
+    },
+    {
+        path: ':characterId/specialisations-de-chakra/:id',
+        component: SetChakraSpeComponent,
+        data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", navbarText: "Spécialisations de chakra"},
+        resolve: {user: UserResolver},
+        title: "Fiche de personnage — Spécialisations de chakra — Naruto jdr"
     },
     {
         path: ':characterId', component: EditComponent, data: {navbar: CharacterNavbarComponent, bgClass: "large-no-repeat-image-bg"}, resolve: {user: UserResolver},

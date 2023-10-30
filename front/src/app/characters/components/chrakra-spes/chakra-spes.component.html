@@ -1,0 +1,42 @@
+<div *ngIf="reamingChakraSpes > 0"
+     class="fixed right-0 bottom-0 left-0 z-30 flex flex-row items-center justify-start h-[70px] px-[18px] py-[17px] purple-gradient">
+    <div class="rounded-xl font-normal text-blue font-neue text-16 bg-light-dark me-[12px] px-[12px] h-[26px]">
+        {{reamingChakraSpes}}
+    </div>
+    <div class="flex flex-col">
+        Spécialisation{{reamingChakraSpes > 1 ? 's' : ''}} de chakra disponible{{reamingChakraSpes > 1 ? 's' : ''}}
+    </div>
+</div>
+<h1 class="font-bold uppercase mb-[30px] text-25 font-monument">spécialisations de chakra</h1>
+<div class="flex flex-col items-start gap-[12px] mb-[150px]">
+    <ng-container *ngFor="let chakraSpe of chakraSpes; let index = index">
+        <ng-container *ngIf="isChakraSpe(chakraSpe); else ifEmpty">
+            <button [routerLink]="index.toString()"
+                    class="flex flex-col justify-between items-start w-full max-w-[450px] bg-black border py-[17px] ps-[24px] pe-[18px] border-lighter-dark rounded-[10px] gap-[5px] hover:bg-dark text-start">
+                <p class="flex flex-row justify-between items-center w-full">
+                    <span class="text-blue text-16">{{chakraSpe.data.name}}</span>
+                    <span class="text-yellow text-12 rounded-xl bg-light-dark px-[12px] py-[4px]">
+                        {{chakraSpe.data.max === 1 ? "Unique" : chakraSpe.data.max + "x"}}
+                    </span>
+                </p>
+                <p class="text-light">
+                    {{chakraSpe.data.effect}}
+                </p>
+            </button>
+        </ng-container>
+        <ng-template #ifEmpty>
+            <button [disabled]="!chakraSpe.unlocked" [routerLink]="index.toString()"
+                    class="border py-[17px] ps-[24px] pe-[18px] flex flex-row justify-between items-center group w-full max-w-[450px] rounded-[10px]
+                            enabled:bg-black enabled:border-purple enabled:hover:bg-dark
+                            disabled:border-gray-zambezi">
+                <div class="flex flex-col items-start">
+                    <p class="text-pink text-16 group-disabled:text-gray-zambezi">Choisir une spécialisation</p>
+                    <p class="font-light text-light group-disabled:text-light-gray">{{chakraSpe.data}}</p>
+                </div>
+                <svg class="fill-pink group-disabled:fill-gray-zambezi" height="10" viewBox="0 0 6 10" width="6" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.266515 8.46756L3.80182 4.99553L0.266515 1.52349C-0.0888383 1.1745 -0.0888383 0.610738 0.266515 0.261745C0.621868 -0.0872483 1.1959 -0.0872483 1.55125 0.261745L5.73349 4.36913C6.08884 4.71812 6.08884 5.28188 5.73349 5.63087L1.55125 9.73825C1.1959 10.0872 0.621868 10.0872 0.266515 9.73825C-0.0797267 9.38926 -0.0888383 8.81656 0.266515 8.46756Z"/>
+                </svg>
+            </button>
+        </ng-template>
+    </ng-container>
+</div>
