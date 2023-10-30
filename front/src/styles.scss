@@ -146,6 +146,14 @@
             }
         }
     }
+
+    .small-title {
+        @apply font-monument font-light text-10 uppercase tracking-tight text-light-gray;
+    }
+
+    .large-title {
+        @apply font-monument font-bold text-25 uppercase;
+    }
 }
 
 @layer utilities {
