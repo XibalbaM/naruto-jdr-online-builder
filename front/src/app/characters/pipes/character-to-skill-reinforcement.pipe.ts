@@ -8,7 +8,8 @@ import {CharacterToSkillTotalLevelPipe} from "./character-to-skill-total-level.p
 })
 export class CharacterToSkillReinforcementPipe implements PipeTransform {
 
-    constructor(private characterToSkillTotalLevel: CharacterToSkillTotalLevelPipe) {}
+    constructor(private characterToSkillTotalLevel: CharacterToSkillTotalLevelPipe) {
+    }
 
     transform(character: Character, skillName: string): number;
     transform(character: Observable<Character>, skillName: string): Observable<number>;

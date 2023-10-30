@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-bg',
-  templateUrl: './bg.component.html',
-  styleUrls: ['./bg.component.scss']
+    selector: 'app-bg',
+    templateUrl: './bg.component.html',
+    styleUrls: ['./bg.component.scss']
 })
 export class BgComponent {
 

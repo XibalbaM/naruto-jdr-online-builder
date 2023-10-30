@@ -7,24 +7,26 @@
 <p class="font-light text-10 font-monument text-light-gray">02 / 03</p>
 <h2 class="font-bold uppercase font-monument text-20">historique</h2>
 <p class="font-light text-14 text-light">Chaque personnage possède sa propre histoire, celles dont il hérite, son Nindo ainsi que ses propres liens et
-	conflits.</p>
+    conflits.</p>
 <app-spacer class="bg-lighter-dark mt-[50px] mb-[30px]"></app-spacer>
 <!--TODO: ARCS NARRATIFS-->
 <h3 class="font-bold uppercase font-monument text-16 mb-[12px]">nindo</h3>
 <p class="font-light text-14 text-light line-">Le Nindo, littéralement Voie du Ninja, représente une valeur, un principe auquel un personnage croit plus que
-	tout et qu’il ne trahira jamais.</p>
-<input type="text" [(ngModel)]="nindo" #nindoInput required class="max-w-md input h-[55px] px-[24px] my-[50px] text-white" placeholder="Ex: La Volonté du Feu">
+    tout et qu’il ne trahira jamais.</p>
+<input #nindoInput [(ngModel)]="nindo" class="max-w-md input h-[55px] px-[24px] my-[50px] text-white" placeholder="Ex: La Volonté du Feu" required type="text">
 <a class="default-link" routerLink="exemples-nindo">Exemples de Nindo</a>
 <app-spacer class="bg-lighter-dark my-[30px]"></app-spacer>
 <h3 class="font-bold uppercase font-monument text-16 mb-[12px]">histoire personnelle</h3>
 <p class="font-light text-14 text-light line-">Qu’il soit heureux ou tragique, le passé d’un personnage lui plante les pieds fermement dans le monde et dans
-	l’histoire.</p>
+    l’histoire.</p>
 <textarea [(ngModel)]="story" class="max-w-md input h-[330px] py-[24px] px-[18px] my-[50px] text-white resize-none" placeholder="Votre texte ici"></textarea>
 <app-spacer class="bg-lighter-dark mt-[30px] mb-[50px]"></app-spacer>
 <div class="flex flex-row max-w-md mb-[120px]">
-	<button (click)="back()" class="h-[52px] px-[28px] border border-lighter-dark me-[12px] rounded-xl flex items-center">Retour</button>
-	<button (click)="submit()" class="h-[52px] flex-grow bg-purple rounded-xl flex items-center justify-center group disabled:cursor-default disabled:bg-black disabled:text-dark-gray" [disabled]="!nindoInput.validity.valid">
-		Étape suivante
+    <button (click)="back()" class="h-[52px] px-[28px] border border-lighter-dark me-[12px] rounded-xl flex items-center">Retour</button>
+    <button (click)="submit()"
+            [disabled]="!nindoInput.validity.valid"
+            class="h-[52px] flex-grow bg-purple rounded-xl flex items-center justify-center group disabled:cursor-default disabled:bg-black disabled:text-dark-gray">
+        Étape suivante
         <app-long-arrow-right class="ms-[10px] fill-white group-disabled:fill-dark-gray"/>
-	</button>
+    </button>
 </div>

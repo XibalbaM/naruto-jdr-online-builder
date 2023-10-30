@@ -3,10 +3,10 @@
  * @class Group
  */
 export default class Group {
-	_id!: number;
-	name!: string;
+    _id!: number;
+    name!: string;
 
-	constructor(group: Group) {
-		Object.assign(this, group);
-	}
+    constructor(group: Group) {
+        Object.assign(this, group);
+    }
 }

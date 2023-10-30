@@ -4,9 +4,9 @@ import Environment from "../../../../environments/environment.interface";
 import {DataService} from "../../../app/services/data.service";
 
 @Component({
-  selector: 'app-predrawn-preview',
-  templateUrl: './predrawn-preview.component.html',
-  styleUrls: ['./predrawn-preview.component.scss']
+    selector: 'app-predrawn-preview',
+    templateUrl: './predrawn-preview.component.html',
+    styleUrls: ['./predrawn-preview.component.scss']
 })
 export class PredrawnPreviewComponent {
 

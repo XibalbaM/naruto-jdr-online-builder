@@ -12,9 +12,9 @@ import {Title} from "@angular/platform-browser";
 import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
 
 @Component({
-  selector: 'app-skill',
-  templateUrl: './skill.component.html',
-  styleUrls: ['./skill.component.scss']
+    selector: 'app-skill',
+    templateUrl: './skill.component.html',
+    styleUrls: ['./skill.component.scss']
 })
 export class SkillComponent implements OnInit {
     skill!: Skill;

@@ -5,7 +5,11 @@
 @import "tailwindcss/utilities";
 
 @import "assets/fonts/fonts";
-.grecaptcha-badge { visibility: hidden; }
+
+.grecaptcha-badge {
+    visibility: hidden;
+}
+
 //Applying default styles
 @layer base {
 
@@ -135,6 +139,7 @@
             border-radius: 12px;
             background-color: $light-dark;
             color: $light-gray;
+
             &:enabled {
                 background-image: url("assets/images/dropdown.svg");
                 background-repeat: no-repeat;

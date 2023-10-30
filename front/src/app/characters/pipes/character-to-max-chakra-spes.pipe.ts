@@ -8,7 +8,8 @@ import {map, Observable} from "rxjs";
 })
 export class CharacterToMaxChakraSpesPipe implements PipeTransform {
 
-    constructor(private characterToChakraControl: CharacterToChakraControlPipe) {}
+    constructor(private characterToChakraControl: CharacterToChakraControlPipe) {
+    }
 
     transform(character: Character): number
     transform(character: Observable<Character>): Observable<number>

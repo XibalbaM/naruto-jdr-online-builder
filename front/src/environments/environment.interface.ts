@@ -3,8 +3,8 @@
  * @class Environment
  */
 export default class Environment {
-  api_url!: string;
-  contactUrl!: string;
-  recaptchaSiteKey!: string;
-  discordLogUrl!: string;
+    api_url!: string;
+    contactUrl!: string;
+    recaptchaSiteKey!: string;
+    discordLogUrl!: string;
 }

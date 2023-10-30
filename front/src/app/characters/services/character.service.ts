@@ -10,7 +10,8 @@ import Character from "../../app/models/character.model";
 })
 export class CharacterService {
 
-    constructor(private apiService: ApiService, private auth: Auth, private authService: AuthService) {}
+    constructor(private apiService: ApiService, private auth: Auth, private authService: AuthService) {
+    }
 
     removeSkill(id: string, characterId: string): Observable<boolean> {
         return this.setSkillLevel(characterId, id, 0);

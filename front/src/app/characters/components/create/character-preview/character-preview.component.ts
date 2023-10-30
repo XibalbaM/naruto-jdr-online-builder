@@ -4,14 +4,14 @@ import Environment from "../../../../../environments/environment.interface";
 import {DataService} from "../../../../app/services/data.service";
 
 @Component({
-	selector: 'app-character-preview',
-	templateUrl: './character-preview.component.html',
-	styleUrls: ['./character-preview.component.scss']
+    selector: 'app-character-preview',
+    templateUrl: './character-preview.component.html',
+    styleUrls: ['./character-preview.component.scss']
 })
 export class CharacterPreviewComponent {
 
-	@Input() character!: Character;
+    @Input() character!: Character;
 
-	constructor(protected env: Environment, protected dataService: DataService) {
-	}
+    constructor(protected env: Environment, protected dataService: DataService) {
+    }
 }

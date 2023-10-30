@@ -1,13 +1,13 @@
 <main class="mx-auto flex h-full w-full flex-col items-center justify-around max-w-[350px]">
-  <div class="flex w-full flex-row items-center justify-between mb-[30px]">
-    <div class="w-[100px]">
-      <button routerLink="/connexion" class="box-content rounded-xl border w-[100px] h-[52px] border-lighter-dark hocus:bg-light/10">Retour</button>
+    <div class="flex w-full flex-row items-center justify-between mb-[30px]">
+        <div class="w-[100px]">
+            <button class="box-content rounded-xl border w-[100px] h-[52px] border-lighter-dark hocus:bg-light/10" routerLink="/connexion">Retour</button>
+        </div>
+        <app-logo class="w-[32px] h-[32px]"></app-logo>
+        <div class="w-[100px]"><!--Placeholder--></div>
     </div>
-    <app-logo class="w-[32px] h-[32px]"></app-logo>
-    <div class="w-[100px]"><!--Placeholder--></div>
-  </div>
-  <div class="w-full border bg-black p-[25px] border-light-dark rounded-[26px] max-w-[350px]">
-      <p [innerHtml]="text"></p>
-  </div>
+    <div class="w-full border bg-black p-[25px] border-light-dark rounded-[26px] max-w-[350px]">
+        <p [innerHtml]="text"></p>
+    </div>
 </main>
 <app-footer></app-footer>

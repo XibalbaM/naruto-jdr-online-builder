@@ -8,16 +8,16 @@ import {LogoComponent} from "./components/logo/logo.component";
 import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
-	declarations: [
-		InputComponent,
-		CallbackComponent,
-		FooterComponent,
-		LogoComponent,
-	],
-	imports: [
-		LoginRoutingModule,
-		SharedModule,
-	]
+    declarations: [
+        InputComponent,
+        CallbackComponent,
+        FooterComponent,
+        LogoComponent,
+    ],
+    imports: [
+        LoginRoutingModule,
+        SharedModule,
+    ]
 })
 export class LoginModule {
 }

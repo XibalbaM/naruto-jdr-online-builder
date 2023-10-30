@@ -26,7 +26,12 @@ export const routes: Routes = [
             {path: '', redirectTo: '1', pathMatch: 'full'},
             {path: '1', component: FirstStepComponent, title: "Création de personnage — Étape 1 — Naruto jdr"},
             {path: '2', component: SecondStepComponent, title: "Création de personnage — Étape 2 — Naruto jdr"},
-            {path: '2/exemples-nindo', component: NindoExemplesComponent, data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", backAmount: 1, navbarText: "Historique"}, title: "Création de personnage — Exemples de nindo — Naruto jdr"},
+            {
+                path: '2/exemples-nindo',
+                component: NindoExemplesComponent,
+                data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", backAmount: 1, navbarText: "Historique"},
+                title: "Création de personnage — Exemples de nindo — Naruto jdr"
+            },
             {path: '3', component: ThirdStepComponent, title: "Création de personnage — Étape 3 — Naruto jdr"}
         ]
     },
@@ -38,11 +43,17 @@ export const routes: Routes = [
         title: "Personnages prétirés — Naruto jdr"
     },
     {
-        path: ':characterId/base/:id', component: BaseComponent, data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", backAmount: 2}, resolve: {user: UserResolver},
+        path: ':characterId/base/:id',
+        component: BaseComponent,
+        data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", backAmount: 2},
+        resolve: {user: UserResolver},
         title: "Base — Fiche de personnage — Naruto jdr"
     },
     {
-        path: ':characterId/competence/:id', component: SkillComponent, data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", backAmount: 2}, resolve: {user: UserResolver},
+        path: ':characterId/competence/:id',
+        component: SkillComponent,
+        data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", backAmount: 2},
+        resolve: {user: UserResolver},
         title: "Compétence — Fiche de personnage — Naruto jdr"
     },
     {
@@ -75,7 +86,10 @@ export const routes: Routes = [
         title: "Fiche de personnage — Spécialisations de chakra — Naruto jdr"
     },
     {
-        path: ':characterId', component: EditComponent, data: {navbar: CharacterNavbarComponent, bgClass: "large-no-repeat-image-bg"}, resolve: {user: UserResolver},
+        path: ':characterId',
+        component: EditComponent,
+        data: {navbar: CharacterNavbarComponent, bgClass: "large-no-repeat-image-bg"},
+        resolve: {user: UserResolver},
         title: "Fiche de personnage — Naruto jdr"
     }
 ];

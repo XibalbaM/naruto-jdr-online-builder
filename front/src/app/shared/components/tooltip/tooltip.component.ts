@@ -1,10 +1,9 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 
 @Component({
-  selector: 'app-tooltip',
-  templateUrl: './tooltip.component.html',
-  styleUrls: ['./tooltip.component.scss']
+    selector: 'app-tooltip',
+    templateUrl: './tooltip.component.html',
+    styleUrls: ['./tooltip.component.scss']
 })
 export class TooltipComponent implements AfterViewInit {
 
@@ -13,7 +12,8 @@ export class TooltipComponent implements AfterViewInit {
     top!: number;
     @ViewChild('tooltip') tooltip!: ElementRef<HTMLDivElement>;
 
-    constructor() {}
+    constructor() {
+    }
 
     ngAfterViewInit(): void {
         const {left, width} = this.tooltip.nativeElement.getBoundingClientRect();

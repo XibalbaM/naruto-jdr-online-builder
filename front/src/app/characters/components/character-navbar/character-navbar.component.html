@@ -11,10 +11,13 @@
     </div>
 </popper-content>
 <dialog #deleteDialog>
-    <app-modal (close)="deleteDialog.close()" [dialog]="deleteDialog" mtext="<span class='text-16'>En cliquant sur le bouton “Supprimer” juste en dessous, ce personnage sera définitivement effacé. Il n’y a ni sauvegarde ni backup des données de l’application. <br/><br/><span class='text-orange'>Toute suppression est définitive.</span></span>"
+    <app-modal (close)="deleteDialog.close()" [dialog]="deleteDialog"
+               mtext="<span class='text-16'>En cliquant sur le bouton “Supprimer” juste en dessous, ce personnage sera définitivement effacé. Il n’y a ni sauvegarde ni backup des données de l’application. <br/><br/><span class='text-orange'>Toute suppression est définitive.</span></span>"
                mtitle="supprimer le personnage">
         <h2 class="text-10 text-light-gray font-light font-monument uppercase">taper le nom du personnage</h2>
-        <input [(ngModel)]="deleteNameConfirm" [placeholder]="(($character | async)?.firstName || '') + ' ' + ((($character | async)?.clan | idToData:dataService.clans.getValue())?.name || '')" class="input px-[24px] py-[17px] text-white mt-[18px] mb-[30px] placeholder-light-gray font-16"
+        <input [(ngModel)]="deleteNameConfirm"
+               [placeholder]="(($character | async)?.firstName || '') + ' ' + ((($character | async)?.clan | idToData:dataService.clans.getValue())?.name || '')"
+               class="input px-[24px] py-[17px] text-white mt-[18px] mb-[30px] placeholder-light-gray font-16"
                type="text">
         <button (click)="deleteDialog.close(); deleteCharacter()"
                 [disabled]="deleteNameConfirm.toLowerCase() !== ((($character | async)?.firstName || '') + ' ' + ((($character | async)?.clan | idToData:dataService.clans.getValue())?.name || '')).toLowerCase()"
@@ -31,8 +34,8 @@
             Retour
         </a>
         <div class="flex flex-row gap-[10px]">
-            <span class="text-14 px-[6px] py-[3px] bg-light-dark rounded-[6px] ms-[10px]"
-                  [ngClass]="(($character | characterToReamingXp | async) || 0) >= 0 ? 'text-blue' : 'text-orange'">
+            <span [ngClass]="(($character | characterToReamingXp | async) || 0) >= 0 ? 'text-blue' : 'text-orange'"
+                  class="text-14 px-[6px] py-[3px] bg-light-dark rounded-[6px] ms-[10px]">
                 {{(($character | characterToReamingXp | async) || 0) >= 0 ? '↑' : '↓'}} {{Math.abs(($character | characterToReamingXp | async) || 0)}}
                 EXP
             </span>
@@ -50,14 +53,14 @@
 </div>
 <div class="w-full bg-cover bg-[url('assets/images/backgrounds/character-nav-bg.webp')] h-fit px-[15px] overflow-hidden">
     <div class="container mx-auto flex scrollbar:hidden w-full flex-row items-center overflow-x-scroll whitespace-nowrap h-[45px] space-x-[4px]">
-        <a [routerLink]="'/personnages/' + ($character | async)?._id" [routerLinkActiveOptions]="{exact: true}"
-           routerLinkActive="box-border px-[12px] border border-pink text-pink bg-black rounded-[8px] cursor-default hover:no-underline"
-           class="px-[13px] py-[6px] hover:underline">
+        <a [routerLinkActiveOptions]="{exact: true}" [routerLink]="'/personnages/' + ($character | async)?._id"
+           class="px-[13px] py-[6px] hover:underline"
+           routerLinkActive="box-border px-[12px] border border-pink text-pink bg-black rounded-[8px] cursor-default hover:no-underline">
             Fiche
         </a>
         <a [routerLink]="'/personnages/' + ($character | async)?._id + '/lignee'"
-           routerLinkActive="box-border px-[12px] border border-pink text-pink bg-black rounded-[8px] cursor-default hover:no-underline"
-           class="px-[13px] py-[6px] hover:underline">
+           class="px-[13px] py-[6px] hover:underline"
+           routerLinkActive="box-border px-[12px] border border-pink text-pink bg-black rounded-[8px] cursor-default hover:no-underline">
             Lignée
         </a>
         <!--<a [routerLink]="'/personnages/' + character._id + '/arcs'"

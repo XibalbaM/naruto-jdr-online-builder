@@ -1,12 +1,14 @@
-<a *ngIf="(character.clan | idToData:(dataService.clans | async)) as clan" [routerLink]="'/personnages/' + character._id" class="flex gray-box py-[18px] px-[12px] mb-[12px] hover:bg-lighter-dark">
-	<img class="gray-box ms-[12px] me-[18px] !bg-black x-[52px] h-[52px] p-[13px]"
-	     [src]="env.api_url + '/assets/clans/'+ clan.name.toLowerCase() + '-purple.svg'" alt="character image">
-	<div>
-		<p class="text-20">{{character.firstName}} {{clan.name}}</p>
-		<span class="bg-black px-[6px] pt-[3px] pb-[4px] mr-[12px] rounded-[10px]" [ngClass]="((character | characterToReamingXp) || 0) >= 0 ? 'text-blue' : 'text-orange'">
+<a *ngIf="(character.clan | idToData:(dataService.clans | async)) as clan" [routerLink]="'/personnages/' + character._id"
+   class="flex gray-box py-[18px] px-[12px] mb-[12px] hover:bg-lighter-dark">
+    <img [src]="env.api_url + '/assets/clans/'+ clan.name.toLowerCase() + '-purple.svg'"
+         alt="character image" class="gray-box ms-[12px] me-[18px] !bg-black x-[52px] h-[52px] p-[13px]">
+    <div>
+        <p class="text-20">{{character.firstName}} {{clan.name}}</p>
+        <span [ngClass]="((character | characterToReamingXp) || 0) >= 0 ? 'text-blue' : 'text-orange'"
+              class="bg-black px-[6px] pt-[3px] pb-[4px] mr-[12px] rounded-[10px]">
             {{((character | characterToReamingXp) || 0) >= 0 ? '↑' : '↓'}} {{Math.abs((character | characterToReamingXp) || 0)}}
         </span>
-<!--		<span class="text-pink me-[12px] font-light text-12">TEAM 12</span> &lt;!&ndash;TODO&ndash;&gt;-->
-		<span class="text-light-gray font-light text-12">{{(character.rank | idToData:dataService.ranks.getValue())?.name}}</span>
-	</div>
+        <!--		<span class="text-pink me-[12px] font-light text-12">TEAM 12</span> &lt;!&ndash;TODO&ndash;&gt;-->
+        <span class="text-light-gray font-light text-12">{{(character.rank | idToData:dataService.ranks.getValue())?.name}}</span>
+    </div>
 </a>

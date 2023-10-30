@@ -4,9 +4,9 @@ import {NAVBAR_DATA_TOKEN} from "../../app.component";
 import {BackNavbarService} from "../../services/back-navbar.service";
 
 @Component({
-  selector: 'app-back-navbar',
-  templateUrl: './back-navbar.component.html',
-  styleUrls: ['./back-navbar.component.scss']
+    selector: 'app-back-navbar',
+    templateUrl: './back-navbar.component.html',
+    styleUrls: ['./back-navbar.component.scss']
 })
 export class BackNavbarComponent {
 

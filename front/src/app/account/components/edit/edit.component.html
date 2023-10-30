@@ -33,31 +33,39 @@
     </app-modal>
 </dialog>
 <dialog #changePpDialog>
-    <app-modal mtitle="Changer l'image de profile"  (close)="changePpDialog.close()" [dialog]="changePpDialog"
-               mtext="Entrez le lien de votre nouvelle image de profile. Seuls certains sites sont authorisés pour des raisons de sécurité. Si vous n'avez pas encore mis votre image de profile en ligne, vous pouvez utiliser <a href='https://imgur.com/upload' class='default-link'>imgur</a>. Pensez a prendre le lien direct ! (clic droit -> ouvrir l'image dans un nouvel onglet)">
-        <input class="input h-[52px] ps-[24px] text-white" [(ngModel)]="pp" #ppLink="ngModel" required type="text" placeholder="https://i.imgur.com/4ILisqH.jpeg">
+    <app-modal (close)="changePpDialog.close()" [dialog]="changePpDialog"
+               mtext="Entrez le lien de votre nouvelle image de profile. Seuls certains sites sont authorisés pour des raisons de sécurité. Si vous n'avez pas encore mis votre image de profile en ligne, vous pouvez utiliser <a href='https://imgur.com/upload' class='default-link'>imgur</a>. Pensez a prendre le lien direct ! (clic droit -> ouvrir l'image dans un nouvel onglet)"
+               mtitle="Changer l'image de profile">
+        <input #ppLink="ngModel" [(ngModel)]="pp" class="input h-[52px] ps-[24px] text-white" placeholder="https://i.imgur.com/4ILisqH.jpeg" required
+               type="text">
         <div class="flex justify-between items-center mt-[12px] space-x-[18px]">
-            <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full" (click)="changePpDialog.close()">Retour</button>
-            <button class="h-[52px] px-[28px] bg-purple rounded-[10px] hover:bg-opacity-90 w-full disabled:bg-opacity-50 disabled:cursor-default"
-                    (click)="ppLink.valid ? changePpDialog.close() : null; ppLink.valid ? changePp() : null"
-                    [disabled]="!ppLink.valid">
+            <button (click)="changePpDialog.close()"
+                    class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full">Retour
+            </button>
+            <button (click)="ppLink.valid ? changePpDialog.close() : null; ppLink.valid ? changePp() : null"
+                    [disabled]="!ppLink.valid"
+                    class="h-[52px] px-[28px] bg-purple rounded-[10px] hover:bg-opacity-90 w-full disabled:bg-opacity-50 disabled:cursor-default">
                 Valider
             </button>
         </div>
     </app-modal>
 </dialog>
 <dialog #deletePpDialog>
-    <app-modal mtitle="Supprimer l'image de profile" mtext="Êtes vous sûr de vouloir supprimer votre image de profile ?" (close)="deletePpDialog.close()" [dialog]="deletePpDialog">
+    <app-modal (close)="deletePpDialog.close()" [dialog]="deletePpDialog" mtext="Êtes vous sûr de vouloir supprimer votre image de profile ?"
+               mtitle="Supprimer l'image de profile">
         <div class="flex justify-between items-center space-x-[18px]">
-            <button class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full" (click)="deletePpDialog.close()">Retour</button>
-            <button class="h-[52px] px-[28px] bg-red rounded-[10px] hover:bg-opacity-90 w-full" (click)="deletePpDialog.close(); deletePp()">Supprimer</button>
+            <button (click)="deletePpDialog.close()"
+                    class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full">Retour
+            </button>
+            <button (click)="deletePpDialog.close(); deletePp()" class="h-[52px] px-[28px] bg-red rounded-[10px] hover:bg-opacity-90 w-full">Supprimer</button>
         </div>
     </app-modal>
 </dialog>
 <dialog #discordConnectDialog>
     <app-modal (close)="discordConnectDialog.close()"
                [dialog]="discordConnectDialog"
-               mtext="Cette action permet à Moot-kun d’accéder aux données de vos personnages et de les utiliser sur le serveur. Vous pourrez par exemple faire des jets de compétences directement avec vos stats pendant les parties et pleins d’autre chose." mtitle="Connecter le compte à discord">
+               mtext="Cette action permet à Moot-kun d’accéder aux données de vos personnages et de les utiliser sur le serveur. Vous pourrez par exemple faire des jets de compétences directement avec vos stats pendant les parties et pleins d’autre chose."
+               mtitle="Connecter le compte à discord">
         <div class="flex flex-row gap-[18px] items-center justify-between">
             <button (click)="discordConnectDialog.close()" class="w-full h-[52px] rounded-[10px] border border-dark-gray hover:bg-dark">Non merci</button>
             <a [href]="env.discordLogUrl" class="w-full bg-purple hover:bg-opacity-90 h-[52px] flex justify-center items-center rounded-[10px]">Connecter</a>
@@ -67,7 +75,8 @@
 <dialog #discordDisconnectDialog>
     <app-modal (close)="discordDisconnectDialog.close()"
                [dialog]="discordDisconnectDialog"
-               mtext="Vous êtes sur le point de déconnecter votre compte de discord. Vous ne pourrez plus utiliser les fonctionnalités liées à votre compte sur le serveur. Vous pourrez toujours vous reconnecter plus tard." mtitle="Déconnecter le compte de discord">
+               mtext="Vous êtes sur le point de déconnecter votre compte de discord. Vous ne pourrez plus utiliser les fonctionnalités liées à votre compte sur le serveur. Vous pourrez toujours vous reconnecter plus tard."
+               mtitle="Déconnecter le compte de discord">
         <div class="flex flex-row gap-[18px] items-center justify-between">
             <button (click)="discordDisconnectDialog.close()" class="w-full h-[52px] rounded-[10px] border border-dark-gray hover:bg-dark">Annuler</button>
             <a (click)="discordDisconnectDialog.close()" class="w-full bg-orange hover:bg-opacity-90 h-[52px] flex justify-center items-center rounded-[10px]"
@@ -102,18 +111,18 @@
     <app-spacer class="my-[50px] bg-lighter-dark"></app-spacer>-->
     <form (ngSubmit)="changeUsername(usernameField.value)" class="flex max-w-md flex-col mb-[50px]">
         <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[18px]">nom du compte</h2>
-        <input type="text"
+        <input #usernameField="ngModel"
+               class="input h-[55px] text-16 mb-[12px] ps-[24px]"
+               maxlength="20"
+               minlength="3"
                name="username"
-               #usernameField="ngModel"
                ngModel="{{user.username || ''}}"
                placeholder="Ninja sans nom (défaut)"
-               minlength="3"
-               maxlength="20"
                required
-               class="input h-[55px] text-16 mb-[12px] ps-[24px]">
+               type="text">
         <button [disabled]="usernameField.invalid || usernameField.value === user.username"
-                type="submit"
-                class="w-full black-button h-[55px] text-16 text-pink disabled:text-dark-gray disabled:cursor-default disabled:hover:bg-black">
+                class="w-full black-button h-[55px] text-16 text-pink disabled:text-dark-gray disabled:cursor-default disabled:hover:bg-black"
+                type="submit">
             Modifier
         </button>
     </form>
@@ -125,37 +134,37 @@
     </button>
     <form (ngSubmit)="newEmail = emailField.value; changeEmailDialog.show()" class="flex max-w-md flex-col mb-[50px]">
         <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[18px]">email</h2>
-        <input type="text"
+        <input #emailField="ngModel"
+               class="input h-[55px] text-16 mb-[12px] ps-[24px]"
                name="email"
-               #emailField="ngModel"
                ngModel="{{user.email}}"
                required
-               class="input h-[55px] text-16 mb-[12px] ps-[24px]">
+               type="text">
         <button [disabled]="emailField.invalid || emailField.value === user.email"
-                type="submit"
-                class="w-full black-button h-[55px] text-16 text-pink disabled:text-dark-gray disabled:cursor-default disabled:hover:bg-black">
+                class="w-full black-button h-[55px] text-16 text-pink disabled:text-dark-gray disabled:cursor-default disabled:hover:bg-black"
+                type="submit">
             Modifier
         </button>
     </form>
     <form class="max-w-md">
         <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[15px]">image de profile</h2>
         <div class="flex w-full flex-row items-center">
-            <img *ngIf="!!user.profileImage" class="rounded-3xl object-cover w-[50px] h-[50px] me-[10px]" [src]="user.profileImage" alt="Photo de profile">
+            <img *ngIf="!!user.profileImage" [src]="user.profileImage" alt="Photo de profile" class="rounded-3xl object-cover w-[50px] h-[50px] me-[10px]">
             <app-default-profile-picture *ngIf="!user.profileImage" class="fill-light-gray me-[10px] w-[50px] h-[50px]"/>
             <div class="flex w-full flex-row">
-                <button class="rounded-xl w-[55%] bg-light-dark h-[52px] text-14 hover:bg-lighter-dark" (click)="changePpDialog.show()">Configurer</button>
-                <button class="box-border rounded-xl bg-black w-[45%] h-[52px] ms-[10px] text-pink text-14 hover:bg-light-dark" (click)="deletePpDialog.show()">
+                <button (click)="changePpDialog.show()" class="rounded-xl w-[55%] bg-light-dark h-[52px] text-14 hover:bg-lighter-dark">Configurer</button>
+                <button (click)="deletePpDialog.show()" class="box-border rounded-xl bg-black w-[45%] h-[52px] ms-[10px] text-pink text-14 hover:bg-light-dark">
                     Supprimer
                 </button>
             </div>
         </div>
     </form>
     <app-spacer-graphical class="my-[50px]"></app-spacer-graphical>
-    <button (click)="disconnect()" type="submit" class="w-full max-w-md justify-between black-button h-[55px]">
+    <button (click)="disconnect()" class="w-full max-w-md justify-between black-button h-[55px]" type="submit">
         <span class="text-blue text-16">Me déconnecter</span>
         <app-arrow-right class="fill-light-gray"/>
     </button>
-    <app-spacer class="my-[50px] bg-lighter-dark" />
+    <app-spacer class="my-[50px] bg-lighter-dark"/>
     <div class="space-y-[18px]">
         <h2 class="font-light uppercase font-monument text-light-gray text-10">crédits + données</h2>
         <p class="text-pink text-14">Ninja Builder est une app de création de personnage proposée pour Naruto jeu de rôle et produite par sa
@@ -168,11 +177,11 @@
         <p class="text-14">
             Nous utilisons ReCaptcha de Google pour éviter les bots. Vous pouvez lire les conditions d’utilisation de ce service ci-dessous.
         </p>
-        <a href="https://policies.google.com/terms" class="black-button h-[55px] w-full max-w-md justify-between text-16">
+        <a class="black-button h-[55px] w-full max-w-md justify-between text-16" href="https://policies.google.com/terms">
             <span>Conditions d’utilisation <span class="text-pink ms-[10px]">Google</span></span>
             <app-arrow-right class="fill-pink"/>
         </a>
-        <a href="https://policies.google.com/privacy" class="black-button h-[55px] w-full max-w-md justify-between text-16">
+        <a class="black-button h-[55px] w-full max-w-md justify-between text-16" href="https://policies.google.com/privacy">
             <span>Règles de confidentialité <span class="text-pink ms-[10px]">Google</span></span>
             <app-arrow-right class="fill-pink"/>
         </a>
@@ -181,8 +190,8 @@
             Si vous souhaitez faire disparaitre toutes vos données et tout vos personnages, c’est juste en dessous. No backup.
         </p>
     </div>
-    <button class="my-[100px] w-full max-w-md black-button h-[55px] text-16 text-red justify-between"
-            (click)="deleteAccountDialog.show()">
+    <button (click)="deleteAccountDialog.show()"
+            class="my-[100px] w-full max-w-md black-button h-[55px] text-16 text-red justify-between">
         Supprimer mon compte
         <app-arrow-right class="fill-light-gray"/>
     </button>

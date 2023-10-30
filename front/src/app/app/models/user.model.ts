@@ -6,17 +6,17 @@ import Character from "./character.model";
  * @class User
  */
 export default class User {
-  _id!: number;
-  email!: string;
-  username?: string;
-  profileImage?: string;
-  isAdmin!: boolean;
-  groups!: {role: "sensei" | "player", group: Group}[];
-  characters!: Character[]
-  discordId?: string;
-  discordUsername?: string;
+    _id!: number;
+    email!: string;
+    username?: string;
+    profileImage?: string;
+    isAdmin!: boolean;
+    groups!: { role: "sensei" | "player", group: Group }[];
+    characters!: Character[]
+    discordId?: string;
+    discordUsername?: string;
 
-  constructor(user: User) {
-    Object.assign(this, user);
-  }
+    constructor(user: User) {
+        Object.assign(this, user);
+    }
 }

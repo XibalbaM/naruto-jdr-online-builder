@@ -12,7 +12,8 @@ import {IdToDataPipe} from "../../shared/pipes/id-to-data.pipe";
 export class CharacterToSkillTotalLevelPipe implements PipeTransform {
 
     constructor(private characterToSkillNaturalLevel: CharacterToSkillNaturalLevelPipe, private characterToBaseLevel: CharacterToBaseLevelPipe,
-                private dataService: DataService, private idToData: IdToDataPipe) {}
+                private dataService: DataService, private idToData: IdToDataPipe) {
+    }
 
     transform(character: Character, skillName: string): number;
     transform(character: Observable<Character>, skillName: string): Observable<number>;

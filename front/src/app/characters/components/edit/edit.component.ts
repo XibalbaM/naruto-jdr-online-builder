@@ -26,13 +26,14 @@ export class EditComponent implements OnInit, AfterViewInit {
     shouldTruncNotes: boolean = false;
     notes!: string;
     characterChakraSpes: { chakraSpe: ChakraSpe, number: number }[] = [];
+    protected readonly name = name;
+    protected readonly Math = Math;
 
     constructor(private activeRoute: ActivatedRoute, protected router: Router, protected auth: Auth,
                 protected dataService: DataService, private idToData: IdToDataPipe, private changeDetectorRef: ChangeDetectorRef,
                 protected env: Environment, private characterService: CharacterService, private notificationService: NotificationService,
                 private title: Title) {
     }
-    protected readonly name = name;
 
     ngAfterViewInit() {
         const notes = document.getElementById('notes')!;
@@ -122,11 +123,9 @@ export class EditComponent implements OnInit, AfterViewInit {
         return this.$character.getValue().bases.find((base) => base.base === skill.base)!.level;
     }
 
-    canBaseLevelReduced(data: {base: Base, level: number}): boolean {
+    canBaseLevelReduced(data: { base: Base, level: number }): boolean {
         return data.level > 1;
     }
-
-    protected readonly Math = Math;
 
     ngOnInit() {
         combineLatest([this.activeRoute.paramMap, this.auth.userObservableOnceLoaded()]).pipe(take(1)).subscribe(([params, user]) => {

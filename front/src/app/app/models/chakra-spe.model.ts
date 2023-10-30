@@ -3,8 +3,8 @@
  * @class ChakraSpe
  */
 export default class ChakraSpe {
-	_id!: string;
-	name!: string;
-	max!: number;
+    _id!: string;
+    name!: string;
+    max!: number;
     effect!: string;
 }

@@ -1,20 +1,20 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-  name: 'roleName'
+    name: 'roleName'
 })
 export class RoleNamePipe implements PipeTransform {
 
-  transform(value: string): string {
-    switch (value) {
-      case 'admin':
-        return 'Admin';
-      case 'player':
-        return 'Joueur-euse';
-      case 'sensei':
-        return 'Sensei';
-      default:
-        return 'Aucun rôle';
+    transform(value: string): string {
+        switch (value) {
+            case 'admin':
+                return 'Admin';
+            case 'player':
+                return 'Joueur-euse';
+            case 'sensei':
+                return 'Sensei';
+            default:
+                return 'Aucun rôle';
+        }
     }
-  }
 }

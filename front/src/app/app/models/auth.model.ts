@@ -23,6 +23,10 @@ export default class Auth {
         this._user.next(user);
     }
 
+    static checkTokenCookie(): boolean {
+        return document.cookie.includes('isLogged=true');
+    }
+
     userObservable(): BehaviorSubject<User | undefined> {
         return this._user;
     }
@@ -39,9 +43,5 @@ export default class Auth {
         return this._user.pipe(
             filter((user): user is User => user !== undefined)
         );
-    }
-
-    static checkTokenCookie(): boolean {
-        return document.cookie.includes('isLogged=true');
     }
 }

@@ -8,7 +8,8 @@ import {DataService} from "../../app/services/data.service";
 })
 export class CharacterToInterceptionsPipe implements PipeTransform {
 
-    constructor(private dataService: DataService) {}
+    constructor(private dataService: DataService) {
+    }
 
     transform(character: Character, type: 'TAI' | 'ARM'): number;
     transform(character: Observable<Character>, type: 'TAI' | 'ARM'): Observable<number>;

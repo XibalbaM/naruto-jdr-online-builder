@@ -9,7 +9,8 @@ import {CharacterToChakraSpeAmountPipe} from "./character-to-chakra-spe-amount.p
 })
 export class CharacterToChakraRegenPipe implements PipeTransform {
 
-    constructor(private characterToMaxChakra: CharacterToMaxChakraPipe, private characterToChakraSpeAmount: CharacterToChakraSpeAmountPipe) {}
+    constructor(private characterToMaxChakra: CharacterToMaxChakraPipe, private characterToChakraSpeAmount: CharacterToChakraSpeAmountPipe) {
+    }
 
     transform(character: Character): number;
     transform(character: Observable<Character>): Observable<number>;

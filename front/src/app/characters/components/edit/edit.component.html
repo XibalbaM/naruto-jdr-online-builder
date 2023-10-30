@@ -32,8 +32,8 @@
 <div *ngIf="$character | async as character">
     <h1 class="font-bold uppercase font-monument text-25">{{character.firstName}} {{(character.clan | idToData:(dataService.clans | async))?.name}}</h1>
     <p class="py-[12px]">
-        <span class="bg-black px-[6px] py-[3px] rounded-[10px] me-[12px]"
-              [ngClass]="(($character | characterToReamingXp | async) || 0) >= 0 ? 'text-blue' : 'text-orange'">
+        <span [ngClass]="(($character | characterToReamingXp | async) || 0) >= 0 ? 'text-blue' : 'text-orange'"
+              class="bg-black px-[6px] py-[3px] rounded-[10px] me-[12px]">
             {{(($character | characterToReamingXp | async) || 0) >= 0 ? '↑' : '↓'}} {{Math.abs(($character | characterToReamingXp | async) || 0)}} <span
                 class="text-dark-gray">/</span> {{character.xp}}
         </span>
@@ -46,15 +46,15 @@
         </span>
     </p>
     <div class="flex flex-row flex-wrap gap-x-[8px] gap-y-[8px]">
-        <div class="flex flex-row items-center bg-black py-[12px] px-[18px] rounded-[22px]"
-             *ngIf="(character.clan | idToData:dataService.clans.value) as clan">
-            <img class="x-[25px] h-[25px] me-[12px]" [src]="env.api_url + '/assets/clans/' + clan.name.toLowerCase() + '-purple.svg'"
-                 alt="Symbole du clan du ninja"/>
+        <div *ngIf="(character.clan | idToData:dataService.clans.value) as clan"
+             class="flex flex-row items-center bg-black py-[12px] px-[18px] rounded-[22px]">
+            <img [src]="env.api_url + '/assets/clans/' + clan.name.toLowerCase() + '-purple.svg'" alt="Symbole du clan du ninja"
+                 class="x-[25px] h-[25px] me-[12px]"/>
             Clan {{clan.name}}
         </div>
-        <img class="border py-[12px] px-[18px] border-dark-gray rounded-[22px]"
-             [src]="env.api_url + '/assets/villages/' + ((character.village | idToData:dataService.villages.value)?.name || '').toLowerCase() + '-purple.svg'"
-             alt="Symbole du Village du ninja"/>
+        <img [src]="env.api_url + '/assets/villages/' + ((character.village | idToData:dataService.villages.value)?.name || '').toLowerCase() + '-purple.svg'"
+             alt="Symbole du Village du ninja"
+             class="border py-[12px] px-[18px] border-dark-gray rounded-[22px]"/>
         <div *ngIf="(character.road | idToData:dataService.roads.getValue()) as road"
              class="flex flex-row items-center bg-black py-[12px] px-[18px] rounded-[22px]">
             {{road.name + ', ' + road.qualification}}
@@ -67,11 +67,11 @@
             <app-spacer class="bg-light-dark my-[8px]"/>
             <div *ngIf="(baseData.base | idToData:(dataService.bases | async)) as base"
                  class="flex flex-row items-center justify-between">
-                <a class="flex w-full flex-row items-center space-x-[12px] h-[38px]"
-                   [routerLink]="'base/' + base._id">
-                    <img class="w-[32px] h-[32px] p-[9px] bg-pink rounded-[10px]"
-                         [src]="env.api_url + '/assets/bases/' + base.shortName.toLowerCase() + '.svg'"
-                         alt="Icon de la base">
+                <a [routerLink]="'base/' + base._id"
+                   class="flex w-full flex-row items-center space-x-[12px] h-[38px]">
+                    <img [src]="env.api_url + '/assets/bases/' + base.shortName.toLowerCase() + '.svg'"
+                         alt="Icon de la base"
+                         class="w-[32px] h-[32px] p-[9px] bg-pink rounded-[10px]">
                     <span>{{base.fullName}}</span>
                     <span class="text-gray-zambezi">({{base.shortName}})</span>
                     <span class="border text-16 text-yellow px-[12px] py-[3px] bg-light-dark border-lighter-dark rounded-[8px]">{{baseData.level}}</span>
@@ -95,26 +95,26 @@
             <p class="stat-box">
                 Vigueur
                 <span class="text-yellow ms-[12px] stat-box__value">{{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)!}}</span>
-                <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Élémentaires' | async)! > 0">
+                <span *ngIf="($character | characterToSkillNaturalLevel:'Résistances Élémentaires' | async)! > 0" class="text-pink ms-[12px] stat-box__value">
                         ELEM
                         <span class="text-white">
                             {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Élémentaires" | async)!}}
                         </span>
                     </span>
-                <span class="text-pink ms-[12px] stat-box__value"
-                      *ngIf="($character | characterToSkillNaturalLevel:'Résistances Environnementales' | async)! > 0">
+                <span *ngIf="($character | characterToSkillNaturalLevel:'Résistances Environnementales' | async)! > 0"
+                      class="text-pink ms-[12px] stat-box__value">
                         ENVI
                         <span class="text-white">
                             {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Environnementales" | async)!}}
                         </span>
                     </span>
-                <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Physiques' | async)! > 0">
+                <span *ngIf="($character | characterToSkillNaturalLevel:'Résistances Physiques' | async)! > 0" class="text-pink ms-[12px] stat-box__value">
                         PHY
                         <span class="text-white">
                             {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Physiques" | async)!}}
                         </span>
                     </span>
-                <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Émotionnelles' | async)! > 0">
+                <span *ngIf="($character | characterToSkillNaturalLevel:'Résistances Émotionnelles' | async)! > 0" class="text-pink ms-[12px] stat-box__value">
                         EMO
                         <span class="text-white">
                             {{2 + ($character | characterToBaseLevel:'COR' | async)! + ($character | characterToChakraSpeAmount:'Endurci' | async)! + ($character | characterToSkillReinforcement:"Résistances Émotionnelles" | async)!}}
@@ -124,7 +124,7 @@
             <p class="stat-box">
                 Caractère
                 <span class="text-yellow ms-[12px] stat-box__value">{{2 + ($character | characterToBaseLevel:'ESP' | async)! + ($character | characterToChakraSpeAmount:'Impérieux' | async)!}}</span>
-                <span class="text-pink ms-[12px] stat-box__value" *ngIf="($character | characterToSkillNaturalLevel:'Résistances Psychiques' | async)! > 0">
+                <span *ngIf="($character | characterToSkillNaturalLevel:'Résistances Psychiques' | async)! > 0" class="text-pink ms-[12px] stat-box__value">
                         PSY
                         <span class="text-white">
                             {{2 + ($character | characterToBaseLevel:'ESP' | async)! + ($character | characterToChakraSpeAmount:'Impérieux' | async)! + ($character | characterToSkillReinforcement:"Résistances Psychiques" | async)!}}
@@ -190,15 +190,15 @@
     <section class="relative z-10 mt-[50px] py-[50px]">
         <app-bg class="bg-black"/>
         <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[10px]">compétences communes</h2>
-        <app-skill-item *ngFor="let skill of commonSkills" [skill]="skill" [baseLevel]="getBaseLevelBySkill(skill.skill)"
-                        (changeValue)="setSkillLevel(skill.skill, $event)"/>
+        <app-skill-item (changeValue)="setSkillLevel(skill.skill, $event)" *ngFor="let skill of commonSkills" [baseLevel]="getBaseLevelBySkill(skill.skill)"
+                        [skill]="skill"/>
         <app-spacer class="bg-light-dark mt-[8px] mb-[50px]"/>
         <h2 class="flex flex-row items-center mb-[10px]">
             <span class="stat-box__value text-blue me-[12px] h-[26px]">{{$character | characterToMaxSkillCount | async}}</span>
             <span class="font-light uppercase text-light-gray text-10 font-monument">compétences <br/>combat, terrain, clan</span>
         </h2>
-        <app-skill-item *ngFor="let skill of uncommonSkills" [skill]="skill" [baseLevel]="getBaseLevelBySkill(skill.skill)"
-                        (changeValue)="setSkillLevel(skill.skill, $event)"/>
+        <app-skill-item (changeValue)="setSkillLevel(skill.skill, $event)" *ngFor="let skill of uncommonSkills" [baseLevel]="getBaseLevelBySkill(skill.skill)"
+                        [skill]="skill"/>
         <app-spacer class="bg-light-dark mt-[8px]"/>
     </section>
     <section class="relative z-10 py-[50px]">
@@ -231,8 +231,8 @@
             <app-spacer class="bg-light-dark my-[12px]"/>
         </div>
         <a *ngIf="((($character | characterToMaxChakraSpes | async) || 0) - character.chakraSpes.length) > 0;else noNewSpe"
-           routerLink="specialisations-de-chakra"
-                class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90">
+           class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90"
+           routerLink="specialisations-de-chakra">
             <div>
                 <span class="stat-box__value text-blue me-[10px] h-[26px]">{{(($character | characterToMaxChakraSpes | async) || 0) - character.chakraSpes.length}}</span>
                 Spécialisation{{((($character | characterToMaxChakraSpes | async) || 0) - character.chakraSpes.length) > 1 ? 's' : ''}} de chakra
@@ -257,7 +257,7 @@
                 <markdown-it [markdown]="notes" class="inline"/>
                 <span *ngIf="shouldTruncNotes">...</span>
             </p>
-            <button *ngIf="shouldTruncNotes" (click)="shouldTruncNotes = false" class="mt-[12px] mb-[30px] text-pink hover:underline">Tout lire</button>
+            <button (click)="shouldTruncNotes = false" *ngIf="shouldTruncNotes" class="mt-[12px] mb-[30px] text-pink hover:underline">Tout lire</button>
             <app-spacer class="bg-light-dark mb-[18px]"/>
             <a class="flex w-full max-w-md flex-row items-center justify-between border bg-black border-lighter-dark rounded-[10px] px-[24px] py-[18px] hover:bg-dark"
                routerLink="notes">

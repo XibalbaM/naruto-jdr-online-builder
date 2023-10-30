@@ -88,7 +88,7 @@ import {MinusSymbolComponent} from './components/minus-symbol/minus-symbol.compo
     providers: [
         RoleNamePipe,
         XpToRankPipe,
-		IdToDataPipe
+        IdToDataPipe
     ]
 })
 export class SharedModule {

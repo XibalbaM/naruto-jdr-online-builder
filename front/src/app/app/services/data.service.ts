@@ -32,6 +32,34 @@ export class DataService {
     constructor(private apiService: ApiService) {
     }
 
+    get villages(): BehaviorSubject<Village[]> {
+        return this.datas.villages;
+    }
+
+    get bases(): BehaviorSubject<Base[]> {
+        return this.datas.bases;
+    }
+
+    get clans(): BehaviorSubject<Clan[]> {
+        return this.datas.clans;
+    }
+
+    get roads(): BehaviorSubject<Road[]> {
+        return this.datas.roads;
+    }
+
+    get skills(): BehaviorSubject<Skill[]> {
+        return this.datas.skills;
+    }
+
+    get ranks(): BehaviorSubject<Rank[]> {
+        return this.datas.ranks;
+    }
+
+    get chakraSpes(): BehaviorSubject<ChakraSpe[]> {
+        return this.datas.chakraSpes;
+    }
+
     /**
      * Initialize the data service by getting all the data from the API and then updating it every 2 hours
      */
@@ -81,33 +109,5 @@ export class DataService {
                 localStorage.removeItem(dataId);
             }
         });
-    }
-
-    get villages(): BehaviorSubject<Village[]> {
-        return this.datas.villages;
-    }
-
-    get bases(): BehaviorSubject<Base[]> {
-        return this.datas.bases;
-    }
-
-    get clans(): BehaviorSubject<Clan[]> {
-        return this.datas.clans;
-    }
-
-    get roads(): BehaviorSubject<Road[]> {
-        return this.datas.roads;
-    }
-
-    get skills(): BehaviorSubject<Skill[]> {
-        return this.datas.skills;
-    }
-
-    get ranks(): BehaviorSubject<Rank[]> {
-        return this.datas.ranks;
-    }
-
-    get chakraSpes(): BehaviorSubject<ChakraSpe[]> {
-        return this.datas.chakraSpes;
     }
 }

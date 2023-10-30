@@ -9,9 +9,10 @@ import {DataService} from "../../../app/services/data.service";
 })
 export class SkillItemComponent {
 
-    @Input() skill!: {skill: Skill, level: number};
+    @Input() skill!: { skill: Skill, level: number };
     @Input() baseLevel!: number;
     @Output() changeValue = new EventEmitter<number>();
 
-    constructor(protected dataService: DataService) {}
+    constructor(protected dataService: DataService) {
+    }
 }

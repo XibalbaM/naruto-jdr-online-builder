@@ -9,38 +9,38 @@ import {ReCaptchaV3Service} from "ngx-captcha";
 import Environment from "../../../../../environments/environment.interface";
 
 @Component({
-	selector: 'app-third-step',
-	templateUrl: './third-step.component.html',
-	styleUrls: ['./third-step.component.scss']
+    selector: 'app-third-step',
+    templateUrl: './third-step.component.html',
+    styleUrls: ['./third-step.component.scss']
 })
 export class ThirdStepComponent implements OnInit, OnDestroy {
     clanSkills: string[] = !this.creationService.character.road
         ? this.idToData.transform(this.creationService.character.clan, this.dataService.clans.getValue())?.line.skills || []
         : [];
-	uncommonSkills: Skill[] = this.dataService.skills.getValue().filter(skill => skill.type !== 'common' && skill.type !== 'clan').filter(skill => !this.clanSkills.includes(skill._id));
-	skillIds: string[] = this.creationService.tempSkillIds.length > 0 ? this.creationService.tempSkillIds : [...this.clanSkills];
+    uncommonSkills: Skill[] = this.dataService.skills.getValue().filter(skill => skill.type !== 'common' && skill.type !== 'clan').filter(skill => !this.clanSkills.includes(skill._id));
+    skillIds: string[] = this.creationService.tempSkillIds.length > 0 ? this.creationService.tempSkillIds : [...this.clanSkills];
 
-	constructor(protected creationService: CreationService, private router: Router, protected dataService: DataService,
+    constructor(protected creationService: CreationService, private router: Router, protected dataService: DataService,
                 private notificationService: NotificationService, private idToData: IdToDataPipe, private captchaService: ReCaptchaV3Service,
                 private env: Environment) {
-	}
+    }
 
-	ngOnInit(): void {
-		if (this.creationService.step !== 3) {
-			this.router.navigate(['/personnages/creation/' + this.creationService.step]);
-		}
-	}
+    ngOnInit(): void {
+        if (this.creationService.step !== 3) {
+            this.router.navigate(['/personnages/creation/' + this.creationService.step]);
+        }
+    }
 
     ngOnDestroy() {
         this.creationService.tempSkillIds = this.skillIds;
     }
 
     back() {
-		this.router.navigateByUrl("/personnages/creation/" + --this.creationService.step)
-	}
+        this.router.navigateByUrl("/personnages/creation/" + --this.creationService.step)
+    }
 
-	submit() {
-		if (this.skillIds.length === 5) {
+    submit() {
+        if (this.skillIds.length === 5) {
             this.captchaService.execute(this.env.recaptchaSiteKey, 'character_creation', (token) => {
                 this.creationService.stepThree(this.skillIds, token).subscribe(({success, id}) => {
                     if (success) {
@@ -49,19 +49,19 @@ export class ThirdStepComponent implements OnInit, OnDestroy {
                         this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la création du personnage.");
                     }
                 });
-            }, {}, (error) => {
+            }, {}, () => {
                 this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la validation du captcha. Réessayez dans quelques secondes ou contactez nous !");
             })
-		}
-	}
+        }
+    }
 
-	addSkill(skill: Skill) {
-		if (!this.skillIds.includes(skill._id)) {
-			if (5 - this.skillIds.length > 0) {
-				this.skillIds.push(skill._id);
-			}
-		} else {
-			this.skillIds = this.skillIds.filter(id => id !== skill._id);
-		}
-	}
+    addSkill(skill: Skill) {
+        if (!this.skillIds.includes(skill._id)) {
+            if (5 - this.skillIds.length > 0) {
+                this.skillIds.push(skill._id);
+            }
+        } else {
+            this.skillIds = this.skillIds.filter(id => id !== skill._id);
+        }
+    }
 }

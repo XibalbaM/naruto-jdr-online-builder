@@ -14,7 +14,8 @@ export class PredrawnComponent implements OnInit {
     characters?: Character[];
     characterToAdd?: Character;
 
-    constructor(protected auth: Auth, protected predrawnService: PredrawnService, protected dataService: DataService) {}
+    constructor(protected auth: Auth, protected predrawnService: PredrawnService, protected dataService: DataService) {
+    }
 
     ngOnInit() {
         this.predrawnService.getPredrawnCharacters().subscribe((characters) => {

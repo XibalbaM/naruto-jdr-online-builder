@@ -5,71 +5,74 @@
         Retour
     </a>
     <h1 class="text-20 text-center w-full flex-shrink">Modifier</h1>
-    <p class="flex-shrink-0 px-[6px] py-[3px] bg-light-dark rounded-[6px] ms-[10px]"
-       [ngClass]="(character | characterToReamingXp) >= 0 ? 'text-blue' : 'text-orange'">{{(character | characterToReamingXp) >= 0 ? '↑' : '↓'}} {{character | characterToReamingXp}}
+    <p [ngClass]="(character | characterToReamingXp) >= 0 ? 'text-blue' : 'text-orange'"
+       class="flex-shrink-0 px-[6px] py-[3px] bg-light-dark rounded-[6px] ms-[10px]">{{(character | characterToReamingXp) >= 0 ? '↑' : '↓'}} {{character | characterToReamingXp}}
         EXP</p>
 </div>
-<form class="w-full max-w-md" (ngSubmit)="submit()">
+<form (ngSubmit)="submit()" class="w-full max-w-md">
     <div class="flex w-full mt-[50px] h-[52px]">
         <div class="flex-shrink flex-grow labeled-select mr-[12px]">
             <label>Village</label>
-            <select disabled name="village" [(ngModel)]="village" class="!text-yellow pl-[83px]">
+            <select [(ngModel)]="village" class="!text-yellow pl-[83px]" disabled name="village">
                 <option *ngFor="let village of dataService.villages | async"
                         [ngValue]="village">{{village.name | titlecase}}</option>
             </select>
         </div>
         <div class="flex flex-shrink-0 items-center gray-box w-[52px]">
-            <img class="mx-auto" [src]="currentVillageLogo()" alt="Logo du village">
+            <img [src]="currentVillageLogo()" alt="Logo du village" class="mx-auto">
         </div>
     </div>
     <app-spacer class="my-[18px] bg-lighter-dark"></app-spacer>
     <div class="labeled-input">
         <label>Prénom</label>
-        <input type="text" name="firstName" [(ngModel)]="firstName" class="!text-yellow pl-[90px]"
-               placeholder="Ex: Mitsuo">
+        <input [(ngModel)]="firstName" class="!text-yellow pl-[90px]" name="firstName" placeholder="Ex: Mitsuo"
+               type="text">
     </div>
     <div class="flex w-full mt-[18px] h-[52px]">
         <div class="flex-shrink flex-grow labeled-select mr-[12px]">
             <label>Clan</label>
-            <select name="clan" [(ngModel)]="clan" class="pl-[69px]" [class.!text-yellow]="clan">
-                <option selected disabled class="text-light-gray" [ngValue]="undefined">Choisir parmi la liste</option>
-                <option class="text-yellow" *ngFor="let clan of ($clans | async)"
-                        [ngValue]="clan">{{clan.name | titlecase}}</option>
+            <select [(ngModel)]="clan" [class.!text-yellow]="clan" class="pl-[69px]" name="clan">
+                <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
+                <option *ngFor="let clan of ($clans | async)" [ngValue]="clan"
+                        class="text-yellow">{{clan.name | titlecase}}</option>
             </select>
         </div>
-        <div class="flex flex-shrink-0 items-center gray-box w-[52px]" [class.!bg-black]="!clan">
-            <img class="mx-auto x-[25px] h-[25px]" [src]="currentClanLogo()" alt="">
+        <div [class.!bg-black]="!clan" class="flex flex-shrink-0 items-center gray-box w-[52px]">
+            <img [src]="currentClanLogo()" alt="" class="mx-auto x-[25px] h-[25px]">
         </div>
     </div>
-    <div class="flex w-full flex-row items-center rounded-xl border h-[55px] p-[16px] border-lighter-dark mt-[18px]"
-         (click)="isRoadElement.checked = !isRoadElement.checked; isRoad = !isRoad">
-        <input #isRoadElement type="checkbox" id="isRoad" name="isRoad" [(ngModel)]="isRoad"
-               class="pointer-events-none appearance-none rounded-md border w-[21px] h-[21px] bg-light-dark border-lighter-dark checked:bg-yellow">
-        <label for="isRoad" class="pointer-events-none ms-[15px]">Je souhaite une Voie, pas une Lignée</label>
+    <div (click)="isRoadElement.checked = !isRoadElement.checked; isRoad = !isRoad"
+         class="flex w-full flex-row items-center rounded-xl border h-[55px] p-[16px] border-lighter-dark mt-[18px]">
+        <input #isRoadElement [(ngModel)]="isRoad"
+               class="pointer-events-none appearance-none rounded-md border w-[21px] h-[21px] bg-light-dark border-lighter-dark checked:bg-yellow" id="isRoad"
+               name="isRoad"
+               type="checkbox">
+        <label class="pointer-events-none ms-[15px]" for="isRoad">Je souhaite une Voie, pas une Lignée</label>
     </div>
     <div *ngIf="isRoad" class="labeled-select mt-[18px]">
         <label>Voie</label>
-        <select name="road" [(ngModel)]="road" class="pl-[69px]" [class.!text-yellow]="road">
-            <option selected disabled class="text-light-gray" [ngValue]="undefined">Choisir parmi la liste</option>
-            <option class="text-yellow" *ngFor="let road of dataService.roads | async"
-                    [ngValue]="road">{{road.name + " - " + road.qualification}}</option>
+        <select [(ngModel)]="road" [class.!text-yellow]="road" class="pl-[69px]" name="road">
+            <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
+            <option *ngFor="let road of dataService.roads | async" [ngValue]="road"
+                    class="text-yellow">{{road.name + " - " + road.qualification}}</option>
         </select>
     </div>
     <div class="labeled-input mt-[18px]">
         <label>Points d’expérience</label>
-        <input type="number" name="xp" required [(ngModel)]="xp" class="!text-yellow pl-[166px]">
+        <input [(ngModel)]="xp" class="!text-yellow pl-[166px]" name="xp" required type="number">
     </div>
     <div class="labeled-select mt-[18px]">
         <label>Rang</label>
-        <select name="rank" [(ngModel)]="rank" class="pl-[69px]" [class.!text-yellow]="rank">
-            <option selected disabled class="text-light-gray" [ngValue]="undefined">Choisir parmi la liste</option>
-            <option class="text-yellow" *ngFor="let rank of dataService.ranks | async"
-                    [ngValue]="rank">{{rank.name}}</option>
+        <select [(ngModel)]="rank" [class.!text-yellow]="rank" class="pl-[69px]" name="rank">
+            <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
+            <option *ngFor="let rank of dataService.ranks | async" [ngValue]="rank"
+                    class="text-yellow">{{rank.name}}</option>
         </select>
     </div>
     <!--TODO-->
-    <button [disabled]="!hasChanges()" type="submit" class="bg-purple rounded-[10px] w-full py-[18px] mt-[50px] enabled:hover:bg-opacity-95
-                                                            disabled:bg-transparent disabled:border disabled:text-dark-gray disabled:border-lighter-dark">
+    <button [disabled]="!hasChanges()" class="bg-purple rounded-[10px] w-full py-[18px] mt-[50px] enabled:hover:bg-opacity-95
+                                                            disabled:bg-transparent disabled:border disabled:text-dark-gray disabled:border-lighter-dark"
+            type="submit">
         Sauvegarder
     </button>
 </form>

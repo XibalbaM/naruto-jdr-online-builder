@@ -3,13 +3,13 @@ import Character from "../../app/models/character.model";
 import {map, Observable} from "rxjs";
 
 @Pipe({
-	name: 'characterToMaxSkillCount'
+    name: 'characterToMaxSkillCount'
 })
 export class CharacterToMaxSkillCountPipe implements PipeTransform {
 
     transform(character: Character): number;
     transform(character: Observable<Character>): Observable<number>;
-	transform(character: Character | Observable<Character>): number | Observable<number>{
+    transform(character: Character | Observable<Character>): number | Observable<number> {
         if (character instanceof Observable) {
             return character.pipe(
                 map(character => this.processCharacter(character))

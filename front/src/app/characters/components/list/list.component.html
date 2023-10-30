@@ -3,8 +3,8 @@
 <h2 class="text-14 text-gray">Naruto jeu de rôle</h2>
 <app-spacer-graphical class="my-[50px]"/>
 <app-character-list-preview *ngFor="let character of (auth.userObservableOnceLoaded() | async)?.characters" [character]="character"/>
-<a routerLink="/personnages/creation"
-   class="w-full justify-center black-button h-[76px] mb-[50px]">
+<a class="w-full justify-center black-button h-[76px] mb-[50px]"
+   routerLink="/personnages/creation">
     <app-plus-symbol class="fill-pink"/>
 </a>
 <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[18px]">commu</h2>

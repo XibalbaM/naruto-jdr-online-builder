@@ -11,9 +11,8 @@ import {DataService} from "../../../app/services/data.service";
 export class CharacterListPreviewComponent {
 
     @Input() character!: Character;
+    protected readonly Math = Math;
 
     constructor(protected env: Environment, protected dataService: DataService) {
     }
-
-    protected readonly Math = Math;
 }

@@ -18,7 +18,8 @@ export class HomeComponent implements OnInit {
     characterToChange?: Character;
     readonly = false;
 
-    constructor(private predrawnService: PredrawnService, private auth: Auth, protected dataService: DataService, private notificationService: NotificationService) {}
+    constructor(private predrawnService: PredrawnService, private auth: Auth, protected dataService: DataService, private notificationService: NotificationService) {
+    }
 
     ngOnInit() {
         zip(this.auth.userObservableOnceLoaded(), this.predrawnService.getPredrawnCharacters()).subscribe(([user, predrawnCharacters]) => {

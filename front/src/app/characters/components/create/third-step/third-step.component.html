@@ -33,8 +33,9 @@
     compétences à choisir
 </h3>
 <div class="grid grid-cols-1 gap-[10px] md:grid-cols-2 lg:grid-cols-3">
-    <button (click)="addSkill(skill)" *ngFor="let skill of uncommonSkills" class="col-span-1 row-span-1 max-w-md text-start h-[48px] px-[24px] text-14"
-            [ngClass]="skillIds.includes(skill._id) ? 'gray-box text-yellow hover:bg-lighter-dark' : 'black-box hover:bg-dark'">
+    <button (click)="addSkill(skill)" *ngFor="let skill of uncommonSkills"
+            [ngClass]="skillIds.includes(skill._id) ? 'gray-box text-yellow hover:bg-lighter-dark' : 'black-box hover:bg-dark'"
+            class="col-span-1 row-span-1 max-w-md text-start h-[48px] px-[24px] text-14">
         {{skill.name}} ({{(skill.base | idToData:dataService.bases.getValue())?.shortName}})
     </button>
 </div>
@@ -42,8 +43,8 @@
 <div class="flex max-w-md flex-row mb-[120px]">
     <button (click)="back()" class="flex items-center rounded-xl border h-[52px] px-[28px] border-lighter-dark me-[12px]">Retour</button>
     <button (click)="submit()"
-            class="flex flex-grow items-center justify-center rounded-xl h-[52px] bg-purple group disabled:text-dark-gray disabled:cursor-default disabled:bg-black"
-            [disabled]="skillIds.length !== 5">
+            [disabled]="skillIds.length !== 5"
+            class="flex flex-grow items-center justify-center rounded-xl h-[52px] bg-purple group disabled:text-dark-gray disabled:cursor-default disabled:bg-black">
         Finaliser
         <app-long-arrow-right class="fill-white ms-[10px] group-disabled:fill-dark-gray"/>
     </button>

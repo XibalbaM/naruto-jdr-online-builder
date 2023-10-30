@@ -13,7 +13,8 @@ import Auth from "../models/auth.model";
  */
 export class AdminGuard {
 
-    constructor(private router: Router, private auth: Auth) {}
+    constructor(private router: Router, private auth: Auth) {
+    }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         return this.auth.userObservableOnceLoaded().pipe(

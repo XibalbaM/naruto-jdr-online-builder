@@ -17,6 +17,7 @@ export class EditComponent {
     deleteNameConfirm = "";
     newEmail?: string = undefined;
     newEmailConfirm = "";
+    protected readonly console = console;
 
     constructor(public auth: Auth, private accountService: AccountService, private router: Router,
                 private notificationService: NotificationService, private authService: AuthService, protected env: Environment) {
@@ -84,6 +85,4 @@ export class EditComponent {
             }
         );
     }
-
-    protected readonly console = console;
 }

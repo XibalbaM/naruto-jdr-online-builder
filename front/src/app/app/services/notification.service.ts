@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 /**
  * Service to manage the notifications.
@@ -11,19 +11,20 @@ import {BehaviorSubject} from "rxjs";
  */
 export class NotificationService {
 
-  private _$notification = new BehaviorSubject<{ title: string, content: string } | undefined>(undefined);
+    constructor() {
+    }
 
-  constructor() { }
+    private _$notification = new BehaviorSubject<{ title: string, content: string } | undefined>(undefined);
 
-  get $notification(): BehaviorSubject<{ title: string, content: string } | undefined> {
-    return this._$notification;
-  }
+    get $notification(): BehaviorSubject<{ title: string, content: string } | undefined> {
+        return this._$notification;
+    }
 
-  showNotification(title: string, message: string) {
-    this._$notification.next({title, content: message});
-  }
+    showNotification(title: string, message: string) {
+        this._$notification.next({title, content: message});
+    }
 
-  hideNotification() {
-    this._$notification.next(undefined);
-  }
+    hideNotification() {
+        this._$notification.next(undefined);
+    }
 }

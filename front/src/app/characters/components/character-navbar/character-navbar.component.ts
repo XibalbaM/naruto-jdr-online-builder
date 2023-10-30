@@ -11,9 +11,9 @@ import {Router} from "@angular/router";
 import {NotificationService} from "../../../app/services/notification.service";
 
 @Component({
-  selector: 'app-character-navbar',
-  templateUrl: './character-navbar.component.html',
-  styleUrls: ['./character-navbar.component.scss']
+    selector: 'app-character-navbar',
+    templateUrl: './character-navbar.component.html',
+    styleUrls: ['./character-navbar.component.scss']
 })
 export class CharacterNavbarComponent {
 
@@ -21,6 +21,9 @@ export class CharacterNavbarComponent {
     navbarData = inject(NAVBAR_DATA_TOKEN);
     deleteNameConfirm = ""
     isShiftPressed = new BehaviorSubject<boolean>(false);
+    protected readonly Math = Math;
+    protected readonly NgxPopperjsTriggers = NgxPopperjsTriggers;
+    protected readonly NgxPopperjsPlacements = NgxPopperjsPlacements;
 
     constructor(private auth: Auth, protected dataService: DataService, private idToData: IdToDataPipe,
                 private characterService: CharacterService, private router: Router, private notificationService: NotificationService) {
@@ -79,8 +82,4 @@ export class CharacterNavbarComponent {
             })
         }
     }
-
-    protected readonly Math = Math;
-    protected readonly NgxPopperjsTriggers = NgxPopperjsTriggers;
-    protected readonly NgxPopperjsPlacements = NgxPopperjsPlacements;
 }
