@@ -134,9 +134,9 @@ export default class CharactersService {
     }
 
     private static async calculateMaxChakraSpes(character: Character): Promise<number> {
-        const corBaseId = (await BaseModel.findOne({shortName: "COR"}))._id;
-        const espBaseId = (await BaseModel.findOne({shortName: "ESP"}))._id;
-        const chakraControl = character.bases.filter(base => base.base === corBaseId || base.base === espBaseId).reduce((acc, base) => acc + base.level, 0);
+        const corBaseId = (await BaseModel.findOne({shortName: "COR"}))._id.toString();
+        const espBaseId = (await BaseModel.findOne({shortName: "ESP"}))._id.toString();
+        const chakraControl = character.bases.filter(base => base.base.toString() === corBaseId || base.base.toString() === espBaseId).reduce((acc, base) => acc + base.level, 0);
         let maxChakraSpes = 1;
         if (chakraControl >= 5) {
             maxChakraSpes += 1;
