@@ -11,6 +11,7 @@ import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import Base from "../../../app/models/base.model";
 import {Title} from "@angular/platform-browser";
+import ChakraSpe from "../../../app/models/chakra-spe.model";
 
 @Component({
     selector: 'app-edit',
@@ -24,34 +25,14 @@ export class EditComponent implements OnInit, AfterViewInit {
     uncommonSkills: { skill: Skill, level: number }[] = [];
     shouldTruncNotes: boolean = false;
     notes!: string;
+    characterChakraSpes: { chakraSpe: ChakraSpe, number: number }[] = [];
 
     constructor(private activeRoute: ActivatedRoute, protected router: Router, protected auth: Auth,
                 protected dataService: DataService, private idToData: IdToDataPipe, private changeDetectorRef: ChangeDetectorRef,
                 protected env: Environment, private characterService: CharacterService, private notificationService: NotificationService,
                 private title: Title) {
     }
-
-    ngOnInit() {
-        combineLatest([this.activeRoute.paramMap, this.auth.userObservableOnceLoaded()]).subscribe(([params, user]) => {
-            if (params.get('characterId') && user?.characters.find((character: Character) => character._id === params.get('characterId'))) {
-                this.$character.subscribe((character) => {
-                    const skills = character.skills.filter(skill => skill.level > 0).map((data: { skill: string, level: number }) => {
-                        return {
-                            skill: this.idToData.transform(data.skill, this.dataService.skills.value)!,
-                            level: data.level
-                        }
-                    });
-                    this.commonSkills = skills.filter((data: { skill: Skill, level: number }) => data.skill.type === 'common');
-                    this.uncommonSkills = skills.filter((data: { skill: Skill, level: number }) => data.skill.type !== 'common');
-                });
-                this.$character.next(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
-                this.notes = this.$character.value.notes || "Pas encore de notes.";
-                this.title.setTitle(`${this.$character.getValue().firstName} ${this.idToData.transform(this.$character.getValue().clan, this.dataService.clans.getValue())?.name}, Fiche de personnage — Naruto jdr`)
-            } else {
-                this.router.navigate(['/personnages']);
-            }
-        });
-    }
+    protected readonly name = name;
 
     ngAfterViewInit() {
         const notes = document.getElementById('notes')!;
@@ -146,4 +127,34 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     protected readonly Math = Math;
+
+    ngOnInit() {
+        combineLatest([this.activeRoute.paramMap, this.auth.userObservableOnceLoaded()]).subscribe(([params, user]) => {
+            if (params.get('characterId') && user?.characters.find((character: Character) => character._id === params.get('characterId'))) {
+                this.$character.subscribe((character) => {
+                    const skills = character.skills.filter(skill => skill.level > 0).map((data: { skill: string, level: number }) => {
+                        return {
+                            skill: this.idToData.transform(data.skill, this.dataService.skills.value)!,
+                            level: data.level
+                        }
+                    });
+                    this.commonSkills = skills.filter((data: { skill: Skill, level: number }) => data.skill.type === 'common');
+                    this.uncommonSkills = skills.filter((data: { skill: Skill, level: number }) => data.skill.type !== 'common');
+                });
+                this.$character.next(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
+                this.notes = this.$character.value.notes || "Pas encore de notes.";
+                this.$character.getValue().chakraSpes.forEach((chakraSpe) => {
+                    const chakraSpeData = this.characterChakraSpes.find(spe => spe.chakraSpe._id === chakraSpe);
+                    if (chakraSpeData) {
+                        this.characterChakraSpes.push({chakraSpe: chakraSpeData.chakraSpe, number: chakraSpeData.number + 1});
+                    } else {
+                        this.characterChakraSpes.push({chakraSpe: this.idToData.transform(chakraSpe, this.dataService.chakraSpes.value)!, number: 1});
+                    }
+                });
+                this.title.setTitle(`${this.$character.getValue().firstName} ${this.idToData.transform(this.$character.getValue().clan, this.dataService.clans.getValue())?.name}, Fiche de personnage — Naruto jdr`)
+            } else {
+                this.router.navigate(['/personnages']);
+            }
+        });
+    }
 }

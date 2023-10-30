@@ -235,16 +235,17 @@
             <span class="font-light uppercase text-light-gray text-10 font-monument">spécialisations de chakra</span>
         </h2>
         <app-spacer class="bg-light-dark mb-[12px]"/>
-        <div *ngFor="let spe of character.chakraSpes">
-            <!--<p class="mb-[12px]">
-                {{spe}}
-                <span class="stat-box__value text-yellow mx-[12px]">x{{spe.level}}</span>
+        <div *ngFor="let spe of characterChakraSpes">
+            <p class="mb-[12px]">
+                {{spe.chakraSpe.name}}
+                <span class="stat-box__value text-yellow mx-[12px]">{{spe.number}}</span>
                 <span class="text-dark-gray">{{spe.chakraSpe.max}} Max</span>
             </p>
-            <p class="bg-light-gray">{{spe.chakraSpe.effect | weightChakraSpeEffectByAmount:spe.level}}</p>
-            <app-spacer class="bg-light-dark my-[12px]"/>-->
+            <p class="text-light-gray">{{spe.chakraSpe.effect}}</p>
+            <app-spacer class="bg-light-dark my-[12px]"/>
         </div>
-        <a *ngIf="((($character | characterToMaxChakraSpes | async) || 0) - character.chakraSpes.length) > 0" routerLink="specialisations-de-chakra"
+        <a *ngIf="((($character | characterToMaxChakraSpes | async) || 0) - character.chakraSpes.length) > 0;else noNewSkill"
+           routerLink="specialisations-de-chakra"
                 class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90">
             <div>
                 <span class="stat-box__value text-blue me-[10px] h-[26px]">{{(($character | characterToMaxChakraSpes | async) || 0) - character.chakraSpes.length}}</span>
@@ -256,6 +257,17 @@
                       fill="white"/>
             </svg>
         </a>
+        <ng-template #noNewSkill>
+            <a class="flex w-full max-w-md flex-row items-center justify-between px-[28px] py-[17px] rounded-[10px] border border-lighter-dark hover:bg-dark"
+               routerLink="specialisations-de-chakra">
+                <span>
+                    Modifier
+                </span>
+                <svg class="fill-pink" height="10" viewBox="0 0 6 10" width="6" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.266515 8.46756L3.80182 4.99553L0.266515 1.52349C-0.0888383 1.1745 -0.0888383 0.610738 0.266515 0.261745C0.621868 -0.0872483 1.1959 -0.0872483 1.55125 0.261745L5.73349 4.36913C6.08884 4.71812 6.08884 5.28188 5.73349 5.63087L1.55125 9.73825C1.1959 10.0872 0.621868 10.0872 0.266515 9.73825C-0.0797267 9.38926 -0.0888383 8.81656 0.266515 8.46756Z"/>
+                </svg>
+            </a>
+        </ng-template>
     </section>
     <section class="mt-[50px] mb-[75px] lg:mb-[150px]">
         <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[18px]">notes</h2>
