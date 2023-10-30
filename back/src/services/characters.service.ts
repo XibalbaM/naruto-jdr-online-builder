@@ -121,7 +121,6 @@ export default class CharactersService {
             throw new Error("Character not found");
         }
         const character = Character.fromModel(await CharacterModel.findById(characterId));
-        console.log("dzqdzqdczqdzqdz", speIndex, speId, (await this.calculateMaxChakraSpes(character)))
         if (speIndex >= (await this.calculateMaxChakraSpes(character))) {
             throw new Error("Spe not yet unlocked");
         }
