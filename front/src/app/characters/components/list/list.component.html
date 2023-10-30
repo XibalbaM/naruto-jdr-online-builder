@@ -5,9 +5,7 @@
 <app-character-list-preview *ngFor="let character of (auth.userObservableOnceLoaded() | async)?.characters" [character]="character"/>
 <a routerLink="/personnages/creation"
    class="w-full justify-center black-button h-[76px] mb-[50px]">
-    <svg class="fill-pink" width="20" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 0H9.5V9H0.5V11H9.5V20H11.5V11H20.5V9H11.5V0Z"/>
-    </svg>
+    <app-plus-symbol class="fill-pink"/>
 </a>
 <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[18px]">commu</h2>
 <a class="flex w-full flex-col gray-box py-[25px] px-[15px] hover:filter hover:brightness-110 !bg-[url('assets/images/backgrounds/demon.webp')]"

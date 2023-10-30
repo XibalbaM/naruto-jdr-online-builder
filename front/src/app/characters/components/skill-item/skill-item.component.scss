@@ -5,15 +5,7 @@
 .change-button {
     @apply bg-black border border-lighter-dark h-[38px] w-[38px] flex justify-center items-center rounded-[10px] enabled:hover:bg-dark;
 
-    & > svg {
-        @apply fill-white;
-    }
-
     &:disabled {
         @apply bg-dark border-light-dark;
-
-        & > svg {
-            @apply fill-dark-gray;
-        }
     }
 }

@@ -21,7 +21,8 @@ import {SetChakraSpeComponent} from "./components/set-chakra-spe/set-chakra-spe.
 
 export const routes: Routes = [
     {path: '', component: ListComponent, resolve: {user: UserResolver}, title: "Liste de personnages — Naruto jdr", data: {navbar: NormalNavbarComponent}},
-    {path: 'creation', data: {navbar: NormalNavbarComponent}, children: [
+    {
+        path: 'creation', data: {navbar: NormalNavbarComponent}, resolve: {user: UserResolver}, children: [
             {path: '', redirectTo: '1', pathMatch: 'full'},
             {path: '1', component: FirstStepComponent, title: "Création de personnage — Étape 1 — Naruto jdr"},
             {path: '2', component: SecondStepComponent, title: "Création de personnage — Étape 2 — Naruto jdr"},

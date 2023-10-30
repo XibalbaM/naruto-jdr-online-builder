@@ -61,9 +61,6 @@
     <button [disabled]="!firstName || !clan || (isRoad && !road)" type="submit"
             class="flex w-full flex-row items-center justify-center rounded-xl mb-[120px] group mt-[50px] h-[55px] bg-purple disabled:border-lighter-dark disabled:text-dark-gray disabled:border disabled:bg-black">
         Étape suivante
-        <svg class="fill-white group-disabled:fill-dark-gray ms-[10px]" width="21" height="13" viewBox="0 0 21 13"
-             xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.60553 7.5L17.0829 7.5L13.7663 10.8C13.3643 11.2 13.3643 11.8 13.7663 12.2C14.1683 12.6 14.7714 12.6 15.1734 12.2L20.1985 7.2C20.299 7.1 20.299 7 20.3995 7C20.3995 6.8 20.5 6.7 20.5 6.5C20.5 6.3 20.3995 6.2 20.3995 6.1C20.3995 6 20.299 5.9 20.1985 5.8L15.1734 0.799999C14.9724 0.599999 14.6709 0.499999 14.4699 0.499999C14.2688 0.499999 13.9673 0.599999 13.7663 0.799999C13.3643 1.2 13.3643 1.8 13.7663 2.2L17.0829 5.5L1.70603 5.5C1.00251 5.5 0.500001 5.9 0.500001 6.5C0.5 7.1 1.00251 7.5 1.60553 7.5Z"/>
-        </svg>
+        <app-long-arrow-right class="fill-white group-disabled:fill-dark-gray ms-[10px]"/>
     </button>
 </form>

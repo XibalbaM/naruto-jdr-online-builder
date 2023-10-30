@@ -1,31 +1,25 @@
-<h1 class="text-25 font-bold font-monument uppercase mb-[12px]">{{base.fullName}}</h1>
+<h1 class="font-bold uppercase text-25 font-monument mb-[12px]">{{base.fullName}}</h1>
 <p class="text-yellow">Base {{base.fullName | titlecase}} ({{base.shortName}})</p>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
-<p class="bg-black px-[24px] py-[18px] rounded-[26px] max-w-md">Score <span
+<p class="max-w-md bg-black px-[24px] py-[18px] rounded-[26px]">Score <span
         class="text-16 text-yellow px-[12px] bg-light-dark rounded-[8px] py-[3px] ms-[10px]">{{baseLevel}}</span></p>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
 <markdown-it class="font-light">
     {{base.description}}
 </markdown-it>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
-<a class="w-full flex flex-col items-end" *ngIf="nextBase | idToData:(dataService.bases | async) as nextBase" [routerLink]="'../' + nextBase._id">
-    <p class="text-pink flex flex-row text-16 items-center">
+<a *ngIf="nextBase | idToData:(dataService.bases | async) as nextBase" [routerLink]="'../' + nextBase._id" class="flex w-full flex-col items-end">
+    <p class="flex flex-row items-center text-pink text-16">
         Suivant
-        <svg class="ms-[10px]" xmlns="http://www.w3.org/2000/svg" width="20" height="12" viewBox="0 0 20 12" fill="none">
-            <path d="M1.10553 7L16.5829 7L13.2663 10.3C12.8643 10.7 12.8643 11.3 13.2663 11.7C13.6683 12.1 14.2714 12.1 14.6734 11.7L19.6985 6.7C19.799 6.6 19.799 6.5 19.8995 6.5C19.8995 6.3 20 6.2 20 6C20 5.8 19.8995 5.7 19.8995 5.6C19.8995 5.5 19.799 5.4 19.6985 5.3L14.6734 0.299999C14.4724 0.0999989 14.1709 -5.096e-07 13.9699 -5.27173e-07C13.7688 -5.44745e-07 13.4673 0.0999989 13.2663 0.299999C12.8643 0.699998 12.8643 1.3 13.2663 1.7L16.5829 5L1.20603 5C0.502513 5 5.7699e-07 5.4 5.24537e-07 6C4.72083e-07 6.6 0.502512 7 1.10553 7Z"
-                  fill="#EE88FF"/>
-        </svg>
+        <app-long-arrow-right class="ms-[10px] fill-pink"/>
     </p>
-    <p class="uppercase font-monument font-bold text-20">{{nextBase?.fullName}}</p>
+    <p class="font-bold uppercase font-monument text-20">{{nextBase?.fullName}}</p>
 </a>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
 <a class="w-full mb-[150px]" *ngIf="previousBase | idToData:(dataService.bases | async) as previousBase" [routerLink]="'../' + previousBase._id">
-    <p class="text-pink flex flex-row text-16 items-center">
-        <svg class="me-[10px]" xmlns="http://www.w3.org/2000/svg" width="20" height="13" viewBox="0 0 20 13" fill="none">
-            <path d="M18.8945 5.5H3.41709L6.73367 2.2C7.13568 1.8 7.13568 1.2 6.73367 0.8C6.33166 0.4 5.72864 0.4 5.32663 0.8L0.301508 5.8C0.201005 5.9 0.201005 6 0.100502 6C0.100502 6.2 0 6.3 0 6.5C0 6.7 0.100502 6.8 0.100502 6.9C0.100502 7 0.201005 7.1 0.301508 7.2L5.32663 12.2C5.52764 12.4 5.82915 12.5 6.03015 12.5C6.23116 12.5 6.53266 12.4 6.73367 12.2C7.13568 11.8 7.13568 11.2 6.73367 10.8L3.41709 7.5H18.794C19.4975 7.5 20 7.1 20 6.5C20 5.9 19.4975 5.5 18.8945 5.5Z"
-                  fill="#EE88FF"/>
-        </svg>
+    <p class="flex flex-row items-center text-pink text-16">
+        <app-long-arrow-left class="me-[10px] fill-pink"/>
         Précédent
     </p>
-    <p class="uppercase font-monument font-bold text-20">{{(previousBase)?.fullName}}</p>
+    <p class="font-bold uppercase font-monument text-20">{{(previousBase)?.fullName}}</p>
 </a>
