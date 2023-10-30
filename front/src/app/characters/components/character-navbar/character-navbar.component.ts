@@ -20,6 +20,7 @@ export class CharacterNavbarComponent {
     $character = new BehaviorSubject<Character>(new Character());
     navbarData = inject(NAVBAR_DATA_TOKEN);
     deleteNameConfirm = ""
+    isShiftPressed = new BehaviorSubject<boolean>(false);
 
     constructor(private auth: Auth, protected dataService: DataService, private idToData: IdToDataPipe,
                 private characterService: CharacterService, private router: Router, private notificationService: NotificationService) {
@@ -30,6 +31,16 @@ export class CharacterNavbarComponent {
         this.auth.userObservableOnceLoaded().subscribe(user => {
             if (id && user.characters.find(character => character._id === id)) {
                 this.$character.next(user.characters.find(character => character._id === id)!);
+            }
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Shift') {
+                this.isShiftPressed.next(true);
+            }
+        });
+        document.addEventListener('keyup', (event) => {
+            if (event.key === 'Shift') {
+                this.isShiftPressed.next(false);
             }
         });
     }
@@ -43,6 +54,16 @@ export class CharacterNavbarComponent {
                 this.notificationService.showNotification("Copie du personnage", "Une erreur est survenue lors de la copie du personnage");
             }
         });
+    }
+
+    exportCharacter() {
+        const characterJSON = JSON.stringify(this.$character.getValue());
+        const blob = new Blob([characterJSON], {type: 'application/json'});
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = this.$character.getValue().firstName + '.json';
+        a.click();
     }
 
     deleteCharacter() {
