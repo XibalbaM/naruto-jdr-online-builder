@@ -6,7 +6,7 @@ import {DataService} from "../../../app/services/data.service";
 import Skill from "../../../app/models/skill.model";
 import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
 import Environment from "../../../../environments/environment.interface";
-import {BehaviorSubject, combineLatest, every, merge, Observable} from "rxjs";
+import {BehaviorSubject, combineLatest, every, merge, Observable, take} from "rxjs";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import Base from "../../../app/models/base.model";
@@ -129,7 +129,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     protected readonly Math = Math;
 
     ngOnInit() {
-        combineLatest([this.activeRoute.paramMap, this.auth.userObservableOnceLoaded()]).subscribe(([params, user]) => {
+        combineLatest([this.activeRoute.paramMap, this.auth.userObservableOnceLoaded()]).pipe(take(1)).subscribe(([params, user]) => {
             if (params.get('characterId') && user?.characters.find((character: Character) => character._id === params.get('characterId'))) {
                 this.$character.subscribe((character) => {
                     const skills = character.skills.filter(skill => skill.level > 0).map((data: { skill: string, level: number }) => {
@@ -144,7 +144,7 @@ export class EditComponent implements OnInit, AfterViewInit {
                 this.$character.next(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
                 this.notes = this.$character.value.notes || "Pas encore de notes.";
                 this.$character.getValue().chakraSpes.forEach((chakraSpe) => {
-                    const chakraSpeData = this.characterChakraSpes.find(spe => spe.chakraSpe._id === chakraSpe);
+                    const chakraSpeData = this.characterChakraSpes.sort((a, b) => a.number - b.number).find(spe => spe.chakraSpe._id === chakraSpe);
                     if (chakraSpeData) {
                         this.characterChakraSpes.push({chakraSpe: chakraSpeData.chakraSpe, number: chakraSpeData.number + 1});
                     } else {
