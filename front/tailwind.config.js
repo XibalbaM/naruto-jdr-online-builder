@@ -41,9 +41,13 @@ module.exports = {
             28: '28px',
             36: '36px',
         },
-        leading: {
+        lineHeight: {
             normal: 'normal',
             160: '160%',
+        },
+        letterSpacing: {
+            tight: "0.3px",
+            normal: "normal",
         },
         extend: {
             backgroundSize: {
