@@ -46,11 +46,12 @@ export default class CharactersService {
 
     static async copyCharacter(userId: ObjectId, characterId: string) {
         const character = Character.fromModel(await CharacterModel.findById(characterId));
-        if (!this.canUserReadCharacter(userId, character)) {
+        if (!await this.canUserReadCharacter(userId, character)) {
             throw new Error("Character not found");
         }
         delete character._id;
         character.isPredrawn = false;
+        character.firstName = "(Copie) " + character.firstName;
         const newCharacter = Character.fromModel(await CharacterModel.create(character));
         await UserModel.findByIdAndUpdate(userId, {$push: {characters: newCharacter._id}});
         return newCharacter;
