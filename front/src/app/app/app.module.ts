@@ -18,7 +18,7 @@ import {MarkdownHelpComponent} from './components/markdown-help/markdown-help.co
 import {CharactersModule} from "../characters/characters.module";
 
 const init = (authService: AuthService, dataService: DataService) => {
-    authService.init();
+    authService.refreshUser();
     dataService.init();
 };
 

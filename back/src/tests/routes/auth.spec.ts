@@ -1,4 +1,4 @@
-import {test, expect} from "vitest";
+import {expect, test} from "vitest";
 import * as jwt from "jsonwebtoken";
 
 import * as fetchUtils from "../../utils/tests.utils.js";
@@ -46,16 +46,6 @@ test("login link received for an existing email", async () => {
 
     const code = authService.getConnectionTokenFromEmail(userEmail.email);
     const response = await fetchUtils.get("/auth/" + code);
-
-    expect(response.status).toBe(200);
-    const cookies = response.headers.get("set-cookie").split(", ").map(cookie => cookie.split("; ")[0]);
-    expect(cookies.find(cookie => cookie.startsWith("token="))).toBeDefined();
-    expect(cookies.find(cookie => cookie === "isLogged=true")).toBeDefined();
-});
-
-test("POST /refresh", async () => {
-
-    const response = await fetchUtils.get("/auth/refresh", await fetchUtils.getTestToken());
 
     expect(response.status).toBe(200);
     const cookies = response.headers.get("set-cookie").split(", ").map(cookie => cookie.split("; ")[0]);

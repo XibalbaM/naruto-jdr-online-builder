@@ -37,26 +37,6 @@ export function requestEmail(req: Request, res: Response) {
 }
 
 /**
- * Handles requests to /auth/refresh
- *
- * Must be preceded by the authMiddleware
- *
- * It takes the user id from the user and passes it to {@link authService#generateToken}, then returns the good status code and data
- * @param req The request
- * @param res The response
- */
-export function refreshToken(req: Request, res: Response) {
-
-    authService.generateToken(req["user"]["_id"]).then(token => {
-        res.cookie("token", token, {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", true, {maxAge: config.jwt_expiration_in_ms}).sendStatus(200);
-    }).catch(err => {
-        res.clearCookie("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms}).status(500)
-            .json({error: "Internal server error"});
-        console.error(err);
-    });
-}
-
-/**
  * Handles requests to /auth/:code
  *
  * It takes the code from the url and passes it to {@link authService#useCode}, then returns the good status code and data

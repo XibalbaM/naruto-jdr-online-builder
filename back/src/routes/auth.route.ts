@@ -1,7 +1,6 @@
 import {Router} from "express";
 
 import * as authController from "../controllers/auth.controller.js";
-import authMiddleware from "../middlewares/security/auth.middleware.js";
 import captchaMiddleware from "../middlewares/security/captcha.middleware.js";
 
 /**
@@ -11,7 +10,6 @@ import captchaMiddleware from "../middlewares/security/captcha.middleware.js";
 const router = Router();
 
 router.post('/', captchaMiddleware(), authController.requestEmail);
-router.get('/refresh', authMiddleware(), authController.refreshToken);
 router.get('/logout', authController.logout);
 router.get('/:code', authController.login);
 

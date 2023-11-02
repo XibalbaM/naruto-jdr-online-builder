@@ -22,19 +22,6 @@ export class AuthService {
     constructor(private apiService: ApiService, private auth: Auth) {
     }
 
-    /**
-     * Initialize the service.
-     * Get the token from the local storage.
-     */
-    init(): void {
-
-        if (Auth.checkTokenCookie()) {
-            this.apiService.doRequest('GET', '/auth/refresh').subscribe();
-        }
-
-        this.refreshUser();
-    }
-
     refreshUser() {
         if (Auth.checkTokenCookie()) {
             this.apiService.doRequest<{ user?: User, error?: string }>("GET", "/account").subscribe((response) => {
