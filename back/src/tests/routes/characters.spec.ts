@@ -25,7 +25,7 @@ let characterId: string;
 
 test("POST / with character data", async () => {
 
-	const response = await fetchUtils.post("/characters", {character: characterData}, await fetchUtils.getTestToken());
+    const response = await fetchUtils.post("/characters", {character: characterData, captcha: ""}, await fetchUtils.getTestToken());
 
 	expect(response.status).toBe(201);
 	const json = await response.json();
