@@ -20,6 +20,8 @@ app.use(cookieParser());
 
 // Add the router for the api
 app.use('/api', logMiddleware("/api"), router);
+// Add a simple page for status
+app.use('/api/status', (req, res) => res.sendStatus(200));
 // Add the router for the frontend
 app.use('/', express.static(path.resolve('front'), config.env === 'production' ? {
     maxAge: 1000 * 60 * 60 * 3,
