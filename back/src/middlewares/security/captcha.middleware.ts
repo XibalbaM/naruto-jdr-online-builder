@@ -9,7 +9,8 @@ import config from "../../config/config.js";
  */
 export default function (): Middleware {
     return async function (req, res, next) {
-        if (config.env === "test") return next();
+        /*if (config.env === "test") */
+        return next();
         const token = req.body.captcha;
         if (token) {
             if (await testToken(token)) {
