@@ -16,7 +16,7 @@ export default class DataController {
      * @param data Data to generate ETag from
      * @private
      */
-    private getETag(data: any) {
+    static getETag(data: any) {
         const hash = crypto.createHash('sha256');
         hash.update(JSON.stringify(data));
         return hash.digest('hex');
@@ -33,7 +33,7 @@ export default class DataController {
      * @param data The data to send
      * @private
      */
-    private sendDataOr304(req: Request, res: Response, data: any) {
+    static sendDataOr304(req: Request, res: Response, data: any) {
         const ifNoneMatch = req.header("If-None-Match");
         res.set('Cache-Control', `public, max-age=${60 * 60}`);
         if (ifNoneMatch) {
@@ -42,35 +42,52 @@ export default class DataController {
                 return res.sendStatus(304);
             }
         }
-        res.set("ETag", this.getETag(data));
+        res.set("ETag", DataController.getETag(data));
         res.status(200).json(data);
     }
 
-    getAll = (req: Request, res: Response) => {
-        this.dataService.getAll().then((data) => this.sendDataOr304(req, res, data)).catch(() => res.status(500).json({error: "Internal server error"}));
+    getAll = async (req: Request, res: Response) => {
+        try {
+            DataController.sendDataOr304(req, res, await this.dataService.getAll())
+        } catch (ignored) {
+            res.status(500).json({error: "Internal server error"});
+        }
     }
 
-    get = (req: Request, res: Response) => {
-        this.dataService.get(req.params.id).then((data) => {
-            if (data) this.sendDataOr304(req, res, data);
+    get = async (req: Request, res: Response) => {
+        try {
+            let data = await this.dataService.get(req.params.id);
+            if (data) DataController.sendDataOr304(req, res, data);
             else res.status(404).json({error: "Not found"});
-        }).catch(() => {
+        } catch (ignored) {
             res.status(500).json({error: "Internal server error"});
-        });
+        }
     }
 
-    create = (req: Request, res: Response) => {
-        this.dataService.create(req.body.data).then((data) => res.status(201).json(data)).catch(() => res.status(500).json({error: "Internal server error"}));
+    create = async (req: Request, res: Response) => {
+        try {
+            res.status(201).json(await this.dataService.create(req.body.data))
+        } catch(ignored) {
+            res.status(500).json({error: "Internal server error"})
+        }
     }
 
-    update = (req: Request, res: Response) => {
-        this.dataService.update(req.params.id, req.body.data).then(() => res.status(200).json({message: "Successfully updated"})).catch(() => res.status(500).json({error: "Internal server error"}));
-    }
-
-    delete = (req: Request, res: Response) => {
-        this.dataService.delete(req.params.id).then(() => res.status(200).json({message: "Successfully deleted"})).catch((err) => {
+    update = async (req: Request, res: Response) => {
+        try {
+            await this.dataService.update(req.params.id, req.body.data)
+            res.status(200).json({message: "Successfully updated"});
+        } catch(ignored) {
+            console.error(ignored);
             res.status(500).json({error: "Internal server error"});
-            console.error(err);
-        });
+        }
+    }
+
+    delete = async (req: Request, res: Response) => {
+        try {
+            await this.dataService.delete(req.params.id)
+            res.status(200).json({message: "Successfully deleted"})
+        } catch (err) {
+            res.status(500).json({error: "Internal server error"});
+        }
     }
 }

@@ -1,19 +1,18 @@
-import mongoose from "mongoose";
 import databaseConnect from "../database-connect.js";
 import VillageModel from "../models/village.model.js";
 import BaseModel from "../models/base.model.js";
 import RoadModel from "../models/road.model.js";
 import ClanModel from "../models/clan.model.js";
-import SkillModel from "../models/skill.model.js";
 import Village from "../classes/village.class.js";
 import Base from "../classes/base.class.js";
 import Clan from "../classes/clan.class.js";
 import Road from "../classes/road.class.js";
-import Skill from "../classes/skill.class.js";
+import Skill, {CustomSkill} from "../classes/skill.class.js";
 import Rank from "../classes/rank.class.js";
 import RankModel from "../models/rank.model.js";
 import ChakraSpe from "../classes/chakraSpe.class.js";
 import ChakraSpeModel from "../models/chakraSpe.model.js";
+import {CommonSkillModel, CustomSkillModel} from "../models/skill.model";
 
 export default async function () {
 
@@ -92,346 +91,335 @@ export default async function () {
     const addBases = async () => {
         if (await BaseModel.countDocuments() > 0)
             await BaseModel.collection.drop();
-        await BaseModel.insertMany(bases);
+        await BaseModel.insertMany(bases.map((value, index) => ({...value, _id: index})));
     }
 
     const addSkills = async () => {
-        const basesId: mongoose.Types.ObjectId[] = [];
-        for (const base of bases) {
-            basesId.push(await BaseModel.findOne({fullName: base.fullName}));
-        }
-        const skills: (Omit<Skill, "_id"> | Omit<Skill, "_id" | "isClan">)[] = [
+        const commonSkills: Omit<Skill, "_id">[] = [
             {
                 name: "Armes Simples",
-                base: basesId[2],
-                description: "Arrive bientôt",
-                type: "common"
+                base: 2,
+                description: "Arrive bientôt"
             },
             {
                 name: "Camouflage",
-                base: basesId[4],
-                description: "Arrive bientôt",
-                type: "common"
+                base: 4,
+                description: "Arrive bientôt"
             },
             {
                 name: "Corps à Corps",
-                base: basesId[3],
-                description: "Arrive bientôt",
-                type: "common"
+                base: 3,
+                description: "Arrive bientôt"
             },
             {
                 name: "Esquive",
-                base: basesId[3],
-                description: "Arrive bientôt",
-                type: "common"
+                base: 3,
+                description: "Arrive bientôt"
             },
             {
                 name: "Gensou",
-                base: basesId[5],
-                description: "Arrive bientôt",
-                type: "common"
+                base: 5,
+                description: "Arrive bientôt"
             },
             {
                 name: "Henge",
-                base: basesId[4],
-                description: "Arrive bientôt",
-                type: "common"
+                base: 4,
+                description: "Arrive bientôt"
             },
             {
                 name: "Kawarimi",
-                base: basesId[5],
-                description: "Arrive bientôt",
-                type: "common"
+                base: 5,
+                description: "Arrive bientôt"
             },
             {
                 name: "Mental",
-                base: basesId[1],
-                description: "Arrive bientôt",
-                type: "common"
+                base: 1,
+                description: "Arrive bientôt"
             },
             {
                 name: "Parade",
-                base: basesId[2],
-                description: "Arrive bientôt",
-                type: "common"
+                base: 2,
+                description: "Arrive bientôt"
             },
             {
                 name: "Physique",
-                base: basesId[0],
-                description: "Arrive bientôt",
-                type: "common"
+                base: 0,
+                description: "Arrive bientôt"
             },
             {
                 name: "Survie",
-                base: basesId[4],
-                description: "Arrive bientôt",
-                type: "common"
+                base: 4,
+                description: "Arrive bientôt"
             },
             {
                 name: "Vigilance",
-                base: basesId[4],
-                description: "Arrive bientôt",
-                type: "common"
-            },
+                base: 4,
+                description: "Arrive bientôt"
+            }
+        ]
+        if (await CommonSkillModel.countDocuments() > 0)
+            await CommonSkillModel.collection.drop();
+        await CommonSkillModel.insertMany(commonSkills.map((value, index) => ({...value, _id: index})));
+        const customSkills: Omit<CustomSkill, "_id">[] = [
             // Combat
             {
                 name: "Armes exotiques",
-                base: basesId[2],
+                base: 2,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Chūken",
-                base: basesId[3],
+                base: 3,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Coup spécial",
-                base: basesId[2],
+                base: 2,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Coup spécial",
-                base: basesId[3],
+                base: 3,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Doton",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Futon",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Gōken",
-                base: basesId[3],
+                base: 3,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Jūken",
-                base: basesId[3],
+                base: 3,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Intimidation",
-                base: basesId[0],
+                base: 0,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Katon",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Premiers soins",
-                base: basesId[0],
+                base: 0,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Raïton",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Régénération",
-                base: basesId[0],
+                base: 0,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Résistances Élémentaires",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Résistances Environnementales",
-                base: basesId[0],
+                base: 0,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Résistances Physiques",
-                base: basesId[0],
+                base: 0,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Résistances Psychiques",
-                base: basesId[1],
+                base: 1,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Science des Explosifs",
-                base: basesId[2],
+                base: 2,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Science des Pièges",
-                base: basesId[2],
+                base: 2,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Suiton",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             {
                 name: "Yūryoku",
-                base: basesId[5],
+                base: 5,
                 description: "Arrive bientôt",
                 type: "combat"
             },
             // Terrain
             {
                 name: "Collecter des informations",
-                base: basesId[1],
+                base: 1,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Éducation",
-                base: basesId[1],
+                base: 1,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Empathie",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Faux Semblants",
-                base: basesId[5],
+                base: 5,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Fūin",
-                base: basesId[5],
+                base: 5,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Iryō",
-                base: basesId[5],
+                base: 5,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Kuchiyose",
-                base: basesId[5],
+                base: 5,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Lois et Traditions",
-                base: basesId[1],
+                base: 1,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Manipulation",
-                base: basesId[3],
+                base: 3,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Médecine",
-                base: basesId[1],
+                base: 1,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Science des Drogues",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Science des Poisons",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Sentinelle",
-                base: basesId[5],
+                base: 5,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Sixième Sens",
-                base: basesId[5],
+                base: 5,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             {
                 name: "Technologie",
-                base: basesId[2],
+                base: 2,
                 description: "Arrive bientôt",
                 type: "terrain"
             },
             // Clan
             {
                 name: "Jiton",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "clan"
             },
             {
                 name: "Kage",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "clan"
             },
             {
                 name: "Kikaichū",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "clan"
             },
             {
                 name: "Mokuton",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "clan"
             },
             {
                 name: "Résistances Émotionnelles",
-                base: basesId[5],
+                base: 5,
                 description: "Arrive bientôt",
                 type: "clan"
             },
             {
                 name: "Sumi",
-                base: basesId[4],
+                base: 4,
                 description: "Arrive bientôt",
                 type: "clan"
             }
         ]
-        if (await SkillModel.countDocuments() > 0)
-            await SkillModel.collection.drop();
-        await SkillModel.insertMany(skills);
+        if (await CustomSkillModel.countDocuments() > 0)
+            await CustomSkillModel.collection.drop();
+        await CustomSkillModel.insertMany(customSkills);
     }
 
     const addRoads = async () => {
@@ -486,7 +474,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await SkillModel.findOne({name: "Kikaichū"}))._id
+                        (await CustomSkillModel.findOne({name: "Kikaichū"}))._id
                     ]
                 }
             },
@@ -512,7 +500,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await SkillModel.findOne({name: "Sumi"}))._id
+                        (await CustomSkillModel.findOne({name: "Sumi"}))._id
                     ]
                 }
             },
@@ -610,7 +598,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await SkillModel.findOne({name: "Jiton"}))._id
+                        (await CustomSkillModel.findOne({name: "Jiton"}))._id
                     ]
                 }
             },
@@ -620,7 +608,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await SkillModel.findOne({name: "Kage"}))._id
+                        (await CustomSkillModel.findOne({name: "Kage"}))._id
                     ]
                 }
             },
@@ -638,9 +626,9 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await SkillModel.findOne({name: "Mokuton"}))._id,
-                        (await SkillModel.findOne({name: "Doton"}))._id,
-                        (await SkillModel.findOne({name: "Suiton"}))._id
+                        (await CustomSkillModel.findOne({name: "Mokuton"}))._id,
+                        (await CustomSkillModel.findOne({name: "Doton"}))._id,
+                        (await CustomSkillModel.findOne({name: "Suiton"}))._id
                     ]
                 }
             },
@@ -690,7 +678,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await SkillModel.findOne({name: "Résistances Émotionnelles"}))._id,
+                        (await CustomSkillModel.findOne({name: "Résistances Émotionnelles"}))._id,
                     ]
                 }
             },
@@ -887,4 +875,3 @@ export default async function () {
         }
     }
 }
-

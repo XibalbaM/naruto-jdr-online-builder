@@ -6,6 +6,8 @@ import userModel from "../models/user.model.js";
 import config from "../config/config.js";
 import User from "../classes/user.class.js";
 
+//TODO Document and optimize
+
 /**
  * Change the username of the user
  * @param id The id of the user

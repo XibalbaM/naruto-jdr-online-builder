@@ -122,7 +122,7 @@ export async function generateToken(id: any): Promise<string> {
  */
 export async function getUserFromToken(token: string): Promise<User> {
 
-    const decoded = await jwt.verify(token, config.jwt_secret);
+    const decoded = jwt.verify(token, config.jwt_secret);
 
     const userDoc = await userModel.findById(decoded["id"]);
 

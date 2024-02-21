@@ -1,18 +1,35 @@
 import mongoose from "mongoose";
 
-/**
- * Represents a skill in the application.
- * A mongoose model is a wrapper on the MongoDB database.
- */
-export const skillSchema = new mongoose.Schema({
+export const CommonSkillSchema = new mongoose.Schema({
+    _id: {
+        type: Number,
+        required: true,
+        unique: true,
+        auto: true
+    },
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     base: {
-        type: mongoose.Types.ObjectId,
-        ref: 'base',
+        type: Number,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    }
+}, {_id: false});
+
+export const CommonSkillModel = mongoose.model('commonSkill', CommonSkillSchema);
+
+export const CustomSkillSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    base: {
+        type: Number,
         required: true
     },
     description: {
@@ -21,9 +38,9 @@ export const skillSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ["common", "combat", "terrain", "clan"],
+        enum: ["combat", "terrain", "clan"],
         required: true
     }
 });
 
-export default mongoose.model('skill', skillSchema);
+export const CustomSkillModel = mongoose.model('customSkill', CustomSkillSchema);

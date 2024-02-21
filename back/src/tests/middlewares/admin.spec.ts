@@ -1,6 +1,7 @@
 import {expect, test} from "vitest";
 
-import * as fetchUtils from "../../utils/tests.utils.js";
+import adminMiddleware from "../../middlewares/security/admin.middleware";
+import {createMockNext, createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
 
 /**
  * Test the adminMiddleware.
@@ -8,9 +9,24 @@ import * as fetchUtils from "../../utils/tests.utils.js";
  * Every test of admin routes asserts that these tests are passed. The cases were these tests are not passed are tested here and are common to all routes using the adminMiddleware.
  */
 
-test("Calling without being admin", async () => {
+test("Calling with admin privilege", async () => {
+    let adminMiddlewareFun = adminMiddleware()
+    let mockNext = createMockNext();
+    await adminMiddlewareFun(createMockRequest({user: {isAdmin: true}}), createMockResponse(), mockNext);
+    expect(mockNext).toBeCalled();
+});
 
-    const response = await fetchUtils.post("/villages", {}, await fetchUtils.getTestToken());
+test("Calling without admin privilege", async () => {
+    let adminMiddlewareFun = adminMiddleware()
+    let mockNext = createMockNext();
+    let mockResponse = createMockResponse();
+    await adminMiddlewareFun(createMockRequest({user: {isAdmin: false}}), mockResponse, mockNext);
+    expect(mockNext).toBeCalledTimes(0);
+    expect(mockResponse.status).toBeCalledWith(401);
+    expect(mockResponse.json).toBeCalledWith({message: "You must be an admin to do this."});
+});
 
-    expect(response.status).toBe(401);
+test("Calling without user", async () => {
+    let adminMiddlewareFun = adminMiddleware()
+    await expect(() => adminMiddlewareFun(createMockRequest(), createMockResponse(), createMockNext())).rejects.toThrowError("authMiddleware");
 });

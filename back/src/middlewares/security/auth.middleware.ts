@@ -6,15 +6,15 @@ import * as authService from "../../services/auth.service.js";
  * @returns {Middleware} The middleware
  */
 export default function (): Middleware {
-    return function (req, res, next) {
+    return async function (req, res, next) {
         const token: string | undefined = req.cookies.token;
         if (token && token !== 'none') {
-            authService.getUserFromToken(token).then(user => {
-                req['user'] = user;
+            try {
+                req['user'] = await authService.getUserFromToken(token);
                 next();
-            }).catch(() => {
+            } catch (e) {
                 res.status(401).send({error: 'Cannot authenticate user.'});
-            });
+            }
         } else {
             res.status(401).send({error: 'No token provided for accessing a protected resource.'});
         }

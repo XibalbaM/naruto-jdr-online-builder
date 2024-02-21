@@ -20,7 +20,8 @@ export async function getUser(req: Request, res: Response) {
             if (!req["user"].profileImage)
                 req["user"].profileImage = await accountService.getDiscordPicture(req["user"])
         }
-    } catch (ignored) {}
+    } catch (ignored) {
+    }
     res.status(200).json({user: req["user"]});
 }
 
@@ -33,15 +34,16 @@ export async function getUser(req: Request, res: Response) {
  * @param req The request
  * @param res The response
  */
-export function updateUsername(req: Request, res: Response) {
+export async function updateUsername(req: Request, res: Response) {
 
     const username = req.body.username;
     if (username.length >= 3 && username.length <= 20) {
-        accountService.updateUsername(req["user"]["_id"], username).then(() => {
+        try {
+            await accountService.updateUsername(req["user"]["_id"], username);
             res.status(200).json({message: "Username updated."});
-        }).catch((err) => {
+        } catch (err) {
             res.status(500).json({error: err.message});
-        });
+        }
     } else {
         res.status(400).json({error: `Username must be between 3 and 20 characters.`});
     }
@@ -56,15 +58,16 @@ export function updateUsername(req: Request, res: Response) {
  * @param req The request
  * @param res The response
  */
-export function updateEmail(req: Request, res: Response) {
+export async function updateEmail(req: Request, res: Response) {
 
     const email = req.body.email;
     if (email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-        accountService.updateEmail(req["user"]["_id"], email).then(() => {
+        try {
+            await accountService.updateEmail(req["user"]["_id"], email);
             res.status(200).json({message: "Email updated."});
-        }).catch((err) => {
+        } catch (err) {
             res.status(500).json({error: err.message});
-        });
+        }
     } else {
         res.status(400).json({error: "Email is not valid."});
     }
@@ -79,15 +82,16 @@ export function updateEmail(req: Request, res: Response) {
  * @param req The request
  * @param res The response
  */
-export function updatePicture(req: Request, res: Response) {
+export async function updatePicture(req: Request, res: Response) {
 
     const link = req.body.link;
     if (imagesService.isImageSafe(link)) {
-        accountService.updatePicture(req["user"]["_id"], link).then(() => {
+        try {
+            await accountService.updatePicture(req["user"]["_id"], link);
             res.status(200).json({message: "Link updated."});
-        }).catch((err) => {
+        } catch (err) {
             res.status(500).json({error: err.message});
-        });
+        }
     } else {
         res.status(400).json({error: "Link is not valid."});
     }
@@ -102,12 +106,13 @@ export function updatePicture(req: Request, res: Response) {
  * @param req The request
  * @param res The response
  */
-export function deletePicture(req: Request, res: Response) {
-    accountService.deletePicture(req["user"]["_id"]).then(() => {
+export async function deletePicture(req: Request, res: Response) {
+    try {
+        await accountService.deletePicture(req["user"]["_id"]);
         res.status(200).json({message: "Picture removed."});
-    }).catch((err) => {
+    } catch (err) {
         res.status(500).json({error: err.message});
-    });
+    }
 }
 
 /**
@@ -119,17 +124,17 @@ export function deletePicture(req: Request, res: Response) {
  * @param req The request
  * @param res The response
  */
-export function deleteAccount(req: Request, res: Response) {
-
-    accountService.deleteAccount(req["user"]["_id"]).then(() => {
+export async function deleteAccount(req: Request, res: Response) {
+    try {
+        await accountService.deleteAccount(req["user"]["_id"])
         res.status(200).clearCookie("token", {
             maxAge: config.jwt_expiration_in_ms,
             httpOnly: true
         }).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
             .json({message: "Account deleted."});
-    }).catch((err) => {
+    } catch (err) {
         res.status(500).json({error: err.message});
-    });
+    }
 }
 
 /**
@@ -141,11 +146,11 @@ export function deleteAccount(req: Request, res: Response) {
  * @param req The request
  * @param res The response
  */
-export function addDiscordAccount(req: Request, res: Response) {
+export async function addDiscordAccount(req: Request, res: Response) {
 
-    accountService.addDiscordAccount(req["user"]["_id"], req.body.code).then((username) => {
-        res.status(200).json({username: username});
-    }).catch((err) => {
+    try {
+        res.status(200).json({username: await accountService.addDiscordAccount(req["user"]["_id"], req.body.code)});
+    } catch (err) {
         switch (err.message) {
             case "Invalid code":
             case "Invalid \"code\" in request.":
@@ -161,7 +166,7 @@ export function addDiscordAccount(req: Request, res: Response) {
                 res.status(500).json({error: "Internal server error"});
                 console.error(err);
         }
-    });
+    }
 }
 
 /**
@@ -173,16 +178,17 @@ export function addDiscordAccount(req: Request, res: Response) {
  * @param req The request
  * @param res The response
  */
-export function removeDiscordAccount(req: Request, res: Response) {
+export async function removeDiscordAccount(req: Request, res: Response) {
 
-    accountService.removeDiscordAccount(req["user"]["_id"]).then(() => {
+    try {
+        await accountService.removeDiscordAccount(req["user"]["_id"]);
         res.status(200).json({message: "Discord account removed."});
-    }).catch((err) => {
+    } catch (err) {
         if (err.message === "User does not have a discord account")
             res.status(409).json({error: "User does not have a discord account"});
         else
             res.status(500).json({error: "Internal server error"});
-    });
+    }
 }
 
 /**
@@ -194,16 +200,16 @@ export function removeDiscordAccount(req: Request, res: Response) {
  * @param req The request
  * @param res The response
  */
-export function getDiscordName(req: Request, res: Response) {
+export async function getDiscordName(req: Request, res: Response) {
 
-    accountService.getDiscordName(req["user"]["_id"]).then((discordName) => {
-        res.status(200).json({discordName});
-    }).catch((err) => {
+    try {
+        res.status(200).json({discordName: await accountService.getDiscordName(req["user"]["_id"])});
+    } catch (err) {
         if (err.message === "User does not have a discord account")
             res.status(404).json({error: "User does not have a discord account"});
         else
             res.status(500).json({error: "Internal server error"});
-    });
+    }
 }
 
 /**
@@ -215,14 +221,14 @@ export function getDiscordName(req: Request, res: Response) {
  * @param req The request
  * @param res The response
  */
-export function getDiscordPicture(req: Request, res: Response) {
+export async function getDiscordPicture(req: Request, res: Response) {
 
-    accountService.getDiscordPicture(req["user"]["_id"]).then((discordPicture) => {
-        res.status(200).json({discordPicture});
-    }).catch((err) => {
+    try {
+        res.status(200).json({discordPicture: await accountService.getDiscordPicture(req["user"]["_id"])});
+    } catch (err) {
         if (err.message === "User does not have a discord account")
             res.status(404).json({error: "User does not have a discord account"});
         else
             res.status(500).json({error: "Internal server error"});
-    });
+    }
 }
