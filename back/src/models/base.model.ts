@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Base from "../classes/base.class";
 
 /**
  * Represents a base in the application.

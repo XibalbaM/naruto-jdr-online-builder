@@ -5,7 +5,6 @@ import config from "../config/config.js";
 import groupModel from "../models/group.model.js";
 import VillageModel from "../models/village.model.js";
 import UserModel from "../models/user.model.js";
-import User from "../classes/user.class";
 
 /**
  * Initializes the test environment.

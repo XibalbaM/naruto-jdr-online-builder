@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import BaseModel from "./base.model.js";
-import {CommonSkillModel, CustomSkillModel} from "./skill.model.js";
+import {CommonSkillModel} from "./skill.model.js";
 
 /**
  * Represents a character in the application.
