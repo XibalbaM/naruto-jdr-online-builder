@@ -16,7 +16,7 @@ import config from "../config/config.js";
 export async function getUser(req: Request, res: Response) {
     try {
         if (req["user"].discordId) {
-            req["user"].discordName = await accountService.getDiscordName(req["user"])
+            req["user"].discordName = await accountService.getDiscordName(req["user"].discordId)
             if (!req["user"].profileImage)
                 req["user"].profileImage = await accountService.getDiscordPicture(req["user"])
         }
@@ -181,7 +181,7 @@ export async function addDiscordAccount(req: Request, res: Response) {
 export async function removeDiscordAccount(req: Request, res: Response) {
 
     try {
-        await accountService.removeDiscordAccount(req["user"]["_id"]);
+        await accountService.removeDiscordAccount(req["user"]);
         res.status(200).json({message: "Discord account removed."});
     } catch (err) {
         if (err.message === "User does not have a discord account")
@@ -203,12 +203,10 @@ export async function removeDiscordAccount(req: Request, res: Response) {
 export async function getDiscordName(req: Request, res: Response) {
 
     try {
-        res.status(200).json({discordName: await accountService.getDiscordName(req["user"]["_id"])});
+        if (req["user"].discordId) res.status(200).json({discordName: await accountService.getDiscordName(req["user"]["discordId"])});
+        else res.status(404).json({error: "User does not have a discord account"});
     } catch (err) {
-        if (err.message === "User does not have a discord account")
-            res.status(404).json({error: "User does not have a discord account"});
-        else
-            res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error"});
     }
 }
 

@@ -12,17 +12,15 @@ export function isImageSafe(url: string): boolean {
     for (let source of config.imageSource) {
         if (url.match(source.regex)) {
             if (source.verifyFileExtension) {
-                if (url.split(".").pop()) {
-                    const extension = url.split(".").pop();
+                const extension = url.split(".").pop();
+                if (extension) {
                     for (let allowedFileExtension of config.allowedFileExtensions) {
                         if (extension.toLowerCase() === allowedFileExtension) {
                             return true;
                         }
                     }
-                    return false;
-                } else {
-                    return false;
                 }
+                return false;
             } else {
                 return true;
             }

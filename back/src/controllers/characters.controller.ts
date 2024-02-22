@@ -81,7 +81,7 @@ export async function setCustomSkill(req: Request, res: Response) {
 
 export async function setBase(req: Request, res: Response) {
     try {
-        await CharactersService.setBase(req["user"]["_id"], req.params.id, req.params.baseId, req.body.value)
+        await CharactersService.setBase(req["user"], req.params.id, req.params.baseId, req.body.value)
         res.sendStatus(200);
     } catch (error) {
         if (error.message === "Character not found") {
@@ -96,7 +96,7 @@ export async function setBase(req: Request, res: Response) {
 
 export async function setNindo(req: Request, res: Response) {
     try {
-        await CharactersService.setNindo(req["user"]["_id"], req.params.id, req.body.text)
+        await CharactersService.setNindo(req["user"], req.params.id, req.body.text)
         res.sendStatus(200);
     } catch (error) {
         if (error.message === "Character not found") {
@@ -109,7 +109,7 @@ export async function setNindo(req: Request, res: Response) {
 
 export async function setNindoPoints(req: Request, res: Response) {
     try {
-        await CharactersService.setNindoPoints(req["user"]["_id"], req.params.id, req.body.points)
+        await CharactersService.setNindoPoints(req["user"], req.params.id, req.body.points)
         res.sendStatus(200);
     } catch (error) {
         if (error.message === "Character not found") {
@@ -145,7 +145,7 @@ export async function setSpe(req: Request, res: Response) {
 
 export async function setNotes(req: Request, res: Response) {
     try {
-        await CharactersService.setNotes(req["user"]["_id"], req.params.id, req.body.text);
+        await CharactersService.setNotes(req["user"], req.params.id, req.body.text);
         res.sendStatus(200);
     } catch (error) {
         if (error.message === "Character not found") {
@@ -158,7 +158,7 @@ export async function setNotes(req: Request, res: Response) {
 
 export async function setXp(req: Request, res: Response) {
     try {
-        await CharactersService.setXp(req["user"]["_id"], req.params.id, req.body.xp);
+        await CharactersService.setXp(req["user"], req.params.id, req.body.xp);
         res.sendStatus(200);
     } catch (error) {
         if (error.message === "Character not found") {
@@ -171,7 +171,7 @@ export async function setXp(req: Request, res: Response) {
 
 export async function setRank(req: Request, res: Response) {
     try {
-        await CharactersService.setRank(req["user"]["_id"], req.params.id, req.body.id);
+        await CharactersService.setRank(req["user"], req.params.id, req.body.id);
         res.sendStatus(200);
     } catch (error) {
         if (error.message === "Character not found") {
@@ -184,7 +184,7 @@ export async function setRank(req: Request, res: Response) {
 
 export async function setVillage(req: Request, res: Response) {
     try {
-        await CharactersService.setVillage(req["user"]["_id"], req.params.id, req.body.id);
+        await CharactersService.setVillage(req["user"], req.params.id, req.body.id);
         res.sendStatus(200);
     } catch (error) {
         if (error.message === "Character not found") {
@@ -197,7 +197,7 @@ export async function setVillage(req: Request, res: Response) {
 
 export async function setName(req: Request, res: Response) {
     try {
-        await CharactersService.setName(req["user"]["_id"], req.params.id, req.body.text);
+        await CharactersService.setName(req["user"], req.params.id, req.body.text);
         res.sendStatus(200);
     } catch (error) {
         if (error.message === "Character not found") {
@@ -223,7 +223,7 @@ export async function setClan(req: Request, res: Response) {
 
 export async function setRoad(req: Request, res: Response) {
     try {
-        await CharactersService.setRoad(req["user"]["_id"], req.params.id, req.body.id);
+        await CharactersService.setRoad(req["user"], req.params.id, req.body.id);
         res.sendStatus(200);
     } catch (error) {
         if (error.message === "Character not found") {
@@ -238,7 +238,7 @@ export async function setRoad(req: Request, res: Response) {
 
 export async function deleteCharacter(req: Request, res: Response) {
     try {
-        await CharactersService.deleteCharacter(req["user"]["_id"], req.params.id);
+        await CharactersService.deleteCharacter(req["user"], req.params.id);
         res.sendStatus(200);
     } catch (error) {
         if (error.message === "Character not found") {

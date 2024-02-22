@@ -39,7 +39,7 @@ export default class CharactersService {
 
     static async canUserReadCharacter(userId: ObjectId, character: Character) {
         if (character.isPredrawn) return true;
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
+        const userCharactersIds = (await UserModel.findById(userId).select("characters")).characters as [mongoose.Types.ObjectId];
         return userCharactersIds.includes(character._id)
     }
 
@@ -122,12 +122,11 @@ export default class CharactersService {
         }
     }
 
-    static async setBase(userId: ObjectId, characterId: string, baseId: string, value: number) {
+    static async setBase(user: User, characterId: string, baseId: string, value: number) {
         if (value < 1) {
             throw new Error("Invalid value");
         }
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-        if (!userCharactersIds.includes(characterId as any)) {
+        if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
         const character = Character.fromModel(await CharacterModel.findById(characterId));
@@ -142,17 +141,15 @@ export default class CharactersService {
         await CharacterModel.findByIdAndUpdate(characterId, {$set: data});
     }
 
-    static async setNindo(userId: ObjectId, characterId: string, nindo: string) {
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-        if (!userCharactersIds.includes(characterId as any)) {
+    static async setNindo(user: User, characterId: string, nindo: string) {
+        if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {nindo});
     }
 
-    static async setNindoPoints(userId: ObjectId, characterId: string, nindoPoints: number) {
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-        if (!userCharactersIds.includes(characterId as any)) {
+    static async setNindoPoints(user: User, characterId: string, nindoPoints: number) {
+        if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {nindoPoints});
@@ -189,57 +186,50 @@ export default class CharactersService {
         await CharacterModel.findByIdAndUpdate(characterId, {$pull: {chakraSpes: null}});
     }
 
-    static async setNotes(userId: ObjectId, characterId: string, text: string) {
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-        if (!userCharactersIds.includes(characterId as any)) {
+    static async setNotes(user: User, characterId: string, text: string) {
+        if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {notes: text});
     }
 
-    static async setXp(userId: ObjectId, characterId: string, xp: number) {
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-        if (!userCharactersIds.includes(characterId as any)) {
+    static async setXp(user: User, characterId: string, xp: number) {
+        if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {xp});
     }
 
-    static async setRank(userId: ObjectId, characterId: string, rank: string) {
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-        if (!userCharactersIds.includes(characterId as any)) {
+    static async setRank(user: User, characterId: string, rank: string) {
+        if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {rank});
     }
 
-    static async setVillage(userId: ObjectId, characterId: string, village: string) {
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-        if (!userCharactersIds.includes(characterId as any)) {
+    static async setVillage(user: User, characterId: string, village: string) {
+        if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {village});
     }
 
-    static async setName(userId: ObjectId, characterId: string, firstName: string) {
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-        if (!userCharactersIds.includes(characterId as any)) {
+    static async setName(user: User, characterId: string, firstName: string) {
+        if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {firstName});
     }
 
     static async setClan(user: User, characterId: string, clan: string) {
-        const userCharactersIds = user.characters;
-        if (!userCharactersIds.includes(characterId as any)) {
+        if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {clan, $pull: {customSkills: {}}});
     }
 
-    static async setRoad(userId: ObjectId, characterId: string, road: string) {
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-        if (!userCharactersIds.includes(characterId as any)) {
+    static async setRoad(user: User, characterId: string, road: string) {
+        if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
         if (road === "") {
@@ -252,12 +242,11 @@ export default class CharactersService {
         }
     }
 
-    static async deleteCharacter(userId: ObjectId, characterId: string) {
-        const userCharactersIds = User.fromModel(await UserModel.findById(userId)).characters;
-        if (!userCharactersIds.includes(characterId as any)) {
+    static async deleteCharacter(user: User, characterId: string) {
+        if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
-        await UserModel.findByIdAndUpdate(userId, {$pull: {characters: characterId}});
+        await UserModel.findByIdAndUpdate(user._id, {$pull: {characters: characterId}});
         await CharacterModel.findByIdAndDelete(characterId);
     }
 }

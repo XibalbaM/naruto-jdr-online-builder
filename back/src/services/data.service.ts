@@ -12,8 +12,8 @@ export default class DataService {
     }
 
     async get(id: string) {
-        const model = await this.model.findById(id);
-        return model ? this.modelToClass(model) : null;
+        const data = await this.model.findById(id);
+        return data ? this.modelToClass(data) : null;
     }
 
     async create(data: any) {

@@ -309,7 +309,7 @@ test("Set rank", async () => {
 
 test("Set village", async () => {
     let id = (await CharacterModel.findOne())._id;
-    let villageId = (await VillageModel.findOne({name: "Kiri"}))._id
+    let villageId = (await VillageModel.findOne({name: "Suna"}))._id
     let request = createMockRequest({params: {id}, body: {id: villageId}}, await getTestToken());
     let response = createMockResponse();
     await authenticateRequest(request, response);

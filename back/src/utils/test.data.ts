@@ -24,8 +24,10 @@ const discordTestId = "569895047026180135";
  */
 export async function createTestAccounts() {
     await databaseConnect;
-    await userModel.create({email: 'testdata@test.test'});
-    await userModel.create({email: 'admin@test.test', isAdmin: true});
+    if (!await userModel.exists({email: 'testdata@test.test'}))
+        await userModel.create({email: 'testdata@test.test'});
+    if (!await userModel.exists({email: 'admin@test.test'}))
+        await userModel.create({email: 'admin@test.test', isAdmin: true});
     testToken = null;
     adminToken = null;
     console.log("Test account created");

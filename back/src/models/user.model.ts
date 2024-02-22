@@ -9,7 +9,9 @@ export const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+        unique: true,
+        index: true
     },
     username: {
         type: String,
@@ -41,7 +43,8 @@ export const UserSchema = new mongoose.Schema({
     discordId: {
         type: String,
         unique: true,
-        sparse: true
+        sparse: true,
+        index: true
     }
 });
 
