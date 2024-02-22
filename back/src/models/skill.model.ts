@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const CommonSkillSchema = new mongoose.Schema({
+const CommonSkillSchema = new mongoose.Schema({
     _id: {
         type: Number,
         required: true,
@@ -23,7 +23,7 @@ export const CommonSkillSchema = new mongoose.Schema({
 
 export const CommonSkillModel = mongoose.model('commonSkill', CommonSkillSchema);
 
-export const CustomSkillSchema = new mongoose.Schema({
+const CustomSkillSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true

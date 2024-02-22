@@ -5,7 +5,7 @@ import Base from "../classes/base.class";
  * Represents a base in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-export const baseSchema = new mongoose.Schema({
+const baseSchema = new mongoose.Schema({
     _id: {
         type: Number,
         required: true,
@@ -26,6 +26,7 @@ export const baseSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-}, { _id: false });
+});
 
-export default mongoose.model('base', baseSchema);
+const BaseModel = mongoose.model('base', baseSchema);
+export default BaseModel;

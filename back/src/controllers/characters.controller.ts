@@ -7,6 +7,7 @@ export async function create(req: Request, res: Response) {
     try {
         res.status(201).json({character: await CharactersService.createCharacter(req["user"]._id, req.body)})
     } catch (error) {
+        console.error(error);
         res.status(500).json({error: "Internal server error"});
     }
 }
@@ -15,7 +16,6 @@ export async function getCharacters(req: Request, res: Response) {
     try {
         res.status(200).json({characters: await CharactersService.listCharacters(req["user"])})
     } catch (error) {
-        console.error(error);
         res.status(500).json({error: "Internal server error"});
     }
 }
@@ -73,7 +73,6 @@ export async function setCustomSkill(req: Request, res: Response) {
         } else if (error.message === "Cannot remove clan skill") {
             return res.status(400).json({error: "Cannot remove clan skill"});
         } else {
-            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -245,7 +244,6 @@ export async function deleteCharacter(req: Request, res: Response) {
             return res.status(404).json({error: "Character not found"});
         } else {
             res.status(500).json({error: "Internal server error"});
-            console.error(error);
         }
     }
 }

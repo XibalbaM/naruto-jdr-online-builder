@@ -6,7 +6,7 @@ import {CommonSkillModel, CustomSkillModel} from "./skill.model.js";
  * Represents a character in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-export const characterSchema = new mongoose.Schema({
+const characterSchema = new mongoose.Schema({
 	firstName: {
 		type: String,
 		required: true
@@ -93,4 +93,5 @@ characterSchema.pre('save', async function (next) {
 	next();
 });
 
-export default mongoose.model('character', characterSchema);
+const CharacterModel = mongoose.model('character', characterSchema);
+export default CharacterModel;

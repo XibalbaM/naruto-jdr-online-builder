@@ -4,7 +4,7 @@ import mongoose from "mongoose";
  * Represents a user of the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-export const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -48,4 +48,5 @@ export const UserSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model('user', UserSchema);
+const UserModel = mongoose.model('user', UserSchema);
+export default UserModel;
