@@ -32,9 +32,7 @@ console.log("Handlers run finished");
 client.login(config.token);
 
 if (config.env === "production" || true) {
-    console.log("Starting uptime heartbeat");
     setInterval(() => {
-        console.log("Sending heartbeat");
         axios.get("https://uptime.betterstack.com/api/v1/heartbeat/FthAFVsWQzZqhygyscThcXaH")
     }, 1000 * 60 * 2);
 }
