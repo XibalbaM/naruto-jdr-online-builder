@@ -18,7 +18,7 @@ export async function getUser(req: Request, res: Response) {
         if (req["user"].discordId) {
             req["user"].discordName = await accountService.getDiscordName(req["user"].discordId)
             if (!req["user"].profileImage)
-                req["user"].profileImage = await accountService.getDiscordPicture(req["user"])
+                req["user"].profileImage = await accountService.getDiscordPicture(req["user"].discordId)
         }
     } catch (ignored) {
     }
@@ -222,11 +222,9 @@ export async function getDiscordName(req: Request, res: Response) {
 export async function getDiscordPicture(req: Request, res: Response) {
 
     try {
-        res.status(200).json({discordPicture: await accountService.getDiscordPicture(req["user"]["_id"])});
+        if (req["user"].discordId) res.status(200).json({discordPicture: await accountService.getDiscordPicture(req["user"].discordId)});
+        else res.status(404).json({error: "User does not have a discord account"});
     } catch (err) {
-        if (err.message === "User does not have a discord account")
-            res.status(404).json({error: "User does not have a discord account"});
-        else
-            res.status(500).json({error: "Internal server error"});
+        res.status(500).json({error: "Internal server error"});
     }
 }

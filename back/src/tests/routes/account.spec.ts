@@ -40,7 +40,7 @@ test("updateUsername", async () => {
         await accountController.updateUsername(mockRequest, mockResponse);
         expect(mockResponse.status).toBeCalledWith(200);
         expect(mockResponse.json).toBeCalledWith({message: "Username updated."});
-        expect((await UserModel.findById(mockRequest["user"]["_id"]))["username"]).toBe("test");
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("username"))["username"]).toBe("test");
         await UserModel.findByIdAndUpdate(mockRequest["user"]["_id"], {$unset: {username: 1}});
     }
 
@@ -51,7 +51,7 @@ test("updateUsername", async () => {
         await accountController.updateUsername(mockRequest, mockResponse);
         expect(mockResponse.status).toBeCalledWith(400);
         expect(mockResponse.json).toBeCalledWith({error: `Username must be between 3 and 20 characters.`});
-        expect(await UserModel.findById(mockRequest["user"]["_id"])["username"]).toBeUndefined();
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("username"))["username"]).toBeUndefined();
     }
 
     {
@@ -61,7 +61,7 @@ test("updateUsername", async () => {
         await accountController.updateUsername(mockRequest, mockResponse);
         expect(mockResponse.status).toBeCalledWith(400);
         expect(mockResponse.json).toBeCalledWith({error: `Username must be between 3 and 20 characters.`});
-        expect(await UserModel.findById(mockRequest["user"]["_id"])["username"]).toBeUndefined();
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("username"))["username"]).toBeUndefined();
     }
 });
 
@@ -73,7 +73,7 @@ test("updateEmail", async () => {
         await accountController.updateEmail(mockRequest, mockResponse);
         expect(mockResponse.status).toBeCalledWith(200);
         expect(mockResponse.json).toBeCalledWith({message: "Email updated."});
-        expect((await UserModel.findById(mockRequest["user"]["_id"]))["email"]).toBe("test@test.test");
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("email"))["email"]).toBe("test@test.test");
         await UserModel.findByIdAndUpdate(mockRequest["user"]["_id"], {email: mockRequest["user"]["email"]});
     }
 
@@ -84,7 +84,7 @@ test("updateEmail", async () => {
         await accountController.updateEmail(mockRequest, mockResponse);
         expect(mockResponse.status).toBeCalledWith(400);
         expect(mockResponse.json).toBeCalledWith({error: "Email is not valid."});
-        expect((await UserModel.findById(mockRequest["user"]["_id"]))["email"]).toBe(mockRequest["user"]["email"]);
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("email"))["email"]).toBe(mockRequest["user"]["email"]);
     }
 });
 
@@ -96,7 +96,7 @@ test("updatePicture", async () => {
         await accountController.updatePicture(mockRequest, mockResponse);
         expect(mockResponse.status).toBeCalledWith(200);
         expect(mockResponse.json).toBeCalledWith({message: "Link updated."});
-        expect((await UserModel.findById(mockRequest["user"]["_id"]))["profileImage"]).toBe("https://cdn.discordapp.com/attachments/316264059571798017/1179840195164651610/image0-3.png");
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("profileImage"))["profileImage"]).toBe("https://cdn.discordapp.com/attachments/316264059571798017/1179840195164651610/image0-3.png");
         await UserModel.findByIdAndUpdate(mockRequest["user"]["_id"], {$unset: {profileImage: 1}});
     }
 
@@ -107,7 +107,7 @@ test("updatePicture", async () => {
         await accountController.updatePicture(mockRequest, mockResponse);
         expect(mockResponse.status).toBeCalledWith(400);
         expect(mockResponse.json).toBeCalledWith({error: "Link is not valid."});
-        expect((await UserModel.findById(mockRequest["user"]["_id"]))["profileImage"]).toBeUndefined();
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("profileImage"))["profileImage"]).toBeUndefined();
     }
 });
 
@@ -119,7 +119,7 @@ test("deletePicture", async () => {
     await accountController.deletePicture(mockRequest, mockResponse);
     expect(mockResponse.status).toBeCalledWith(200);
     expect(mockResponse.json).toBeCalledWith({message: "Picture removed."});
-    expect((await UserModel.findById(mockRequest["user"]["_id"]))["profileImage"]).toBeUndefined();
+    expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("profileImage"))["profileImage"]).toBeUndefined();
 });
 
 test("deleteAccount", async () => {
@@ -129,7 +129,7 @@ test("deleteAccount", async () => {
     await accountController.deleteAccount(mockRequest, mockResponse);
     expect(mockResponse.status).toBeCalledWith(200);
     expect(mockResponse.json).toBeCalledWith({message: "Account deleted."});
-    expect(await UserModel.findById(mockRequest["user"]["_id"])).toBeNull();
+    expect(await UserModel.exists(mockRequest["user"]["_id"])).toBeFalsy();
     expect(mockResponse.cookie).toBeCalledWith("isLogged", false, {maxAge: config.jwt_expiration_in_ms});
     expect(mockResponse.clearCookie).toBeCalledWith("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true})
     await createTestAccounts()
@@ -148,7 +148,7 @@ test("removeDiscordAccount", async () => {
         await accountController.removeDiscordAccount(mockRequest, mockResponse);
         expect(mockResponse.status).toBeCalledWith(200);
         expect(mockResponse.json).toBeCalledWith({message: "Discord account removed."});
-        expect((await UserModel.findById(mockRequest["user"]["_id"]))["discordId"]).toBeUndefined();
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("discordId"))["discordId"]).toBeUndefined();
     }
 
     {
@@ -158,7 +158,7 @@ test("removeDiscordAccount", async () => {
         await accountController.removeDiscordAccount(mockRequest, mockResponse);
         expect(mockResponse.status).toBeCalledWith(409);
         expect(mockResponse.json).toBeCalledWith({error: "User does not have a discord account"});
-        expect((await UserModel.findById(mockRequest["user"]["_id"]))["discordId"]).toBeUndefined();
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("discordId"))["discordId"]).toBeUndefined();
     }
 });
 

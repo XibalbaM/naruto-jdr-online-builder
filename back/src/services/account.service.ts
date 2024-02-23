@@ -6,8 +6,6 @@ import userModel from "../models/user.model.js";
 import config from "../config/config.js";
 import User from "../classes/user.class.js";
 
-//TODO Document and optimize
-
 /**
  * Change the username of the user
  * @param id The id of the user
@@ -64,9 +62,9 @@ export async function deleteAccount(id: ObjectId) {
  * @returns The username of the user
  */
 export async function getUserNameFromEmail(email: string): Promise<string> {
-    const user = await userModel.findOne({email: email}).select("username");
+    const user = await userModel.findOne({email: email}).lean().select("username");
     if (!user) return "No user";
-    if (user.username) return user.username;
+    else if (user.username) return user.username;
     else return "Ninja Sans Nom";
 }
 
@@ -93,36 +91,49 @@ export async function addDiscordAccount(user: User, discordCode: string): Promis
 
     const clientRest = new REST({version: "10", authPrefix: "Bearer"}).setToken(token);
     const discordUser = await clientRest.get(Routes.user("@me"));
-    if (await userModel.findOne({discordId: discordUser['id']})) throw new Error("Discord account already linked to another user");
+    if (await userModel.exists({discordId: discordUser['id']})) throw new Error("Discord account already linked to another user");
 
     return getDiscordName(User.fromModel(await userModel.findByIdAndUpdate(user._id, {discordId: discordUser['id']})).discordId);
 }
 
+/**
+ * Remove the discord account from the user
+ * @param user The user
+ */
 export async function removeDiscordAccount(user: User): Promise<void> {
     if (!user.discordId) throw new Error("User does not have a discord account");
 
     await userModel.findByIdAndUpdate(user._id, {$unset: {discordId: 1}});
 }
 
+/**
+ * Get the username of the user from the discord id
+ *
+ * Try to get his nickname in the guild, else get his username
+ * @param discordId The discord id of the user
+ */
 export async function getDiscordName(discordId: string): Promise<string> {
-    const discordMember = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
+    const guildUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
 
-    if (discordMember && discordMember['nick'])
-        return discordMember['nick'];
+    if (guildUser && guildUser['nick'])
+        return guildUser['nick'];
 
     const discordUser = await config.discord.rest.get(Routes.user(discordId));
     return discordUser['username'];
 }
 
-export async function getDiscordPicture(user: User): Promise<string> {
-    if (!User.fromModel(await userModel.findById(user._id)).discordId) throw new Error("User does not have a discord account");
-
-    const discordId = User.fromModel(await userModel.findById(user._id)).discordId;
-
+/**
+ * Get the profile picture of the user from the discord id
+ *
+ * Try to get his avatar in the guild, else get his avatar
+ * @param discordId The discord id of the user
+ */
+export async function getDiscordPicture(discordId: string): Promise<string> {
     const guildUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
-    if (guildUser['avatar'])
+
+    if (guildUser && guildUser['avatar'])
         return `https://cdn.discordapp.com/guilds/${config.discord.guildId}/users/${discordId}/avatars/${guildUser['avatar']}?size=`;
 
     const discordUser = await config.discord.rest.get(Routes.user(discordId));
-    return `https://cdn.discordapp.com/avatars/${user.discordId}/${discordUser['avatar']}?size=`;
+    return `https://cdn.discordapp.com/avatars/${discordId}/${discordUser['avatar']}?size=`;
 }

@@ -22,7 +22,7 @@ export async function getCharacters(req: Request, res: Response) {
 
 export async function getCharacter(req: Request, res: Response) {
     try {
-        res.status(200).json({character: await CharactersService.getCharacter(req["user"]["_id"], req.params.id)})
+        res.status(200).json({character: await CharactersService.getCharacter(req["user"], req.params.id)})
     } catch (error) {
         if (error.message === "Character not found") {
             return res.status(404).json({error: "Character not found"});
@@ -34,7 +34,7 @@ export async function getCharacter(req: Request, res: Response) {
 
 export async function copyCharacter(req: Request, res: Response) {
     try {
-        res.status(200).json({character: await CharactersService.copyCharacter(req["user"]["_id"], req.params.id)})
+        res.status(200).json({character: await CharactersService.copyCharacter(req["user"], req.params.id)})
     } catch (error) {
         if (error.message === "Character not found") {
             return res.status(404).json({error: "Character not found"});

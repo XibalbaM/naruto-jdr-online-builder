@@ -1,5 +1,5 @@
 import Character from "../classes/character.class.js";
-import mongoose, {ObjectId} from "mongoose";
+import mongoose, {mongo, ObjectId} from "mongoose";
 import User from "../classes/user.class.js";
 import CharacterModel from "../models/character.model.js";
 import UserModel from "../models/user.model.js";
@@ -37,16 +37,14 @@ export default class CharactersService {
         return maxChakraSpes;
     }
 
-    static async canUserReadCharacter(userId: ObjectId, character: Character) {
-        if (character.isPredrawn) return true;
-        const userCharactersIds = (await UserModel.findById(userId).select("characters")).characters as [mongoose.Types.ObjectId];
-        return userCharactersIds.includes(character._id)
+    static async canUserReadCharacter(userCharacters: [mongoose.Types.ObjectId], character: Character) {
+        return character.isPredrawn || userCharacters.includes(character._id)
     }
 
     static async listCharacters(user: User) {
         const characters: Character[] = [];
         for (let character of user.characters) {
-            characters.push(Character.fromModel(await CharacterModel.findById(character)));
+            characters.push(Character.fromModel(await CharacterModel.findById(character).lean()));
         }
         return characters;
     }
@@ -57,24 +55,24 @@ export default class CharactersService {
         return character;
     }
 
-    static async getCharacter(userId: ObjectId, characterId: string) {
-        const character = Character.fromModel(await CharacterModel.findById(characterId));
-        if (!await this.canUserReadCharacter(userId, character)) {
+    static async getCharacter(user: User, characterId: string) {
+        const character = Character.fromModel(await CharacterModel.findById(characterId).lean());
+        if (!await this.canUserReadCharacter(user.characters, character)) {
             throw new Error("Character not found");
         }
         return character;
     }
 
-    static async copyCharacter(userId: ObjectId, characterId: string) {
-        const character = Character.fromModel(await CharacterModel.findById(characterId));
-        if (!await this.canUserReadCharacter(userId, character)) {
+    static async copyCharacter(user: User, characterId: string) {
+        const character = Character.fromModel(await CharacterModel.findById(characterId).lean());
+        if (!await this.canUserReadCharacter(user.characters, character)) {
             throw new Error("Character not found");
         }
         delete character._id;
         character.isPredrawn = false;
         character.firstName = "(Copie) " + character.firstName;
         const newCharacter = Character.fromModel(await CharacterModel.create(character));
-        await UserModel.findByIdAndUpdate(userId, {$push: {characters: newCharacter._id}});
+        await UserModel.findByIdAndUpdate(user._id, {$push: {characters: newCharacter._id}});
         return newCharacter;
     }
 
@@ -85,8 +83,8 @@ export default class CharactersService {
         if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
-        const skill = Skill.fromModel(await CommonSkillModel.findById(skillId));
-        const character = Character.fromModel(await CharacterModel.findById(characterId));
+        const skill = Skill.fromModel(await CommonSkillModel.findById(skillId).lean());
+        const character = Character.fromModel(await CharacterModel.findById(characterId).lean());
         if (value > character.commonSkills[skillId] && value > character.bases.find((_, index) => index === skill.base) + 2) {
             throw new Error("Invalid value");
         }
@@ -100,18 +98,18 @@ export default class CharactersService {
             throw new Error("Character not found");
         }
         if (value < 1) {
-            const character = Character.fromModel(await CharacterModel.findById(characterId));
-            if (Clan.fromModel(await ClanModel.findById(character.clan)).line.skills.find(skill => skill.toString() === skillId)) {
+            const character = Character.fromModel(await CharacterModel.findById(characterId).lean());
+            if ((await ClanModel.findById(character.clan).lean().select("line")).line.skills.find(skill => skill.toString() === skillId)) {
                 throw new Error("Cannot remove clan skill");
             }
             await CharacterModel.updateOne({_id: characterId}, {$pull: {customSkills: {skill: skillId}}}, {multi: true});
         } else {
-            const skill = CustomSkill.fromModel(await CustomSkillModel.findById(skillId));
-            const character = Character.fromModel(await CharacterModel.findById(characterId));
+            const skill = CustomSkill.fromModel(await CustomSkillModel.findById(skillId).lean());
+            const character = Character.fromModel(await CharacterModel.findById(characterId).lean());
             if (value > (character.customSkills.find(skill => skill.skill.toString() === skillId)?.level ?? 0) && value > character.bases.find((_, index) => index === skill.base) + 2) {
                 throw new Error("Invalid value");
             }
-            if (skill.type === "clan" && !Clan.fromModel(await ClanModel.findById(character.clan)).line.skills.find(skill => skill.toString() === skillId)) {
+            if (skill.type === "clan" && !(await ClanModel.findById(character.clan).lean().select("line")).line.skills.find(skill => skill.toString() === skillId)) {
                 throw new Error("Not allowed skill");
             }
             if (character.customSkills.find(skill => skill.skill.toString() === skillId)) {
@@ -129,10 +127,9 @@ export default class CharactersService {
         if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
-        const character = Character.fromModel(await CharacterModel.findById(characterId));
+        const character = Character.fromModel(await CharacterModel.findById(characterId).lean());
         const rankId = character.rank;
-        const rank = await RankModel.findById(rankId);
-        const maxBase = rank.maxBase;
+        const maxBase = (await RankModel.findById(rankId).lean().select("maxBase")).maxBase;
         if (value > character.bases[baseId] && value > maxBase) {
             throw new Error("Invalid value");
         }
@@ -159,11 +156,11 @@ export default class CharactersService {
         if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
-        const character = Character.fromModel(await CharacterModel.findById(characterId));
+        const character = Character.fromModel(await CharacterModel.findById(characterId).lean());
         if (speIndex >= (await this.calculateMaxChakraSpes(character))) {
             throw new Error("Spe not yet unlocked");
         }
-        const spe = ChakraSpe.fromModel(await ChakraSpeModel.findById(speId));
+        const spe = ChakraSpe.fromModel(await ChakraSpeModel.findById(speId).lean());
         if (character.chakraSpes.filter(spe => spe.toString() === speId).length >= spe.max) {
             throw new Error("Spe already maxed");
         }
@@ -176,7 +173,7 @@ export default class CharactersService {
         if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
-        let character = Character.fromModel(await CharacterModel.findById(characterId));
+        let character = Character.fromModel(await CharacterModel.findById(characterId).lean());
         if (character.chakraSpes.length <= speIndex) {
             throw new Error("Spe not set");
         }
@@ -235,7 +232,7 @@ export default class CharactersService {
         if (road === "") {
             await CharacterModel.findByIdAndUpdate(characterId, {$unset: {road: 1}, $pull: {customSkills: {}}});
         } else {
-            if (!mongoose.Types.ObjectId.isValid(road) || !(await RoadModel.findById(road))) {
+            if (!mongoose.Types.ObjectId.isValid(road) || !(await RoadModel.exists({_id: road}))) {
                 throw new Error("Road not found");
             }
             await CharacterModel.findByIdAndUpdate(characterId, {road, $pull: {customSkills: {}}});

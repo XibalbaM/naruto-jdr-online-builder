@@ -10,24 +10,24 @@ import {getTestToken} from "../../utils/test.data";
 
 const dummyPredrawn = {
     firstName: "test",
-    village: (await VillageModel.findOne())._id,
+    village: (await VillageModel.findOne().lean().select("_id"))._id,
     xp: 100,
-    rank: (await RankModel.findOne())._id,
+    rank: (await RankModel.findOne().lean().select("_id"))._id,
     notes: "test",
     nindo: "test",
-    clan: (await ClanModel.findOne())._id,
+    clan: (await ClanModel.findOne().lean().select("_id"))._id,
     isPredrawn: true,
 }
 const dummyPredrawnId = (await CharacterModel.create(dummyPredrawn))._id;
 
 const dummyCharacter = {
     firstName: "test",
-    village: (await VillageModel.findOne())._id,
+    village: (await VillageModel.findOne().lean().select("_id"))._id,
     xp: 100,
-    rank: (await RankModel.findOne())._id,
+    rank: (await RankModel.findOne().lean().select("_id"))._id,
     notes: "test",
     nindo: "test",
-    clan: (await ClanModel.findOne())._id,
+    clan: (await ClanModel.findOne().lean().select("_id"))._id,
     isPredrawn: false,
 }
 const dummyCharacterId = (await CharacterModel.create(dummyCharacter))._id;

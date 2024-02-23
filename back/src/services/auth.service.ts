@@ -24,27 +24,27 @@ const emailSentCache = new NodeCache({stdTTL: config.login_jwt_expiration, check
  */
 export async function requestEmail(email: string, discordId?: string): Promise<{ code: number, isRegistration: boolean }> {
 
-    const userDoc = await userModel.findOne({email: email});
+    const isRegistration = !await userModel.exists({email: email});
 
     const emailCacheDate = emailSentCache.get<string>(email);
     if (emailCacheDate && ((new Date().getTime() - new Date(emailCacheDate).getTime()) / 1000 < config.login_jwt_expiration)) {
-        return {code: 1, isRegistration: !userDoc};
+        return {code: 1, isRegistration};
     }
 
     if (discordId) {
-        if (userDoc && User.fromModel(userDoc).discordId) {
+        if (!isRegistration && (await userModel.findOne({email: email}).lean().select("discordId")).discordId) {
             return {code: 2, isRegistration: false};
         }
         if (await userModel.exists({discordId: discordId})) {
-            return {code: 3, isRegistration: !userDoc};
+            return {code: 3, isRegistration};
         }
     }
 
     emailSentCache.set(email, new Date().toString());
 
-    emailService.sendConnectionEmail(email, getConnectionTokenFromEmail(email, discordId), !userDoc);
+    emailService.sendConnectionEmail(email, getConnectionTokenFromEmail(email, discordId), isRegistration); //voluntarily not awaited to make the response faster
 
-    return {code: 0, isRegistration: !userDoc};
+    return {code: 0, isRegistration};
 }
 
 /**
@@ -154,6 +154,6 @@ export async function getUserFromDiscordToken(token: string): Promise<User> {
  * @param discordId The user's discord id
  */
 export async function addDiscordData(userId: any, discordId: string): Promise<string> {
-
-    return getDiscordName(User.fromModel(await userModel.findByIdAndUpdate(userId, {discordId: discordId})).discordId);
+    await userModel.findByIdAndUpdate(userId, {discordId: discordId})
+    return getDiscordName(discordId);
 }

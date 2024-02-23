@@ -5,7 +5,7 @@ import VillageModel from "../../models/village.model";
 import DataController from "../../controllers/data.controller";
 import {createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
 
-let kiri = Village.fromModel(await VillageModel.findOne({name: "Kiri"}));
+let kiri = Village.fromModel(await VillageModel.findOne({name: "Kiri"}).lean());
 let controller = new DataController(VillageModel, Village.fromModel);
 
 test("ETag", async () => {
@@ -62,7 +62,7 @@ test("Update", async () => {
     await controller.update(createMockRequest({header: () => null, params: {id: kiri._id}, body: {data: newVillage}}), response);
     expect(response.status).toBeCalledWith(200);
     expect(response.json).toBeCalledWith({message: "Successfully updated"});
-    expect(await VillageModel.findById(kiri._id)).toMatchObject(newVillage);
+    expect(await VillageModel.findById(kiri._id).lean()).toMatchObject(newVillage);
 });
 
 test("Delete", async () => {
@@ -70,5 +70,5 @@ test("Delete", async () => {
     await controller.delete(createMockRequest({header: () => null, params: {id: kiri._id}}), response);
     expect(response.status).toBeCalledWith(200);
     expect(response.json).toBeCalledWith({message: "Successfully deleted"});
-    expect(await VillageModel.findById(kiri._id)).toBeNull();
+    expect(await VillageModel.exists(kiri._id)).toBeFalsy();
 });

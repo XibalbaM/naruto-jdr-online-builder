@@ -18,12 +18,12 @@ import RoadModel from "../../models/road.model";
 
 const characterData: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "isPredrawn"> = {
     firstName: "test",
-    village: (await VillageModel.findOne())._id,
+    village: (await VillageModel.findOne().lean().select("_id"))._id,
     xp: 100,
-    rank: (await RankModel.findOne())._id,
+    rank: (await RankModel.findOne().lean().select("_id"))._id,
     notes: "test",
     nindo: "test",
-    clan: (await ClanModel.findOne({}))._id
+    clan: (await ClanModel.findOne({}).lean().select("_id"))._id
 };
 
 test("Create", async () => {
@@ -45,7 +45,7 @@ test("List", async () => {
 });
 
 test("Get", async () => {
-    let request = createMockRequest({params: {id: (await CharacterModel.findOne())._id}}, await getTestToken())
+    let request = createMockRequest({params: {id: (await CharacterModel.findOne().lean().select("_id"))._id}}, await getTestToken())
     let response = createMockResponse();
     await authenticateRequest(request, response);
     await CharacterController.getCharacter(request, response);
@@ -54,20 +54,20 @@ test("Get", async () => {
 });
 
 test("Copy", async () => {
-    let request = createMockRequest({params: {id: (await CharacterModel.findOne())._id}}, await getTestToken())
+    let request = createMockRequest({params: {id: (await CharacterModel.findOne().lean().select("_id"))._id}}, await getTestToken())
     let response = createMockResponse();
     await authenticateRequest(request, response);
     await CharacterController.copyCharacter(request, response);
     expect(response.status).toBeCalledWith(200);
     expect(response.json).toBeCalledWith({character: expect.objectContaining({...characterData, firstName: "(Copie) " + characterData.firstName})});
-    expect(User.fromModel(await UserModel.findById(await getTestUserId())).characters).toSatisfy((characters: String[]) => {
+    expect(User.fromModel(await UserModel.findById(await getTestUserId()).lean().select("characters")).characters).toSatisfy((characters: String[]) => {
         console.log(characters.length);
         return characters.length === 2;
     });
 });
 
 test("Set common skill", async () => {
-    let id = (await CharacterModel.findOne())._id;
+    let id = (await CharacterModel.findOne().lean().select("_id"))._id;
 
     {
         let request = createMockRequest({params: {id, skillId: 0}, body: {value: 2}}, await getTestToken())
@@ -76,7 +76,7 @@ test("Set common skill", async () => {
         await CharacterController.setCommonSkill(request, response);
         console.log((response.json as Mock).mock.calls);
         expect(response.sendStatus).toBeCalledWith(200);
-        expect(Character.fromModel(await CharacterModel.findById(id)).commonSkills[0]).toBe(2);
+        expect(Character.fromModel(await CharacterModel.findById(id).lean().select("commonSkills")).commonSkills[0]).toBe(2);
     }
 
     {
@@ -85,7 +85,7 @@ test("Set common skill", async () => {
         await authenticateRequest(request, response);
         await CharacterController.setCommonSkill(request, response);
         expect(response.status).toBeCalledWith(400);
-        expect(Character.fromModel(await CharacterModel.findById(id)).commonSkills[0]).toBe(2);
+        expect(Character.fromModel(await CharacterModel.findById(id).lean().select("commonSkills")).commonSkills[0]).toBe(2);
     }
 
     {
@@ -94,7 +94,7 @@ test("Set common skill", async () => {
         await authenticateRequest(request, response);
         await CharacterController.setCommonSkill(request, response);
         expect(response.status).toBeCalledWith(400);
-        expect(Character.fromModel(await CharacterModel.findById(id)).commonSkills[0]).toBe(2);
+        expect(Character.fromModel(await CharacterModel.findById(id).lean().select("commonSkills")).commonSkills[0]).toBe(2);
     }
 
     {
@@ -104,14 +104,14 @@ test("Set common skill", async () => {
         await authenticateRequest(request, response);
         await CharacterController.setCommonSkill(request, response);
         expect(response.sendStatus).toBeCalledWith(200);
-        expect(Character.fromModel(await CharacterModel.findById(id)).commonSkills[0]).toBe(2);
+        expect(Character.fromModel(await CharacterModel.findById(id).lean().select("commonSkills")).commonSkills[0]).toBe(2);
     }
 });
 
 test("Set custom skill", async () => {
-    let id = (await CharacterModel.findOne())._id;
-    let skillId = CustomSkill.fromModel(await CustomSkillModel.findOne({type: "combat"}))._id;
-    let clanSkillId = CustomSkill.fromModel(await CustomSkillModel.findOne({type: "clan"}))._id;
+    let id = (await CharacterModel.findOne().lean().select("_id"))._id;
+    let skillId = CustomSkill.fromModel(await CustomSkillModel.findOne({type: "combat"}).lean().select("_id"))._id;
+    let clanSkillId = CustomSkill.fromModel(await CustomSkillModel.findOne({type: "clan"}).lean().select("_id"))._id;
 
     {
         let request = createMockRequest({params: {id, skillId}, body: {value: 2}}, await getTestToken());
