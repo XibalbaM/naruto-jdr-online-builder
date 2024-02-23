@@ -6,6 +6,7 @@ import https from 'https';
 import config from "./config/config.js";
 import router from './router.js';
 import logMiddleware from "./middlewares/log.middleware.js";
+import * as http from "node:http";
 
 /**
  * The express app.
@@ -17,6 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
+app.enable('trust proxy');
 
 // Add the router for the api
 app.use('/api', logMiddleware("/api"), router);
@@ -42,4 +44,8 @@ if (config.protocol === 'http') {
     }, app).listen(config.port, () => {
         return console.log(`Express is listening at https://localhost:${config.port} (${config.env})`);
     });
+    http.createServer((req, res) => {
+        res.writeHead(301, {Location: `https://${req.headers.host}${req.url}`});
+        res.end();
+    }).listen(80);
 }
