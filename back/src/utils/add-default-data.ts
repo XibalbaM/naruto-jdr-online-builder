@@ -428,7 +428,9 @@ export default async function () {
                 name: "Shōkan-shi",
                 qualification: "Voie du Genjutsu",
                 line: {
-                    skills: []
+                    skills: [
+                        (await CustomSkillModel.findOne({name: "Yūryoku"}).lean().select("_id"))._id
+                    ]
                 }
             },
             {
@@ -442,7 +444,9 @@ export default async function () {
                 name: "Kriegstier",
                 qualification: "Voie des Armes",
                 line: {
-                    skills: []
+                    skills: [
+                        (await CustomSkillModel.findOne({name: "Armes exotiques"}).lean().select("_id"))._id
+                    ]
                 }
             },
             {
@@ -466,7 +470,7 @@ export default async function () {
     }
 
     const addClans = async () => {
-        const konohaId = (await VillageModel.findOne({name: "Konoha"}))._id;
+        const konohaId = (await VillageModel.findOne({name: "Konoha"}).lean().select("_id"))._id;
         const clans: Omit<Clan, "_id">[] = [
             {
                 name: "Aburame",
@@ -474,7 +478,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Kikaichū"}))._id
+                        (await CustomSkillModel.findOne({name: "Kikaichū"}).lean().select("_id"))._id
                     ]
                 }
             },
@@ -500,7 +504,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Sumi"}))._id
+                        (await CustomSkillModel.findOne({name: "Sumi"}).lean().select("_id"))._id
                     ]
                 }
             },
@@ -598,7 +602,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Jiton"}))._id
+                        (await CustomSkillModel.findOne({name: "Jiton"}).lean().select("_id"))._id
                     ]
                 }
             },
@@ -608,7 +612,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Kage"}))._id
+                        (await CustomSkillModel.findOne({name: "Kage"}).lean().select("_id"))._id
                     ]
                 }
             },
@@ -626,9 +630,9 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Mokuton"}))._id,
-                        (await CustomSkillModel.findOne({name: "Doton"}))._id,
-                        (await CustomSkillModel.findOne({name: "Suiton"}))._id
+                        (await CustomSkillModel.findOne({name: "Mokuton"}).lean().select("_id"))._id,
+                        (await CustomSkillModel.findOne({name: "Doton"}).lean().select("_id"))._id,
+                        (await CustomSkillModel.findOne({name: "Suiton"}).lean().select("_id"))._id
                     ]
                 }
             },
@@ -678,7 +682,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Résistances Émotionnelles"}))._id,
+                        (await CustomSkillModel.findOne({name: "Résistances Émotionnelles"}).lean().select("_id"))._id,
                     ]
                 }
             },
