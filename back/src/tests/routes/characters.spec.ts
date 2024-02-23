@@ -223,7 +223,7 @@ test("Set nindo points", async () => {
 });
 
 test("Set spe", async () => {
-    let id = (await CharacterModel.findOne())._id;
+    let id = (await CharacterModel.findOne().lean().select("_id"))._id;
     let spe = ChakraSpe.fromModel((await ChakraSpeModel.findOne()));
     let speId = spe._id.toString();
     await CharacterModel.findByIdAndUpdate(id, {$set: {rank: await RankModel.findOne({name: "Kage"}), "bases.0": 12, "bases.1": 12}});
@@ -277,7 +277,7 @@ test("Set spe", async () => {
 });
 
 test("Set notes", async () => {
-    let id = (await CharacterModel.findOne())._id;
+    let id = (await CharacterModel.findOne().lean().select("_id"))._id;
     let request = createMockRequest({params: {id}, body: {text: "test1"}}, await getTestToken());
     let response = createMockResponse();
     await authenticateRequest(request, response);
@@ -287,7 +287,7 @@ test("Set notes", async () => {
 });
 
 test("Set nindo points", async () => {
-    let id = (await CharacterModel.findOne())._id;
+    let id = (await CharacterModel.findOne().lean().select("_id"))._id;
     let request = createMockRequest({params: {id}, body: {xp: 2}}, await getTestToken());
     let response = createMockResponse();
     await authenticateRequest(request, response);
@@ -297,8 +297,8 @@ test("Set nindo points", async () => {
 });
 
 test("Set rank", async () => {
-    let id = (await CharacterModel.findOne())._id;
-    let rankId = (await RankModel.findOne({name: "Kage"}))._id
+    let id = (await CharacterModel.findOne().lean().select("_id"))._id;
+    let rankId = (await RankModel.findOne({name: "Kage"}).lean().select("_id"))._id
     let request = createMockRequest({params: {id}, body: {id: rankId}}, await getTestToken());
     let response = createMockResponse();
     await authenticateRequest(request, response);
@@ -308,8 +308,8 @@ test("Set rank", async () => {
 });
 
 test("Set village", async () => {
-    let id = (await CharacterModel.findOne())._id;
-    let villageId = (await VillageModel.findOne({name: "Suna"}))._id
+    let id = (await CharacterModel.findOne().lean().select("_id"))._id;
+    let villageId = (await VillageModel.findOne({name: "Suna"}).lean().select("_id"))._id
     let request = createMockRequest({params: {id}, body: {id: villageId}}, await getTestToken());
     let response = createMockResponse();
     await authenticateRequest(request, response);
@@ -319,7 +319,7 @@ test("Set village", async () => {
 });
 
 test("Set name", async () => {
-    let id = (await CharacterModel.findOne())._id;
+    let id = (await CharacterModel.findOne().lean().select("_id"))._id;
     let request = createMockRequest({params: {id}, body: {text: "test1"}}, await getTestToken());
     let response = createMockResponse();
     await authenticateRequest(request, response);
@@ -329,22 +329,34 @@ test("Set name", async () => {
 });
 
 test("Set clan", async () => {
-    let id = (await CharacterModel.findOne())._id;
-    let clanId = (await ClanModel.findOne({name: "Nara"}))._id; //TODO add clan skills
-    let request = createMockRequest({params: {id}, body: {id: clanId}}, await getTestToken());
-    let response = createMockResponse();
-    await authenticateRequest(request, response);
-    await CharacterController.setClan(request, response);
-    expect(response.sendStatus).toBeCalledWith(200);
-    expect(Character.fromModel(await CharacterModel.findById(id)).clan.toString()).toBe(clanId.toString());
-    expect(Character.fromModel(await CharacterModel.findById(id)).customSkills.length).toBe(0);
+    let id = (await CharacterModel.findOne().lean().select("_id"))._id;
+    {
+        let clanId = (await ClanModel.findOne({name: "Akaba"}).lean().select("_id"))._id;
+        let request = createMockRequest({params: {id}, body: {id: clanId}}, await getTestToken());
+        let response = createMockResponse();
+        await authenticateRequest(request, response);
+        await CharacterController.setClan(request, response);
+        expect(response.sendStatus).toBeCalledWith(200);
+        expect(Character.fromModel(await CharacterModel.findById(id)).clan.toString()).toBe(clanId.toString());
+        expect(Character.fromModel(await CharacterModel.findById(id)).customSkills.length).toBe(0);
+    }
+    {
+        let clanId = (await ClanModel.findOne({name: "Nara"}).lean().select("_id"))._id;
+        let request = createMockRequest({params: {id}, body: {id: clanId}}, await getTestToken());
+        let response = createMockResponse();
+        await authenticateRequest(request, response);
+        await CharacterController.setClan(request, response);
+        expect(response.sendStatus).toBeCalledWith(200);
+        expect(Character.fromModel(await CharacterModel.findById(id)).clan.toString()).toBe(clanId.toString());
+        expect(Character.fromModel(await CharacterModel.findById(id)).customSkills.length).toBe(1);
+    }
 });
 
 test("Set road", async () => {
     let id = (await CharacterModel.findOne())._id;
 
     {
-        let roadId = (await RoadModel.findOne())._id; //TODO add road skills
+        let roadId = (await RoadModel.findOne().lean().select("_id"))._id;
         let request = createMockRequest({params: {id}, body: {id: roadId}}, await getTestToken());
         let response = createMockResponse();
         await authenticateRequest(request, response);
@@ -355,6 +367,7 @@ test("Set road", async () => {
     }
 
     {
+        await CharacterModel.findByIdAndUpdate(id, {$set: {clan: (await ClanModel.findOne({name: "Akaba"}).lean().select("_id"))._id}});
         let request = createMockRequest({params: {id}, body: {id: ""}}, await getTestToken());
         let response = createMockResponse();
         await authenticateRequest(request, response);
@@ -365,13 +378,22 @@ test("Set road", async () => {
     }
 
     {
+        await CharacterModel.findByIdAndUpdate(id, {$set: {clan: (await ClanModel.findOne({name: "Nara"}).lean().select("_id"))._id}});
+        let request = createMockRequest({params: {id}, body: {id: ""}}, await getTestToken());
+        let response = createMockResponse();
+        await authenticateRequest(request, response);
+        await CharacterController.setRoad(request, response);
+        expect(response.sendStatus).toBeCalledWith(200);
+        expect(Character.fromModel(await CharacterModel.findById(id)).road).toBeUndefined();
+        expect(Character.fromModel(await CharacterModel.findById(id)).customSkills.length).toBe(1);
+    }
+
+    {
         let request = createMockRequest({params: {id}, body: {id: "invalid"}}, await getTestToken());
         let response = createMockResponse();
         await authenticateRequest(request, response);
         await CharacterController.setRoad(request, response);
         expect(response.status).toBeCalledWith(404);
-        expect(Character.fromModel(await CharacterModel.findById(id)).road).toBeUndefined();
-        expect(Character.fromModel(await CharacterModel.findById(id)).customSkills.length).toBe(0);
     }
 })
 

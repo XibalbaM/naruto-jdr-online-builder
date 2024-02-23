@@ -221,7 +221,12 @@ export default class CharactersService {
         if (!user.characters.includes(characterId as any)) {
             throw new Error("Character not found");
         }
-        await CharacterModel.findByIdAndUpdate(characterId, {clan, $pull: {customSkills: {}}});
+        const line = (await ClanModel.findById(clan).lean().select("line")).line;
+        if (line.skills.length > 0) {
+            await CharacterModel.findByIdAndUpdate(characterId, {clan, customSkills: line.skills.map(skill => ({skill, level: 1}))});
+        } else {
+            await CharacterModel.findByIdAndUpdate(characterId, {clan, $pull: {customSkills: {}}});
+        }
     }
 
     static async setRoad(user: User, characterId: string, road: string) {
@@ -229,7 +234,11 @@ export default class CharactersService {
             throw new Error("Character not found");
         }
         if (road === "") {
-            await CharacterModel.findByIdAndUpdate(characterId, {$unset: {road: 1}, $pull: {customSkills: {}}});
+            const clanId = (await CharacterModel.findByIdAndUpdate(characterId, {$unset: {road: 1}, $pull: {customSkills: {}}}).lean().select("clan")).clan;
+            const line = (await ClanModel.findById(clanId).lean().select("line")).line;
+            if (line.skills.length > 0) {
+                await CharacterModel.findByIdAndUpdate(characterId, {customSkills: line.skills.map(skill => ({skill, level: 1}))});
+            }
         } else {
             if (!mongoose.Types.ObjectId.isValid(road) || !(await RoadModel.exists({_id: road}))) {
                 throw new Error("Road not found");
