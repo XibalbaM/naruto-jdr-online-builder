@@ -1,5 +1,5 @@
 import Character from "../classes/character.class.js";
-import mongoose, {mongo, ObjectId} from "mongoose";
+import mongoose, {ObjectId} from "mongoose";
 import User from "../classes/user.class.js";
 import CharacterModel from "../models/character.model.js";
 import UserModel from "../models/user.model.js";
@@ -9,7 +9,6 @@ import Skill, {CustomSkill} from "../classes/skill.class.js";
 import ClanModel from "../models/clan.model.js";
 import RoadModel from "../models/road.model.js";
 import RankModel from "../models/rank.model.js";
-import Clan from "../classes/clan.class.js";
 import {CommonSkillModel, CustomSkillModel} from "../models/skill.model";
 
 export default class CharactersService {
