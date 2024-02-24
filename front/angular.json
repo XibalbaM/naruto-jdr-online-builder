@@ -3,7 +3,8 @@
     "version": 1,
     "newProjectRoot": "projects",
     "cli": {
-        "packageManager": "pnpm"
+        "packageManager": "pnpm",
+        "analytics": false
     },
     "projects": {
         "naruto-jdr-online-builder": {
@@ -74,10 +75,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "naruto-jdr-online-builder:build:production"
+                            "buildTarget": "naruto-jdr-online-builder:build:production"
                         },
                         "development": {
-                            "browserTarget": "naruto-jdr-online-builder:build:development"
+                            "buildTarget": "naruto-jdr-online-builder:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -85,7 +86,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "naruto-jdr-online-builder:build"
+                        "buildTarget": "naruto-jdr-online-builder:build"
                     }
                 },
                 "test": {

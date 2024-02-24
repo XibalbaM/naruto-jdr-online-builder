@@ -9,7 +9,7 @@
             <label>Email</label>
             <input #email="ngModel" [(ngModel)]="userEmail" autofocus class="pl-[74px] handle-invalid" id="email" name="userEmail"
                    placeholder="Ex: Mitsuo@naruto-jdr.com" required
-                   type="email">
+                   type="email"><!--TODO make enter send form-->
         </div>
         <a (click)="onSubmit()" [class.cursor-pointer]="!email.invalid" [class.hocus:bg-black]="email.invalid"
            class="w-full justify-between black-button h-[55px]"
