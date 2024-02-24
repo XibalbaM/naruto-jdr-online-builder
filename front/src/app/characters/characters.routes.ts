@@ -1,5 +1,4 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { Routes} from '@angular/router';
 import {ListComponent} from "./components/list/list.component";
 import {FirstStepComponent} from "./components/create/first-step/first-step.component";
 import {SecondStepComponent} from "./components/create/second-step/second-step.component";
@@ -19,7 +18,7 @@ import {NotesComponent} from "./components/notes/notes.component";
 import {ChakraSpesComponent} from "./components/chrakra-spes/chakra-spes.component";
 import {SetChakraSpeComponent} from "./components/set-chakra-spe/set-chakra-spe.component";
 
-export const routes: Routes = [
+export const characterRoutes: Routes = [
     {path: '', component: ListComponent, resolve: {user: UserResolver}, title: "Liste de personnages — Naruto jdr", data: {navbar: NormalNavbarComponent}},
     {
         path: 'creation', data: {navbar: NormalNavbarComponent}, resolve: {user: UserResolver}, children: [
@@ -93,10 +92,3 @@ export const routes: Routes = [
         title: "Fiche de personnage — Naruto jdr"
     }
 ];
-
-@NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
-})
-export class CharactersRoutingModule {
-}
