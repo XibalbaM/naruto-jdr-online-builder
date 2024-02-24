@@ -6,7 +6,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class IdToDataPipe implements PipeTransform {
 
-    transform<T extends { _id: string }>(id: string | undefined, list: T[] | null): T | undefined {
-        return list && id ? list.find(item => item._id === id) : undefined;
+    transform<T extends { _id: any }>(id: string | number | undefined, list: T[] | null): T | undefined {
+        return list && id !== undefined ? list.find(item => item._id === id) : undefined;
     }
 }

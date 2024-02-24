@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CreationService} from "../../../services/creation.service";
 import {Router} from "@angular/router";
 import {DataService} from "../../../../app/services/data.service";
-import Skill from "../../../../app/models/skill.model";
 import {NotificationService} from "../../../../app/services/notification.service";
 import {IdToDataPipe} from "../../../../utils/pipes/id-to-data.pipe";
 import {ReCaptchaV3Service} from "ngx-captcha";
@@ -12,6 +11,7 @@ import {SpacerComponent} from '../../../../utils/components/spacer/spacer.compon
 import {CharacterPreviewComponent} from '../character-preview/character-preview.component';
 import {LongArrowLeftComponent} from '../../../../utils/components/long-arrow-left/long-arrow-left.component';
 import {NgClass, NgFor, NgIf} from '@angular/common';
+import {CustomSkill, Skill} from "../../../../app/models/skill.model";
 
 @Component({
     selector: 'app-third-step',
@@ -21,11 +21,12 @@ import {NgClass, NgFor, NgIf} from '@angular/common';
     imports: [NgIf, LongArrowLeftComponent, CharacterPreviewComponent, SpacerComponent, NgFor, NgClass, LongArrowRightComponent, IdToDataPipe]
 })
 export class ThirdStepComponent implements OnInit, OnDestroy {
-    clanSkills: string[] = !this.creationService.character.road
-        ? this.idToData.transform(this.creationService.character.clan, this.dataService.clans.getValue())?.line.skills || []
-        : [];
-    uncommonSkills: Skill[] = this.dataService.skills.getValue().filter(skill => skill.type !== 'common' && skill.type !== 'clan').filter(skill => !this.clanSkills.includes(skill._id));
-    skillIds: string[] = this.creationService.tempSkillIds.length > 0 ? this.creationService.tempSkillIds : [...this.clanSkills];
+    clanSkillsIds: string[] = this.creationService.character.road
+        ? this.idToData.transform(this.creationService.character.road, this.dataService.roads.getValue())?.line.skills || []
+        : this.idToData.transform(this.creationService.character.clan, this.dataService.clans.getValue())?.line.skills || [];
+    clanSkills: CustomSkill[] = this.dataService.customSkills.getValue().filter(skill => skill.type !== 'clan').filter(skill => this.clanSkillsIds.includes(skill._id));
+    uncommonSkills: CustomSkill[] = this.dataService.customSkills.getValue().filter(skill => skill.type !== 'clan').filter(skill => !this.clanSkillsIds.includes(skill._id));
+    skillIds: string[] = this.creationService.tempSkillIds.length > 0 ? this.creationService.tempSkillIds : [...this.clanSkillsIds];
 
     constructor(protected creationService: CreationService, private router: Router, protected dataService: DataService,
                 private notificationService: NotificationService, private idToData: IdToDataPipe, private captchaService: ReCaptchaV3Service,

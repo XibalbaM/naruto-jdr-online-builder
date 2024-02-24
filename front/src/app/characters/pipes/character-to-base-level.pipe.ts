@@ -25,6 +25,6 @@ export class CharacterToBaseLevelPipe implements PipeTransform {
     }
 
     processCharacter(character: Character, baseShortName: string): number {
-        return character.bases.find(base => base.base === this.dataService.bases.getValue().find(base => base.shortName === baseShortName)?._id)?.level || 0;
+        return character.bases[this.dataService.bases.getValue().find(base => base.shortName === baseShortName)?._id || 0];
     }
 }

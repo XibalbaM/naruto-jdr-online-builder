@@ -17,24 +17,28 @@ export class CharacterService {
         return this.setSkillLevel(characterId, id, 0);
     }
 
-    setSkillLevel(characterId: string, skillId: string, level: number): Observable<boolean> {
-        return this.apiService.doRequest('POST', CharacterApiEndpoints.SKILL(characterId, skillId), {value: level}).pipe(
+    setSkillLevel(characterId: string, skillId: string | number, level: number): Observable<boolean> {
+        return this.apiService.doRequest('POST', CharacterApiEndpoints.SKILL(characterId, skillId, typeof skillId === "string"), {value: level}).pipe(
             map((response) => response.status === 200),
             tap((success) => {
                 if (success) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.skills.find((skill) => skill.skill === skillId)!.level = level;
+                    const character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    if (typeof skillId === "string")
+                        character.customSkills.find((skill) => skill.skill === skillId)!.level = level;
+                    else
+                        character.commonSkills[skillId] = level;
                     this.auth.userObservable().next(this.auth.user);
                 }
             })
         );
     }
 
-    setBaseLevel(characterId: string, baseId: string, level: number): Observable<boolean> {
+    setBaseLevel(characterId: string, baseId: number, level: number): Observable<boolean> {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.BASE(characterId, baseId), {value: level}).pipe(
             map((response) => response.status === 200),
             tap((success) => {
                 if (success) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.bases.find((base) => base.base === baseId)!.level = level;
+                    this.auth.user!.characters.find((character) => character._id === characterId)!.bases[baseId] = level;
                     this.auth.userObservable().next(this.auth.user);
                 }
             })
@@ -208,11 +212,11 @@ export const CharacterApiEndpoints = {
     NINDO_POINTS(characterId: string): string {
         return `/characters/${characterId}/nindoPoints`;
     },
-    BASE(characterId: string, baseId: string): string {
+    BASE(characterId: string, baseId: number): string {
         return `/characters/${characterId}/bases/${baseId}`;
     },
-    SKILL(characterId: string, skillId: string): string {
-        return `/characters/${characterId}/skills/${skillId}`;
+    SKILL(characterId: string, skillId: string | number, isCustom: boolean): string {
+        return `/characters/${characterId}/skills/${isCustom ? "custom" : "common"}/${skillId}`;
     },
     RANK(characterId: string): string {
         return `/characters/${characterId}/rank`;

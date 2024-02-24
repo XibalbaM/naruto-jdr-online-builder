@@ -5,10 +5,10 @@ import {HttpHeaders} from "@angular/common/http";
 import Base from "../models/base.model";
 import Clan from "../models/clan.model";
 import Road from "../models/road.model";
-import Skill from "../models/skill.model";
 import {BehaviorSubject} from "rxjs";
 import Rank from "../models/rank.model";
 import ChakraSpe from "../models/chakra-spe.model";
+import {CustomSkill, Skill} from "../models/skill.model";
 
 @Injectable({
     providedIn: 'root'
@@ -24,7 +24,8 @@ export class DataService {
         bases: new BehaviorSubject<Base[]>([]),
         clans: new BehaviorSubject<Clan[]>([]),
         roads: new BehaviorSubject<Road[]>([]),
-        skills: new BehaviorSubject<Skill[]>([]),
+        "skills/common": new BehaviorSubject<Skill[]>([]),
+        "skills/custom": new BehaviorSubject<CustomSkill[]>([]),
         ranks: new BehaviorSubject<Rank[]>([]),
         chakraSpes: new BehaviorSubject<ChakraSpe[]>([]),
     }
@@ -48,8 +49,12 @@ export class DataService {
         return this.datas.roads;
     }
 
-    get skills(): BehaviorSubject<Skill[]> {
-        return this.datas.skills;
+    get commonSkills(): BehaviorSubject<Skill[]> {
+        return this.datas["skills/common"];
+    }
+
+    get customSkills(): BehaviorSubject<CustomSkill[]> {
+        return this.datas["skills/custom"];
     }
 
     get ranks(): BehaviorSubject<Rank[]> {
@@ -97,7 +102,17 @@ export class DataService {
             if (response.status === 304) {
                 this.datas[dataId].next(JSON.parse(currentDatas!).data);
             } else if (response.status === 200 && response.headers.get('Etag') && response.body) {
-                const data = (response.body).sort((a, b) => dataId === "skills" ? a.name.localeCompare(b.name) : a._id.localeCompare(b._id));
+                const data = (response.body).sort((a, b) => {
+                    if (dataId in ['chakraSpes', 'clan', 'road', 'skill/common', 'skill/custom', 'village']) {
+                        return a.name.localeCompare(b.name);
+                    } else {
+                        if (typeof a._id === 'string') {
+                            return a._id.localeCompare(b._id);
+                        } else {
+                            return a._id - b._id;
+                        }
+                    }
+                });
                 const storedData = {
                     etag: response.headers.get('Etag')!,
                     data: data

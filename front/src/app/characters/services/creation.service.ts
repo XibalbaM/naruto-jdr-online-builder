@@ -74,7 +74,7 @@ export class CreationService {
             mergeMap((character) => {
                 return zip([
                     of(character),
-                    ...skillIds.map((skillId) => this.apiService.doRequest("POST", "/characters/" + character._id + "/skills/" + skillId, {value: 1}).pipe(map((response) => {
+                    ...skillIds.map((skillId) => this.apiService.doRequest("POST", "/characters/" + character._id + "/skills/custom/" + skillId, {value: 1}).pipe(map((response) => {
                         return response.status === 200;
                     })))
                 ]);
@@ -88,7 +88,7 @@ export class CreationService {
             }),
             map((character) => {
                 skillIds.forEach((skillId) => {
-                    character.skills.find((data) => data.skill === skillId)!.level = 1;
+                    character.customSkills.push({skill: skillId, level: 1});
                 });
                 return character;
             }),

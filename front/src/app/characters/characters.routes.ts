@@ -49,9 +49,16 @@ export const characterRoutes: Routes = [
         title: "Base — Fiche de personnage — Naruto jdr"
     },
     {
-        path: ':characterId/competence/:id',
+        path: ':characterId/competence/commune/:id',
         component: SkillComponent,
-        data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", backAmount: 2},
+        data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", backAmount: 2, skillType: "common"},
+        resolve: {user: UserResolver},
+        title: "Compétence — Fiche de personnage — Naruto jdr"
+    },
+    {
+        path: ':characterId/competence/personnelle/:id',
+        component: SkillComponent,
+        data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", backAmount: 2, skillType: "custom"},
         resolve: {user: UserResolver},
         title: "Compétence — Fiche de personnage — Naruto jdr"
     },

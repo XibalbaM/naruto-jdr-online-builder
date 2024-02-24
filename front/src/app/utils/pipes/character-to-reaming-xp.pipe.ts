@@ -63,11 +63,14 @@ export class CharacterToReamingXpPipe implements PipeTransform {
 
     private processCharacter(character: Character): number {
         let xpUsed = 0;
-        for (const skill of character.skills) {
+        for (const skill of character.commonSkills) {
+            xpUsed += this.xpUsedBySkillPerLevel[skill as keyof typeof this.xpUsedBySkillPerLevel];
+        }
+        for (const skill of character.customSkills) {
             xpUsed += this.xpUsedBySkillPerLevel[skill.level as keyof typeof this.xpUsedBySkillPerLevel];
         }
         for (const base of character.bases) {
-            xpUsed += this.xpUsedByBasePerLevel[base.level as keyof typeof this.xpUsedByBasePerLevel];
+            xpUsed += this.xpUsedByBasePerLevel[base as keyof typeof this.xpUsedByBasePerLevel];
         }
         return character.xp - xpUsed;
     }

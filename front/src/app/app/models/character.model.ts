@@ -10,8 +10,9 @@ export default class Character {
     road?: string;
     xp!: number;
     rank!: string;
-    bases: { base: string, level: number }[] = [];
-    skills: { skill: string, level: number }[] = [];
+    bases: number[] = [];
+    commonSkills: number[] = [];
+    customSkills: {skill: string, level: number}[] = [];
     nindo!: string;
     nindoPoints!: number;
     chakraSpes: string[] = [];
@@ -27,6 +28,9 @@ export default class Character {
         delete character.bases;
         delete character.skills;
         delete character.chakraSpes;
+        delete character.commonSkills;
+        delete character.customSkills;
+        delete character.nindoPoints;
         return character;
     }
 }

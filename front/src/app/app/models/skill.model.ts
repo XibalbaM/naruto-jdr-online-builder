@@ -2,10 +2,13 @@
  * Class representing a skill.
  * @class Skill
  */
-export default class Skill {
+export class Skill {
     _id!: string;
     name!: string;
-    base!: string;
+    base!: number;
     description!: string;
-    type!: "common" | "combat" | "terrain" | "clan";
+}
+
+export class CustomSkill extends Skill {
+    type!: "combat" | "terrain" | "clan";
 }

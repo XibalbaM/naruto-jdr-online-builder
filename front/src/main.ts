@@ -10,9 +10,8 @@ import {environment} from './environments/environment';
 import Environment from "./environments/environment.interface";
 import Auth from "./app/app/models/auth.model";
 import {provideRouter} from "@angular/router";
-import {NgxMarkdownItModule} from "ngx-markdown-it";
-import {markdownPluginUnderline} from "./app/characters/markdown-plugins";
 import {NgxPopperjsModule} from "ngx-popperjs";
+import {pipes} from "./app/pipes";
 
 const init = (authService: AuthService, dataService: DataService) => {
     authService.refreshUser();
@@ -28,11 +27,11 @@ const dataProviders = [
 bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(BrowserModule),
-        importProvidersFrom(NgxMarkdownItModule.forRoot({plugins: [markdownPluginUnderline]})),
         importProvidersFrom(NgxPopperjsModule.forRoot({})),
         provideAnimations(),
         provideHttpClient(withInterceptorsFromDi()),
         provideRouter(appRoutes),
+        pipes,
         dataProviders,
     ]
 }).catch(err => console.error(err));

@@ -29,7 +29,7 @@ export class CharacterToSkillTotalLevelPipe implements PipeTransform {
     }
 
     processCharacter(character: Character, skillName: string): number {
-        const skill = this.dataService.skills.getValue().find(skill => skill.name === skillName)!;
+        const skill = this.dataService.commonSkills.getValue().find(skill => skill.name === skillName)! || this.dataService.customSkills.getValue().find(skill => skill.name === skillName)!;
         const base = this.idToData.transform(skill.base, this.dataService.bases.getValue())!;
         return this.characterToSkillNaturalLevel.transform(character, skillName) + this.characterToBaseLevel.transform(character, base.shortName);
     }

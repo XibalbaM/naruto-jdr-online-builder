@@ -20,10 +20,9 @@
         compétences obligatoires
     </h3>
     <div class="flex max-w-md flex-col space-y-[12px]">
-        <div *ngFor="let skill of clanSkills"
-             class="text-start py-[18px] px-[24px] gray-box text-yellow">
-            {{ (skill | idToData:dataService.skills.getValue())?.name }}
-            ({{ ((skill | idToData:dataService.skills.getValue())?.base | idToData:dataService.bases.getValue())?.shortName }})
+        <div *ngFor="let skill of clanSkills" class="text-start py-[18px] px-[24px] gray-box text-yellow">
+            {{ skill.name }}
+            ({{ (skill.base | idToData:dataService.bases.getValue())?.shortName }})
         </div>
     </div>
     <app-spacer class="bg-lighter-dark my-[30px]"></app-spacer>

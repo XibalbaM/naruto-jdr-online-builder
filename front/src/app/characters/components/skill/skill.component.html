@@ -1,5 +1,5 @@
 <h1 class="text-25 font-bold font-monument uppercase mb-[12px]">{{ skill.name }}</h1>
-<p class="text-pink">{{ skill.type | skillTypeToTypeName }}</p>
+<p class="text-pink">{{ skill | skillToTypeName }}</p>
 <p class="text-pink">Base : {{ base.fullName }} ({{ base.shortName }})</p>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
 <div class="grid grid-cols-2 grid-rows-2 max-w-md gap-[12px]">
@@ -23,7 +23,7 @@
     </p>
 </div>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
-<div *ngIf="skill.type != 'common'">
+<div *ngIf="skill ">
     <button (click)="remove()"
             class="border border-orange font-light text-orange px-[28px] py-[16px] max-w-md w-full rounded-[10px] hover:bg-white hover:bg-opacity-5">
         Supprimer la compétence
