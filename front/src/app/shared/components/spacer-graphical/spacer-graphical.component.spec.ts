@@ -8,8 +8,8 @@ describe('SpacerComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-    imports: [SpacerGraphicalComponent]
-})
+            imports: [SpacerGraphicalComponent]
+        })
             .compileComponents();
 
         fixture = TestBed.createComponent(SpacerGraphicalComponent);

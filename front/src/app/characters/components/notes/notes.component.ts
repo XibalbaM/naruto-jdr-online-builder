@@ -9,8 +9,8 @@ import {DataService} from "../../../app/services/data.service";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import {BackNavbarService} from "../../../app/services/back-navbar.service";
-import { AutosizeModule } from 'ngx-autosize';
-import { FormsModule } from '@angular/forms';
+import {AutosizeModule} from 'ngx-autosize';
+import {FormsModule} from '@angular/forms';
 
 let noteTemp: Map<string, string | undefined> = new Map<string, string>();
 

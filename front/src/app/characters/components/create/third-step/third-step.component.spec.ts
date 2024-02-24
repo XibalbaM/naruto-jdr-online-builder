@@ -8,8 +8,8 @@ describe('ThirdStepComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-    imports: [ThirdStepComponent]
-})
+            imports: [ThirdStepComponent]
+        })
             .compileComponents();
 
         fixture = TestBed.createComponent(ThirdStepComponent);

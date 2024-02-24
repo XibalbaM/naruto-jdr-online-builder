@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CreationService} from "../../../services/creation.service";
-import { Router, RouterLink } from "@angular/router";
-import { LongArrowRightComponent } from '../../../../shared/components/long-arrow-right/long-arrow-right.component';
-import { FormsModule } from '@angular/forms';
-import { SpacerComponent } from '../../../../shared/components/spacer/spacer.component';
-import { CharacterPreviewComponent } from '../character-preview/character-preview.component';
-import { LongArrowLeftComponent } from '../../../../shared/components/long-arrow-left/long-arrow-left.component';
+import {Router, RouterLink} from "@angular/router";
+import {LongArrowRightComponent} from '../../../../shared/components/long-arrow-right/long-arrow-right.component';
+import {FormsModule} from '@angular/forms';
+import {SpacerComponent} from '../../../../shared/components/spacer/spacer.component';
+import {CharacterPreviewComponent} from '../character-preview/character-preview.component';
+import {LongArrowLeftComponent} from '../../../../shared/components/long-arrow-left/long-arrow-left.component';
 
 @Component({
     selector: 'app-second-step',

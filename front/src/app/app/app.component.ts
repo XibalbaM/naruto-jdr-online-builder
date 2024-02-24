@@ -1,8 +1,8 @@
 import {Component, ElementRef, inject, InjectionToken, Injector, OnInit, ViewChild} from "@angular/core";
-import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet } from "@angular/router";
+import {ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet} from "@angular/router";
 import {BehaviorSubject, filter} from "rxjs";
-import { NotificationComponent } from "./components/notification/notification.component";
-import { NgComponentOutlet, NgClass, AsyncPipe } from "@angular/common";
+import {NotificationComponent} from "./components/notification/notification.component";
+import {AsyncPipe, NgClass, NgComponentOutlet} from "@angular/common";
 
 @Component({
     selector: "app-root",

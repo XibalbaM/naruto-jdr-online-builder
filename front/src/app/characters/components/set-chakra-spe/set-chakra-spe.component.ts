@@ -8,8 +8,8 @@ import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
 import {DataService} from "../../../app/services/data.service";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
-import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor } from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {NgFor, NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-set-chakra-spe',

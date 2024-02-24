@@ -8,8 +8,8 @@ describe('PredrawnComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-    imports: [PredrawnComponent]
-})
+            imports: [PredrawnComponent]
+        })
             .compileComponents();
 
         fixture = TestBed.createComponent(PredrawnComponent);

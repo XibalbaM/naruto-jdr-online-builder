@@ -10,10 +10,10 @@ import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import {Title} from "@angular/platform-browser";
 import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
-import { SkillTypeToTypeNamePipe } from '../../pipes/skill-type-to-type-name.pipe';
-import { NgxMarkdownItModule } from 'ngx-markdown-it';
-import { NgIf } from '@angular/common';
-import { SpacerComponent } from '../../../shared/components/spacer/spacer.component';
+import {SkillTypeToTypeNamePipe} from '../../pipes/skill-type-to-type-name.pipe';
+import {NgxMarkdownItModule} from 'ngx-markdown-it';
+import {NgIf} from '@angular/common';
+import {SpacerComponent} from '../../../shared/components/spacer/spacer.component';
 
 @Component({
     selector: 'app-skill',

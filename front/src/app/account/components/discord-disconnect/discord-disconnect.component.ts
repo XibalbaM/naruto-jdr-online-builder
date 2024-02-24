@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {AccountService} from "../../../app/services/account.service";
-import { RouterLink } from "@angular/router";
+import {RouterLink} from "@angular/router";
 
 @Component({
     selector: 'app-discord-disconnect',

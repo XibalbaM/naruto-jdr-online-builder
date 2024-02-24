@@ -8,8 +8,8 @@ describe('NindoExemplesComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-    imports: [NindoExemplesComponent]
-})
+            imports: [NindoExemplesComponent]
+        })
             .compileComponents();
 
         fixture = TestBed.createComponent(NindoExemplesComponent);

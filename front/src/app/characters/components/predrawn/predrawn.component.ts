@@ -3,13 +3,13 @@ import Auth from "../../../app/models/auth.model";
 import {PredrawnService} from "../../../app/services/predrawn.service";
 import Character from "../../../app/models/character.model";
 import {DataService} from "../../../app/services/data.service";
-import { IdToDataPipe } from '../../../shared/pipes/id-to-data.pipe';
-import { SpacerComponent } from '../../../shared/components/spacer/spacer.component';
-import { PredrawnPreviewComponent } from '../predrawn-preview/predrawn-preview.component';
-import { NgFor } from '@angular/common';
-import { SpacerGraphicalComponent } from '../../../shared/components/spacer-graphical/spacer-graphical.component';
-import { RouterLink } from '@angular/router';
-import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import {IdToDataPipe} from '../../../shared/pipes/id-to-data.pipe';
+import {SpacerComponent} from '../../../shared/components/spacer/spacer.component';
+import {PredrawnPreviewComponent} from '../predrawn-preview/predrawn-preview.component';
+import {NgFor} from '@angular/common';
+import {SpacerGraphicalComponent} from '../../../shared/components/spacer-graphical/spacer-graphical.component';
+import {RouterLink} from '@angular/router';
+import {ModalComponent} from '../../../shared/components/modal/modal.component';
 
 @Component({
     selector: 'app-predrawn',

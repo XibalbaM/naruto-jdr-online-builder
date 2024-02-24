@@ -8,8 +8,8 @@ describe('DiscordComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-    imports: [DiscordComponent]
-})
+            imports: [DiscordComponent]
+        })
             .compileComponents();
 
         fixture = TestBed.createComponent(DiscordComponent);

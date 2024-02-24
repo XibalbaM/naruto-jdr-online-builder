@@ -1,5 +1,5 @@
 import {Component, HostListener} from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
 import {combineLatest, map, Observable} from "rxjs";
@@ -13,11 +13,11 @@ import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import Rank from "../../../app/models/rank.model";
 import {Title} from "@angular/platform-browser";
-import { CharacterToReamingXpPipe } from '../../../shared/pipes/character-to-reaming-xp.pipe';
-import { SpacerComponent } from '../../../shared/components/spacer/spacer.component';
-import { FormsModule } from '@angular/forms';
-import { NgClass, NgFor, NgIf, AsyncPipe, TitleCasePipe } from '@angular/common';
-import { LongArrowLeftComponent } from '../../../shared/components/long-arrow-left/long-arrow-left.component';
+import {CharacterToReamingXpPipe} from '../../../shared/pipes/character-to-reaming-xp.pipe';
+import {SpacerComponent} from '../../../shared/components/spacer/spacer.component';
+import {FormsModule} from '@angular/forms';
+import {AsyncPipe, NgClass, NgFor, NgIf, TitleCasePipe} from '@angular/common';
+import {LongArrowLeftComponent} from '../../../shared/components/long-arrow-left/long-arrow-left.component';
 
 @Component({
     selector: 'app-edit-details',

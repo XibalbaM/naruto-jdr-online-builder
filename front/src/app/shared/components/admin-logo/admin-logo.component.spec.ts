@@ -8,8 +8,8 @@ describe('AdminLogoComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-    imports: [AdminLogoComponent]
-});
+            imports: [AdminLogoComponent]
+        });
         fixture = TestBed.createComponent(AdminLogoComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

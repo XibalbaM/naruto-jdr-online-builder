@@ -8,8 +8,8 @@ describe('CharactersLogoComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-    imports: [CharactersLogoComponent]
-});
+            imports: [CharactersLogoComponent]
+        });
         fixture = TestBed.createComponent(CharactersLogoComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

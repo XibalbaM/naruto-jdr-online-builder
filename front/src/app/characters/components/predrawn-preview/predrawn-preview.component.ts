@@ -2,8 +2,8 @@ import {Component, Input} from '@angular/core';
 import Character from "../../../app/models/character.model";
 import Environment from "../../../../environments/environment.interface";
 import {DataService} from "../../../app/services/data.service";
-import { IdToDataPipe } from '../../../shared/pipes/id-to-data.pipe';
-import { NgIf, AsyncPipe } from '@angular/common';
+import {IdToDataPipe} from '../../../shared/pipes/id-to-data.pipe';
+import {AsyncPipe, NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-predrawn-preview',

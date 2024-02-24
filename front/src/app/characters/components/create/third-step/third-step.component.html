@@ -1,6 +1,6 @@
 <div *ngIf="skillIds.length < 5" class="fixed bottom-[70px] lg:bottom-0 left-0 purple-gradient w-full h-[50px] items-center flex flex-row px-[15px]">
     <p class="mx-auto w-full max-w-[1024px]">
-        <span class="rounded-xl font-normal text-blue font-neue text-16 bg-light-dark me-[12px] px-[12px] py-[3px]">{{5 - skillIds.length}}</span>
+        <span class="rounded-xl font-normal text-blue font-neue text-16 bg-light-dark me-[12px] px-[12px] py-[3px]">{{ 5 - skillIds.length }}</span>
         Compétences a choisir
     </p>
 </div>
@@ -22,21 +22,21 @@
     <div class="flex max-w-md flex-col space-y-[12px]">
         <div *ngFor="let skill of clanSkills"
              class="text-start py-[18px] px-[24px] gray-box text-yellow">
-            {{(skill | idToData:dataService.skills.getValue())?.name}}
-            ({{((skill | idToData:dataService.skills.getValue())?.base | idToData:dataService.bases.getValue())?.shortName}})
+            {{ (skill | idToData:dataService.skills.getValue())?.name }}
+            ({{ ((skill | idToData:dataService.skills.getValue())?.base | idToData:dataService.bases.getValue())?.shortName }})
         </div>
     </div>
     <app-spacer class="bg-lighter-dark my-[30px]"></app-spacer>
 </ng-container>
 <h3 class="font-light uppercase font-monument text-10 mb-[16px] text-light-gray">
-    <span class="rounded-xl font-normal text-blue font-neue text-16 bg-light-dark me-[12px] px-[12px] py-[3px]">{{5 - skillIds.length}}</span>
+    <span class="rounded-xl font-normal text-blue font-neue text-16 bg-light-dark me-[12px] px-[12px] py-[3px]">{{ 5 - skillIds.length }}</span>
     compétences à choisir
 </h3>
 <div class="grid grid-cols-1 gap-[10px] md:grid-cols-2 lg:grid-cols-3">
     <button (click)="addSkill(skill)" *ngFor="let skill of uncommonSkills"
             [ngClass]="skillIds.includes(skill._id) ? 'gray-box text-yellow hover:bg-lighter-dark' : 'black-box hover:bg-dark'"
             class="col-span-1 row-span-1 max-w-md text-start h-[48px] px-[24px] text-14">
-        {{skill.name}} ({{(skill.base | idToData:dataService.bases.getValue())?.shortName}})
+        {{ skill.name }} ({{ (skill.base | idToData:dataService.bases.getValue())?.shortName }})
     </button>
 </div>
 <app-spacer class="bg-lighter-dark mt-[30px] mb-[50px]"></app-spacer>

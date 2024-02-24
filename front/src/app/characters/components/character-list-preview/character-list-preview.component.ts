@@ -2,10 +2,10 @@ import {Component, Input} from '@angular/core';
 import Character from "../../../app/models/character.model";
 import Environment from "../../../../environments/environment.interface";
 import {DataService} from "../../../app/services/data.service";
-import { CharacterToReamingXpPipe } from '../../../shared/pipes/character-to-reaming-xp.pipe';
-import { IdToDataPipe } from '../../../shared/pipes/id-to-data.pipe';
-import { RouterLink } from '@angular/router';
-import { NgIf, NgClass, AsyncPipe } from '@angular/common';
+import {CharacterToReamingXpPipe} from '../../../shared/pipes/character-to-reaming-xp.pipe';
+import {IdToDataPipe} from '../../../shared/pipes/id-to-data.pipe';
+import {RouterLink} from '@angular/router';
+import {AsyncPipe, NgClass, NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-character-list-preview',

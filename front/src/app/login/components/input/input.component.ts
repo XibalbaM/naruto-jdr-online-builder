@@ -4,13 +4,13 @@ import {AuthService} from "../../../app/services/auth.service";
 import {ReCaptchaV3Service} from "ngx-captcha";
 import Environment from "../../../../environments/environment.interface";
 import Auth from "../../../app/models/auth.model";
-import { FooterComponent } from "../footer/footer.component";
-import { SpinnerComponent } from "../../../shared/components/spinner/spinner.component";
-import { ArrowRightComponent } from "../../../shared/components/arrow-right/arrow-right.component";
-import { NgIf } from "@angular/common";
-import { LogoComponent } from "../logo/logo.component";
-import { ModalComponent } from "../../../shared/components/modal/modal.component";
-import { FormsModule } from "@angular/forms";
+import {FooterComponent} from "../footer/footer.component";
+import {SpinnerComponent} from "../../../shared/components/spinner/spinner.component";
+import {ArrowRightComponent} from "../../../shared/components/arrow-right/arrow-right.component";
+import {NgIf} from "@angular/common";
+import {LogoComponent} from "../logo/logo.component";
+import {ModalComponent} from "../../../shared/components/modal/modal.component";
+import {FormsModule} from "@angular/forms";
 
 @Component({
     selector: 'app-input',

@@ -1,10 +1,10 @@
 import {AfterContentInit, Component} from "@angular/core";
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Environment from "../../../../environments/environment.interface";
 import {AuthService} from "../../../app/services/auth.service";
 import {NotificationService} from "../../../app/services/notification.service";
-import { FooterComponent } from "../footer/footer.component";
-import { LogoComponent } from "../logo/logo.component";
+import {FooterComponent} from "../footer/footer.component";
+import {LogoComponent} from "../logo/logo.component";
 
 @Component({
     selector: "app-callback",

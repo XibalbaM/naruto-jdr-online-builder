@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {AccountService} from "../../../app/services/account.service";
-import { ActivatedRoute, RouterLink } from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 
 @Component({
     selector: 'app-discord',

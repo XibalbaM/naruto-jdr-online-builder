@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
-import { ArrowRightComponent } from '../../../shared/components/arrow-right/arrow-right.component';
-import { RouterLink } from '@angular/router';
-import { NgClass } from '@angular/common';
+import {ArrowRightComponent} from '../../../shared/components/arrow-right/arrow-right.component';
+import {RouterLink} from '@angular/router';
+import {NgClass} from '@angular/common';
 
 @Component({
     selector: 'app-home-button',

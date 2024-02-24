@@ -8,8 +8,8 @@ describe('DefaultProfilePictureComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-    imports: [DefaultProfilePictureComponent]
-});
+            imports: [DefaultProfilePictureComponent]
+        });
         fixture = TestBed.createComponent(DefaultProfilePictureComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

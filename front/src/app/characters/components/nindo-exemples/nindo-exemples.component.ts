@@ -1,8 +1,8 @@
 import {Component, inject} from '@angular/core';
 import {CreationService} from "../../services/creation.service";
-import { Location, NgFor } from "@angular/common";
+import {Location, NgFor} from "@angular/common";
 import {Router} from "@angular/router";
-import { SpacerComponent } from '../../../shared/components/spacer/spacer.component';
+import {SpacerComponent} from '../../../shared/components/spacer/spacer.component';
 
 @Component({
     selector: 'app-nindo-exemples',

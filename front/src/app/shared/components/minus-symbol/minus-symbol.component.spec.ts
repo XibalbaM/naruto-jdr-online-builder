@@ -8,8 +8,8 @@ describe('MinusSymbolComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-    imports: [MinusSymbolComponent]
-});
+            imports: [MinusSymbolComponent]
+        });
         fixture = TestBed.createComponent(MinusSymbolComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

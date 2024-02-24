@@ -7,11 +7,11 @@ import {NotificationService} from "../../../../app/services/notification.service
 import {IdToDataPipe} from "../../../../shared/pipes/id-to-data.pipe";
 import {ReCaptchaV3Service} from "ngx-captcha";
 import Environment from "../../../../../environments/environment.interface";
-import { LongArrowRightComponent } from '../../../../shared/components/long-arrow-right/long-arrow-right.component';
-import { SpacerComponent } from '../../../../shared/components/spacer/spacer.component';
-import { CharacterPreviewComponent } from '../character-preview/character-preview.component';
-import { LongArrowLeftComponent } from '../../../../shared/components/long-arrow-left/long-arrow-left.component';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import {LongArrowRightComponent} from '../../../../shared/components/long-arrow-right/long-arrow-right.component';
+import {SpacerComponent} from '../../../../shared/components/spacer/spacer.component';
+import {CharacterPreviewComponent} from '../character-preview/character-preview.component';
+import {LongArrowLeftComponent} from '../../../../shared/components/long-arrow-left/long-arrow-left.component';
+import {NgClass, NgFor, NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-third-step',

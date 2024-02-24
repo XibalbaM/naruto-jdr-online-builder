@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {BehaviorSubject, Subscription, timer} from "rxjs";
 import {NotificationService} from "../../services/notification.service";
 import {animate, style, transition, trigger} from "@angular/animations";
-import { NgIf, AsyncPipe } from "@angular/common";
+import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({
     selector: "app-notification",

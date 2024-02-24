@@ -5,11 +5,11 @@ import Character from "../../../app/models/character.model";
 import {PredrawnService} from "../../../app/services/predrawn.service";
 import {BehaviorSubject, zip} from "rxjs";
 import {NotificationService} from "../../../app/services/notification.service";
-import { NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HomeButtonComponent } from '../home-button/home-button.component';
-import { SpacerComponent } from '../../../shared/components/spacer/spacer.component';
-import { AdminLogoComponent } from '../../../shared/components/admin-logo/admin-logo.component';
+import {NgIf} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {HomeButtonComponent} from '../home-button/home-button.component';
+import {SpacerComponent} from '../../../shared/components/spacer/spacer.component';
+import {AdminLogoComponent} from '../../../shared/components/admin-logo/admin-logo.component';
 
 @Component({
     selector: 'app-home',
