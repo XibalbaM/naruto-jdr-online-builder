@@ -5,11 +5,11 @@ import {ReCaptchaV3Service} from "ngx-captcha";
 import Environment from "../../../../environments/environment.interface";
 import Auth from "../../../app/models/auth.model";
 import {FooterComponent} from "../footer/footer.component";
-import {SpinnerComponent} from "../../../shared/components/spinner/spinner.component";
-import {ArrowRightComponent} from "../../../shared/components/arrow-right/arrow-right.component";
+import {SpinnerComponent} from "../../../utils/components/spinner/spinner.component";
+import {ArrowRightComponent} from "../../../utils/components/arrow-right/arrow-right.component";
 import {NgIf} from "@angular/common";
 import {LogoComponent} from "../logo/logo.component";
-import {ModalComponent} from "../../../shared/components/modal/modal.component";
+import {ModalComponent} from "../../../utils/components/modal/modal.component";
 import {FormsModule} from "@angular/forms";
 
 @Component({

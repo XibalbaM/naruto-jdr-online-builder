@@ -2,12 +2,12 @@ import {Component, OnInit} from "@angular/core";
 import Auth from "../../models/auth.model";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
-import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
-import {AdminLogoComponent} from "../../../shared/components/admin-logo/admin-logo.component";
-import {DefaultProfilePictureComponent} from "../../../shared/components/default-profile-picture/default-profile-picture.component";
+import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
+import {AdminLogoComponent} from "../../../utils/components/admin-logo/admin-logo.component";
+import {DefaultProfilePictureComponent} from "../../../utils/components/default-profile-picture/default-profile-picture.component";
 import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
-import {PlusLogoComponent} from "../../../shared/components/plus-logo/plus-logo.component";
-import {CharactersLogoComponent} from "../../../shared/components/characters-logo/characters-logo.component";
+import {PlusLogoComponent} from "../../../utils/components/plus-logo/plus-logo.component";
+import {CharactersLogoComponent} from "../../../utils/components/characters-logo/characters-logo.component";
 
 @Component({
     selector: 'app-normal-navbar',

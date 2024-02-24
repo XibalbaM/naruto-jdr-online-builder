@@ -5,13 +5,13 @@ import {Router, RouterLink} from "@angular/router";
 import {NotificationService} from "../../../app/services/notification.service";
 import {AuthService} from "../../../app/services/auth.service";
 import Environment from "../../../../environments/environment.interface";
-import {RolesPipe} from "../../../shared/pipes/roles.pipe";
-import {SpacerComponent} from "../../../shared/components/spacer/spacer.component";
-import {ArrowRightComponent} from "../../../shared/components/arrow-right/arrow-right.component";
-import {DefaultProfilePictureComponent} from "../../../shared/components/default-profile-picture/default-profile-picture.component";
-import {SpacerGraphicalComponent} from "../../../shared/components/spacer-graphical/spacer-graphical.component";
+import {RolesPipe} from "../../../utils/pipes/roles.pipe";
+import {SpacerComponent} from "../../../utils/components/spacer/spacer.component";
+import {ArrowRightComponent} from "../../../utils/components/arrow-right/arrow-right.component";
+import {DefaultProfilePictureComponent} from "../../../utils/components/default-profile-picture/default-profile-picture.component";
+import {SpacerGraphicalComponent} from "../../../utils/components/spacer-graphical/spacer-graphical.component";
 import {FormsModule} from "@angular/forms";
-import {ModalComponent} from "../../../shared/components/modal/modal.component";
+import {ModalComponent} from "../../../utils/components/modal/modal.component";
 import {AsyncPipe, NgFor, NgIf} from "@angular/common";
 
 @Component({

@@ -5,12 +5,12 @@ import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
 import {combineLatest} from "rxjs";
 import {Title} from "@angular/platform-browser";
-import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
-import {LongArrowLeftComponent} from '../../../shared/components/long-arrow-left/long-arrow-left.component';
-import {LongArrowRightComponent} from '../../../shared/components/long-arrow-right/long-arrow-right.component';
+import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
+import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/long-arrow-left.component';
+import {LongArrowRightComponent} from '../../../utils/components/long-arrow-right/long-arrow-right.component';
 import {AsyncPipe, NgIf, TitleCasePipe} from '@angular/common';
 import {NgxMarkdownItModule} from 'ngx-markdown-it';
-import {SpacerComponent} from '../../../shared/components/spacer/spacer.component';
+import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 
 @Component({
     selector: 'app-base',

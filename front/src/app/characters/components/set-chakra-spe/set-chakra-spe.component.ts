@@ -4,7 +4,7 @@ import ChakraSpe from "../../../app/models/chakra-spe.model";
 import Auth from "../../../app/models/auth.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
-import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
+import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {DataService} from "../../../app/services/data.service";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";

@@ -4,7 +4,7 @@ import Character from "../../app/models/character.model";
 import {map, Observable} from "rxjs";
 import {CharacterToSkillNaturalLevelPipe} from "./character-to-skill-natural-level.pipe";
 import {CharacterToBaseLevelPipe} from "./character-to-base-level.pipe";
-import {IdToDataPipe} from "../../shared/pipes/id-to-data.pipe";
+import {IdToDataPipe} from "../../utils/pipes/id-to-data.pipe";
 
 @Pipe({
     name: 'characterToSkillTotalLevel',

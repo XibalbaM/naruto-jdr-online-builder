@@ -8,16 +8,16 @@ import Village from "../../../app/models/village.model";
 import Clan from "../../../app/models/clan.model";
 import Road from "../../../app/models/road.model";
 import Environment from "../../../../environments/environment.interface";
-import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
+import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import Rank from "../../../app/models/rank.model";
 import {Title} from "@angular/platform-browser";
-import {CharacterToReamingXpPipe} from '../../../shared/pipes/character-to-reaming-xp.pipe';
-import {SpacerComponent} from '../../../shared/components/spacer/spacer.component';
+import {CharacterToReamingXpPipe} from '../../../utils/pipes/character-to-reaming-xp.pipe';
+import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {FormsModule} from '@angular/forms';
 import {AsyncPipe, NgClass, NgFor, NgIf, TitleCasePipe} from '@angular/common';
-import {LongArrowLeftComponent} from '../../../shared/components/long-arrow-left/long-arrow-left.component';
+import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/long-arrow-left.component';
 
 @Component({
     selector: 'app-edit-details',

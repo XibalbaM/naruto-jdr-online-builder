@@ -5,15 +5,15 @@ import Auth from "../../../app/models/auth.model";
 import {NAVBAR_DATA_TOKEN} from "../../../app/app.component";
 import {NgxPopperjsContentComponent, NgxPopperjsDirective, NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
 import {DataService} from "../../../app/services/data.service";
-import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
+import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {CharacterService} from "../../services/character.service";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {NotificationService} from "../../../app/services/notification.service";
-import {CharacterToReamingXpPipe} from '../../../shared/pipes/character-to-reaming-xp.pipe';
-import {LongArrowLeftComponent} from '../../../shared/components/long-arrow-left/long-arrow-left.component';
+import {CharacterToReamingXpPipe} from '../../../utils/pipes/character-to-reaming-xp.pipe';
+import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/long-arrow-left.component';
 import {FormsModule} from '@angular/forms';
-import {ModalComponent} from '../../../shared/components/modal/modal.component';
-import {SpacerComponent} from '../../../shared/components/spacer/spacer.component';
+import {ModalComponent} from '../../../utils/components/modal/modal.component';
+import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {AsyncPipe, NgClass, NgIf} from '@angular/common';
 
 @Component({

@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {Location, NgIf} from "@angular/common";
 import {NAVBAR_DATA_TOKEN} from "../../app.component";
 import {BackNavbarService} from "../../services/back-navbar.service";
-import {LongArrowLeftComponent} from '../../../shared/components/long-arrow-left/long-arrow-left.component';
+import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/long-arrow-left.component';
 import {RouterLink} from '@angular/router';
 
 @Component({

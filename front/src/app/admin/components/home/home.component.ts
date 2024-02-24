@@ -8,8 +8,8 @@ import {NotificationService} from "../../../app/services/notification.service";
 import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HomeButtonComponent} from '../home-button/home-button.component';
-import {SpacerComponent} from '../../../shared/components/spacer/spacer.component';
-import {AdminLogoComponent} from '../../../shared/components/admin-logo/admin-logo.component';
+import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
+import {AdminLogoComponent} from '../../../utils/components/admin-logo/admin-logo.component';
 
 @Component({
     selector: 'app-home',

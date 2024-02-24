@@ -3,11 +3,11 @@ import {combineLatest} from "rxjs";
 import Auth from "../../../app/models/auth.model";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Title} from "@angular/platform-browser";
-import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
+import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {DataService} from "../../../app/services/data.service";
 import ChakraSpe from "../../../app/models/chakra-spe.model";
 import {CharacterToMaxChakraSpesPipe} from "../../pipes/character-to-max-chakra-spes.pipe";
-import {ArrowRightComponent} from '../../../shared/components/arrow-right/arrow-right.component';
+import {ArrowRightComponent} from '../../../utils/components/arrow-right/arrow-right.component';
 import {NgFor, NgIf} from '@angular/common';
 
 @Component({

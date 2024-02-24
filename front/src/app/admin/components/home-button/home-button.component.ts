@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ArrowRightComponent} from '../../../shared/components/arrow-right/arrow-right.component';
+import {ArrowRightComponent} from '../../../utils/components/arrow-right/arrow-right.component';
 import {RouterLink} from '@angular/router';
 import {NgClass} from '@angular/common';
 

@@ -4,7 +4,7 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
 import Skill from "../../../app/models/skill.model";
-import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
+import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import Environment from "../../../../environments/environment.interface";
 import {BehaviorSubject, combineLatest, every, merge, Observable, take} from "rxjs";
 import {CharacterService} from "../../services/character.service";
@@ -23,15 +23,15 @@ import {CharacterToChakraControlPipe} from '../../pipes/character-to-chakra-cont
 import {CharacterToMaxChakraSpesPipe} from '../../pipes/character-to-max-chakra-spes.pipe';
 import {CharacterToMaxChakraPipe} from '../../pipes/character-to-max-chakra.pipe';
 import {CharacterToMaxSkillCountPipe} from '../../pipes/character-to-max-skill-count.pipe';
-import {CharacterToReamingXpPipe} from '../../../shared/pipes/character-to-reaming-xp.pipe';
+import {CharacterToReamingXpPipe} from '../../../utils/pipes/character-to-reaming-xp.pipe';
 import {NgxMarkdownItModule} from 'ngx-markdown-it';
 import {SkillItemComponent} from '../skill-item/skill-item.component';
-import {BgComponent} from '../../../shared/components/bg/bg.component';
-import {PlusSymbolComponent} from '../../../shared/components/plus-symbol/plus-symbol.component';
-import {MinusSymbolComponent} from '../../../shared/components/minus-symbol/minus-symbol.component';
-import {SpacerComponent} from '../../../shared/components/spacer/spacer.component';
-import {SpacerGraphicalComponent} from '../../../shared/components/spacer-graphical/spacer-graphical.component';
-import {ArrowRightComponent} from '../../../shared/components/arrow-right/arrow-right.component';
+import {BgComponent} from '../../../utils/components/bg/bg.component';
+import {PlusSymbolComponent} from '../../../utils/components/plus-symbol/plus-symbol.component';
+import {MinusSymbolComponent} from '../../../utils/components/minus-symbol/minus-symbol.component';
+import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
+import {SpacerGraphicalComponent} from '../../../utils/components/spacer-graphical/spacer-graphical.component';
+import {ArrowRightComponent} from '../../../utils/components/arrow-right/arrow-right.component';
 import {AsyncPipe, NgClass, NgFor, NgIf} from '@angular/common';
 
 @Component({
