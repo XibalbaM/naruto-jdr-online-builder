@@ -9,15 +9,13 @@ import {DiscordDisconnectComponent} from './components/discord-disconnect/discor
 
 
 @NgModule({
-    declarations: [
-        EditComponent,
-        DiscordComponent,
-        DiscordDisconnectComponent,
-    ],
     imports: [
         CommonModule,
         AccountRoutingModule,
         SharedModule,
+        EditComponent,
+        DiscordComponent,
+        DiscordDisconnectComponent,
     ],
 })
 export class AccountModule {

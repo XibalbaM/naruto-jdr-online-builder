@@ -38,7 +38,13 @@ import {NgxMarkdownItModule} from "ngx-markdown-it";
 import {markdownPluginUnderline} from "./markdown-plugins";
 
 @NgModule({
-    declarations: [
+    imports: [
+        CommonModule,
+        CharactersRoutingModule,
+        SharedModule,
+        NgxMarkdownItModule.forRoot({
+            plugins: [markdownPluginUnderline],
+        }),
         ListComponent,
         FirstStepComponent,
         SecondStepComponent,
@@ -69,15 +75,7 @@ import {markdownPluginUnderline} from "./markdown-plugins";
         NindoExemplesComponent,
         NotesComponent,
         ChakraSpesComponent,
-        SetChakraSpeComponent
-    ],
-    imports: [
-        CommonModule,
-        CharactersRoutingModule,
-        SharedModule,
-        NgxMarkdownItModule.forRoot({
-            plugins: [markdownPluginUnderline],
-        }),
+        SetChakraSpeComponent,
     ],
     providers: [
         CharacterToChakraControlPipe,

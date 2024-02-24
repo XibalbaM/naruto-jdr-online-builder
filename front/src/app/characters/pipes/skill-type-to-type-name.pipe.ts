@@ -1,7 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-    name: 'skillTypeToTypeName'
+    name: 'skillTypeToTypeName',
+    standalone: true
 })
 export class SkillTypeToTypeNamePipe implements PipeTransform {
 

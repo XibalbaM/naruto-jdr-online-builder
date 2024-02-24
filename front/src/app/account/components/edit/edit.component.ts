@@ -1,15 +1,37 @@
 import {Component} from "@angular/core";
 import Auth from "../../../app/models/auth.model";
 import {AccountService} from "../../../app/services/account.service";
-import {Router} from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import {NotificationService} from "../../../app/services/notification.service";
 import {AuthService} from "../../../app/services/auth.service";
 import Environment from "../../../../environments/environment.interface";
+import { RolesPipe } from "../../../shared/pipes/roles.pipe";
+import { SpacerComponent } from "../../../shared/components/spacer/spacer.component";
+import { ArrowRightComponent } from "../../../shared/components/arrow-right/arrow-right.component";
+import { DefaultProfilePictureComponent } from "../../../shared/components/default-profile-picture/default-profile-picture.component";
+import { SpacerGraphicalComponent } from "../../../shared/components/spacer-graphical/spacer-graphical.component";
+import { FormsModule } from "@angular/forms";
+import { ModalComponent } from "../../../shared/components/modal/modal.component";
+import { NgIf, NgFor, AsyncPipe } from "@angular/common";
 
 @Component({
     selector: "app-edit",
     templateUrl: "./edit.component.html",
     styleUrls: ["./edit.component.scss"],
+    standalone: true,
+    imports: [
+        NgIf,
+        ModalComponent,
+        FormsModule,
+        RouterLink,
+        NgFor,
+        SpacerGraphicalComponent,
+        DefaultProfilePictureComponent,
+        ArrowRightComponent,
+        SpacerComponent,
+        AsyncPipe,
+        RolesPipe,
+    ],
 })
 export class EditComponent {
 

@@ -7,11 +7,18 @@ import {NotificationService} from "../../../../app/services/notification.service
 import {IdToDataPipe} from "../../../../shared/pipes/id-to-data.pipe";
 import {ReCaptchaV3Service} from "ngx-captcha";
 import Environment from "../../../../../environments/environment.interface";
+import { LongArrowRightComponent } from '../../../../shared/components/long-arrow-right/long-arrow-right.component';
+import { SpacerComponent } from '../../../../shared/components/spacer/spacer.component';
+import { CharacterPreviewComponent } from '../character-preview/character-preview.component';
+import { LongArrowLeftComponent } from '../../../../shared/components/long-arrow-left/long-arrow-left.component';
+import { NgIf, NgFor, NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-third-step',
     templateUrl: './third-step.component.html',
-    styleUrls: ['./third-step.component.scss']
+    styleUrls: ['./third-step.component.scss'],
+    standalone: true,
+    imports: [NgIf, LongArrowLeftComponent, CharacterPreviewComponent, SpacerComponent, NgFor, NgClass, LongArrowRightComponent, IdToDataPipe]
 })
 export class ThirdStepComponent implements OnInit, OnDestroy {
     clanSkills: string[] = !this.creationService.character.road

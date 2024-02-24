@@ -4,7 +4,8 @@ import SimpleHtmlWrapper from "../simple-html-wrapper.class";
 @Component({
     selector: 'app-arrow-bottom',
     templateUrl: './arrow-bottom.component.html',
-    styleUrls: ['./arrow-bottom.component.scss']
+    styleUrls: ['./arrow-bottom.component.scss'],
+    standalone: true
 })
 export class ArrowBottomComponent extends SimpleHtmlWrapper {
 

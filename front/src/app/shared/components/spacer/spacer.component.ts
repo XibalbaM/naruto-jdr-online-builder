@@ -3,7 +3,8 @@ import {Component} from '@angular/core';
 @Component({
     selector: 'app-spacer',
     templateUrl: './spacer.component.html',
-    styleUrls: ['./spacer.component.scss']
+    styleUrls: ['./spacer.component.scss'],
+    standalone: true
 })
 export class SpacerComponent {
 

@@ -2,7 +2,8 @@ import {ComponentRef, Directive, ElementRef, EmbeddedViewRef, HostListener, Inpu
 import {TooltipComponent} from "../components/tooltip/tooltip.component";
 
 @Directive({
-    selector: '[tooltip]'
+    selector: '[tooltip]',
+    standalone: true
 })
 export class TooltipDirective implements OnDestroy {
 

@@ -4,7 +4,8 @@ import {map, Observable} from "rxjs";
 import {DataService} from "../../app/services/data.service";
 
 @Pipe({
-    name: 'characterToInterceptions'
+    name: 'characterToInterceptions',
+    standalone: true
 })
 export class CharacterToInterceptionsPipe implements PipeTransform {
 

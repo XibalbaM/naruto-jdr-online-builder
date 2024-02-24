@@ -8,8 +8,8 @@ describe('ArrowRightComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ArrowRightComponent]
-        });
+    imports: [ArrowRightComponent]
+});
         fixture = TestBed.createComponent(ArrowRightComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

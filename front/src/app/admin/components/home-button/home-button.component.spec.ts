@@ -8,8 +8,8 @@ describe('HomeButtonComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [HomeButtonComponent]
-        });
+    imports: [HomeButtonComponent]
+});
         fixture = TestBed.createComponent(HomeButtonComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

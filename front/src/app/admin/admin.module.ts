@@ -8,14 +8,12 @@ import {HomeButtonComponent} from './components/home-button/home-button.componen
 
 
 @NgModule({
-    declarations: [
-        HomeComponent,
-        HomeButtonComponent
-    ],
     imports: [
         CommonModule,
         AdminRoutingModule,
-        SharedModule
+        SharedModule,
+        HomeComponent,
+        HomeButtonComponent
     ]
 })
 export class AdminModule {

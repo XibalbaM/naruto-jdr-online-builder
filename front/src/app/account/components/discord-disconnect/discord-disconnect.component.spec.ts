@@ -8,8 +8,8 @@ describe('DiscordDisconnectComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [DiscordDisconnectComponent]
-        })
+    imports: [DiscordDisconnectComponent]
+})
             .compileComponents();
 
         fixture = TestBed.createComponent(DiscordDisconnectComponent);

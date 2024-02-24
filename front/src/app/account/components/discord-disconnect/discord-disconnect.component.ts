@@ -1,10 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {AccountService} from "../../../app/services/account.service";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: 'app-discord-disconnect',
     templateUrl: './discord-disconnect.component.html',
-    styleUrls: ['./discord-disconnect.component.scss']
+    styleUrls: ['./discord-disconnect.component.scss'],
+    standalone: true,
+    imports: [RouterLink]
 })
 export class DiscordDisconnectComponent implements OnInit {
 

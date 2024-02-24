@@ -3,7 +3,8 @@ import Character from "../../app/models/character.model";
 import {map, Observable} from "rxjs";
 
 @Pipe({
-    name: 'characterToReamingXp'
+    name: 'characterToReamingXp',
+    standalone: true
 })
 export class CharacterToReamingXpPipe implements PipeTransform {
 

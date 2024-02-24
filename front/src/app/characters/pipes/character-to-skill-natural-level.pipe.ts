@@ -4,7 +4,8 @@ import Character from "../../app/models/character.model";
 import {map, Observable} from "rxjs";
 
 @Pipe({
-    name: 'characterToSkillNaturalLevel'
+    name: 'characterToSkillNaturalLevel',
+    standalone: true
 })
 export class CharacterToSkillNaturalLevelPipe implements PipeTransform {
 

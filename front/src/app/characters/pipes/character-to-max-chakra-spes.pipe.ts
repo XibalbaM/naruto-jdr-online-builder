@@ -4,7 +4,8 @@ import {CharacterToChakraControlPipe} from "./character-to-chakra-control.pipe";
 import {map, Observable} from "rxjs";
 
 @Pipe({
-    name: 'characterToMaxChakraSpes'
+    name: 'characterToMaxChakraSpes',
+    standalone: true
 })
 export class CharacterToMaxChakraSpesPipe implements PipeTransform {
 

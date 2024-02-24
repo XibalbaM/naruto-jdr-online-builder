@@ -3,7 +3,8 @@ import Character from "../../app/models/character.model";
 import {map, Observable} from "rxjs";
 
 @Pipe({
-    name: 'characterToMaxSkillCount'
+    name: 'characterToMaxSkillCount',
+    standalone: true
 })
 export class CharacterToMaxSkillCountPipe implements PipeTransform {
 

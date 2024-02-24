@@ -1,13 +1,20 @@
 import {Component, OnInit} from "@angular/core";
 import Auth from "../../models/auth.model";
-import {Router} from "@angular/router";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import {BehaviorSubject} from "rxjs";
 import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
+import { AdminLogoComponent } from "../../../shared/components/admin-logo/admin-logo.component";
+import { DefaultProfilePictureComponent } from "../../../shared/components/default-profile-picture/default-profile-picture.component";
+import { NgIf, NgOptimizedImage, AsyncPipe } from "@angular/common";
+import { PlusLogoComponent } from "../../../shared/components/plus-logo/plus-logo.component";
+import { CharactersLogoComponent } from "../../../shared/components/characters-logo/characters-logo.component";
 
 @Component({
     selector: 'app-normal-navbar',
     templateUrl: './normal-navbar.component.html',
-    styleUrls: ['./normal-navbar.component.scss']
+    styleUrls: ['./normal-navbar.component.scss'],
+    standalone: true,
+    imports: [RouterLink, CharactersLogoComponent, RouterLinkActive, PlusLogoComponent, NgIf, NgOptimizedImage, DefaultProfilePictureComponent, AdminLogoComponent, AsyncPipe]
 })
 export class NormalNavbarComponent implements OnInit {
 

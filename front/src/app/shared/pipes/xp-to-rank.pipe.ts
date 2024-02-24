@@ -3,7 +3,8 @@ import Rank from "../../app/models/rank.model";
 import {DataService} from "../../app/services/data.service";
 
 @Pipe({
-    name: 'xpToRank'
+    name: 'xpToRank',
+    standalone: true
 })
 export class XpToRankPipe implements PipeTransform {
 

@@ -4,7 +4,8 @@ import SimpleHtmlWrapper from "../simple-html-wrapper.class";
 @Component({
     selector: 'app-long-arrow-left',
     templateUrl: './long-arrow-left.component.html',
-    styleUrls: ['./long-arrow-left.component.scss']
+    styleUrls: ['./long-arrow-left.component.scss'],
+    standalone: true
 })
 export class LongArrowLeftComponent extends SimpleHtmlWrapper {
 

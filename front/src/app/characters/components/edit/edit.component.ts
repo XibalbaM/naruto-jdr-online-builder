@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import Character from "../../../app/models/character.model";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
 import Skill from "../../../app/models/skill.model";
@@ -12,11 +12,34 @@ import {NotificationService} from "../../../app/services/notification.service";
 import Base from "../../../app/models/base.model";
 import {Title} from "@angular/platform-browser";
 import ChakraSpe from "../../../app/models/chakra-spe.model";
+import { CharacterToSkillReinforcementPipe } from '../../pipes/character-to-skill-reinforcement.pipe';
+import { CharacterToInterceptionsPipe } from '../../pipes/character-to-interceptions.pipe';
+import { CharacterToSkillTotalLevelPipe } from '../../pipes/character-to-skill-total-level.pipe';
+import { CharacterToSkillNaturalLevelPipe } from '../../pipes/character-to-skill-natural-level.pipe';
+import { CharacterToChakraRegenPipe } from '../../pipes/character-to-chakra-regen.pipe';
+import { CharacterToChakraSpeAmountPipe } from '../../pipes/character-to-chakra-spe-amount.pipe';
+import { CharacterToBaseLevelPipe } from '../../pipes/character-to-base-level.pipe';
+import { CharacterToChakraControlPipe } from '../../pipes/character-to-chakra-control.pipe';
+import { CharacterToMaxChakraSpesPipe } from '../../pipes/character-to-max-chakra-spes.pipe';
+import { CharacterToMaxChakraPipe } from '../../pipes/character-to-max-chakra.pipe';
+import { CharacterToMaxSkillCountPipe } from '../../pipes/character-to-max-skill-count.pipe';
+import { CharacterToReamingXpPipe } from '../../../shared/pipes/character-to-reaming-xp.pipe';
+import { NgxMarkdownItModule } from 'ngx-markdown-it';
+import { SkillItemComponent } from '../skill-item/skill-item.component';
+import { BgComponent } from '../../../shared/components/bg/bg.component';
+import { PlusSymbolComponent } from '../../../shared/components/plus-symbol/plus-symbol.component';
+import { MinusSymbolComponent } from '../../../shared/components/minus-symbol/minus-symbol.component';
+import { SpacerComponent } from '../../../shared/components/spacer/spacer.component';
+import { SpacerGraphicalComponent } from '../../../shared/components/spacer-graphical/spacer-graphical.component';
+import { ArrowRightComponent } from '../../../shared/components/arrow-right/arrow-right.component';
+import { NgIf, NgClass, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-edit',
     templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss']
+    styleUrls: ['./edit.component.scss'],
+    standalone: true,
+    imports: [NgIf, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, NgxMarkdownItModule, AsyncPipe, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe]
 })
 export class EditComponent implements OnInit, AfterViewInit {
 

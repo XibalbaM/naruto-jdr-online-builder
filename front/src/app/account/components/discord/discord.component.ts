@@ -1,11 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {AccountService} from "../../../app/services/account.service";
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 
 @Component({
     selector: 'app-discord',
     templateUrl: './discord.component.html',
-    styleUrls: ['./discord.component.scss']
+    styleUrls: ['./discord.component.scss'],
+    standalone: true,
+    imports: [RouterLink]
 })
 export class DiscordComponent implements OnInit {
 

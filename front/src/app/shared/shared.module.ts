@@ -27,7 +27,12 @@ import {PlusSymbolComponent} from './components/plus-symbol/plus-symbol.componen
 import {MinusSymbolComponent} from './components/minus-symbol/minus-symbol.component';
 
 @NgModule({
-    declarations: [
+    imports: [
+        CommonModule,
+        NgOptimizedImage,
+        FormsModule,
+        AutosizeModule,
+        NgxPopperjsModule.forRoot({}),
         SpacerGraphicalComponent,
         SpacerComponent,
         RolesPipe,
@@ -50,13 +55,6 @@ import {MinusSymbolComponent} from './components/minus-symbol/minus-symbol.compo
         LongArrowRightComponent,
         PlusSymbolComponent,
         MinusSymbolComponent
-    ],
-    imports: [
-        CommonModule,
-        NgOptimizedImage,
-        FormsModule,
-        AutosizeModule,
-        NgxPopperjsModule.forRoot({})
     ],
     exports: [
         CommonModule,

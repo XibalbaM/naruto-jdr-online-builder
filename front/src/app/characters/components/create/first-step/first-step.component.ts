@@ -8,11 +8,18 @@ import Clan from "../../../../app/models/clan.model";
 import Road from "../../../../app/models/road.model";
 import {IdToDataPipe} from "../../../../shared/pipes/id-to-data.pipe";
 import {map} from "rxjs";
+import { XpToRankPipe } from '../../../../shared/pipes/xp-to-rank.pipe';
+import { LongArrowRightComponent } from '../../../../shared/components/long-arrow-right/long-arrow-right.component';
+import { SpacerComponent } from '../../../../shared/components/spacer/spacer.component';
+import { NgFor, NgIf, AsyncPipe, TitleCasePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-first-step',
     templateUrl: './first-step.component.html',
-    styleUrls: ['./first-step.component.scss']
+    styleUrls: ['./first-step.component.scss'],
+    standalone: true,
+    imports: [FormsModule, NgFor, SpacerComponent, NgIf, LongArrowRightComponent, AsyncPipe, TitleCasePipe, XpToRankPipe]
 })
 export class FirstStepComponent implements OnInit {
 

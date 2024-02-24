@@ -3,7 +3,8 @@ import User from "../../app/models/user.model";
 import {RoleNamePipe} from "./role-name.pipe";
 
 @Pipe({
-    name: 'roles'
+    name: 'roles',
+    standalone: true
 })
 export class RolesPipe implements PipeTransform {
 

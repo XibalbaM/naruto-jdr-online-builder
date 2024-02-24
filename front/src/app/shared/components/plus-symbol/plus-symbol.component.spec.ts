@@ -8,8 +8,8 @@ describe('PlusSymbolComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [PlusSymbolComponent]
-        });
+    imports: [PlusSymbolComponent]
+});
         fixture = TestBed.createComponent(PlusSymbolComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

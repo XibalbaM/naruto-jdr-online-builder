@@ -3,17 +3,25 @@ import {BehaviorSubject} from "rxjs";
 import Character from "../../../app/models/character.model";
 import Auth from "../../../app/models/auth.model";
 import {NAVBAR_DATA_TOKEN} from "../../../app/app.component";
-import {NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
+import { NgxPopperjsPlacements, NgxPopperjsTriggers, NgxPopperjsContentComponent, NgxPopperjsDirective } from "ngx-popperjs";
 import {DataService} from "../../../app/services/data.service";
 import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
 import {CharacterService} from "../../services/character.service";
-import {Router} from "@angular/router";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import {NotificationService} from "../../../app/services/notification.service";
+import { CharacterToReamingXpPipe } from '../../../shared/pipes/character-to-reaming-xp.pipe';
+import { LongArrowLeftComponent } from '../../../shared/components/long-arrow-left/long-arrow-left.component';
+import { FormsModule } from '@angular/forms';
+import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { SpacerComponent } from '../../../shared/components/spacer/spacer.component';
+import { NgIf, NgClass, AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-character-navbar',
     templateUrl: './character-navbar.component.html',
-    styleUrls: ['./character-navbar.component.scss']
+    styleUrls: ['./character-navbar.component.scss'],
+    standalone: true,
+    imports: [NgxPopperjsContentComponent, RouterLink, NgIf, SpacerComponent, ModalComponent, FormsModule, LongArrowLeftComponent, NgClass, NgxPopperjsDirective, RouterLinkActive, AsyncPipe, IdToDataPipe, CharacterToReamingXpPipe]
 })
 export class CharacterNavbarComponent {
 

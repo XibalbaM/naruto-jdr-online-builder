@@ -4,7 +4,8 @@ import {DataService} from "../../app/services/data.service";
 import {map, Observable} from "rxjs";
 
 @Pipe({
-    name: 'characterToBaseLevel'
+    name: 'characterToBaseLevel',
+    standalone: true
 })
 export class CharacterToBaseLevelPipe implements PipeTransform {
 

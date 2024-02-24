@@ -7,7 +7,8 @@ import {CharacterToBaseLevelPipe} from "./character-to-base-level.pipe";
 import {IdToDataPipe} from "../../shared/pipes/id-to-data.pipe";
 
 @Pipe({
-    name: 'characterToSkillTotalLevel'
+    name: 'characterToSkillTotalLevel',
+    standalone: true
 })
 export class CharacterToSkillTotalLevelPipe implements PipeTransform {
 
