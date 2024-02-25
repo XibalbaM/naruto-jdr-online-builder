@@ -10,5 +10,9 @@
     },
     "include": [
         "./src/**/*"
+    ],
+    "exclude": [
+        "./src/tests/**/*",
+        "./src/utils/tests.utils.ts"
     ]
 }

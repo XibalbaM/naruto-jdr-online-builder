@@ -9,7 +9,7 @@ import Skill, {CustomSkill} from "../classes/skill.class.js";
 import ClanModel from "../models/clan.model.js";
 import RoadModel from "../models/road.model.js";
 import RankModel from "../models/rank.model.js";
-import {CommonSkillModel, CustomSkillModel} from "../models/skill.model";
+import {CommonSkillModel, CustomSkillModel} from "../models/skill.model.js";
 
 export default class CharactersService {
 

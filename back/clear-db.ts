@@ -7,5 +7,7 @@ import mongoose from "mongoose";
  * Run from package.json with the command: npm run clear-db
  */
 
+// @ts-ignore
 await clearDatabase();
+// @ts-ignore
 await mongoose.connection.close();
