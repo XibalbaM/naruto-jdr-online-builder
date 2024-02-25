@@ -4,15 +4,19 @@ import ChakraSpe from "../../../app/models/chakra-spe.model";
 import Auth from "../../../app/models/auth.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
-import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
+import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {DataService} from "../../../app/services/data.service";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
+import {FormsModule} from '@angular/forms';
+import {NgFor, NgIf} from '@angular/common';
 
 @Component({
     selector: 'app-set-chakra-spe',
     templateUrl: './set-chakra-spe.component.html',
-    styleUrls: ['./set-chakra-spe.component.scss']
+    styleUrls: ['./set-chakra-spe.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, FormsModule]
 })
 export class SetChakraSpeComponent implements OnInit {
 

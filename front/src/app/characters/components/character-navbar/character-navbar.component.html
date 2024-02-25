@@ -36,8 +36,8 @@
         <div class="flex flex-row gap-[10px]">
             <span [ngClass]="(($character | characterToReamingXp | async) || 0) >= 0 ? 'text-blue' : 'text-orange'"
                   class="text-14 px-[6px] py-[3px] bg-light-dark rounded-[6px] ms-[10px]">
-                {{(($character | characterToReamingXp | async) || 0) >= 0 ? '↑' : '↓'}} {{Math.abs(($character | characterToReamingXp | async) || 0)}}
-                EXP
+                {{ (($character | characterToReamingXp | async) || 0) >= 0 ? '↑' : '↓' }} {{ Math.abs(($character | characterToReamingXp | async) || 0) }}
+                EXP <!--TODO not updating-->
             </span>
             <div [popperHideOnClickOutside]="true"
                  [popperPlacement]="NgxPopperjsPlacements.BOTTOMEND"

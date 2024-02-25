@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 import BaseModel from "./base.model.js";
-import SkillModel from "./skill.model.js";
+import {CommonSkillModel} from "./skill.model.js";
 
 /**
  * Represents a character in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-export const characterSchema = new mongoose.Schema({
+const characterSchema = new mongoose.Schema({
 	firstName: {
 		type: String,
 		required: true
@@ -37,25 +37,18 @@ export const characterSchema = new mongoose.Schema({
         required: true
     },
 	bases: {
-		type: [{
-			base: {
-				type: mongoose.Types.ObjectId,
-				ref: 'base',
-				required: true
-			},
-			level: {
-				type: Number,
-				required: true,
-				default: 1
-			}
-		}],
+		type: [Number],
 		required: true
 	},
-	skills: {
+    commonSkills: {
+        type: [Number],
+        required: true
+    },
+	customSkills: {
 		type: [{
 			skill: {
 				type: mongoose.Types.ObjectId,
-				ref: 'skill',
+				ref: 'customSkill',
 				required: true
 			},
 			level: {
@@ -92,15 +85,13 @@ export const characterSchema = new mongoose.Schema({
 });
 
 characterSchema.pre('save', async function (next) {
-	if (!this.bases || this.bases.length === 0) {
-		// @ts-ignore
-		this.bases = (await BaseModel.find()).map(base => base._id).map(id => ({base: id, level: 1}));
-	}
-	if (!this.skills || this.skills.length === 0) {
-		// @ts-ignore
-		this.skills = (await SkillModel.find()).map(skill => ({skill: skill._id, level: skill.type === "common" ? 1 : 0}));
-	}
+    if (!this.isNew) {
+        return next();
+    }
+    this.bases = Array(await BaseModel.count()).fill(1);
+    this.commonSkills = Array(await CommonSkillModel.count()).fill(1);
 	next();
 });
 
-export default mongoose.model('character', characterSchema);
+const CharacterModel = mongoose.model('character', characterSchema);
+export default CharacterModel;

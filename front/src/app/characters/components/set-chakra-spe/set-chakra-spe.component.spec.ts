@@ -8,7 +8,7 @@ describe('SetChrakraSpeComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [SetChakraSpeComponent]
+            imports: [SetChakraSpeComponent]
         });
         fixture = TestBed.createComponent(SetChakraSpeComponent);
         component = fixture.componentInstance;

@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {BehaviorSubject, Subscription, timer} from "rxjs";
 import {NotificationService} from "../../services/notification.service";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({
     selector: "app-notification",
@@ -31,6 +32,8 @@ import {animate, style, transition, trigger} from "@angular/animations";
             ]),
         ]),
     ],
+    standalone: true,
+    imports: [NgIf, AsyncPipe],
 })
 export class NotificationComponent implements OnInit {
     $notification!: BehaviorSubject<{ title: string, content: string } | undefined>;

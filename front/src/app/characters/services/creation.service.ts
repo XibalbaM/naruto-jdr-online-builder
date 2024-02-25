@@ -3,7 +3,7 @@ import Character from "../../app/models/character.model";
 import Village from "../../app/models/village.model";
 import Clan from "../../app/models/clan.model";
 import Road from "../../app/models/road.model";
-import {XpToRankPipe} from "../../shared/pipes/xp-to-rank.pipe";
+import {XpToRankPipe} from "../../utils/pipes/xp-to-rank.pipe";
 import {catchError, map, mergeMap, Observable, of, tap, zip} from "rxjs";
 import {ApiService} from "../../app/services/api.service";
 import Auth from "../../app/models/auth.model";
@@ -74,7 +74,7 @@ export class CreationService {
             mergeMap((character) => {
                 return zip([
                     of(character),
-                    ...skillIds.map((skillId) => this.apiService.doRequest("POST", "/characters/" + character._id + "/skills/" + skillId, {value: 1}).pipe(map((response) => {
+                    ...skillIds.map((skillId) => this.apiService.doRequest("POST", "/characters/" + character._id + "/skills/custom/" + skillId, {value: 1}).pipe(map((response) => {
                         return response.status === 200;
                     })))
                 ]);
@@ -88,7 +88,7 @@ export class CreationService {
             }),
             map((character) => {
                 skillIds.forEach((skillId) => {
-                    character.skills.find((data) => data.skill === skillId)!.level = 1;
+                    character.customSkills.push({skill: skillId, level: 1});
                 });
                 return character;
             }),

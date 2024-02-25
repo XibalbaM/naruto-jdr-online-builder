@@ -8,7 +8,7 @@ describe('NindoExemplesComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [NindoExemplesComponent]
+            imports: [NindoExemplesComponent]
         })
             .compileComponents();
 

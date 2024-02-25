@@ -5,12 +5,12 @@ import UserModel from "../models/user.model.js";
 export default class PredrawnService {
 
     static async getAll() {
-        return (await CharacterModel.find({isPredrawn: true}).select("_id")).map((character) => character._id.toString());
+        return (await CharacterModel.find({isPredrawn: true}).lean().select("_id")).map((character) => character._id.toString());
     }
 
     static async take(userId: string, id: string) {
         if (await CharacterModel.exists({_id: id, isPredrawn: true})) {
-            const character = Character.fromModel(await CharacterModel.findById(id));
+            const character = Character.fromModel(await CharacterModel.findById(id).lean());
             character.isPredrawn = false;
             delete character._id;
             const newCharacter = Character.fromModel(await CharacterModel.create(character));
@@ -22,7 +22,7 @@ export default class PredrawnService {
     }
 
     static async add(id: string) {
-        const character = Character.fromModel(await CharacterModel.findById(id));
+        const character = Character.fromModel(await CharacterModel.findById(id).lean());
         if (character.isPredrawn) {
             throw new Error("Character is already predrawn");
         }

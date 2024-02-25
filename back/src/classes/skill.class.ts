@@ -7,9 +7,8 @@ import mongoose from "mongoose";
 export default class Skill {
     _id: mongoose.Types.ObjectId;
     name: string;
-    base: mongoose.Types.ObjectId;
+    base: number;
     description: string;
-    type: "common" | "combat" | "terrain" | "clan";
 
     /**
      * Creates a new skill from a model
@@ -22,6 +21,18 @@ export default class Skill {
         skill.name = modelSkill.name;
         skill.base = modelSkill.base;
         skill.description = modelSkill.description;
+
+        return skill;
+    }
+}
+
+export class CustomSkill extends Skill {
+
+    type: "combat" | "terrain" | "clan";
+
+    static override fromModel(modelSkill): CustomSkill {
+
+        const skill = super.fromModel(modelSkill) as CustomSkill;
         skill.type = modelSkill.type;
 
         return skill;

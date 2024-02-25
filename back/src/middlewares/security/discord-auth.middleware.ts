@@ -6,7 +6,7 @@ import * as authService from "../../services/auth.service.js";
  * @returns {Middleware} The middleware
  */
 export default function (): Middleware {
-    return function (req, res, next) {
+    return async function (req, res, next) {
         const tokenHeader = req.headers.authorization;
         if (tokenHeader && tokenHeader.split(' ')[0] === 'Bearer') {
             authService.getUserFromDiscordToken(tokenHeader.split(' ')[1]).then(user => {

@@ -8,7 +8,7 @@ describe('ThirdStepComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ThirdStepComponent]
+            imports: [ThirdStepComponent]
         })
             .compileComponents();
 

@@ -5,7 +5,7 @@ import mongoose from "mongoose";
  * @Class Base
  */
 export default class Base {
-    _id: mongoose.Types.ObjectId;
+    _id: number;
     fullName: string;
     shortName: string;
     description: string;

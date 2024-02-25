@@ -1,10 +1,10 @@
 <div *ngIf="reamingChakraSpes > 0"
      class="fixed right-0 bottom-0 left-0 z-30 flex flex-row items-center justify-start h-[70px] px-[18px] py-[17px] purple-gradient">
     <div class="rounded-lg font-normal text-blue font-neue text-16 bg-light-dark me-[12px] px-[12px] h-[26px]">
-        {{reamingChakraSpes}}
+        {{ reamingChakraSpes }}
     </div>
     <div class="flex flex-col">
-        Spécialisation{{reamingChakraSpes > 1 ? 's' : ''}} de chakra disponible{{reamingChakraSpes > 1 ? 's' : ''}}
+        Spécialisation{{ reamingChakraSpes > 1 ? 's' : '' }} de chakra disponible{{ reamingChakraSpes > 1 ? 's' : '' }}
     </div>
 </div>
 <h1 class="font-bold uppercase mb-[30px] text-25 font-monument">spécialisations de chakra</h1>
@@ -14,13 +14,13 @@
             <button [routerLink]="index.toString()"
                     class="flex flex-col justify-between items-start w-full max-w-[450px] bg-black border py-[17px] ps-[24px] pe-[18px] border-lighter-dark rounded-[10px] gap-[5px] hover:bg-dark text-start">
                 <p class="flex flex-row justify-between items-center w-full">
-                    <span class="text-blue text-16">{{chakraSpe.data.name}}</span>
+                    <span class="text-blue text-16">{{ chakraSpe.data.name }}</span>
                     <span class="text-yellow text-12 rounded-xl bg-light-dark px-[12px] py-[4px]">
-                        {{chakraSpe.data.max === 1 ? "Unique" : chakraSpe.data.max + "x"}}
+                        {{ chakraSpe.data.max === 1 ? "Unique" : chakraSpe.data.max + "x" }}
                     </span>
                 </p>
                 <p class="text-light">
-                    {{chakraSpe.data.effect}}
+                    {{ chakraSpe.data.effect }}
                 </p>
             </button>
         </ng-container>
@@ -31,7 +31,7 @@
                             disabled:border-gray-zambezi">
                 <div class="flex flex-col items-start">
                     <p class="text-pink text-16 group-disabled:text-gray-zambezi">Choisir une spécialisation</p>
-                    <p class="font-light text-light group-disabled:text-light-gray">{{chakraSpe.data}}</p>
+                    <p class="font-light text-light group-disabled:text-light-gray">{{ chakraSpe.data }}</p>
                 </div>
                 <app-arrow-right class="fill-pink group-disabled:fill-gray-zambezi"/>
             </button>

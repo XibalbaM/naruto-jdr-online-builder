@@ -4,11 +4,20 @@ import {AuthService} from "../../../app/services/auth.service";
 import {ReCaptchaV3Service} from "ngx-captcha";
 import Environment from "../../../../environments/environment.interface";
 import Auth from "../../../app/models/auth.model";
+import {FooterComponent} from "../footer/footer.component";
+import {SpinnerComponent} from "../../../utils/components/spinner/spinner.component";
+import {ArrowRightComponent} from "../../../utils/components/arrow-right/arrow-right.component";
+import {NgIf} from "@angular/common";
+import {LogoComponent} from "../logo/logo.component";
+import {ModalComponent} from "../../../utils/components/modal/modal.component";
+import {FormsModule} from "@angular/forms";
 
 @Component({
     selector: 'app-input',
     templateUrl: './input.component.html',
-    styleUrls: ['./input.component.scss']
+    styleUrls: ['./input.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ModalComponent, LogoComponent, NgIf, ArrowRightComponent, SpinnerComponent, FooterComponent]
 })
 /**
  * The component where the user can log in or create his account.

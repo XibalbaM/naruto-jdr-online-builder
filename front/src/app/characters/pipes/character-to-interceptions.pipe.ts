@@ -4,7 +4,8 @@ import {map, Observable} from "rxjs";
 import {DataService} from "../../app/services/data.service";
 
 @Pipe({
-    name: 'characterToInterceptions'
+    name: 'characterToInterceptions',
+    standalone: true
 })
 export class CharacterToInterceptionsPipe implements PipeTransform {
 
@@ -24,7 +25,7 @@ export class CharacterToInterceptionsPipe implements PipeTransform {
     }
 
     processCharacter(character: Character, type: 'TAI' | 'ARM'): number {
-        const baseLevel = character.bases.find(base => base.base === this.dataService.bases.getValue().find(base => base.shortName === type)!._id)!.level;
+        const baseLevel = character.bases[this.dataService.bases.getValue().find(base => base.shortName === type)!._id];
         return Math.max(1, Math.floor(baseLevel / 2));
     }
 }

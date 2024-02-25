@@ -4,7 +4,8 @@ import {CharacterToChakraControlPipe} from "./character-to-chakra-control.pipe";
 import {map, Observable} from "rxjs";
 
 @Pipe({
-    name: 'characterToMaxChakraSpes'
+    name: 'characterToMaxChakraSpes',
+    standalone: true
 })
 export class CharacterToMaxChakraSpesPipe implements PipeTransform {
 
@@ -14,7 +15,7 @@ export class CharacterToMaxChakraSpesPipe implements PipeTransform {
     transform(character: Character): number
     transform(character: Observable<Character>): Observable<number>
     transform(character: Observable<Character> | Character): Observable<number> | number {
-        if (character instanceof Observable<Character>)
+        if (character instanceof Observable)
             return character.pipe(map(character => this.processCharacter(character)));
         else
             return this.processCharacter(character);

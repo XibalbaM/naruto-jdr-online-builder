@@ -1153,12 +1153,10 @@ const connectionTemplate = (connectionToken: string, username: string) => {
  */
 export async function sendConnectionEmail(to: string, connectionToken: string, isRegistration: boolean) {
 
-    const username = isRegistration ? undefined : await getUserNameFromEmail(to);
-
     await transporter.sendMail({
         from: config.loginEmail.username,
-        to: to,
+        to,
         subject: isRegistration ? "Création de compte" : "Demande de connexion",
-        html: isRegistration ? accountCreationTemplate(connectionToken) : connectionTemplate(connectionToken, username)
+        html: isRegistration ? accountCreationTemplate(connectionToken) : connectionTemplate(connectionToken, await getUserNameFromEmail(to))
     });
 }

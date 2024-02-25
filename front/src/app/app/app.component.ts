@@ -1,11 +1,21 @@
 import {Component, ElementRef, inject, InjectionToken, Injector, OnInit, ViewChild} from "@angular/core";
-import {ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
+import {ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet} from "@angular/router";
 import {BehaviorSubject, filter} from "rxjs";
+import {NotificationComponent} from "./components/notification/notification.component";
+import {AsyncPipe, NgClass, NgComponentOutlet} from "@angular/common";
 
 @Component({
     selector: "app-root",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"],
+    standalone: true,
+    imports: [
+        NgComponentOutlet,
+        NotificationComponent,
+        NgClass,
+        RouterOutlet,
+        AsyncPipe,
+    ],
 })
 export class AppComponent implements OnInit {
     $navbar: BehaviorSubject<any> = new BehaviorSubject<any>(null);

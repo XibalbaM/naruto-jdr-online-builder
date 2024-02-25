@@ -24,28 +24,27 @@ const emailSentCache = new NodeCache({stdTTL: config.login_jwt_expiration, check
  */
 export async function requestEmail(email: string, discordId?: string): Promise<{ code: number, isRegistration: boolean }> {
 
-    const userDoc = await userModel.findOne({email: email});
+    const isRegistration = !await userModel.exists({email: email});
 
-    const isEmailPresent = emailSentCache.get<string>(email);
-    if (isEmailPresent && ((new Date().getTime() - new Date(isEmailPresent).getTime()) / 1000 < config.login_jwt_expiration)) {
-        return {code: 1, isRegistration: !userDoc};
+    const emailCacheDate = emailSentCache.get<string>(email);
+    if (emailCacheDate && ((new Date().getTime() - new Date(emailCacheDate).getTime()) / 1000 < config.login_jwt_expiration)) {
+        return {code: 1, isRegistration};
     }
 
     if (discordId) {
-        if (userDoc && User.fromModel(userDoc).discordId) {
+        if (!isRegistration && (await userModel.findOne({email: email}).lean().select("discordId")).discordId) {
             return {code: 2, isRegistration: false};
         }
-        const discordUser = await userModel.findOne({discordId: discordId});
-        if (discordUser) {
-            return {code: 3, isRegistration: !userDoc};
+        if (await userModel.exists({discordId: discordId})) {
+            return {code: 3, isRegistration};
         }
     }
 
     emailSentCache.set(email, new Date().toString());
 
-    emailService.sendConnectionEmail(email, getConnectionTokenFromEmail(email, discordId), !userDoc);
+    emailService.sendConnectionEmail(email, getConnectionTokenFromEmail(email, discordId), isRegistration); //voluntarily not awaited to make the response faster
 
-    return {code: 0, isRegistration: !userDoc};
+    return {code: 0, isRegistration};
 }
 
 /**
@@ -55,7 +54,6 @@ export async function requestEmail(email: string, discordId?: string): Promise<{
  * @returns {string} The user's connection token
  */
 export function getConnectionTokenFromEmail(email: string, discordId?: string): string {
-    console.log("Generating connection token for " + email + " with discord id " + discordId);
 
     const payload = discordId ? {email: email, discordId: discordId} : {email: email};
 
@@ -77,20 +75,16 @@ export async function useCode(connectionToken: string): Promise<{ token: string,
         const decodedToken = jwt.verify(connectionToken, config.login_jwt_secret, {ignoreExpiration: false});
         const email: string = decodedToken["email"];
         const discordId: string = decodedToken["discordId"];
-        let discordUsername: string;
         emailSentCache.del(email);
 
-        const existingUserDoc = await userModel.findOne({email: email});
-        if (existingUserDoc) {
-            const token = await generateToken(existingUserDoc._id);
-            if (discordId) discordUsername = await addDiscordData(existingUserDoc._id, discordId);
-            return {token: token, isFirstLogin: false, discordUsername: discordUsername};
-        } else {
-            const user = await userModel.create({email: email});
-            const token = await generateToken(user._id);
-            if (discordId) discordUsername = await addDiscordData(user._id, discordId);
-            return {token: token, isFirstLogin: true, discordUsername: discordUsername};
+        let user = await userModel.findOne({email: email}).select("_id");
+        let isFirstLogin = false;
+        if (!user) {
+            user = await userModel.create({email: email});
+            isFirstLogin = true;
         }
+        const token = await generateToken(user._id);
+        return {token: token, isFirstLogin, discordUsername: discordId ? await addDiscordData(user._id, discordId) : undefined};
     } catch (e) {
         if (e.message === "jwt expired") {
             throw new Error("jwt expired");
@@ -122,7 +116,7 @@ export async function generateToken(id: any): Promise<string> {
  */
 export async function getUserFromToken(token: string): Promise<User> {
 
-    const decoded = await jwt.verify(token, config.jwt_secret);
+    const decoded = jwt.verify(token, config.jwt_secret);
 
     const userDoc = await userModel.findById(decoded["id"]);
 
@@ -143,7 +137,7 @@ export async function getUserFromToken(token: string): Promise<User> {
  */
 export async function getUserFromDiscordToken(token: string): Promise<User> {
 
-    const decoded = await jwt.verify(token, config.jwt_secret);
+    const decoded = jwt.verify(token, config.jwt_secret);
 
     const userDoc = await userModel.findOne({discordId: decoded["discordId"]});
 
@@ -160,6 +154,6 @@ export async function getUserFromDiscordToken(token: string): Promise<User> {
  * @param discordId The user's discord id
  */
 export async function addDiscordData(userId: any, discordId: string): Promise<string> {
-
-    return getDiscordName(User.fromModel(await userModel.findByIdAndUpdate(userId, {discordId: discordId})));
+    await userModel.findByIdAndUpdate(userId, {discordId: discordId})
+    return getDiscordName(discordId);
 }

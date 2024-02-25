@@ -1,12 +1,10 @@
 import mongoose from "mongoose";
 
-import {UserSchema} from "./user.model.js";
-
 /**
  * Represents a group in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-export const GroupSchema = new mongoose.Schema({
+const GroupSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -34,4 +32,5 @@ export const GroupSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model('group', GroupSchema);
+const GroupModel = mongoose.model("group", GroupSchema);
+export default GroupModel;

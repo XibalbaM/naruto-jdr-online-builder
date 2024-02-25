@@ -4,11 +4,11 @@ import {Middleware} from "./middleware.type.js";
 import config from "../config/config.js";
 
 /**
- * Return a middleware that log every request.
+ * Return a middleware that logs every request.
  * @param basePath The path where the middleware is used.
  */
 export default function (basePath: string): Middleware {
-    return (req, res, next) => {
+    return async (req, res, next) => {
         let id = "non-authenticated";
         let type: 'discord' | 'website' | undefined = undefined;
         if (req.headers.authorization) {

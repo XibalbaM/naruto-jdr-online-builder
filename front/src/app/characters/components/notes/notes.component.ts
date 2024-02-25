@@ -4,18 +4,22 @@ import Auth from "../../../app/models/auth.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import Character from "../../../app/models/character.model";
 import {Title} from "@angular/platform-browser";
-import {IdToDataPipe} from "../../../shared/pipes/id-to-data.pipe";
+import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {DataService} from "../../../app/services/data.service";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import {BackNavbarService} from "../../../app/services/back-navbar.service";
+import {AutosizeModule} from 'ngx-autosize';
+import {FormsModule} from '@angular/forms';
 
 let noteTemp: Map<string, string | undefined> = new Map<string, string>();
 
 @Component({
     selector: 'app-notes',
     templateUrl: './notes.component.html',
-    styleUrls: ['./notes.component.scss']
+    styleUrls: ['./notes.component.scss'],
+    standalone: true,
+    imports: [FormsModule, AutosizeModule]
 })
 export class NotesComponent implements OnInit {
 

@@ -1,67 +1,74 @@
 import {test, expect} from "vitest";
 
-import * as fetchUtils from "../../utils/tests.utils.js";
 import Village from "../../classes/village.class";
+import VillageModel from "../../models/village.model";
+import DataController from "../../controllers/data.controller";
+import {createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
 
-let konoha: Village;
+let kiri = Village.fromModel(await VillageModel.findOne({name: "Kiri"}).lean());
+let controller = new DataController(VillageModel, Village.fromModel);
 
-//NORMAL USES
-test("GET /", async () => {
-
-    const response = await fetchUtils.get("/villages");
-
-    expect(response.status).toBe(200);
-    const json = await response.json() as Array<Village>;
-    expect(json).toBeInstanceOf(Array);
-    expect(json.filter((data) => data.name === "Konoha")[0]).toBeDefined()
-    konoha = json.filter((data) => data.name === "Konoha")[0];
+test("ETag", async () => {
+    let testEtag = DataController.getETag("test");
+    expect(testEtag).toBe(DataController.getETag("test"));
+    expect(testEtag).not.toBe(DataController.getETag("test2"));
 });
 
-test("GET /:id", async () => {
+test("Resource sending", async () => {
+    let noDataResponse = createMockResponse();
+    DataController.sendDataOr304(createMockRequest({header: () => null}), noDataResponse, "test");
+    expect(noDataResponse.status).toBeCalledWith(200);
+    expect(noDataResponse.json).toBeCalledWith("test");
+    expect(noDataResponse.set).toBeCalledWith("ETag", DataController.getETag("test"));
+    expect(noDataResponse.set).toBeCalledWith('Cache-Control', `public, max-age=${60 * 60}`);
 
-    const response = await fetchUtils.get(`/villages/${konoha._id}`);
+    let dataResponse = createMockResponse();
+    DataController.sendDataOr304(createMockRequest({header: () => DataController.getETag("test")}), dataResponse, "test");
+    expect(dataResponse.sendStatus).toBeCalledWith(304);
+    expect(dataResponse.json).not.toBeCalled();
 
-    expect(response.status).toBe(200);
-    const json = await response.json() as Village;
-    expect(json).toBeInstanceOf(Object);
-    expect(json.name).toBe(konoha.name);
+    let changedDataResponse = createMockResponse();
+    DataController.sendDataOr304(createMockRequest({header: () => DataController.getETag("test")}), changedDataResponse, "test1");
+    expect(changedDataResponse.status).toBeCalledWith(200);
+    expect(changedDataResponse.json).toBeCalledWith("test1");
+    expect(changedDataResponse.set).toBeCalledWith("ETag", DataController.getETag("test1"));
 });
 
-test("POST /", async () => {
-
-    const response = await fetchUtils.post("/villages", {data: {name: "Salut"}}, await fetchUtils.getAdminToken());
-
-    expect(response.status).toBe(201);
-    const json = await response.json() as Village;
-    expect(json).toBeInstanceOf(Object);
-    expect(json.name).toBe("Salut");
-
-    const get = await fetchUtils.get(`/villages/${json._id}`);
-    expect(get.status).toBe(200);
-    const getJson = await get.json() as Village;
-    expect(getJson).toBeInstanceOf(Object);
-    expect(getJson.name).toBe("Salut");
+test("Get all", async () => {
+    let response = createMockResponse();
+    await controller.getAll(createMockRequest({header: () => null}), response);
+    expect(response.status).toBeCalledWith(200);
+    expect(response.json).toBeCalledWith(expect.arrayContaining([kiri]));
 });
 
-test("PUT /:id", async () => {
-
-    const response = await fetchUtils.put(`/villages/${konoha._id}`, {data: {name: "Coucou"}}, await fetchUtils.getAdminToken());
-
-    expect(response.status).toBe(200);
-
-    const get = await fetchUtils.get(`/villages/${konoha._id}`);
-    expect(get.status).toBe(200);
-    const getJson = await get.json() as Village;
-    expect(getJson).toBeInstanceOf(Object);
-    expect(getJson.name).toBe("Coucou");
+test("Get one", async () => {
+    let response = createMockResponse();
+    await controller.get(createMockRequest({header: () => null, params: {id: kiri._id}}), response);
+    expect(response.status).toBeCalledWith(200);
+    expect(response.json).toBeCalledWith(kiri);
 });
 
-test("DELETE /:id", async () => {
+test("Create", async () => {
+    let response = createMockResponse();
+    let newVillage = {name: "Test"}
+    await controller.create(createMockRequest({header: () => null, body: {data: newVillage}}), response);
+    expect(response.status).toBeCalledWith(201);
+    expect(response.json).toBeCalledWith(expect.objectContaining({name: "Test"}));
+});
 
-    const response = await fetchUtils.del(`/villages/${konoha._id}`, await fetchUtils.getAdminToken());
+test("Update", async () => {
+    let response = createMockResponse();
+    let newVillage = {name: "Test1"}
+    await controller.update(createMockRequest({header: () => null, params: {id: kiri._id}, body: {data: newVillage}}), response);
+    expect(response.status).toBeCalledWith(200);
+    expect(response.json).toBeCalledWith({message: "Successfully updated"});
+    expect(await VillageModel.findById(kiri._id).lean()).toMatchObject(newVillage);
+});
 
-    expect(response.status).toBe(200);
-
-    const get = await fetchUtils.get(`/villages/${konoha._id}`);
-    expect(get.status).toBe(404);
+test("Delete", async () => {
+    let response = createMockResponse();
+    await controller.delete(createMockRequest({header: () => null, params: {id: kiri._id}}), response);
+    expect(response.status).toBeCalledWith(200);
+    expect(response.json).toBeCalledWith({message: "Successfully deleted"});
+    expect(await VillageModel.exists(kiri._id)).toBeFalsy();
 });

@@ -1,13 +1,21 @@
 import {AfterContentInit, Component} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Environment from "../../../../environments/environment.interface";
 import {AuthService} from "../../../app/services/auth.service";
 import {NotificationService} from "../../../app/services/notification.service";
+import {FooterComponent} from "../footer/footer.component";
+import {LogoComponent} from "../logo/logo.component";
 
 @Component({
     selector: "app-callback",
     templateUrl: "./callback.component.html",
     styleUrls: ["./callback.component.scss"],
+    standalone: true,
+    imports: [
+        RouterLink,
+        LogoComponent,
+        FooterComponent,
+    ],
 })
 /**
  * The component that handles the callback from the server after a login or registration request and from email link.

@@ -1,6 +1,8 @@
-import {expect, test} from "vitest";
+import {expect, Mock, test} from "vitest";
 
-import * as fetchUtils from "../../utils/tests.utils.js";
+import authMiddleware from "../../middlewares/security/auth.middleware";
+import {createMockNext, createMockRequest, createMockResponse, sleep} from "../../utils/tests.utils.js";
+import {getTestToken} from "../../utils/test.data";
 
 /**
  * Test the authMiddleware route.
@@ -10,30 +12,33 @@ import * as fetchUtils from "../../utils/tests.utils.js";
 
 test("Using a valid token", async () => {
 
-    const response = await fetchUtils.get("/account", await fetchUtils.getTestToken());
+    let authMiddlewareFun = authMiddleware();
+    let mockRequest = createMockRequest(undefined, await getTestToken());
+    let mockNext = createMockNext();
+    await authMiddlewareFun(mockRequest, createMockResponse(), mockNext);
 
-    expect(response.status).toBe(200);
-
-    const json = await response.json();
-    expect(json["user"]["email"]).toBeDefined();
+    expect(mockNext).toBeCalled();
+    expect(mockRequest["user"]).toBeDefined();
 });
 
 test("Using an invalid token", async () => {
 
-    const response = await fetchUtils.get("/account", "invalid");
+    let authMiddlewareFun = authMiddleware();
+    let mockResponse = createMockResponse();
+    let mockNext = createMockNext();
+    await authMiddlewareFun(createMockRequest(undefined, "invalid"), mockResponse, mockNext);
 
-    expect(response.status).toBe(401);
-
-    const json = await response.json();
-    expect(json["error"]).toBe("Cannot authenticate user.");
+    expect(mockNext).toBeCalledTimes(0);
+    expect(mockResponse.send).toBeCalledWith({error: "Cannot authenticate user."});
 });
 
 test("Using no token", async () => {
 
-    const response = await fetchUtils.get("/account");
+    let authMiddlewareFun = authMiddleware();
+    let mockResponse = createMockResponse();
+    let mockNext = createMockNext();
+    await authMiddlewareFun(createMockRequest(), mockResponse, mockNext);
 
-    expect(response.status).toBe(401);
-
-    const json = await response.json();
-    expect(json["error"]).toBe("No token provided for accessing a protected resource.");
+    expect(mockNext).toBeCalledTimes(0);
+    expect(mockResponse.send).toBeCalledWith({error: "No token provided for accessing a protected resource."});
 });

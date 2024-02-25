@@ -4,7 +4,8 @@ import Character from "../../app/models/character.model";
 import {map, Observable} from "rxjs";
 
 @Pipe({
-    name: 'characterToChakraSpeAmount'
+    name: 'characterToChakraSpeAmount',
+    standalone: true
 })
 export class CharacterToChakraSpeAmountPipe implements PipeTransform {
 

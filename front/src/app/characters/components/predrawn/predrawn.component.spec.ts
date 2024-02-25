@@ -8,7 +8,7 @@ describe('PredrawnComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [PredrawnComponent]
+            imports: [PredrawnComponent]
         })
             .compileComponents();
 
