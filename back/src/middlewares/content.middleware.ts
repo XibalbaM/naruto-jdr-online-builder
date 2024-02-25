@@ -50,8 +50,7 @@ export function checkTypeFields(model: any, obj: any): boolean {
 }
 
 export default function (...types: any): Middleware {
-
-    return (req, res, next) => {
+    return async (req, res, next) => {
         const body = req.body;
         let success = false;
         for (let type of types) {
@@ -61,9 +60,9 @@ export default function (...types: any): Middleware {
             }
         }
         if (!success) {
-            return res.status(400).json({error: "Invalid body"});
+            res.status(400).json({error: "Invalid body"});
+            return;
         }
-
         next();
     };
 }

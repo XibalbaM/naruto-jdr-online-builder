@@ -4,7 +4,8 @@ import {map, Observable} from "rxjs";
 import {CharacterToBaseLevelPipe} from "./character-to-base-level.pipe";
 
 @Pipe({
-    name: 'characterToChakraControl'
+    name: 'characterToChakraControl',
+    standalone: true
 })
 export class CharacterToChakraControlPipe implements PipeTransform {
 

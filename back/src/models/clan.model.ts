@@ -4,7 +4,7 @@ import mongoose from "mongoose";
  * Represents a clan in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-export const clanSchema = new mongoose.Schema({
+const clanSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -25,4 +25,5 @@ export const clanSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model('clan', clanSchema);
+const ClanModel = mongoose.model('clan', clanSchema);
+export default ClanModel;

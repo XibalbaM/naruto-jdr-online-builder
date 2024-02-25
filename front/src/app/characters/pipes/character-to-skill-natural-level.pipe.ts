@@ -4,7 +4,8 @@ import Character from "../../app/models/character.model";
 import {map, Observable} from "rxjs";
 
 @Pipe({
-    name: 'characterToSkillNaturalLevel'
+    name: 'characterToSkillNaturalLevel',
+    standalone: true
 })
 export class CharacterToSkillNaturalLevelPipe implements PipeTransform {
 
@@ -23,7 +24,13 @@ export class CharacterToSkillNaturalLevelPipe implements PipeTransform {
         }
     }
 
-    processCharacter(character: Character, skillShortName: string): number {
-        return character.skills.find(skill => skill.skill === this.dataService.skills.getValue().find(skill => skill.name === skillShortName)?._id)?.level || 0;
+    processCharacter(character: Character, skillName: string): number {
+        const skillId = this.dataService.commonSkills.getValue().find(skill => skill.name === skillName)?._id;
+        if (skillId !== undefined) {
+            return character.commonSkills[Number(skillId)];
+        } else {
+            const customSkill = this.dataService.customSkills.getValue().find(skill => skill.name === skillName)!;
+            return character.customSkills.find(skill => skill.skill === customSkill._id)?.level || 0;
+        }
     }
 }

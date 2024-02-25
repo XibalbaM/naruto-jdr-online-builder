@@ -12,8 +12,9 @@ export default class Character {
     road?: mongoose.Types.ObjectId;
     xp: number;
     rank: mongoose.Types.ObjectId;
-    bases: {base: mongoose.Types.ObjectId, level: number}[];
-    skills: {skill: mongoose.Types.ObjectId, level: number}[];
+    bases: number[];
+    commonSkills: number[];
+    customSkills: {skill: mongoose.Types.ObjectId, level: number}[];
     nindo: string;
     nindoPoints: number;
     chakraSpes: mongoose.Types.ObjectId[];
@@ -35,7 +36,8 @@ export default class Character {
         character.xp = modelCharacter.xp;
         character.rank = modelCharacter.rank;
         character.bases = modelCharacter.bases;
-        character.skills = modelCharacter.skills;
+        character.commonSkills = modelCharacter.commonSkills;
+        character.customSkills = modelCharacter.customSkills;
         character.nindo = modelCharacter.nindo;
         character.nindoPoints = modelCharacter.nindoPoints;
         character.chakraSpes = modelCharacter.chakraSpes;

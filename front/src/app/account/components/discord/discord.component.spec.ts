@@ -8,7 +8,7 @@ describe('DiscordComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [DiscordComponent]
+            imports: [DiscordComponent]
         })
             .compileComponents();
 

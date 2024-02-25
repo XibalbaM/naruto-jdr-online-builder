@@ -6,10 +6,8 @@ export default class PredrawnController {
     /**
      * Get the list of predrawn characters' ids.
      */
-    static list(req: Request, res: Response) {
-        PredrawnService.getAll().then((characters) => {
-            res.status(200).json({characters});
-        });
+    static async list(req: Request, res: Response) {
+        res.status(200).json({characters: await PredrawnService.getAll()});
     }
 
     /**
@@ -20,12 +18,12 @@ export default class PredrawnController {
      *
      * The user must be logged in.
      */
-    static take(req: Request, res: Response) {
-        PredrawnService.take(req['user']._id, req.params.id).then((character) => {
-            res.status(201).json({character});
-        }).catch((error) => {
+    static async take(req: Request, res: Response) {
+        try {
+            res.status(201).json({character: await PredrawnService.take(req['user']._id, req.params.id)});
+        } catch (error) {
             res.status(400).json({error: error.message});
-        });
+        }
     }
 
     /**
@@ -35,12 +33,12 @@ export default class PredrawnController {
      *
      * The user must be logged in and be an admin.
      */
-    static add(req: Request, res: Response) {
-        PredrawnService.add(req.body.id).then((id) => {
-            res.status(201).json({id});
-        }).catch((error) => {
+    static async add(req: Request, res: Response) {
+        try {
+            res.status(201).json({id: await PredrawnService.add(req.body.id)});
+        } catch (error) {
             res.status(400).json({error: error.message});
-        });
+        }
     }
 
     /**
@@ -48,11 +46,12 @@ export default class PredrawnController {
      *
      * The user must be logged in and be an admin.
      */
-    static remove(req: Request, res: Response) {
-        PredrawnService.remove(req.params.id).then(() => {
+    static async remove(req: Request, res: Response) {
+        try {
+            await PredrawnService.remove(req.params.id)
             res.sendStatus(200);
-        }).catch((error) => {
+        } catch (error) {
             res.status(400).json({error: error.message});
-        });
+        }
     }
 }

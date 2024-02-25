@@ -1,11 +1,11 @@
-import * as fetchUtils from "../utils/tests.utils";
-import addDefaultData from "../utils/add-default-data";
-import {clearDatabase} from "../utils/clear-db";
+import addDefaultData from "../utils/add-default-data.js";
+import {clearDatabase} from "../utils/clear-db.js";
+import {init} from "../utils/test.data.js";
 
 export default async function setup() {
     console.log("Setup");
     await clearDatabase();
     await addDefaultData();
-    await fetchUtils.init();
+    await init();
     console.log("Setup complete");
 }

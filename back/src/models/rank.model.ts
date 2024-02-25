@@ -4,7 +4,7 @@ import mongoose from "mongoose";
  * Represents a rank in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-export const rankSchema = new mongoose.Schema({
+const rankSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -21,4 +21,5 @@ export const rankSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model('rank', rankSchema);
+const RankModel = mongoose.model('rank', rankSchema);
+export default RankModel;

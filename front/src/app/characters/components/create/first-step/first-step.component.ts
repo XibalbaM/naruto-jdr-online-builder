@@ -6,13 +6,20 @@ import Village from "../../../../app/models/village.model";
 import Environment from "../../../../../environments/environment.interface";
 import Clan from "../../../../app/models/clan.model";
 import Road from "../../../../app/models/road.model";
-import {IdToDataPipe} from "../../../../shared/pipes/id-to-data.pipe";
+import {IdToDataPipe} from "../../../../utils/pipes/id-to-data.pipe";
 import {map} from "rxjs";
+import {XpToRankPipe} from '../../../../utils/pipes/xp-to-rank.pipe';
+import {LongArrowRightComponent} from '../../../../utils/components/long-arrow-right/long-arrow-right.component';
+import {SpacerComponent} from '../../../../utils/components/spacer/spacer.component';
+import {AsyncPipe, NgFor, NgIf, TitleCasePipe} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
 @Component({
     selector: 'app-first-step',
     templateUrl: './first-step.component.html',
-    styleUrls: ['./first-step.component.scss']
+    styleUrls: ['./first-step.component.scss'],
+    standalone: true,
+    imports: [FormsModule, NgFor, SpacerComponent, NgIf, LongArrowRightComponent, AsyncPipe, TitleCasePipe, XpToRankPipe]
 })
 export class FirstStepComponent implements OnInit {
 

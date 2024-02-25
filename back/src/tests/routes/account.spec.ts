@@ -1,119 +1,207 @@
 import {test, expect} from "vitest";
 
-import * as fetchUtils from "../../utils/tests.utils.js";
-import {addDiscordAccountToTestAccount, removeDiscordAccountFromTestAccount} from "../../utils/tests.utils.js";
+import * as accountController from "../../controllers/account.controller.js";
+import {addDiscordAccountToTestAccount, createTestAccounts, getTestToken, removeDiscordAccountFromTestAccount} from "../../utils/test.data";
+import {authenticateRequest, createMockRequest, createMockResponse} from "../../utils/tests.utils";
+import User from "../../classes/user.class";
+import UserModel from "../../models/user.model";
+import config from "../../config/config";
 
-//NORMAL USES
-test("POST /username with valid username", async () => {
+test("getUser", async () => {
+    {
+        let mockRequest = createMockRequest(undefined, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.getUser(mockRequest, mockResponse);
 
-    const response = await fetchUtils.post("/account/username", {username: "test"}, await fetchUtils.getTestToken());
-    expect(response.status).toBe(200);
-    const userData = await (await fetchUtils.get("/account", await fetchUtils.getTestToken())).json();
-    expect(userData["user"]["username"]).toBe("test");
+        expect(mockResponse.status).toBeCalledWith(200);
+        expect(mockResponse.json).toBeCalledWith({user: expect.any(User)});
+        expect(mockResponse.json["mock"]["calls"][0][0]["user"]["profileImage"]).toBeUndefined();
+    }
+
+    {
+        let mockRequest = createMockRequest(undefined, await getTestToken());
+        let mockResponse = createMockResponse();
+        await addDiscordAccountToTestAccount();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.getUser(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(200);
+        expect(mockResponse.json).toBeCalledWith({user: expect.any(User)});
+        expect(mockResponse.json["mock"]["calls"][0][0]["user"]["profileImage"]).toBeDefined();
+        await removeDiscordAccountFromTestAccount();
+    }
 });
 
-test("POST /email with valid email", async () => {
+test("updateUsername", async () => {
+    {
+        let mockRequest = createMockRequest({body: {username: "test"}}, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.updateUsername(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(200);
+        expect(mockResponse.json).toBeCalledWith({message: "Username updated."});
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("username"))["username"]).toBe("test");
+        await UserModel.findByIdAndUpdate(mockRequest["user"]["_id"], {$unset: {username: 1}});
+    }
 
-    const token = await fetchUtils.getTestToken();
-    const response = await fetchUtils.post("/account/email", {email: "salut@test.test"}, token);
+    {
+        let mockRequest = createMockRequest({body: {username: "testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"}}, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.updateUsername(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(400);
+        expect(mockResponse.json).toBeCalledWith({error: `Username must be between 3 and 20 characters.`});
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("username"))["username"]).toBeUndefined();
+    }
 
-    expect(response.status).toBe(200);
-    const userData = await (await fetchUtils.get("/account", token)).json();
-    expect(userData["user"]["email"]).toBe("salut@test.test");
-
-    await fetchUtils.post("/account/email", {email: "testdata@test.test"}, token);
+    {
+        let mockRequest = createMockRequest({body: {username: "te"}}, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.updateUsername(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(400);
+        expect(mockResponse.json).toBeCalledWith({error: `Username must be between 3 and 20 characters.`});
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("username"))["username"]).toBeUndefined();
+    }
 });
 
-test("POST /picture with valid link", async () => {
+test("updateEmail", async () => {
+    {
+        let mockRequest = createMockRequest({body: {email: "test@test.test"}}, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.updateEmail(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(200);
+        expect(mockResponse.json).toBeCalledWith({message: "Email updated."});
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("email"))["email"]).toBe("test@test.test");
+        await UserModel.findByIdAndUpdate(mockRequest["user"]["_id"], {email: mockRequest["user"]["email"]});
+    }
 
-    const response = await fetchUtils.post("/account/picture", {link: "https://cdn.discordapp.com/attachments/1051546651350810686/1098276195944112228/tametoki_nara.png"}, await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(200);
-    const userData = await (await fetchUtils.get("/account", await fetchUtils.getTestToken())).json();
-    expect(userData["user"]["profileImage"]).toBe("https://cdn.discordapp.com/attachments/1051546651350810686/1098276195944112228/tametoki_nara.png");
+    {
+        let mockRequest = createMockRequest({body: {email: "test"}}, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.updateEmail(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(400);
+        expect(mockResponse.json).toBeCalledWith({error: "Email is not valid."});
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("email"))["email"]).toBe(mockRequest["user"]["email"]);
+    }
 });
 
-test("DELETE /picture", async () => {
+test("updatePicture", async () => {
+    {
+        let mockRequest = createMockRequest({body: {link: "https://cdn.discordapp.com/attachments/316264059571798017/1179840195164651610/image0-3.png"}}, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.updatePicture(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(200);
+        expect(mockResponse.json).toBeCalledWith({message: "Link updated."});
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("profileImage"))["profileImage"]).toBe("https://cdn.discordapp.com/attachments/316264059571798017/1179840195164651610/image0-3.png");
+        await UserModel.findByIdAndUpdate(mockRequest["user"]["_id"], {$unset: {profileImage: 1}});
+    }
 
-    const response = await fetchUtils.del("/account/picture", await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(200);
-    const userData = await (await fetchUtils.get("/account", await fetchUtils.getTestToken())).json();
-    expect(userData["user"]["profileImage"]).toBeUndefined();
+    {
+        let mockRequest = createMockRequest({body: {link: "https://bad-site.com/image.png"}}, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.updatePicture(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(400);
+        expect(mockResponse.json).toBeCalledWith({error: "Link is not valid."});
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("profileImage"))["profileImage"]).toBeUndefined();
+    }
 });
 
-test("GET /discord/name", async () => {
-    await addDiscordAccountToTestAccount();
-    const response = await fetchUtils.get("/account/discord/name", await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(200);
-    const json = await response.json();
-    expect(json["discordName"]).toBe("xibalbam");
+test("deletePicture", async () => {
+    let mockRequest = createMockRequest(undefined, await getTestToken());
+    let mockResponse = createMockResponse();
+    await authenticateRequest(mockRequest, mockResponse);
+    await UserModel.findByIdAndUpdate(mockRequest["user"]["_id"], {profileImage: "https://cdn.discordapp.com/attachments/316264059571798017/1179840195164651610/image0-3.png"})
+    await accountController.deletePicture(mockRequest, mockResponse);
+    expect(mockResponse.status).toBeCalledWith(200);
+    expect(mockResponse.json).toBeCalledWith({message: "Picture removed."});
+    expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("profileImage"))["profileImage"]).toBeUndefined();
 });
 
-test("GET /discord/picture", async () => {
-
-    const response = await fetchUtils.get("/account/discord/picture", await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(200);
-    const json = await response.json();
-    expect(json["discordPicture"]).toBeDefined();
+test("deleteAccount", async () => {
+    let mockRequest = createMockRequest(undefined, await getTestToken());
+    let mockResponse = createMockResponse();
+    await authenticateRequest(mockRequest, mockResponse);
+    await accountController.deleteAccount(mockRequest, mockResponse);
+    expect(mockResponse.status).toBeCalledWith(200);
+    expect(mockResponse.json).toBeCalledWith({message: "Account deleted."});
+    expect(await UserModel.exists(mockRequest["user"]["_id"])).toBeFalsy();
+    expect(mockResponse.cookie).toBeCalledWith("isLogged", false, {maxAge: config.jwt_expiration_in_ms});
+    expect(mockResponse.clearCookie).toBeCalledWith("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true})
+    await createTestAccounts()
 });
 
-test("DELETE /", async () => {
-
-    const token = await fetchUtils.getTestToken();
-    const response = await fetchUtils.del("/account", token);
-
-    expect(response.status).toBe(200);
-    const cookies = response.headers.get("set-cookie").split(", ").map(cookie => cookie.split("; ")[0]);
-    expect(cookies.find(cookie => cookie === "token=")).toBeDefined();
-    expect(cookies.find(cookie => cookie === "isLogged=false")).toBeDefined();
-
-    const userData = await fetchUtils.get("/account", token);
-    expect(userData.status).toBe(401);
-
-    await fetchUtils.createTestAccounts();
+test("addDiscordAccount", async () => {
+    //TODO
 });
 
-//BAD USES
-test("POST /username with invalid username", async () => {
+test("removeDiscordAccount", async () => {
+    {
+        await addDiscordAccountToTestAccount();
+        let mockRequest = createMockRequest(undefined, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.removeDiscordAccount(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(200);
+        expect(mockResponse.json).toBeCalledWith({message: "Discord account removed."});
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("discordId"))["discordId"]).toBeUndefined();
+    }
 
-    const response = await fetchUtils.post("/account/username", {username: "t"}, await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(400);
-    const json = await response.json();
-    expect(json["error"]).toBe(`Username must be between 3 and 20 characters.`);
+    {
+        let mockRequest = createMockRequest(undefined, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.removeDiscordAccount(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(409);
+        expect(mockResponse.json).toBeCalledWith({error: "User does not have a discord account"});
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("discordId"))["discordId"]).toBeUndefined();
+    }
 });
 
-test("POST /email with invalid email", async () => {
+test("getDiscordName", async () => {
+    {
+        await addDiscordAccountToTestAccount();
+        let mockRequest = createMockRequest(undefined, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.getDiscordName(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(200);
+        expect(mockResponse.json).toBeCalledWith({discordName: expect.any(String)});
+        await removeDiscordAccountFromTestAccount();
+    }
 
-    const response = await fetchUtils.post("/account/email", {email: "salut"}, await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(400);
-    const json = await response.json();
-    expect(json["error"]).toBe("Email is not valid.");
+    {
+        let mockRequest = createMockRequest(undefined, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.getDiscordName(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(404);
+        expect(mockResponse.json).toBeCalledWith({error: "User does not have a discord account"});
+    }
 });
 
-test("POST /picture with invalid link", async () => {
+test("getDiscordPicture", async () => {
+    {
+        await addDiscordAccountToTestAccount();
+        let mockRequest = createMockRequest(undefined, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.getDiscordPicture(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(200);
+        expect(mockResponse.json).toBeCalledWith({discordPicture: expect.any(String)});
+        await removeDiscordAccountFromTestAccount();
+    }
 
-    const response = await fetchUtils.post("/account/picture", {link: "salut"}, await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(400);
-    const json = await response.json();
-    expect(json["error"]).toBe("Link is not valid.");
-});
-
-test("GET /discord/name without discord account", async () => {
-    await removeDiscordAccountFromTestAccount();
-    const response = await fetchUtils.get("/account/discord/name", await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(404);
-});
-
-test("GET /discord/picture without discord account", async () => {
-
-    const response = await fetchUtils.get("/account/discord/picture", await fetchUtils.getTestToken());
-
-    expect(response.status).toBe(404);
+    {
+        let mockRequest = createMockRequest(undefined, await getTestToken());
+        let mockResponse = createMockResponse();
+        await authenticateRequest(mockRequest, mockResponse);
+        await accountController.getDiscordPicture(mockRequest, mockResponse);
+        expect(mockResponse.status).toBeCalledWith(404);
+        expect(mockResponse.json).toBeCalledWith({error: "User does not have a discord account"});
+    }
 });

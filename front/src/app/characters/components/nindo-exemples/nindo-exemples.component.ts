@@ -1,12 +1,15 @@
 import {Component, inject} from '@angular/core';
 import {CreationService} from "../../services/creation.service";
-import {Location} from "@angular/common";
+import {Location, NgFor} from "@angular/common";
 import {Router} from "@angular/router";
+import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 
 @Component({
     selector: 'app-nindo-exemples',
     templateUrl: './nindo-exemples.component.html',
-    styleUrls: ['./nindo-exemples.component.scss']
+    styleUrls: ['./nindo-exemples.component.scss'],
+    standalone: true,
+    imports: [SpacerComponent, NgFor]
 })
 export class NindoExemplesComponent {
 

@@ -3,9 +3,9 @@
         <img [src]="this.env.api_url + '/assets/clans/' + clan.name.toLowerCase() + '-purple.svg'" alt="Clan du personnage" class="mx-auto x-[25px] h-[25px]">
     </div>
     <div class="flex flex-col justify-around">
-        <p class="font-monument font-bold text-16 uppercase">{{character.firstName}} {{clan.name}}</p>
-        <p class="text-pink text-13">{{(character.rank | idToData:dataService.ranks.getValue())?.name}}<span
-                class="text-dark-gray mx-[5px]">/</span>{{clan.name}}<span class="text-dark-gray mx-[5px]">/</span>{{character.xp}} EXP</p>
+        <p class="font-monument font-bold text-16 uppercase">{{ character.firstName }} {{ clan.name }}</p>
+        <p class="text-pink text-13">{{ (character.rank | idToData:dataService.ranks.getValue())?.name }}<span
+                class="text-dark-gray mx-[5px]">/</span>{{ clan.name }}<span class="text-dark-gray mx-[5px]">/</span>{{ character.xp }} EXP</p>
     </div>
 </div>
 <app-spacer-graphical></app-spacer-graphical>

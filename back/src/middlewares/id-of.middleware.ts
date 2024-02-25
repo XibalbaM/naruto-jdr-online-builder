@@ -1,5 +1,8 @@
 import {Middleware} from "./middleware.type";
-import {Model, Types} from "mongoose";
+import mongoose, {Model, Types} from "mongoose";
+import BaseModel from "../models/base.model";
+import {type} from "os";
+import {exists} from "fs";
 
 /**
  * Return a middleware that checks if an url parameter is a valid id for the given model
@@ -9,20 +12,22 @@ import {Model, Types} from "mongoose";
  */
 export default function (model: Model<any>, parameterName: string, inBody: boolean = false): Middleware {
     if (inBody) {
-        return (req, res, next) => {
-            if (!req.body[parameterName] || !Types.ObjectId.isValid(req.body[parameterName]) || !model.exists({_id: req.body[parameterName]})) {
+        return async (req, res, next) => {
+            if (req.body[parameterName] === undefined || (!Types.ObjectId.isValid(req.body[parameterName]) && typeof req.body[parameterName] !== "number")) {
                 res.status(404).json({error: `${model.modelName} not found`});
                 return;
             }
-            next();
+            if (!model.exists({_id: req.body[parameterName]})) res.status(404).json({error: `${model.modelName} not found`});
+            else next();
         }
     } else {
-        return (req, res, next) => {
-            if (!req.params[parameterName] || !Types.ObjectId.isValid(req.params[parameterName]) || !model.exists({_id: req.params[parameterName]})) {
+        return async (req, res, next) => {
+            if (req.params[parameterName] === undefined || (!Types.ObjectId.isValid(req.params[parameterName]) && typeof req.params[parameterName] !== "number")) {
                 res.status(404).json({error: `${model.modelName} not found`});
                 return;
             }
-            next();
+            if (!model.exists({_id: req.params[parameterName]})) res.status(404).json({error: `${model.modelName} not found`});
+            else next();
         }
     }
 }

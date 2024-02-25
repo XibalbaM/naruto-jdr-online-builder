@@ -8,7 +8,7 @@ describe('MarkdownHelpComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [MarkdownHelpComponent]
+            imports: [MarkdownHelpComponent]
         })
             .compileComponents();
 

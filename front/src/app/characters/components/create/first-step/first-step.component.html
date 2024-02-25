@@ -10,7 +10,8 @@
             <label>Village</label>
             <select [(ngModel)]="village" class="!text-yellow pl-[83px]" disabled name="village">
                 <option *ngFor="let village of dataService.villages | async"
-                        [ngValue]="village">{{village.name | titlecase}}</option>
+                        [ngValue]="village">{{ village.name | titlecase }}
+                </option>
             </select>
         </div>
         <div class="flex flex-shrink-0 items-center gray-box w-[52px]">
@@ -29,7 +30,8 @@
             <select [(ngModel)]="clan" [class.!text-yellow]="clan" class="pl-[69px]" name="clan">
                 <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
                 <option *ngFor="let clan of $clans | async" [ngValue]="clan"
-                        class="text-yellow">{{clan.name | titlecase}}</option>
+                        class="text-yellow">{{ clan.name | titlecase }}
+                </option>
             </select>
         </div>
         <div [class.!bg-black]="!clan" class="flex flex-shrink-0 items-center gray-box w-[52px]">
@@ -49,7 +51,8 @@
         <select [(ngModel)]="road" [class.!text-yellow]="road" class="pl-[69px]" name="road">
             <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
             <option *ngFor="let road of dataService.roads | async" [ngValue]="road"
-                    class="text-yellow">{{road.name + " - " + road.qualification}}</option>
+                    class="text-yellow">{{ road.name + " - " + road.qualification }}
+            </option>
         </select>
     </div>
     <div class="labeled-input mt-[18px]">
@@ -58,7 +61,7 @@
     </div>
     <div class="w-full rounded-xl bg-black mt-[18px] p-[18px]">
         <h3>Rang officiel</h3>
-        <p class="w-fit rounded-xl text-yellow mt-[10px] bg-light-dark px-[12px] py-[4px]">{{(xp | xpToRank).name}}</p>
+        <p class="w-fit rounded-xl text-yellow mt-[10px] bg-light-dark px-[12px] py-[4px]">{{ (xp | xpToRank).name }}</p>
     </div>
     <button [disabled]="!firstName || !clan || (isRoad && !road)"
             class="flex w-full flex-row items-center justify-center rounded-xl mb-[120px] group mt-[50px] h-[55px] bg-purple disabled:border-lighter-dark disabled:text-dark-gray disabled:border disabled:bg-black"

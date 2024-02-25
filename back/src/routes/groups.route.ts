@@ -13,8 +13,8 @@ import captchaMiddleware from "../middlewares/security/captcha.middleware.js";
  */
 const router = Router();
 
-router.post('/', captchaMiddleware(), contentMiddleware({name: "name", village: undefined}), authMiddleware(), groupsController.create);
+/*router.post('/', captchaMiddleware(), contentMiddleware({name: "name", village: undefined}), authMiddleware(), groupsController.create);
 router.get('/', authMiddleware(), groupsController.list);
-router.get('/:id', authMiddleware(), idOfMiddleware(GroupModel, "id"), groupsController.get);
+router.get('/:id', authMiddleware(), idOfMiddleware(GroupModel, "id"), groupsController.get);*/
 
 export default router;

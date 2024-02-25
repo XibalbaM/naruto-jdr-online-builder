@@ -12,7 +12,7 @@ export async function create(data: any, userId: ObjectId) {
 
     const group = Group.fromModel(await GroupModel.create({
         ...Group.fromModel(data),
-        users: [{role: "sensei", user: await UserModel.findById(userId)}]
+        users: [{role: "sensei", user: await UserModel.findById(userId).lean()}]
     }))
 
     await UserModel.findByIdAndUpdate(userId, {$push: {groups: {name: data["name"], role: "sensei", _id: group._id}}});
@@ -23,7 +23,7 @@ export async function create(data: any, userId: ObjectId) {
 export async function getAll(user: User) {
     const groups: Group[] = [];
     for (let group of user.groups) {
-        groups.push(Group.fromModel(await GroupModel.findById(group)));
+        groups.push(Group.fromModel(await GroupModel.findById(group).lean()));
     }
     return groups;
 }
@@ -31,7 +31,7 @@ export async function getAll(user: User) {
 export async function getOne(groupId: string) {
     if (!Types.ObjectId.isValid(groupId))
         throw new Error("Invalid group id");
-    const docGroup = await GroupModel.findById(groupId);
+    const docGroup = await GroupModel.findById(groupId).lean();
     if (!docGroup)
         throw new Error("Group not found");
     return Group.fromModel(docGroup);

@@ -6,7 +6,7 @@
     </a>
     <h1 class="text-20 text-center w-full flex-shrink">Modifier</h1>
     <p [ngClass]="(character | characterToReamingXp) >= 0 ? 'text-blue' : 'text-orange'"
-       class="flex-shrink-0 px-[6px] py-[3px] bg-light-dark rounded-[6px] ms-[10px]">{{(character | characterToReamingXp) >= 0 ? '↑' : '↓'}} {{character | characterToReamingXp}}
+       class="flex-shrink-0 px-[6px] py-[3px] bg-light-dark rounded-[6px] ms-[10px]">{{ (character | characterToReamingXp) >= 0 ? '↑' : '↓' }} {{ character | characterToReamingXp }}
         EXP</p>
 </div>
 <form (ngSubmit)="submit()" class="w-full max-w-md">
@@ -15,7 +15,8 @@
             <label>Village</label>
             <select [(ngModel)]="village" class="!text-yellow pl-[83px]" disabled name="village">
                 <option *ngFor="let village of dataService.villages | async"
-                        [ngValue]="village">{{village.name | titlecase}}</option>
+                        [ngValue]="village">{{ village.name | titlecase }}
+                </option>
             </select>
         </div>
         <div class="flex flex-shrink-0 items-center gray-box w-[52px]">
@@ -34,7 +35,8 @@
             <select [(ngModel)]="clan" [class.!text-yellow]="clan" class="pl-[69px]" name="clan">
                 <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
                 <option *ngFor="let clan of ($clans | async)" [ngValue]="clan"
-                        class="text-yellow">{{clan.name | titlecase}}</option>
+                        class="text-yellow">{{ clan.name | titlecase }}
+                </option>
             </select>
         </div>
         <div [class.!bg-black]="!clan" class="flex flex-shrink-0 items-center gray-box w-[52px]">
@@ -54,7 +56,8 @@
         <select [(ngModel)]="road" [class.!text-yellow]="road" class="pl-[69px]" name="road">
             <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
             <option *ngFor="let road of dataService.roads | async" [ngValue]="road"
-                    class="text-yellow">{{road.name + " - " + road.qualification}}</option>
+                    class="text-yellow">{{ road.name + " - " + road.qualification }}
+            </option>
         </select>
     </div>
     <div class="labeled-input mt-[18px]">
@@ -66,7 +69,8 @@
         <select [(ngModel)]="rank" [class.!text-yellow]="rank" class="pl-[69px]" name="rank">
             <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
             <option *ngFor="let rank of dataService.ranks | async" [ngValue]="rank"
-                    class="text-yellow">{{rank.name}}</option>
+                    class="text-yellow">{{ rank.name }}
+            </option>
         </select>
     </div>
     <!--TODO-->

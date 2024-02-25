@@ -1,8 +1,8 @@
-<h1 class="font-bold uppercase text-25 font-monument mb-[12px]">{{base.fullName}}</h1>
-<p class="text-yellow">Base {{base.fullName | titlecase}} ({{base.shortName}})</p>
+<h1 class="font-bold uppercase text-25 font-monument mb-[12px]">{{ base.fullName }}</h1>
+<p class="text-yellow">Base {{ base.fullName | titlecase }} ({{ base.shortName }})</p>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
 <p class="max-w-md bg-black px-[24px] py-[18px] rounded-[26px]">Score <span
-        class="text-16 text-yellow px-[12px] bg-light-dark rounded-[8px] py-[3px] ms-[10px]">{{baseLevel}}</span></p>
+        class="text-16 text-yellow px-[12px] bg-light-dark rounded-[8px] py-[3px] ms-[10px]">{{ baseLevel }}</span></p>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
 <markdown-it [markdown]="base.description" class="font-light"/>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
@@ -11,7 +11,7 @@
         Suivant
         <app-long-arrow-right class="ms-[10px] fill-pink"/>
     </p>
-    <p class="font-bold uppercase font-monument text-20">{{nextBase?.fullName}}</p>
+    <p class="font-bold uppercase font-monument text-20">{{ nextBase?.fullName }}</p>
 </a>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
 <a *ngIf="previousBase | idToData:(dataService.bases | async) as previousBase" [routerLink]="'../' + previousBase._id" class="w-full mb-[150px]">
@@ -19,5 +19,5 @@
         <app-long-arrow-left class="me-[10px] fill-pink"/>
         Précédent
     </p>
-    <p class="font-bold uppercase font-monument text-20">{{(previousBase)?.fullName}}</p>
+    <p class="font-bold uppercase font-monument text-20">{{ (previousBase)?.fullName }}</p>
 </a>

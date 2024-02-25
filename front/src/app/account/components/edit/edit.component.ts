@@ -1,15 +1,37 @@
 import {Component} from "@angular/core";
 import Auth from "../../../app/models/auth.model";
 import {AccountService} from "../../../app/services/account.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {NotificationService} from "../../../app/services/notification.service";
 import {AuthService} from "../../../app/services/auth.service";
 import Environment from "../../../../environments/environment.interface";
+import {RolesPipe} from "../../../utils/pipes/roles.pipe";
+import {SpacerComponent} from "../../../utils/components/spacer/spacer.component";
+import {ArrowRightComponent} from "../../../utils/components/arrow-right/arrow-right.component";
+import {DefaultProfilePictureComponent} from "../../../utils/components/default-profile-picture/default-profile-picture.component";
+import {SpacerGraphicalComponent} from "../../../utils/components/spacer-graphical/spacer-graphical.component";
+import {FormsModule} from "@angular/forms";
+import {ModalComponent} from "../../../utils/components/modal/modal.component";
+import {AsyncPipe, NgFor, NgIf} from "@angular/common";
 
 @Component({
     selector: "app-edit",
     templateUrl: "./edit.component.html",
     styleUrls: ["./edit.component.scss"],
+    standalone: true,
+    imports: [
+        NgIf,
+        ModalComponent,
+        FormsModule,
+        RouterLink,
+        NgFor,
+        SpacerGraphicalComponent,
+        DefaultProfilePictureComponent,
+        ArrowRightComponent,
+        SpacerComponent,
+        AsyncPipe,
+        RolesPipe,
+    ],
 })
 export class EditComponent {
 
@@ -80,8 +102,8 @@ export class EditComponent {
 
     disconnect() {
         this.authService.logout().subscribe(() => {
-            this.router.navigateByUrl("/");
-            this.notificationService.showNotification("Déconnexion", "Vous avez bien été déconnecté.");
+                this.router.navigateByUrl("/");
+                this.notificationService.showNotification("Déconnexion", "Vous avez bien été déconnecté.");
             }
         );
     }

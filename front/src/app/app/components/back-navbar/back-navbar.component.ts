@@ -1,12 +1,16 @@
 import {Component, inject} from '@angular/core';
-import {Location} from "@angular/common";
+import {Location, NgIf} from "@angular/common";
 import {NAVBAR_DATA_TOKEN} from "../../app.component";
 import {BackNavbarService} from "../../services/back-navbar.service";
+import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/long-arrow-left.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
     selector: 'app-back-navbar',
     templateUrl: './back-navbar.component.html',
-    styleUrls: ['./back-navbar.component.scss']
+    styleUrls: ['./back-navbar.component.scss'],
+    standalone: true,
+    imports: [RouterLink, LongArrowLeftComponent, NgIf]
 })
 export class BackNavbarComponent {
 

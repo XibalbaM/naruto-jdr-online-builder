@@ -4,7 +4,8 @@ import {map, Observable} from "rxjs";
 import {CharacterToSkillTotalLevelPipe} from "./character-to-skill-total-level.pipe";
 
 @Pipe({
-    name: 'characterToSkillReinforcement'
+    name: 'characterToSkillReinforcement',
+    standalone: true
 })
 export class CharacterToSkillReinforcementPipe implements PipeTransform {
 

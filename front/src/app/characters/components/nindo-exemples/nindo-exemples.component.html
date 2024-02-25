@@ -6,8 +6,8 @@
 <div *ngFor="let exemple of exemples">
     <h2 (click)="creationService.character.nindo = exemple.title; router.navigateByUrl(backUrl)"
         class="text-16, text-pink mb-[8px] default-link">
-        {{exemple.title}}
+        {{ exemple.title }}
     </h2>
-    <p class="font-light text-light">{{exemple.description}}</p>
+    <p class="font-light text-light">{{ exemple.description }}</p>
     <app-spacer class="bg-lighter-dark my-[18px]"/>
 </div>

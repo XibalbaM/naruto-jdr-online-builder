@@ -5,7 +5,8 @@ import {CharacterToMaxChakraPipe} from "./character-to-max-chakra.pipe";
 import {CharacterToChakraSpeAmountPipe} from "./character-to-chakra-spe-amount.pipe";
 
 @Pipe({
-    name: 'characterToChakraRegen'
+    name: 'characterToChakraRegen',
+    standalone: true
 })
 export class CharacterToChakraRegenPipe implements PipeTransform {
 

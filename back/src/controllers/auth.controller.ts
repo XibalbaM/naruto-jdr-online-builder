@@ -9,11 +9,11 @@ import config from "../config/config.js";
  * @param req The request
  * @param res The response
  */
-export function requestEmail(req: Request, res: Response) {
+export async function requestEmail(req: Request, res: Response) {
 
     if (req.body.email && req.body.email.match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-
-        authService.requestEmail(req.body.email).then((result) => {
+        try {
+            let result = await authService.requestEmail(req.body.email);
             switch (result.code) {
                 case 0:
                     res.status(202).json({message: "Email sent", isRegistration: result.isRegistration});
@@ -26,10 +26,10 @@ export function requestEmail(req: Request, res: Response) {
                 default:
                     res.status(500).json({error: "Internal server error"});
             }
-        }).catch((err) => {
+        } catch (err) {
             res.status(500).json({error: "Internal server error"});
             console.error(err);
-        });
+        }
     } else {
 
         res.status(400).json({error: "Invalid email"});
@@ -43,29 +43,39 @@ export function requestEmail(req: Request, res: Response) {
  * @param req The request
  * @param res The response
  */
-export function login(req: Request, res: Response) {
+export async function login(req: Request, res: Response) {
 
     const code = req.params.code;
 
-    authService.useCode(code).then((data) => {
+    try {
+        let data = await authService.useCode(code)
         res.status(data.isFirstLogin ? 201 : 200).cookie("token", data.token, {
             maxAge: config.jwt_expiration_in_ms,
             httpOnly: true
         }).cookie("isLogged", true, {maxAge: config.jwt_expiration_in_ms})
             .json({discordUsername: data.discordUsername});
-    }).catch((err) => {
+    } catch (err) {
         if (err.message === "Invalid code") {
-            res.status(400).clearCookie("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
+            res.status(400).clearCookie("token", {
+                maxAge: config.jwt_expiration_in_ms,
+                httpOnly: true
+            }).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
                 .json({error: "Invalid code"});
         } else if (err.message === "jwt expired") {
-            res.status(418).clearCookie("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
+            res.status(418).clearCookie("token", {
+                maxAge: config.jwt_expiration_in_ms,
+                httpOnly: true
+            }).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
                 .json({error: "Code expired"});
         } else {
-            res.status(500).clearCookie("token", {maxAge: config.jwt_expiration_in_ms, httpOnly: true}).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
+            res.status(500).clearCookie("token", {
+                maxAge: config.jwt_expiration_in_ms,
+                httpOnly: true
+            }).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
                 .json({error: "Internal server error"});
             console.error(err);
         }
-    });
+    }
 }
 
 /**

@@ -4,12 +4,14 @@ import mongoose from "mongoose";
  * Represents a user of the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-export const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
         trim: true,
-        regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        regex: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+        unique: true,
+        index: true
     },
     username: {
         type: String,
@@ -41,8 +43,10 @@ export const UserSchema = new mongoose.Schema({
     discordId: {
         type: String,
         unique: true,
-        sparse: true
+        sparse: true,
+        index: true
     }
 });
 
-export default mongoose.model('user', UserSchema);
+const UserModel = mongoose.model('user', UserSchema);
+export default UserModel;
