@@ -37,6 +37,8 @@
         "@types/node": "^20.11.19",
         "@types/node-fetch": "^2.6.11",
         "@types/nodemailer": "^6.4.14",
-        "vitest": "^0.34.6"
+        "vitest": "^0.34.6",
+        "vite": "^5.1.4",
+        "typescript": "^5.3.3"
     }
 }
