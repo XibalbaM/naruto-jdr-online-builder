@@ -24,7 +24,7 @@ export class ThirdStepComponent implements OnInit, OnDestroy {
     clanSkillsIds: string[] = this.creationService.character.road
         ? this.idToData.transform(this.creationService.character.road, this.dataService.roads.getValue())?.line.skills || []
         : this.idToData.transform(this.creationService.character.clan, this.dataService.clans.getValue())?.line.skills || [];
-    clanSkills: CustomSkill[] = this.dataService.customSkills.getValue().filter(skill => skill.type !== 'clan').filter(skill => this.clanSkillsIds.includes(skill._id));
+    clanSkills: CustomSkill[] = this.dataService.customSkills.getValue().filter(skill => this.clanSkillsIds.includes(skill._id));
     uncommonSkills: CustomSkill[] = this.dataService.customSkills.getValue().filter(skill => skill.type !== 'clan').filter(skill => !this.clanSkillsIds.includes(skill._id));
     skillIds: string[] = this.creationService.tempSkillIds.length > 0 ? this.creationService.tempSkillIds : [...this.clanSkillsIds];
 
