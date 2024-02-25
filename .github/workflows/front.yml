@@ -20,7 +20,7 @@ jobs:
                     node-version: '20'
 
             -   name: Install dependencies
-                run: cd ./front && npm install
+                run: cd ./front && npm install --force
 
             -   name: Build
                 run: cd ./front && export NODE_ENV=production && npm run build
