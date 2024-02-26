@@ -1,8 +1,5 @@
 import {Middleware} from "./middleware.type";
-import mongoose, {Model, Types} from "mongoose";
-import BaseModel from "../models/base.model";
-import {type} from "os";
-import {exists} from "fs";
+import {Model, Types} from "mongoose";
 
 /**
  * Return a middleware that checks if an url parameter is a valid id for the given model
