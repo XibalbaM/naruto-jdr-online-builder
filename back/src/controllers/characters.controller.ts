@@ -16,6 +16,7 @@ export async function getCharacters(req: Request, res: Response) {
     try {
         res.status(200).json({characters: await CharactersService.listCharacters(req["user"])})
     } catch (error) {
+        console.error(error);
         res.status(500).json({error: "Internal server error"});
     }
 }
@@ -27,6 +28,7 @@ export async function getCharacter(req: Request, res: Response) {
         if (error.message === "Character not found") {
             return res.status(404).json({error: "Character not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -39,6 +41,7 @@ export async function copyCharacter(req: Request, res: Response) {
         if (error.message === "Character not found") {
             return res.status(404).json({error: "Character not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -54,6 +57,7 @@ export async function setCommonSkill(req: Request, res: Response) {
         } else if (error.message === "Invalid value") {
             return res.status(400).json({error: "Invalid value"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -73,6 +77,7 @@ export async function setCustomSkill(req: Request, res: Response) {
         } else if (error.message === "Cannot remove clan skill") {
             return res.status(400).json({error: "Cannot remove clan skill"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -88,6 +93,7 @@ export async function setBase(req: Request, res: Response) {
         } else if (error.message === "Invalid value") {
             return res.status(400).json({error: "Invalid value"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -101,6 +107,7 @@ export async function setNindo(req: Request, res: Response) {
         if (error.message === "Character not found") {
             res.status(404).json({error: "Character not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -114,6 +121,7 @@ export async function setNindoPoints(req: Request, res: Response) {
         if (error.message === "Character not found") {
             res.status(404).json({error: "Character not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -137,6 +145,7 @@ export async function setSpe(req: Request, res: Response) {
         } else if (error.message === "Spe not set") {
             res.status(400).json({error: "Spe not set"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -150,6 +159,7 @@ export async function setNotes(req: Request, res: Response) {
         if (error.message === "Character not found") {
             res.status(404).json({error: "Character not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -163,6 +173,7 @@ export async function setXp(req: Request, res: Response) {
         if (error.message === "Character not found") {
             res.status(404).json({error: "Character not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -176,6 +187,7 @@ export async function setRank(req: Request, res: Response) {
         if (error.message === "Character not found") {
             res.status(404).json({error: "Character not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -189,6 +201,7 @@ export async function setVillage(req: Request, res: Response) {
         if (error.message === "Character not found") {
             res.status(404).json({error: "Character not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -202,6 +215,7 @@ export async function setName(req: Request, res: Response) {
         if (error.message === "Character not found") {
             res.status(404).json({error: "Character not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -215,6 +229,7 @@ export async function setClan(req: Request, res: Response) {
         if (error.message === "Character not found") {
             res.status(404).json({error: "Character not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -230,6 +245,7 @@ export async function setRoad(req: Request, res: Response) {
         } else if (error.message === "Road not found") {
             res.status(404).json({error: "Road not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -243,6 +259,7 @@ export async function deleteCharacter(req: Request, res: Response) {
         if (error.message === "Character not found") {
             return res.status(404).json({error: "Character not found"});
         } else {
+            console.error(error);
             res.status(500).json({error: "Internal server error"});
         }
     }

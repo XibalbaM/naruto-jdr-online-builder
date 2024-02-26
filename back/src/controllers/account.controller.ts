@@ -42,6 +42,7 @@ export async function updateUsername(req: Request, res: Response) {
             await accountService.updateUsername(req["user"]["_id"], username);
             res.status(200).json({message: "Username updated."});
         } catch (err) {
+            console.error(err);
             res.status(500).json({error: err.message});
         }
     } else {
@@ -66,6 +67,7 @@ export async function updateEmail(req: Request, res: Response) {
             await accountService.updateEmail(req["user"]["_id"], email);
             res.status(200).json({message: "Email updated."});
         } catch (err) {
+            console.error(err);
             res.status(500).json({error: err.message});
         }
     } else {
@@ -90,6 +92,7 @@ export async function updatePicture(req: Request, res: Response) {
             await accountService.updatePicture(req["user"]["_id"], link);
             res.status(200).json({message: "Link updated."});
         } catch (err) {
+            console.error(err);
             res.status(500).json({error: err.message});
         }
     } else {
@@ -111,6 +114,7 @@ export async function deletePicture(req: Request, res: Response) {
         await accountService.deletePicture(req["user"]["_id"]);
         res.status(200).json({message: "Picture removed."});
     } catch (err) {
+        console.error(err);
         res.status(500).json({error: err.message});
     }
 }
@@ -133,6 +137,7 @@ export async function deleteAccount(req: Request, res: Response) {
         }).cookie("isLogged", false, {maxAge: config.jwt_expiration_in_ms})
             .json({message: "Account deleted."});
     } catch (err) {
+        console.error(err);
         res.status(500).json({error: err.message});
     }
 }
@@ -187,6 +192,7 @@ export async function removeDiscordAccount(req: Request, res: Response) {
         if (err.message === "User does not have a discord account")
             res.status(409).json({error: "User does not have a discord account"});
         else
+            console.error(err);
             res.status(500).json({error: "Internal server error"});
     }
 }
@@ -206,6 +212,7 @@ export async function getDiscordName(req: Request, res: Response) {
         if (req["user"].discordId) res.status(200).json({discordName: await accountService.getDiscordName(req["user"]["discordId"])});
         else res.status(404).json({error: "User does not have a discord account"});
     } catch (err) {
+        console.error(err);
         res.status(500).json({error: "Internal server error"});
     }
 }
@@ -225,6 +232,7 @@ export async function getDiscordPicture(req: Request, res: Response) {
         if (req["user"].discordId) res.status(200).json({discordPicture: await accountService.getDiscordPicture(req["user"].discordId)});
         else res.status(404).json({error: "User does not have a discord account"});
     } catch (err) {
+        console.error(err);
         res.status(500).json({error: "Internal server error"});
     }
 }

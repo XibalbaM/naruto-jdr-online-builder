@@ -50,6 +50,7 @@ export default class DataController {
         try {
             DataController.sendDataOr304(req, res, await this.dataService.getAll())
         } catch (ignored) {
+            console.error(ignored);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -60,6 +61,7 @@ export default class DataController {
             if (data) DataController.sendDataOr304(req, res, data);
             else res.status(404).json({error: "Not found"});
         } catch (ignored) {
+            console.error(ignored);
             res.status(500).json({error: "Internal server error"});
         }
     }
@@ -68,6 +70,7 @@ export default class DataController {
         try {
             res.status(201).json(await this.dataService.create(req.body.data))
         } catch(ignored) {
+            console.error(ignored);
             res.status(500).json({error: "Internal server error"})
         }
     }
@@ -87,6 +90,7 @@ export default class DataController {
             await this.dataService.delete(req.params.id)
             res.status(200).json({message: "Successfully deleted"})
         } catch (err) {
+            console.error(err);
             res.status(500).json({error: "Internal server error"});
         }
     }
