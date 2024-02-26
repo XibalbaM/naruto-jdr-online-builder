@@ -7,7 +7,7 @@
         <a (click)="exportCharacter()" *ngIf="isShiftPressed | async" class="w-full my-[10px] text-16 h-[26px] hover:underline select-none">Exporter le
             personnage</a>
         <app-spacer class="bg-lighter-dark mt-[15px]"/>
-        <a (click)="isShiftPressed.getValue() ? deleteCharacter() : deleteDialog.show()" class="w-full my-[13px] text-16 text-orange hover:underline">Supprimer le personnage</a>
+        <a (click)="isShiftPressed.getValue() ? deleteCharacter(true) : deleteDialog.show()" class="w-full my-[13px] text-16 text-orange hover:underline">Supprimer le personnage</a>
     </div>
 </popper-content>
 <dialog #deleteDialog>
@@ -27,7 +27,7 @@
     </app-modal>
 </dialog>
 <div class="w-full bg-black px-[15px]">
-    <div class="container mx-auto flex flex-row items-center justify-between pt-[20px] pb-[15px] h-[70px]">
+    <div class="max-w-[1024px] mx-auto flex flex-row items-center justify-between pt-[20px] pb-[15px] h-[70px]">
         <a class="flex flex-row items-center text-16 hover:underline"
            routerLink="..">
             <app-long-arrow-left class="me-[10px] fill-white"/>
@@ -52,7 +52,7 @@
     </div>
 </div>
 <div class="w-full bg-cover bg-[url('assets/images/backgrounds/character-nav-bg.webp')] h-fit px-[15px] overflow-hidden">
-    <div class="container mx-auto flex scrollbar:hidden w-full flex-row items-center overflow-x-scroll whitespace-nowrap h-[45px] space-x-[4px]">
+    <div class="max-w-[1024px] mx-auto flex scrollbar:hidden w-full flex-row items-center overflow-x-scroll whitespace-nowrap h-[45px] space-x-[4px]">
         <a [routerLinkActiveOptions]="{exact: true}" [routerLink]="'/personnages/' + ($character | async)?._id"
            class="px-[13px] py-[6px] hover:underline"
            routerLinkActive="box-border px-[12px] border border-pink text-pink bg-black rounded-[8px] cursor-default hover:no-underline">
