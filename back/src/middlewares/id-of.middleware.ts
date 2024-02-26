@@ -13,7 +13,7 @@ import {exists} from "fs";
 export default function (model: Model<any>, parameterName: string, inBody: boolean = false): Middleware {
     if (inBody) {
         return async (req, res, next) => {
-            if (req.body[parameterName] === undefined || (!Types.ObjectId.isValid(req.body[parameterName]) && typeof req.body[parameterName] !== "number")) {
+            if (req.body[parameterName] === undefined || !(Types.ObjectId.isValid(req.body[parameterName]) || req.body[parameterName].match(/^\d+$/))) {
                 res.status(404).json({error: `${model.modelName} not found`});
                 return;
             }
@@ -22,7 +22,7 @@ export default function (model: Model<any>, parameterName: string, inBody: boole
         }
     } else {
         return async (req, res, next) => {
-            if (req.params[parameterName] === undefined || (!Types.ObjectId.isValid(req.params[parameterName]) && typeof req.params[parameterName] !== "number")) {
+            if (req.params[parameterName] === undefined || !(Types.ObjectId.isValid(req.params[parameterName]) || req.params[parameterName].match(/^\d+$/))) {
                 res.status(404).json({error: `${model.modelName} not found`});
                 return;
             }
