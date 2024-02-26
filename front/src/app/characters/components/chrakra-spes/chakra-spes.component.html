@@ -1,10 +1,12 @@
 <div *ngIf="reamingChakraSpes > 0"
-     class="fixed right-0 bottom-0 left-0 z-30 flex flex-row items-center justify-start h-[70px] px-[18px] py-[17px] purple-gradient">
-    <div class="rounded-lg font-normal text-blue font-neue text-16 bg-light-dark me-[12px] px-[12px] h-[26px]">
-        {{ reamingChakraSpes }}
-    </div>
-    <div class="flex flex-col">
-        Spécialisation{{ reamingChakraSpes > 1 ? 's' : '' }} de chakra disponible{{ reamingChakraSpes > 1 ? 's' : '' }}
+     class="fixed right-0 bottom-0 left-0 z-30 flex flex-row items-center h-[70px] px-[18px] py-[17px] purple-gradient">
+    <div class="max-w-[1024px] w-full mx-auto flex flex-row items-center justify-start">
+        <div class="rounded-lg font-normal text-blue font-neue text-16 bg-light-dark me-[12px] px-[12px] h-[26px]">
+            {{ reamingChakraSpes }}
+        </div>
+        <div class="flex flex-col">
+            Spécialisation{{ reamingChakraSpes > 1 ? 's' : '' }} de chakra disponible{{ reamingChakraSpes > 1 ? 's' : '' }}
+        </div>
     </div>
 </div>
 <h1 class="font-bold uppercase mb-[30px] text-25 font-monument">spécialisations de chakra</h1>

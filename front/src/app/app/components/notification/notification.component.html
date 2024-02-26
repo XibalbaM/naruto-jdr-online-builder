@@ -1,7 +1,7 @@
 <div *ngIf="$notification | async"
      @appear
      class="w-full z-40 absolute top-0 bg-[url('assets/images/backgrounds/notification.webp')] bg-cover px-[15px]">
-    <div class="container mx-auto flex items-center justify-between py-[18px]">
+    <div class="max-w-[1024px] mx-auto flex items-center justify-between py-[18px]">
         <div>
             <p class="w-fit font-bold uppercase font-monument text-orange-gradient text-20">{{ ($notification | async)?.title }}</p>
             <p>{{ ($notification | async)?.content }}</p>

@@ -1,33 +1,35 @@
 <a *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 0) || ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0"
    [routerLink]="['/personnages', ($character | async)?._id, ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0 ? 'nouvelle-competence' : 'specialisations-de-chakra']"
-   class="fixed right-0 bottom-0 left-0 z-30 flex h-[70px] flex-row items-center justify-between px-[18px] py-[17px] purple-gradient hover:bg-opacity-95 cursor-pointer">
-    <div class="flex flex-row items-center">
-        <div class="stat-box__value text-blue me-[10px] h-[26px]">
+   class="fixed right-0 bottom-0 left-0 z-30 h-[70px] px-[18px] py-[17px] purple-gradient hover:bg-opacity-95 cursor-pointer flex flex-row items-center">
+    <div class="max-w-[1024px] w-full mx-auto flex flex-row items-center justify-between">
+        <div class="flex flex-row items-center">
+            <div class="stat-box__value text-blue me-[10px] h-[26px]">
             <span *ngIf="((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0">
                 {{ (($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length }}
             </span>
-            <span *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 0) && ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0"
-                  class="text-gray-zambezi text-16 mx-[5px]">
+                <span *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 0) && ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0"
+                      class="text-gray-zambezi text-16 mx-[5px]">
                 /
             </span>
-            <span *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 0)">
+                <span *ngIf="(((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 0)">
                 {{ (($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0) }}
             </span>
-        </div>
-        <div class="flex flex-col">
-            <div *ngIf="((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0">
-                Nouvelle{{ ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 1 ? 's' : '' }}
-                compétence{{ ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 1 ? 's' : '' }}
-                disponible{{ ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 1 ? 's' : '' }}
             </div>
-            <div *ngIf="((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 0">
-                Spécialisation{{ ((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 1 ? 's' : '' }} de
-                chakra
-                disponible{{ ((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 1 ? 's' : '' }}
+            <div class="flex flex-col">
+                <div *ngIf="((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 0">
+                    Nouvelle{{ ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 1 ? 's' : '' }}
+                    compétence{{ ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 1 ? 's' : '' }}
+                    disponible{{ ((($character | characterToMaxSkillCount | async) || 0) - uncommonSkills.length) > 1 ? 's' : '' }}
+                </div>
+                <div *ngIf="((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 0">
+                    Spécialisation{{ ((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 1 ? 's' : '' }} de
+                    chakra
+                    disponible{{ ((($character | characterToMaxChakraSpes | async) || 0) - (($character | async)?.chakraSpes?.length || 0)) > 1 ? 's' : '' }}
+                </div>
             </div>
         </div>
+        <app-arrow-right class="fill-white"/>
     </div>
-    <app-arrow-right class="fill-white"/>
 </a>
 <div *ngIf="$character | async as character">
     <h1 class="font-bold uppercase font-monument text-25">{{ character.firstName }} {{ (character.clan | idToData:(dataService.clans | async))?.name }}</h1>
