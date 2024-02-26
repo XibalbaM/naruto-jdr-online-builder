@@ -7,7 +7,7 @@
         <a (click)="exportCharacter()" *ngIf="isShiftPressed | async" class="w-full my-[10px] text-16 h-[26px] hover:underline select-none">Exporter le
             personnage</a>
         <app-spacer class="bg-lighter-dark mt-[15px]"/>
-        <a (click)="deleteDialog.show()" class="w-full my-[13px] text-16 text-orange hover:underline">Supprimer le personnage</a>
+        <a (click)="isShiftPressed.getValue() ? deleteCharacter() : deleteDialog.show()" class="w-full my-[13px] text-16 text-orange hover:underline">Supprimer le personnage</a>
     </div>
 </popper-content>
 <dialog #deleteDialog>
