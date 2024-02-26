@@ -36,8 +36,8 @@ export default class CharactersService {
         return maxChakraSpes;
     }
 
-    static async canUserReadCharacter(userCharacters: [mongoose.Types.ObjectId], character: Character) {
-        return character.isPredrawn || userCharacters.includes(character._id)
+    static async canUserReadCharacter(user: User, character: Character) {
+        return user.isAdmin || character.isPredrawn || user.characters.includes(character._id)
     }
 
     static async listCharacters(user: User) {
@@ -56,7 +56,7 @@ export default class CharactersService {
 
     static async getCharacter(user: User, characterId: string) {
         const character = Character.fromModel(await CharacterModel.findById(characterId).lean());
-        if (!await this.canUserReadCharacter(user.characters, character)) {
+        if (!await this.canUserReadCharacter(user, character)) {
             throw new Error("Character not found");
         }
         return character;
@@ -64,7 +64,7 @@ export default class CharactersService {
 
     static async copyCharacter(user: User, characterId: string) {
         const character = Character.fromModel(await CharacterModel.findById(characterId).lean());
-        if (!await this.canUserReadCharacter(user.characters, character)) {
+        if (!await this.canUserReadCharacter(user, character)) {
             throw new Error("Character not found");
         }
         delete character._id;
