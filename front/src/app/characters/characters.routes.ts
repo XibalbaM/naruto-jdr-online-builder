@@ -17,6 +17,7 @@ import {NindoExemplesComponent} from "./components/nindo-exemples/nindo-exemples
 import {NotesComponent} from "./components/notes/notes.component";
 import {ChakraSpesComponent} from "./components/chrakra-spes/chakra-spes.component";
 import {SetChakraSpeComponent} from "./components/set-chakra-spe/set-chakra-spe.component";
+import {CopyAction} from "./action/copy.action";
 
 export const characterRoutes: Routes = [
     {path: '', component: ListComponent, resolve: {user: UserResolver}, title: "Liste de personnages — Naruto jdr", data: {navbar: NormalNavbarComponent}},
@@ -40,6 +41,12 @@ export const characterRoutes: Routes = [
         resolve: {user: UserResolver},
         data: {bgClass: "no-repeat-image-bg", navbar: BackNavbarComponent, navbarText: "Liste de personnages"},
         title: "Personnages prétirés — Naruto jdr"
+    },
+    {
+        path: "copy/:characterId",
+        component: CopyAction,
+        resolve: {user: UserResolver},
+        title: "Copie de personnage — Naruto jdr"
     },
     {
         path: ':characterId/base/:id',
