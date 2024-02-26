@@ -17,6 +17,5 @@ export class PredrawnPreviewComponent {
     @Input() character!: Character;
 
     constructor(protected env: Environment, protected dataService: DataService) {
-        console.log(this.character)
     }
 }

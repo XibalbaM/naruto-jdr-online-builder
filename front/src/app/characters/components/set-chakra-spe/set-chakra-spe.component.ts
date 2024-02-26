@@ -36,7 +36,6 @@ export class SetChakraSpeComponent implements OnInit {
             if (params.get('characterId') && params.get('id') && Number(params.get('id')) < 14 && user.characters.find((character) => character._id === params.get('characterId'))) {
                 const character = user.characters.find((character) => character._id === params.get('characterId'))!;
                 this.id = Number(params.get('id'));
-                console.log(this.id)
                 character.chakraSpes.forEach(spe => {
                     if (this.ownedSpes.has(spe)) {
                         this.ownedSpes.set(spe, this.ownedSpes.get(spe)! + 1);

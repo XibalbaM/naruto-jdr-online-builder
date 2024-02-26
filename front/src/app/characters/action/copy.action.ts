@@ -16,7 +16,6 @@ export class CopyAction implements OnInit {
     }
 
     ngOnInit() {
-        console.log("copy action");
         this.activeRoute.paramMap.pipe(take(1)).subscribe((params) => {
             this.characterService.copyCharacter(params.get('characterId')!).subscribe(({character, success}) => {
                 if (success) {
