@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {combineLatest, take} from "rxjs";
+import {take} from "rxjs";
 import {CharacterService} from "../services/character.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import Auth from "../../app/models/auth.model";
@@ -17,7 +17,7 @@ export class CopyAction implements OnInit {
 
     ngOnInit() {
         console.log("copy action");
-        combineLatest([this.activeRoute.paramMap, this.auth.userObservableOnceLoaded()]).pipe(take(1)).subscribe(([params, user]) => {
+        this.activeRoute.paramMap.pipe(take(1)).subscribe((params) => {
             this.characterService.copyCharacter(params.get('characterId')!).subscribe(({character, success}) => {
                 if (success) {
                     this.notificationService.showNotification("Succès", "Le personnage a été copié avec succès.");
