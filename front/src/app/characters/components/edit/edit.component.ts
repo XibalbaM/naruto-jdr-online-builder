@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import Character from "../../../app/models/character.model";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
@@ -30,7 +30,7 @@ import {MinusSymbolComponent} from '../../../utils/components/minus-symbol/minus
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {SpacerGraphicalComponent} from '../../../utils/components/spacer-graphical/spacer-graphical.component';
 import {ArrowRightComponent} from '../../../utils/components/arrow-right/arrow-right.component';
-import {AsyncPipe, NgClass, NgFor, NgIf} from '@angular/common';
+import {AsyncPipe, JsonPipe, NgClass, NgFor, NgIf} from '@angular/common';
 import {CustomSkill, Skill} from "../../../app/models/skill.model";
 import {NgxMarkdownItModule} from "ngx-markdown-it";
 
@@ -39,13 +39,14 @@ import {NgxMarkdownItModule} from "ngx-markdown-it";
     templateUrl: './edit.component.html',
     styleUrls: ['./edit.component.scss'],
     standalone: true,
-    imports: [NgIf, NgxMarkdownItModule, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, AsyncPipe, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe]
+    imports: [NgIf, NgxMarkdownItModule, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, AsyncPipe, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe, JsonPipe]
 })
-export class EditComponent implements OnInit, AfterViewInit {
+export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
 
     $character: BehaviorSubject<Character> = new BehaviorSubject<Character>(new Character());
     commonSkills: { skill: Skill, level: number }[] = [];
     uncommonSkills: { skill: CustomSkill, level: number }[] = [];
+    bases: { base: Base, level: number }[] = [];
     shouldTruncNotes: boolean = false;
     notes!: string;
     characterChakraSpes: { chakraSpe: ChakraSpe, number: number }[] = [];
@@ -122,9 +123,8 @@ export class EditComponent implements OnInit, AfterViewInit {
     setBaseLevel(base: Base, level: number) {
         this.characterService.setBaseLevel(this.$character.getValue()._id, base._id, level).subscribe((success) => {
             if (success) {
-                const character = this.$character.getValue();
-                character.bases[base._id] = level;
-                this.$character.next(character);
+                this.bases.find((data) => data.base._id === base._id)!.level = level;
+                this.$character.next(this.$character.getValue());
             } else
                 this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du niveau de la base, si le problème persiste, contactez nous');
         });
@@ -145,7 +145,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     getBaseLevelBySkill(skill: Skill) {
-        return this.$character.getValue().bases[skill.base];
+        return this.bases.find((base) => base.base._id === skill.base)!.level;
     }
 
     canBaseLevelReduced(data: { base: Base, level: number }): boolean {
@@ -160,6 +160,7 @@ export class EditComponent implements OnInit, AfterViewInit {
                     this.uncommonSkills = character.customSkills.map(skill => ({skill: this.idToData.transform(skill.skill, this.dataService.customSkills.getValue())!, level: skill.level}));
                 });
                 this.$character.next(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
+                this.bases = this.dataService.bases.getValue().map((base) => ({base, level: this.$character.getValue().bases[base._id]}));
                 this.notes = this.$character.value.notes || "Pas encore de notes.";
                 this.$character.getValue().chakraSpes.forEach((chakraSpe) => {
                     const chakraSpeData = this.characterChakraSpes.slice().sort((a, b) => b.number - a.number).find(spe => spe.chakraSpe._id === chakraSpe);
@@ -174,5 +175,9 @@ export class EditComponent implements OnInit, AfterViewInit {
                 this.router.navigate(['/personnages']);
             }
         });
+    }
+
+    ngOnDestroy() {
+        this.auth.user!.characters.find((c) => c._id === this.$character.getValue()._id)!.bases = this.bases.map((base) => base.level);
     }
 }

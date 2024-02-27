@@ -35,13 +35,7 @@ export class CharacterService {
 
     setBaseLevel(characterId: string, baseId: number, level: number): Observable<boolean> {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.BASE(characterId, baseId), {value: level}).pipe(
-            map((response) => response.status === 200),
-            tap((success) => {
-                if (success) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.bases[baseId] = level;
-                    this.auth.userObservable().next(this.auth.user);
-                }
-            })
+            map((response) => response.status === 200)
         );
     }
 

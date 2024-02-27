@@ -65,26 +65,25 @@
     <app-spacer-graphical class="mt-[50px] mb-[30px]"/>
     <section>
         <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[10px]">bases</h2>
-        <div *ngFor="let baseLevel of character.bases; let baseIndex = index">
+        <div *ngFor="let base of bases">
             <app-spacer class="bg-light-dark my-[8px]"/>
-            <div *ngIf="(baseIndex | idToData:(dataService.bases | async)) as base"
-                 class="flex flex-row items-center justify-between">
-                <a [routerLink]="'base/' + base._id"
+            <div class="flex flex-row items-center justify-between">
+                <a [routerLink]="'base/' + base.base._id"
                    class="flex w-full flex-row items-center space-x-[12px] h-[38px]">
-                    <img [src]="env.api_url + '/assets/bases/' + base.shortName.toLowerCase() + '.svg'"
+                    <img [src]="env.api_url + '/assets/bases/' + base.base.shortName.toLowerCase() + '.svg'"
                          alt="Icon de la base"
                          class="w-[32px] h-[32px] p-[9px] bg-pink rounded-[10px]">
-                    <span>{{ base.fullName }}</span>
-                    <span class="text-gray-zambezi">({{ base.shortName }})</span>
-                    <span class="border text-16 text-yellow px-[12px] py-[3px] bg-light-dark border-lighter-dark rounded-[8px]">{{ baseLevel }}</span>
+                    <span>{{ base.base.fullName }}</span>
+                    <span class="text-gray-zambezi">({{ base.base.shortName }})</span>
+                    <span class="border text-16 text-yellow px-[12px] py-[3px] bg-light-dark border-lighter-dark rounded-[8px]">{{ base.level }}</span>
                 </a>
                 <div class="flex flex-row">
-                    <button (click)="decreaseBaseLevel(base, baseLevel)" [disabled]="!canBaseLevelReduced({base, level: baseLevel})"
+                    <button (click)="decreaseBaseLevel(base.base, base.level)" [disabled]="!canBaseLevelReduced(base)"
                             class="change-button me-[3px] group">
                         <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
                     </button>
-                    <button (click)="increaseBaseLevel(base, baseLevel)"
-                            [disabled]="baseLevel >= ((character.rank | idToData:dataService.ranks.getValue())?.maxBase || 0)" class="change-button group">
+                    <button (click)="increaseBaseLevel(base.base, base.level)"
+                            [disabled]="base.level >= ((character.rank | idToData:dataService.ranks.getValue())?.maxBase || 0)" class="change-button group">
                         <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
                     </button>
                 </div>
