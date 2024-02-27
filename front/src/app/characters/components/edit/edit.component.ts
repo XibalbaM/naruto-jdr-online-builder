@@ -123,8 +123,12 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
     setBaseLevel(base: Base, level: number) {
         this.characterService.setBaseLevel(this.$character.getValue()._id, base._id, level).subscribe((success) => {
             if (success) {
+                let character = this.$character.getValue();
                 this.bases.find((data) => data.base._id === base._id)!.level = level;
-                this.$character.next(this.$character.getValue());
+                character.bases = this.bases.map((base) => base.level);
+                this.$character.next(character);
+                this.auth.user!.characters.find((character) => character._id === character._id)!.bases = this.bases.map((base) => base.level);
+                this.auth.userObservable().next(this.auth.user);
             } else
                 this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du niveau de la base, si le problème persiste, contactez nous');
         });
@@ -178,6 +182,7 @@ export class EditComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.auth.user!.characters.find((c) => c._id === this.$character.getValue()._id)!.bases = this.bases.map((base) => base.level);
+        let find = this.auth.user!.characters.find((c) => c._id === this.$character.getValue()._id);
+        if (find) find.bases = this.bases.map((base) => base.level);
     }
 }
