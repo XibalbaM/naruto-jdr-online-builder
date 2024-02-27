@@ -7,6 +7,7 @@ import {CharacterToMaxChakraPipe} from "./characters/pipes/character-to-max-chak
 import {CharacterToSkillNaturalLevelPipe} from "./characters/pipes/character-to-skill-natural-level.pipe";
 import {RoleNamePipe} from "./utils/pipes/role-name.pipe";
 import {CharacterToMaxChakraSpesPipe} from "./characters/pipes/character-to-max-chakra-spes.pipe";
+import {CharacterToSkillTotalLevelPipe} from "./characters/pipes/character-to-skill-total-level.pipe";
 
 export const pipes = [
     IdToDataPipe,
@@ -17,5 +18,6 @@ export const pipes = [
     CharacterToMaxChakraPipe,
     CharacterToSkillNaturalLevelPipe,
     RoleNamePipe,
-    CharacterToMaxChakraSpesPipe
+    CharacterToMaxChakraSpesPipe,
+    CharacterToSkillTotalLevelPipe
 ]
