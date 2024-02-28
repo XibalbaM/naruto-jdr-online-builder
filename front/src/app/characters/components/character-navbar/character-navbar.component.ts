@@ -79,7 +79,7 @@ export class CharacterNavbarComponent {
 
     deleteCharacter(skipConfirmation = false) {
         const name = (this.$character.getValue().firstName + ' ' + this.idToData.transform(this.$character.getValue().clan, this.dataService.clans.getValue())?.name)
-        if (skipConfirmation || this.deleteNameConfirm.toLowerCase() === name.toLowerCase()) {
+        if (skipConfirmation || this.deleteNameConfirm.toLowerCase().replace("ō", "o").replace("ū", "u") === name.toLowerCase().replace("ō", "o").replace("ū", "u")) {
             this.characterService.deleteCharacter(this.$character.getValue()._id).subscribe((success) => {
                 if (success) {
                     this.notificationService.showNotification("Suppression du personnage", name + " a été supprimé avec succès");

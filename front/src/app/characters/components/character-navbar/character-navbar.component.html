@@ -20,7 +20,7 @@
                class="input px-[24px] py-[17px] text-white mt-[18px] mb-[30px] placeholder-light-gray font-16"
                type="text">
         <button (click)="deleteDialog.close(); deleteCharacter()"
-                [disabled]="deleteNameConfirm.toLowerCase() !== ((($character | async)?.firstName || '') + ' ' + ((($character | async)?.clan | idToData:dataService.clans.getValue())?.name || '')).toLowerCase()"
+                [disabled]="deleteNameConfirm.toLowerCase().replace('ō', 'o').replace('ū', 'u') !== ((($character | async)?.firstName || '') + ' ' + ((($character | async)?.clan | idToData:dataService.clans.getValue())?.name || '')).toLowerCase().replace('ō', 'o').replace('ū', 'u')"
                 class="flex items-center rounded-xl bg-red text-center px-[28px] h-[52px] hover:bg-opacity-95 disabled:text-light-gray disabled:bg-opacity-50">
             Supprimer le personnage
         </button>
@@ -37,7 +37,7 @@
             <span [ngClass]="(($character | characterToReamingXp | async) || 0) >= 0 ? 'text-blue' : 'text-orange'"
                   class="text-14 px-[6px] py-[3px] bg-light-dark rounded-[6px] ms-[10px]">
                 {{ (($character | characterToReamingXp | async) || 0) >= 0 ? '↑' : '↓' }} {{ Math.abs(($character | characterToReamingXp | async) || 0) }}
-                EXP <!--TODO not updating-->
+                EXP
             </span>
             <div [popperHideOnClickOutside]="true"
                  [popperPlacement]="NgxPopperjsPlacements.BOTTOMEND"
