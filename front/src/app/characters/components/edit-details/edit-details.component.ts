@@ -2,7 +2,7 @@ import {Component, computed, HostListener, inject, Injector} from '@angular/core
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
-import {combineLatest, map, Observable} from "rxjs";
+import {combineLatest, Observable} from "rxjs";
 import Character from "../../../app/models/character.model";
 import Village from "../../../app/models/village.model";
 import Clan from "../../../app/models/clan.model";

@@ -26,7 +26,7 @@ export class NormalNavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.$user.subscribe((user) => {
+        this.$user.subscribe(() => {
             this.onCreate.set(this.router.url.startsWith('/personnages/creation'));
             this.onList.set(!!this.router.url.match(/^\/personnages(?!\/creation\/).*$/));
             this.onAccount.set(this.router.url.startsWith("/compte"));
