@@ -5,7 +5,8 @@ import {DataService} from "../../app/services/data.service";
 
 @Pipe({
     name: 'characterToInterceptions',
-    standalone: true
+    standalone: true,
+    pure: false
 })
 export class CharacterToInterceptionsPipe implements PipeTransform {
 

@@ -5,7 +5,8 @@ import {CharacterToSkillTotalLevelPipe} from "./character-to-skill-total-level.p
 
 @Pipe({
     name: 'characterToSkillReinforcement',
-    standalone: true
+    standalone: true,
+    pure: false
 })
 export class CharacterToSkillReinforcementPipe implements PipeTransform {
 

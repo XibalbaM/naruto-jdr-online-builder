@@ -4,7 +4,8 @@ import {map, Observable} from "rxjs";
 
 @Pipe({
     name: 'characterToReamingXp',
-    standalone: true
+    standalone: true,
+    pure: false
 })
 export class CharacterToReamingXpPipe implements PipeTransform {
 
@@ -57,6 +58,7 @@ export class CharacterToReamingXpPipe implements PipeTransform {
                 map((char) => this.processCharacter(char))
             );
         } else {
+            console.log("called");
             return this.processCharacter(character);
         }
     }

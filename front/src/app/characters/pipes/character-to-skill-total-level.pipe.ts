@@ -8,7 +8,8 @@ import {IdToDataPipe} from "../../utils/pipes/id-to-data.pipe";
 
 @Pipe({
     name: 'characterToSkillTotalLevel',
-    standalone: true
+    standalone: true,
+    pure: false
 })
 export class CharacterToSkillTotalLevelPipe implements PipeTransform {
 

@@ -5,7 +5,8 @@ import {CharacterToBaseLevelPipe} from "./character-to-base-level.pipe";
 
 @Pipe({
     name: 'characterToChakraControl',
-    standalone: true
+    standalone: true,
+    pure: false
 })
 export class CharacterToChakraControlPipe implements PipeTransform {
 

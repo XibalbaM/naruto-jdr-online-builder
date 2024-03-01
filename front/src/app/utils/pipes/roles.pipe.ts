@@ -4,7 +4,8 @@ import {RoleNamePipe} from "./role-name.pipe";
 
 @Pipe({
     name: 'roles',
-    standalone: true
+    standalone: true,
+    pure: false
 })
 export class RolesPipe implements PipeTransform {
 

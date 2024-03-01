@@ -5,7 +5,8 @@ import {map, Observable} from "rxjs";
 
 @Pipe({
     name: 'characterToMaxChakraSpes',
-    standalone: true
+    standalone: true,
+    pure: false
 })
 export class CharacterToMaxChakraSpesPipe implements PipeTransform {
 

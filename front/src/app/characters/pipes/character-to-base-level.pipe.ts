@@ -5,7 +5,8 @@ import {map, Observable} from "rxjs";
 
 @Pipe({
     name: 'characterToBaseLevel',
-    standalone: true
+    standalone: true,
+    pure: false
 })
 export class CharacterToBaseLevelPipe implements PipeTransform {
 
