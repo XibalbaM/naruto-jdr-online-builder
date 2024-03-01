@@ -26,11 +26,11 @@ export class CharacterToSkillNaturalLevelPipe implements PipeTransform {
     }
 
     processCharacter(character: Character, skillName: string): number {
-        const skillId = this.dataService.commonSkills.getValue().find(skill => skill.name === skillName)?._id;
+        const skillId = this.dataService.commonSkills.find(skill => skill.name === skillName)?._id;
         if (skillId !== undefined) {
             return character.commonSkills[Number(skillId)];
         } else {
-            const customSkill = this.dataService.customSkills.getValue().find(skill => skill.name === skillName)!;
+            const customSkill = this.dataService.customSkills.find(skill => skill.name === skillName)!;
             return character.customSkills.find(skill => skill.skill === customSkill._id)?.level || 0;
         }
     }

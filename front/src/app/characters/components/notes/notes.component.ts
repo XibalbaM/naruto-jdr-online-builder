@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, Injector, OnInit} from '@angular/core';
 import {combineLatest} from "rxjs";
 import Auth from "../../../app/models/auth.model";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -32,11 +32,11 @@ export class NotesComponent implements OnInit {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded()]).subscribe(([params, user]) => {
+        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(inject(Injector))]).subscribe(([params, user]) => {
             if (params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId'))) {
                 this.character = (user.characters.find((character) => character._id === params.get('characterId'))!);
                 this.notes = noteTemp.get(this.character._id) || this.character.notes;
-                this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans.getValue())?.name}, Notes — Fiche de personnage — Naruto jdr`);
+                this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans)?.name}, Notes — Fiche de personnage — Naruto jdr`);
             } else {
                 this.router.navigate(['/personnages']);
             }

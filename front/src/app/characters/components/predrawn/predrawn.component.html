@@ -1,6 +1,6 @@
 <dialog #addDialog>
     <app-modal [dialog]="addDialog"
-               [mtext]="'Voulez vous prendre le personnage prétiré ' + characterToAdd?.firstName + ' ' + (characterToAdd?.clan | idToData:dataService.clans.getValue())?.name + '.'"
+               [mtext]="'Voulez vous prendre le personnage prétiré ' + characterToAdd?.firstName + ' ' + (characterToAdd?.clan | idToData:dataService.clans)?.name + '.'"
                mtitle="Prendre un personnage prétiré">
         <div class="flex justify-between items-center space-x-[18px]">
             <button (click)="addDialog.close()"

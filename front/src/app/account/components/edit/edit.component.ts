@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, inject, Injector} from "@angular/core";
 import Auth from "../../../app/models/auth.model";
 import {AccountService} from "../../../app/services/account.service";
 import {Router, RouterLink} from "@angular/router";
@@ -39,9 +39,10 @@ export class EditComponent {
     deleteNameConfirm = "";
     newEmail?: string = undefined;
     newEmailConfirm = "";
+    $user = this.auth.userObservableOnceLoaded(inject(Injector));
     protected readonly console = console;
 
-    constructor(public auth: Auth, private accountService: AccountService, private router: Router,
+    constructor(private auth: Auth, private accountService: AccountService, private router: Router,
                 private notificationService: NotificationService, private authService: AuthService, protected env: Environment) {
     }
 

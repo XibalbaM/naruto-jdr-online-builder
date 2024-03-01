@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, Injector, OnInit, signal} from '@angular/core';
 import {DataService} from "../../../app/services/data.service";
 import Auth from "../../../app/models/auth.model";
 import Character from "../../../app/models/character.model";
 import {PredrawnService} from "../../../app/services/predrawn.service";
-import {BehaviorSubject, zip} from "rxjs";
+import {zip} from "rxjs";
 import {NotificationService} from "../../../app/services/notification.service";
 import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -20,8 +20,8 @@ import {AdminLogoComponent} from '../../../utils/components/admin-logo/admin-log
 })
 export class HomeComponent implements OnInit {
 
-    $characters: BehaviorSubject<Character[]> = new BehaviorSubject<Character[]>([]);
-    $predrawnCharacters: BehaviorSubject<Character[]> = new BehaviorSubject<Character[]>([]);
+    characters = signal<Character[]>([]);
+    predrawnCharacters = signal<Character[]>([]);
     characterToChange?: Character;
     readonly = false;
 
@@ -29,9 +29,9 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        zip(this.auth.userObservableOnceLoaded(), this.predrawnService.getPredrawnCharacters()).subscribe(([user, predrawnCharacters]) => {
-            this.$characters.next(user.characters);
-            this.$predrawnCharacters.next(predrawnCharacters);
+        zip(this.auth.userObservableOnceLoaded(inject(Injector)), this.predrawnService.getPredrawnCharacters()).subscribe(([user, predrawnCharacters]) => {
+            this.characters.set(user.characters);
+            this.predrawnCharacters.set(predrawnCharacters);
         });
     }
 
@@ -39,9 +39,9 @@ export class HomeComponent implements OnInit {
         if (this.characterToChange) {
             this.predrawnService.addPredrawnCharacter(this.characterToChange._id).subscribe(({success, id}) => {
                 if (success) {
-                    const character = JSON.parse(JSON.stringify(this.$characters.getValue().find((character) => character._id === this.characterToChange!._id)!));
+                    const character = JSON.parse(JSON.stringify(this.characters().find((character) => character._id === this.characterToChange!._id)!));
                     character._id = id!;
-                    this.$predrawnCharacters.next([...this.$predrawnCharacters.getValue(), character]);
+                    this.predrawnCharacters.set([...this.predrawnCharacters(), character]);
                 } else {
                     this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de l'ajout du personnage");
                 }
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
         if (this.characterToChange) {
             this.predrawnService.removePredrawnCharacter(this.characterToChange._id).subscribe((success) => {
                 if (success) {
-                    this.$predrawnCharacters.next(this.$predrawnCharacters.getValue().filter((character) => character._id !== this.characterToChange!._id));
+                    this.predrawnCharacters.set(this.predrawnCharacters().filter((character) => character._id !== this.characterToChange!._id));
                 } else {
                     this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la suppression du personnage");
                 }

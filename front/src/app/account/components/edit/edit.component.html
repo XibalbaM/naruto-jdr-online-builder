@@ -1,5 +1,5 @@
 <dialog #deleteAccountDialog>
-    <app-modal (close)="deleteAccountDialog.close(); deleteNameConfirm = ''" *ngIf="(auth.userObservableOnceLoaded() | async) as user"
+    <app-modal (close)="deleteAccountDialog.close(); deleteNameConfirm = ''" *ngIf="($user | async) as user"
                [dialog]="deleteAccountDialog"
                mtext="<span class='text-16'>En cliquant sur le bouton “Supprimer” juste en dessous, votre compte et tous vos personnages seront définitivement effacés. Il n’y a ni sauvegarde ni backup des données de l’application. <br/><br/><span class='text-orange'>Toute suppression est définitive.</span></span>"
                mtitle="supprimer mon compte">
@@ -15,7 +15,7 @@
     </app-modal>
 </dialog>
 <dialog #changeEmailDialog>
-    <app-modal (close)="changeEmailDialog.close(); newEmailConfirm = ''" *ngIf="(auth.userObservableOnceLoaded() | async) as user"
+    <app-modal (close)="changeEmailDialog.close(); newEmailConfirm = ''" *ngIf="($user | async) as user"
                [dialog]="changeEmailDialog"
                mtext="<span class='text-16'>En cliquant sur le bouton “Valider” juste en dessous, votre adresse email sera modifiée. L'accès a votre boite mail
                étant obligatoire pour vous connecter, assurez vous d'avoir accès à l'adresse email que vous rentrez. <br/><br/><span class='text-orange'>Nous ne
@@ -84,7 +84,7 @@
         </div>
     </app-modal>
 </dialog>
-<div *ngIf="(auth.userObservableOnceLoaded() | async) as user">
+<div *ngIf="($user | async) as user">
     <p class="text-yellow text-16">Mon profile</p>
     <h1 class="font-bold uppercase text-28 font-monument my-[25px]">{{ user?.username || "Ninja Sans Nom" }}</h1>
     <p class="font-light uppercase text-10 text-light-gray font-monument">ID {{ user?._id }}</p>

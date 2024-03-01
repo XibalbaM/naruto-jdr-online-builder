@@ -22,10 +22,10 @@ import {CustomSkill, Skill} from "../../../../app/models/skill.model";
 })
 export class ThirdStepComponent implements OnInit, OnDestroy {
     clanSkillsIds: string[] = this.creationService.character.road
-        ? this.idToData.transform(this.creationService.character.road, this.dataService.roads.getValue())?.line.skills || []
-        : this.idToData.transform(this.creationService.character.clan, this.dataService.clans.getValue())?.line.skills || [];
-    clanSkills: CustomSkill[] = this.dataService.customSkills.getValue().filter(skill => this.clanSkillsIds.includes(skill._id));
-    uncommonSkills: CustomSkill[] = this.dataService.customSkills.getValue().filter(skill => skill.type !== 'clan').filter(skill => !this.clanSkillsIds.includes(skill._id));
+        ? this.idToData.transform(this.creationService.character.road, this.dataService.roads)?.line.skills || []
+        : this.idToData.transform(this.creationService.character.clan, this.dataService.clans)?.line.skills || [];
+    clanSkills: CustomSkill[] = this.dataService.customSkills.filter(skill => this.clanSkillsIds.includes(skill._id));
+    uncommonSkills: CustomSkill[] = this.dataService.customSkills.filter(skill => skill.type !== 'clan').filter(skill => !this.clanSkillsIds.includes(skill._id));
     skillIds: string[] = this.creationService.tempSkillIds.length > 0 ? this.creationService.tempSkillIds : [...this.clanSkillsIds];
 
     constructor(protected creationService: CreationService, private router: Router, protected dataService: DataService,

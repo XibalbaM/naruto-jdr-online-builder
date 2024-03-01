@@ -1,11 +1,10 @@
-import {Injectable} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import {ApiService} from "./api.service";
 import Village from "../models/village.model";
 import {HttpHeaders} from "@angular/common/http";
 import Base from "../models/base.model";
 import Clan from "../models/clan.model";
 import Road from "../models/road.model";
-import {BehaviorSubject} from "rxjs";
 import Rank from "../models/rank.model";
 import ChakraSpe from "../models/chakra-spe.model";
 import {CustomSkill, Skill} from "../models/skill.model";
@@ -17,52 +16,52 @@ export class DataService {
 
     /**
      * The list of all datas to keep up to date with the API
-     * Using a list of BehaviorSubject to be able to subscribe to the data and to do a foreach on it
+     * Using a list of Signals to be able to subscribe to the data and to do a foreach on it
      */
     datas = {
-        villages: new BehaviorSubject<Village[]>([]),
-        bases: new BehaviorSubject<Base[]>([]),
-        clans: new BehaviorSubject<Clan[]>([]),
-        roads: new BehaviorSubject<Road[]>([]),
-        "skills/common": new BehaviorSubject<Skill[]>([]),
-        "skills/custom": new BehaviorSubject<CustomSkill[]>([]),
-        ranks: new BehaviorSubject<Rank[]>([]),
-        chakraSpes: new BehaviorSubject<ChakraSpe[]>([]),
+        villages: signal<Village[]>([]),
+        bases: signal<Base[]>([]),
+        clans: signal<Clan[]>([]),
+        roads: signal<Road[]>([]),
+        "skills/common": signal<Skill[]>([]),
+        "skills/custom": signal<CustomSkill[]>([]),
+        ranks: signal<Rank[]>([]),
+        chakraSpes: signal<ChakraSpe[]>([]),
     }
 
     constructor(private apiService: ApiService) {
     }
 
-    get villages(): BehaviorSubject<Village[]> {
-        return this.datas.villages;
+    get villages(): Village[] {
+        return this.datas.villages();
     }
 
-    get bases(): BehaviorSubject<Base[]> {
-        return this.datas.bases;
+    get bases(): Base[] {
+        return this.datas.bases();
     }
 
-    get clans(): BehaviorSubject<Clan[]> {
-        return this.datas.clans;
+    get clans(): Clan[] {
+        return this.datas.clans();
     }
 
-    get roads(): BehaviorSubject<Road[]> {
-        return this.datas.roads;
+    get roads(): Road[] {
+        return this.datas.roads();
     }
 
-    get commonSkills(): BehaviorSubject<Skill[]> {
-        return this.datas["skills/common"];
+    get commonSkills(): Skill[] {
+        return this.datas["skills/common"]();
     }
 
-    get customSkills(): BehaviorSubject<CustomSkill[]> {
-        return this.datas["skills/custom"];
+    get customSkills(): CustomSkill[] {
+        return this.datas["skills/custom"]();
     }
 
-    get ranks(): BehaviorSubject<Rank[]> {
-        return this.datas.ranks;
+    get ranks(): Rank[] {
+        return this.datas.ranks();
     }
 
-    get chakraSpes(): BehaviorSubject<ChakraSpe[]> {
-        return this.datas.chakraSpes;
+    get chakraSpes(): ChakraSpe[] {
+        return this.datas.chakraSpes();
     }
 
     /**
@@ -87,9 +86,9 @@ export class DataService {
      *
      * If the data is already in the local storage, it will send the etag to the API to check if the data has changed
      *
-     * If the data has changed, it will update the local storage and send the new data to the BehaviorSubject
+     * If the data has changed, it will update the local storage and send the new data to the Signal
      *
-     * If the data hasn't changed, it will send the data from the local storage to the BehaviorSubject
+     * If the data hasn't changed, it will send the data from the local storage to the Signal
      * @param dataId
      */
     fetchData(dataId: keyof typeof DataService.prototype.datas) {
@@ -100,7 +99,7 @@ export class DataService {
         }
         this.apiService.doRequest<any[]>('get', '/' + dataId, undefined, false, headers).subscribe((response) => {
             if (response.status === 304) {
-                this.datas[dataId].next(JSON.parse(currentDatas!).data);
+                this.datas[dataId].set(JSON.parse(currentDatas!).data);
             } else if (response.status === 200 && response.headers.get('Etag') && response.body) {
                 const data = (response.body).sort((a, b) => {
                     if (dataId in ['chakraSpes', 'clan', 'road', 'skill/common', 'skill/custom', 'village']) {
@@ -118,7 +117,7 @@ export class DataService {
                     data: data
                 }
                 localStorage.setItem(dataId, JSON.stringify(storedData));
-                this.datas[dataId].next(data);
+                this.datas[dataId].set(data);
             } else {
                 console.error('Error while getting data from API : ', response.body);
                 localStorage.removeItem(dataId);

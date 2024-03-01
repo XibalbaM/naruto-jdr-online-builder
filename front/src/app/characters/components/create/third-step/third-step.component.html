@@ -22,7 +22,7 @@
     <div class="flex max-w-md flex-col space-y-[12px]">
         <div *ngFor="let skill of clanSkills" class="text-start py-[18px] px-[24px] gray-box text-yellow">
             {{ skill.name }}
-            ({{ (skill.base | idToData:dataService.bases.getValue())?.shortName }})
+            ({{ (skill.base | idToData:dataService.bases)?.shortName }})
         </div>
     </div>
     <app-spacer class="bg-lighter-dark my-[30px]"></app-spacer>
@@ -35,7 +35,7 @@
     <button (click)="addSkill(skill)" *ngFor="let skill of uncommonSkills"
             [ngClass]="skillIds.includes(skill._id) ? 'gray-box text-yellow hover:bg-lighter-dark' : 'black-box hover:bg-dark'"
             class="col-span-1 row-span-1 max-w-md text-start h-[48px] px-[24px] text-14">
-        {{ skill.name }} ({{ (skill.base | idToData:dataService.bases.getValue())?.shortName }})
+        {{ skill.name }} ({{ (skill.base | idToData:dataService.bases)?.shortName }})
     </button>
 </div>
 <app-spacer class="bg-lighter-dark mt-[30px] mb-[50px]"></app-spacer>

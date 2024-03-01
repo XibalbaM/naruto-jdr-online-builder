@@ -26,7 +26,7 @@ export class CharacterToInterceptionsPipe implements PipeTransform {
     }
 
     processCharacter(character: Character, type: 'TAI' | 'ARM'): number {
-        const baseLevel = character.bases[this.dataService.bases.getValue().find(base => base.shortName === type)!._id];
+        const baseLevel = character.bases[this.dataService.bases.find(base => base.shortName === type)!._id];
         return Math.max(1, Math.floor(baseLevel / 2));
     }
 }

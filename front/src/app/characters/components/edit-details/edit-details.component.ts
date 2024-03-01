@@ -1,4 +1,4 @@
-import {Component, HostListener} from '@angular/core';
+import {Component, computed, HostListener, inject, Injector} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
@@ -35,11 +35,7 @@ export class EditDetailsComponent {
     isRoad!: boolean;
     road?: Road;
     rank!: Rank;
-    $clans = this.dataService.clans.pipe(
-        map((clans) => {
-            return clans.sort((a, b) => a.name.localeCompare(b.name))
-        })
-    );
+    clans = computed(() => this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)));
 
     constructor(private router: Router, private route: ActivatedRoute, private auth: Auth,
                 protected dataService: DataService, private env: Environment, private idToData: IdToDataPipe,
@@ -48,16 +44,16 @@ export class EditDetailsComponent {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded()]).subscribe(([params, user]) => {
+        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(inject(Injector))]).subscribe(([params, user]) => {
             if (params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId'))) {
                 this.character = (user.characters.find((character) => character._id === params.get('characterId'))!);
-                this.village = this.idToData.transform(this.character.village, this.dataService.villages.getValue())!;
+                this.village = this.idToData.transform(this.character.village, this.dataService.villages)!;
                 this.firstName = this.character.firstName;
-                this.clan = this.idToData.transform(this.character.clan, this.dataService.clans.getValue())!;
+                this.clan = this.idToData.transform(this.character.clan, this.dataService.clans)!;
                 this.xp = this.character.xp;
                 this.isRoad = !!this.character.road;
-                this.road = this.character.road ? this.idToData.transform(this.character.road, this.dataService.roads.getValue()) : undefined;
-                this.rank = this.idToData.transform(this.character.rank, this.dataService.ranks.getValue())!;
+                this.road = this.character.road ? this.idToData.transform(this.character.road, this.dataService.roads) : undefined;
+                this.rank = this.idToData.transform(this.character.rank, this.dataService.ranks)!;
                 this.title.setTitle(`${this.character.firstName} ${this.clan.name}, Modification — Fiche de personnage — Naruto jdr`)
             } else {
                 this.router.navigate(['/personnages']);

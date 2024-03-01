@@ -27,7 +27,7 @@ export class CharacterService {
                         character.customSkills.find((skill) => skill.skill === skillId)!.level = level;
                     else
                         character.commonSkills[skillId] = level;
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );
@@ -45,7 +45,7 @@ export class CharacterService {
             tap((success) => {
                 if (success) {
                     this.auth.user!.characters.find((character) => character._id === characterId)!.nindoPoints = points;
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );
@@ -57,7 +57,7 @@ export class CharacterService {
             tap((success) => {
                 if (success && !multi) {
                     this.auth.user!.characters.find((character) => character._id === characterId)!.village = village;
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );
@@ -69,7 +69,7 @@ export class CharacterService {
             tap((success) => {
                 if (success && !multi) {
                     this.auth.user!.characters.find((character) => character._id === characterId)!.firstName = firstName;
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );
@@ -81,7 +81,7 @@ export class CharacterService {
             tap((success) => {
                 if (success && !multi) {
                     this.auth.user!.characters.find((character) => character._id === characterId)!.clan = clan;
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );
@@ -93,7 +93,7 @@ export class CharacterService {
             tap((success) => {
                 if (success && !multi) {
                     this.auth.user!.characters.find((character) => character._id === characterId)!.xp = xp;
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );
@@ -105,7 +105,7 @@ export class CharacterService {
             tap((success) => {
                 if (success && !multi) {
                     this.auth.user!.characters.find((character) => character._id === characterId)!.road = road;
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );
@@ -117,7 +117,7 @@ export class CharacterService {
             tap((success) => {
                 if (success && !multi) {
                     this.auth.user!.characters.find((character) => character._id === characterId)!.rank = rank;
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );
@@ -129,7 +129,7 @@ export class CharacterService {
             tap((success) => {
                 if (success && !multi) {
                     this.auth.user!.characters.find((character) => character._id === characterId)!.notes = notes;
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );
@@ -141,7 +141,7 @@ export class CharacterService {
             tap((success) => {
                 if (success && !multi) {
                     this.auth.user!.characters.find((character) => character._id === characterId)!.chakraSpes[speIndex] = speId;
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );
@@ -158,7 +158,7 @@ export class CharacterService {
             tap((data) => {
                 if (data.success) {
                     this.auth.user!.characters.push(data.character!);
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );
@@ -170,7 +170,7 @@ export class CharacterService {
             tap((success) => {
                 if (success) {
                     this.auth.user!.characters = this.auth.user!.characters.filter((character) => character._id !== characterId);
-                    this.auth.userObservable().next(this.auth.user);
+                    this.auth.user = this.auth.user;
                 }
             })
         );

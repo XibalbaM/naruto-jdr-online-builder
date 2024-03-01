@@ -1,6 +1,6 @@
-import {Component, ElementRef, inject, InjectionToken, Injector, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, inject, InjectionToken, Injector, OnInit, signal, ViewChild} from "@angular/core";
 import {ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet} from "@angular/router";
-import {BehaviorSubject, filter} from "rxjs";
+import {filter} from "rxjs";
 import {NotificationComponent} from "./components/notification/notification.component";
 import {AsyncPipe, NgClass, NgComponentOutlet} from "@angular/common";
 
@@ -18,9 +18,9 @@ import {AsyncPipe, NgClass, NgComponentOutlet} from "@angular/common";
     ],
 })
 export class AppComponent implements OnInit {
-    $navbar: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-    $navbarDataInjector: BehaviorSubject<Injector> = new BehaviorSubject<Injector>(this.createNavbarDataInjector(null));
-    $bgClass: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    navbar = signal<any>(null);
+    navbarDataInjector = signal(this.createNavbarDataInjector(null));
+    bgClass = signal('');
     @ViewChild("scrollHolder") scrollHolder!: ElementRef<HTMLDivElement>;
 
     private readonly injector = inject(Injector);
@@ -36,9 +36,9 @@ export class AppComponent implements OnInit {
             while (currentRoute.firstChild) {
                 currentRoute = currentRoute.firstChild;
             }
-            this.$navbar.next(currentRoute.data['navbar'] || null);
-            this.$bgClass.next(currentRoute.data['bgClass'] || '');
-            this.$navbarDataInjector.next(this.createNavbarDataInjector(new NavbarData(currentRoute)));
+            this.navbar.set(currentRoute.data['navbar'] || null);
+            this.bgClass.set(currentRoute.data['bgClass'] || '');
+            this.navbarDataInjector.set(this.createNavbarDataInjector(new NavbarData(currentRoute)));
             this.scrollHolder.nativeElement.scrollTop = 0;
         });
     }

@@ -1,8 +1,6 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, inject, Injector, OnInit, signal} from "@angular/core";
 import Auth from "../../models/auth.model";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
-import {BehaviorSubject} from "rxjs";
-import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {AdminLogoComponent} from "../../../utils/components/admin-logo/admin-logo.component";
 import {DefaultProfilePictureComponent} from "../../../utils/components/default-profile-picture/default-profile-picture.component";
 import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
@@ -18,21 +16,21 @@ import {CharactersLogoComponent} from "../../../utils/components/characters-logo
 })
 export class NormalNavbarComponent implements OnInit {
 
-    onAccount: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    onList: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    onCreate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    onAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    $user = this.auth.userObservableOnceLoaded();
+    onAccount = signal(false);
+    onList = signal(false);
+    onCreate = signal(false);
+    onAdmin = signal(false);
+    $user = this.auth.userObservableOnceLoaded(inject(Injector));
 
-    constructor(protected auth: Auth, private router: Router, private idToData: IdToDataPipe) {
+    constructor(protected auth: Auth, private router: Router) {
     }
 
     ngOnInit() {
-        this.auth.userObservableOnceLoaded().subscribe((user) => {
-            this.onCreate.next(this.router.url.startsWith('/personnages/creation'));
-            this.onList.next(!!this.router.url.match(/^\/personnages(?!\/creation\/).*$/));
-            this.onAccount.next(this.router.url.startsWith("/compte"));
-            this.onAdmin.next(this.router.url.startsWith("/admin"));
+        this.$user.subscribe((user) => {
+            this.onCreate.set(this.router.url.startsWith('/personnages/creation'));
+            this.onList.set(!!this.router.url.match(/^\/personnages(?!\/creation\/).*$/));
+            this.onAccount.set(this.router.url.startsWith("/compte"));
+            this.onAdmin.set(this.router.url.startsWith("/admin"));
         });
     }
 }

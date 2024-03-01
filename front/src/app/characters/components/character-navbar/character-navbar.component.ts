@@ -1,5 +1,4 @@
-import {Component, inject} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {Component, inject, Injector, signal} from '@angular/core';
 import Character from "../../../app/models/character.model";
 import Auth from "../../../app/models/auth.model";
 import {NAVBAR_DATA_TOKEN} from "../../../app/app.component";
@@ -25,39 +24,40 @@ import {AsyncPipe, NgClass, NgIf} from '@angular/common';
 })
 export class CharacterNavbarComponent {
 
-    $character = new BehaviorSubject<Character>(new Character());
+    character = signal(new Character());
     navbarData = inject(NAVBAR_DATA_TOKEN);
     deleteNameConfirm = ""
-    isShiftPressed = new BehaviorSubject<boolean>(false);
+    isShiftPressed = signal(false);
     protected readonly Math = Math;
     protected readonly NgxPopperjsTriggers = NgxPopperjsTriggers;
     protected readonly NgxPopperjsPlacements = NgxPopperjsPlacements;
 
     constructor(private auth: Auth, protected dataService: DataService, private idToData: IdToDataPipe,
-                private characterService: CharacterService, private router: Router, private notificationService: NotificationService) {
+                private characterService: CharacterService, private router: Router, private notificationService: NotificationService,
+                private injector: Injector) {
     }
 
     ngOnInit() {
         const id = this.navbarData?.currentRoute.params["characterId"];
-        this.auth.userObservableOnceLoaded().subscribe(user => {
+        this.auth.userObservableOnceLoaded(this.injector).subscribe(user => {
             if (id && user.characters.find(character => character._id === id)) {
-                this.$character.next(user.characters.find(character => character._id === id)!);
+                this.character.set(user.characters.find(character => character._id === id)!);
             }
         });
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Shift') {
-                this.isShiftPressed.next(true);
+                this.isShiftPressed.set(true);
             }
         });
         document.addEventListener('keyup', (event) => {
             if (event.key === 'Shift') {
-                this.isShiftPressed.next(false);
+                this.isShiftPressed.set(false);
             }
         });
     }
 
     copyCharacter() {
-        this.characterService.copyCharacter(this.$character.getValue()._id).subscribe(({success, character}) => {
+        this.characterService.copyCharacter(this.character()._id).subscribe(({success, character}) => {
             if (success) {
                 this.notificationService.showNotification("Copie du personnage", "Le personnage a été copié avec succès, vous avez été redirigé vers la page du nouveau personnage");
                 this.router.navigate(['/personnages', character!._id]);
@@ -68,19 +68,19 @@ export class CharacterNavbarComponent {
     }
 
     exportCharacter() {
-        const characterJSON = JSON.stringify(this.$character.getValue());
+        const characterJSON = JSON.stringify(this.character());
         const blob = new Blob([characterJSON], {type: 'application/json'});
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = this.$character.getValue().firstName + '.json';
+        a.download = this.character().firstName + '.json';
         a.click();
     }
 
     deleteCharacter(skipConfirmation = false) {
-        const name = (this.$character.getValue().firstName + ' ' + this.idToData.transform(this.$character.getValue().clan, this.dataService.clans.getValue())?.name)
+        const name = (this.character().firstName + ' ' + this.idToData.transform(this.character().clan, this.dataService.clans)?.name)
         if (skipConfirmation || this.deleteNameConfirm.toLowerCase().replace("ō", "o").replace("ū", "u") === name.toLowerCase().replace("ō", "o").replace("ū", "u")) {
-            this.characterService.deleteCharacter(this.$character.getValue()._id).subscribe((success) => {
+            this.characterService.deleteCharacter(this.character()._id).subscribe((success) => {
                 if (success) {
                     this.notificationService.showNotification("Suppression du personnage", name + " a été supprimé avec succès");
                     this.router.navigate(['/personnages']);

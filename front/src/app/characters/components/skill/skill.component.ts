@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, Injector, OnInit} from '@angular/core';
 import Character from "../../../app/models/character.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
@@ -36,21 +36,21 @@ export class SkillComponent implements OnInit {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.route.data, this.auth.userObservableOnceLoaded()]).subscribe(([params, routeData, user]) => {
+        combineLatest([this.route.paramMap, this.route.data, this.auth.userObservableOnceLoaded(inject(Injector))]).subscribe(([params, routeData, user]) => {
             const isCommon = routeData['skillType'] === 'common';
-            const skills = isCommon ? this.dataService.commonSkills.getValue() : this.dataService.customSkills.getValue();
+            const skills = isCommon ? this.dataService.commonSkills : this.dataService.customSkills;
             if (params.get('id') && params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId')) && skills.find((base) => base._id === params.get('id'))) {
                 this.character = (user.characters.find((character) => character._id === params.get('characterId'))!);
                 this.skill = skills.find((skill) => skill._id === params.get('id'))!;
                 this.isSkillRemovable = !isCommon && (this.skill as CustomSkill).type !== "clan";
-                this.base = this.dataService.bases.getValue().find((base) => base._id === this.skill.base)!;
+                this.base = this.dataService.bases.find((base) => base._id === this.skill.base)!;
                 if (isCommon) {
                     this.skillLevel = this.character.commonSkills[Number(this.skill._id)] || 0;
                 } else {
                     this.skillLevel = this.character.customSkills.find((skillWithLevel) => skillWithLevel.skill === this.skill._id)?.level || 0;
                 }
                 this.baseLevel = this.character.bases[this.base._id] || 0;
-                this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans.getValue())?.name}, Compétence ${this.skill.name} — Fiche de personnage — Naruto jdr`);
+                this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans)?.name}, Compétence ${this.skill.name} — Fiche de personnage — Naruto jdr`);
             } else {
                 this.router.navigate(['/personnages']);
             }

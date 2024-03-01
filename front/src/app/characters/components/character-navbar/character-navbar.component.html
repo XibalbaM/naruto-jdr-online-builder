@@ -1,13 +1,13 @@
 <popper-content #options>
     <div class="flex flex-col px-[24px] py-[20px]">
-        <a [routerLink]="['personnages',($character | async)?._id,'details']" class="w-full my-[10px] text-16 text-blue h-[26px] hover:underline">Modifier</a>
+        <a [routerLink]="['personnages',character()._id,'details']" class="w-full my-[10px] text-16 text-blue h-[26px] hover:underline">Modifier</a>
         <a (click)="copyCharacter()" class="w-full my-[10px] text-16 h-[26px] hover:underline">Créer une copie</a><!--
         <a class="w-full my-[10px] text-16 h-[26px] hover:underline">Rejoindre un groupe</a>
         <a class="w-full my-[10px] text-16 h-[26px] hover:underline">Créer un groupe</a>-->
-        <a (click)="exportCharacter()" *ngIf="isShiftPressed | async" class="w-full my-[10px] text-16 h-[26px] hover:underline select-none">Exporter le
+        <a (click)="exportCharacter()" *ngIf="isShiftPressed()" class="w-full my-[10px] text-16 h-[26px] hover:underline select-none">Exporter le
             personnage</a>
         <app-spacer class="bg-lighter-dark mt-[15px]"/>
-        <a (click)="isShiftPressed.getValue() ? deleteCharacter(true) : deleteDialog.show()" class="w-full my-[13px] text-16 text-orange hover:underline">Supprimer le personnage</a>
+        <a (click)="isShiftPressed() ? deleteCharacter(true) : deleteDialog.show()" class="w-full my-[13px] text-16 text-orange hover:underline">Supprimer le personnage</a>
     </div>
 </popper-content>
 <dialog #deleteDialog>
@@ -16,11 +16,11 @@
                mtitle="supprimer le personnage">
         <h2 class="text-10 text-light-gray font-light font-monument uppercase">enter le nom du personnage</h2>
         <input [(ngModel)]="deleteNameConfirm"
-               [placeholder]="(($character | async)?.firstName || '') + ' ' + ((($character | async)?.clan | idToData:dataService.clans.getValue())?.name || '')"
+               [placeholder]="(character().firstName || '') + ' ' + ((character().clan | idToData:dataService.clans)?.name || '')"
                class="input px-[24px] py-[17px] text-white mt-[18px] mb-[30px] placeholder-light-gray font-16"
                type="text">
         <button (click)="deleteDialog.close(); deleteCharacter()"
-                [disabled]="deleteNameConfirm.toLowerCase().replace('ō', 'o').replace('ū', 'u') !== ((($character | async)?.firstName || '') + ' ' + ((($character | async)?.clan | idToData:dataService.clans.getValue())?.name || '')).toLowerCase().replace('ō', 'o').replace('ū', 'u')"
+                [disabled]="deleteNameConfirm.toLowerCase().replace('ō', 'o').replace('ū', 'u') !== ((character().firstName || '') + ' ' + ((character().clan | idToData:dataService.clans)?.name || '')).toLowerCase().replace('ō', 'o').replace('ū', 'u')"
                 class="flex items-center rounded-xl bg-red text-center px-[28px] h-[52px] hover:bg-opacity-95 disabled:text-light-gray disabled:bg-opacity-50">
             Supprimer le personnage
         </button>
@@ -34,9 +34,9 @@
             Retour
         </a>
         <div class="flex flex-row gap-[10px]">
-            <span [ngClass]="(($character | characterToReamingXp | async) || 0) >= 0 ? 'text-blue' : 'text-orange'"
+            <span [ngClass]="((character() | characterToReamingXp) || 0) >= 0 ? 'text-blue' : 'text-orange'"
                   class="text-14 px-[6px] py-[3px] bg-light-dark rounded-[6px] ms-[10px]">
-                {{ (($character | characterToReamingXp | async) || 0) >= 0 ? '↑' : '↓' }} {{ Math.abs(($character | characterToReamingXp | async) || 0) }}
+                {{ ((character() | characterToReamingXp) || 0) >= 0 ? '↑' : '↓' }} {{ Math.abs((character() | characterToReamingXp) || 0) }}
                 EXP
             </span>
             <div [popperHideOnClickOutside]="true"
@@ -53,12 +53,12 @@
 </div>
 <div class="w-full bg-cover bg-[url('assets/images/backgrounds/character-nav-bg.webp')] h-fit px-[15px] overflow-hidden">
     <div class="max-w-[1024px] mx-auto flex scrollbar:hidden w-full flex-row items-center overflow-x-scroll whitespace-nowrap h-[45px] space-x-[4px]">
-        <a [routerLinkActiveOptions]="{exact: true}" [routerLink]="'/personnages/' + ($character | async)?._id"
+        <a [routerLinkActiveOptions]="{exact: true}" [routerLink]="'/personnages/' + character()._id"
            class="px-[13px] py-[6px] hover:underline"
            routerLinkActive="box-border px-[12px] border border-pink text-pink bg-black rounded-[8px] cursor-default hover:no-underline">
             Fiche
         </a>
-        <a [routerLink]="'/personnages/' + ($character | async)?._id + '/lignee'"
+        <a [routerLink]="'/personnages/' + character()._id + '/lignee'"
            class="px-[13px] py-[6px] hover:underline"
            routerLinkActive="box-border px-[12px] border border-pink text-pink bg-black rounded-[8px] cursor-default hover:no-underline">
             Lignée

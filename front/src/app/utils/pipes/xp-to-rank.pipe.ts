@@ -12,11 +12,11 @@ export class XpToRankPipe implements PipeTransform {
     }
 
     transform(xp: number): Rank {
-        for (const rank of this.dataService.ranks.getValue().sort((a, b) => b.minXp - a.minXp)) {
+        for (const rank of this.dataService.ranks.sort((a, b) => b.minXp - a.minXp)) {
             if (rank.minXp < xp) {
                 return rank;
             }
         }
-        return this.dataService.ranks.getValue()[0];
+        return this.dataService.ranks[0];
     }
 }

@@ -1,9 +1,9 @@
 <div class="flex h-full flex-col">
-    <ng-container *ngComponentOutlet="$navbar | async; injector: ($navbarDataInjector | async) || undefined"/>
+    <ng-container *ngComponentOutlet="navbar(); injector: navbarDataInjector()"/>
     <app-notification class="w-full"/>
-    <div #scrollHolder [ngClass]="$bgClass | async"
+    <div #scrollHolder [ngClass]="bgClass()"
          class="h-full flex-shrink overflow-x-hidden overflow-y-auto !bg-local">
-        <div [ngClass]="($navbar | async) ? 'pt-[50px]' : ''" class="max-w-[1024px] mx-auto px-[15px] xl:px-0">
+        <div [ngClass]="navbar() ? 'pt-[50px]' : ''" class="max-w-[1024px] mx-auto px-[15px] xl:px-0">
             <router-outlet class="h-full"/>
         </div>
     </div>

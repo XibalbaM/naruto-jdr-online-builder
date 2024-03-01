@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject, Injector} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {PlusSymbolComponent} from '../../../utils/components/plus-symbol/plus-symbol.component';
@@ -16,6 +16,8 @@ import {RouterLink} from '@angular/router';
 })
 export class ListComponent {
 
-    constructor(protected auth: Auth) {
+    $user = this.auth.userObservableOnceLoaded(inject(Injector));
+
+    constructor(private auth: Auth) {
     }
 }

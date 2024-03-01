@@ -9,7 +9,7 @@
         <div class="flex-shrink flex-grow labeled-select mr-[12px]">
             <label>Village</label>
             <select [(ngModel)]="village" class="!text-yellow pl-[83px]" disabled name="village">
-                <option *ngFor="let village of dataService.villages | async"
+                <option *ngFor="let village of dataService.villages"
                         [ngValue]="village">{{ village.name | titlecase }}
                 </option>
             </select>
@@ -29,7 +29,7 @@
             <label>Clan</label>
             <select [(ngModel)]="clan" [class.!text-yellow]="clan" class="pl-[69px]" name="clan">
                 <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
-                <option *ngFor="let clan of $clans | async" [ngValue]="clan"
+                <option *ngFor="let clan of clans()" [ngValue]="clan"
                         class="text-yellow">{{ clan.name | titlecase }}
                 </option>
             </select>
@@ -50,7 +50,7 @@
         <label>Voie</label>
         <select [(ngModel)]="road" [class.!text-yellow]="road" class="pl-[69px]" name="road">
             <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
-            <option *ngFor="let road of dataService.roads | async" [ngValue]="road"
+            <option *ngFor="let road of dataService.roads" [ngValue]="road"
                     class="text-yellow">{{ road.name + " - " + road.qualification }}
             </option>
         </select>

@@ -6,7 +6,7 @@
 <app-spacer class="bg-lighter-dark my-[30px]"/>
 <markdown-it [markdown]="base.description" class="font-light"/>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
-<a *ngIf="nextBase | idToData:(dataService.bases | async) as nextBase" [routerLink]="'../' + nextBase._id" class="flex w-full flex-col items-end">
+<a *ngIf="nextBase | idToData:dataService.bases as nextBase" [routerLink]="'../' + nextBase._id" class="flex w-full flex-col items-end">
     <p class="flex flex-row items-center text-pink text-16">
         Suivant
         <app-long-arrow-right class="ms-[10px] fill-pink"/>
@@ -14,7 +14,7 @@
     <p class="font-bold uppercase font-monument text-20">{{ nextBase?.fullName }}</p>
 </a>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
-<a *ngIf="previousBase | idToData:(dataService.bases | async) as previousBase" [routerLink]="'../' + previousBase._id" class="w-full mb-[150px]">
+<a *ngIf="previousBase | idToData:dataService.bases as previousBase" [routerLink]="'../' + previousBase._id" class="w-full mb-[150px]">
     <p class="flex flex-row items-center text-pink text-16">
         <app-long-arrow-left class="me-[10px] fill-pink"/>
         Précédent

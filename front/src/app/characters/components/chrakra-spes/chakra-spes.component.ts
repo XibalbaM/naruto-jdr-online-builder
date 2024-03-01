@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, Injector, OnInit} from '@angular/core';
 import {combineLatest} from "rxjs";
 import Auth from "../../../app/models/auth.model";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -44,17 +44,17 @@ export class ChakraSpesComponent implements OnInit {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded()]).subscribe(([params, user]) => {
+        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(inject(Injector))]).subscribe(([params, user]) => {
             if (params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId'))) {
                 const character = user.characters.find((character) => character._id === params.get('characterId'))!;
-                const datas: (string | ChakraSpe)[] = character.chakraSpes.map(spe => this.idToData.transform(spe, this.dataService.chakraSpes.getValue())!);
+                const datas: (string | ChakraSpe)[] = character.chakraSpes.map(spe => this.idToData.transform(spe, this.dataService.chakraSpes)!);
                 while (datas.length < 14) {
                     datas.push(this.ranks[datas.length]);
                 }
                 const maxChakraSpes = this.characterToMaxChakraSpes.transform(character);
                 this.chakraSpes = datas.map((data, i) => ({data, unlocked: i < maxChakraSpes}));
                 this.reamingChakraSpes = maxChakraSpes - character.chakraSpes.length;
-                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans.getValue())?.name}, Spécialisations de chakra — Fiche de personnage — Naruto jdr`);
+                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Spécialisations de chakra — Fiche de personnage — Naruto jdr`);
             } else {
                 this.router.navigate(['/personnages']);
             }

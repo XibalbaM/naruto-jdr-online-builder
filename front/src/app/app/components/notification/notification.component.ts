@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {BehaviorSubject, Subscription, timer} from "rxjs";
+import {Component, effect} from "@angular/core";
+import {Subscription, timer} from "rxjs";
 import {NotificationService} from "../../services/notification.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {AsyncPipe, NgIf} from "@angular/common";
@@ -35,17 +35,13 @@ import {AsyncPipe, NgIf} from "@angular/common";
     standalone: true,
     imports: [NgIf, AsyncPipe],
 })
-export class NotificationComponent implements OnInit {
-    $notification!: BehaviorSubject<{ title: string, content: string } | undefined>;
+export class NotificationComponent {
     private timeout?: Subscription;
+    notification = this.notificationService.notification;
 
     constructor(private notificationService: NotificationService) {
-    }
-
-    ngOnInit() {
-        this.$notification = this.notificationService.$notification;
-        this.$notification.subscribe((value) => {
-            if (value) {
+        effect(() => {
+            if (this.notification()) {
                 if (this.timeout) {
                     this.timeout.unsubscribe();
                 }

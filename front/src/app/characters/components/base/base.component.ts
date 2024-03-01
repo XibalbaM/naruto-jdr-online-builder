@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, Injector, OnInit} from '@angular/core';
 import Base from "../../../app/models/base.model";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
@@ -30,14 +30,14 @@ export class BaseComponent implements OnInit {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded()]).subscribe(([params, user]) => {
-            if (params.get('id') && params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId')) && this.dataService.bases.getValue().find((base) => base._id === Number(params.get('id')))) {
+        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(inject(Injector))]).subscribe(([params, user]) => {
+            if (params.get('id') && params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId')) && this.dataService.bases.find((base) => base._id === Number(params.get('id')))) {
                 const character = (user.characters.find((character) => character._id === params.get('characterId'))!);
-                this.base = this.dataService.bases.getValue().find((base) => base._id === Number(params.get('id')))!;
+                this.base = this.dataService.bases.find((base) => base._id === Number(params.get('id')))!;
                 this.baseLevel = character.bases[this.base._id] || 0;
                 this.previousBase = this.base._id === 0 ? character.bases.length - 1 : this.base._id - 1;
                 this.nextBase = this.base._id === character.bases.length - 1 ? 0 : this.base._id + 1;
-                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans.getValue())?.name}, Base ${this.base.fullName} — Fiche de personnage — Naruto jdr`);
+                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Base ${this.base.fullName} — Fiche de personnage — Naruto jdr`);
             } else {
                 this.router.navigate(['/personnages']);
             }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, computed, OnInit} from '@angular/core';
 import {CreationService} from "../../../services/creation.service";
 import {Router} from "@angular/router";
 import {DataService} from "../../../../app/services/data.service";
@@ -23,17 +23,13 @@ import {FormsModule} from '@angular/forms';
 })
 export class FirstStepComponent implements OnInit {
 
-    village: Village = this.idToData.transform(this.creationService.character.village, this.dataService.villages.getValue()) || this.dataService.villages.getValue().find(village => village.name === "Konoha")!;
+    village: Village = this.idToData.transform(this.creationService.character.village, this.dataService.villages) || this.dataService.villages.find(village => village.name === "Konoha")!;
     firstName?: string = this.creationService.character.firstName;
-    clan?: Clan = this.idToData.transform(this.creationService.character.clan, this.dataService.clans.getValue());
+    clan?: Clan = this.idToData.transform(this.creationService.character.clan, this.dataService.clans);
     xp: number = this.creationService.character.xp || 100;
     isRoad: boolean = !!this.creationService.character.road;
-    road?: Road = this.creationService.character.road ? this.idToData.transform(this.creationService.character.road, this.dataService.roads.getValue()) : undefined;
-    $clans = this.dataService.clans.pipe(
-        map((clans) => {
-            return clans.sort((a, b) => a.name.localeCompare(b.name))
-        })
-    );
+    road?: Road = this.creationService.character.road ? this.idToData.transform(this.creationService.character.road, this.dataService.roads) : undefined;
+    clans = computed(() => this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)));
 
     constructor(private creationService: CreationService, private router: Router, public dataService: DataService, private env: Environment, private idToData: IdToDataPipe) {
     }

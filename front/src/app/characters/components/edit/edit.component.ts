@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, effect, OnInit, signal} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, effect, inject, Injector, OnInit, signal} from '@angular/core';
 import Character from "../../../app/models/character.model";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
@@ -45,13 +45,13 @@ export class EditComponent implements OnInit, AfterViewInit {
 
     character = signal(new Character(), {equal: () => false});
     commonSkills = computed(() =>
-        this.character().commonSkills.map((level, id) => ({skill: this.idToData.transform(id, this.dataService.commonSkills.getValue())!, level}))
+        this.character().commonSkills.map((level, id) => ({skill: this.idToData.transform(id, this.dataService.commonSkills)!, level}))
     );
     uncommonSkills = computed(() =>
-        this.character().customSkills.map(skill => ({skill: this.idToData.transform(skill.skill, this.dataService.customSkills.getValue())!, level: skill.level}))
+        this.character().customSkills.map(skill => ({skill: this.idToData.transform(skill.skill, this.dataService.customSkills)!, level: skill.level}))
     );
     bases = computed(() =>
-        this.dataService.bases.getValue().map((base) => ({base, level: this.character().bases[base._id]}))
+        this.dataService.bases.map((base) => ({base, level: this.character().bases[base._id]}))
     );
     shouldTruncNotes = signal(false);
     notes = computed(() => this.character().notes || "Pas encore de notes.");
@@ -60,16 +60,16 @@ export class EditComponent implements OnInit, AfterViewInit {
             acc[spe] = (acc[spe] || 0) + 1;
             return acc;
         }, {});
-        return Object.entries(map).map(([chakraSpe, number]) => ({chakraSpe: this.idToData.transform(chakraSpe, this.dataService.chakraSpes.getValue())!, number}));
+        return Object.entries(map).map(([chakraSpe, number]) => ({chakraSpe: this.idToData.transform(chakraSpe, this.dataService.chakraSpes)!, number}));
     });
     protected readonly Math = Math;
 
     constructor(private activeRoute: ActivatedRoute, protected router: Router, protected auth: Auth,
                 protected dataService: DataService, private idToData: IdToDataPipe, private changeDetectorRef: ChangeDetectorRef,
                 protected env: Environment, private characterService: CharacterService, private notificationService: NotificationService,
-                private title: Title) {
+                private title: Title, private injector: Injector) {
         effect(() => {
-            this.title.setTitle(`${this.character().firstName} ${this.idToData.transform(this.character().clan, this.dataService.clans.getValue())?.name}, Fiche de personnage — Naruto jdr`)
+            this.title.setTitle(`${this.character().firstName} ${this.idToData.transform(this.character().clan, this.dataService.clans)?.name}, Fiche de personnage — Naruto jdr`)
         });
     }
 
@@ -82,7 +82,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     increaseBaseLevel(base: Base, currentLevel: number) {
-        if (currentLevel < this.idToData.transform(this.character().rank, this.dataService.ranks.value)!.maxBase) {
+        if (currentLevel < this.idToData.transform(this.character().rank, this.dataService.ranks)!.maxBase) {
             this.setBaseLevel(base, currentLevel + 1);
         }
     }
@@ -101,12 +101,12 @@ export class EditComponent implements OnInit, AfterViewInit {
     decreaseSkillLevelsIfNeeded(data: { base: Base, level: number }): Observable<boolean> {
         const commonSkillsToDecrease = this.character().commonSkills
             .filter(level => level > 1)
-            .map((level, id) => ({skill: this.idToData.transform(id, this.dataService.commonSkills.value)!, level}))
+            .map((level, id) => ({skill: this.idToData.transform(id, this.dataService.commonSkills)!, level}))
             .filter((skill: { skill: Skill, level: number }) => skill.skill.base === data.base._id)
             .filter((skill: { skill: Skill, level: number }) => skill.level >= data.level + 2);
         const customSkillsToDecrease = this.character().customSkills
             .filter(skill => skill.level > 1)
-            .map((skill: { skill: string, level: number }) => ({skill: this.idToData.transform(skill.skill, this.dataService.customSkills.value)!, level: skill.level}))
+            .map((skill: { skill: string, level: number }) => ({skill: this.idToData.transform(skill.skill, this.dataService.customSkills)!, level: skill.level}))
             .filter((skill: { skill: Skill, level: number }) => skill.skill.base === data.base._id)
             .filter((skill: { skill: Skill, level: number }) => skill.level >= data.level + 2);
         const requests = merge(...[...commonSkillsToDecrease, ...customSkillsToDecrease].map((skill) => {
@@ -156,7 +156,7 @@ export class EditComponent implements OnInit, AfterViewInit {
                     return character;
                 })
                 this.auth.user!.characters.find((character) => character._id === character._id)!.bases = this.character().bases;
-                this.auth.userObservable().next(this.auth.user);
+                this.auth.user = this.auth.user;
             } else
                 this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du niveau de la base, si le problème persiste, contactez nous');
         });
@@ -183,7 +183,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        combineLatest([this.activeRoute.paramMap, this.auth.userObservableOnceLoaded()]).pipe(take(1)).subscribe(([params, user]) => {
+        combineLatest([this.activeRoute.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).pipe(take(1)).subscribe(([params, user]) => {
             if (params.get('characterId') && user?.characters.find((character: Character) => character._id === params.get('characterId'))) {
                 this.character.set(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
             } else {

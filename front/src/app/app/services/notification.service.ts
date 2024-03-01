@@ -1,5 +1,4 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {Injectable, signal, Signal} from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -14,17 +13,17 @@ export class NotificationService {
     constructor() {
     }
 
-    private _$notification = new BehaviorSubject<{ title: string, content: string } | undefined>(undefined);
+    private _notification = signal<{ title: string, content: string } | undefined>(undefined);
 
-    get $notification(): BehaviorSubject<{ title: string, content: string } | undefined> {
-        return this._$notification;
+    get notification(): Signal<{ title: string, content: string } | undefined> {
+        return this._notification;
     }
 
     showNotification(title: string, message: string) {
-        this._$notification.next({title, content: message});
+        this._notification.set({title, content: message});
     }
 
     hideNotification() {
-        this._$notification.next(undefined);
+        this._notification.set(undefined);
     }
 }

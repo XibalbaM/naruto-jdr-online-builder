@@ -1,5 +1,7 @@
 import User from "./user.model";
-import {BehaviorSubject, filter, Observable} from "rxjs";
+import {filter, Observable} from "rxjs";
+import {Injector, Signal, signal} from "@angular/core";
+import {toObservable} from "@angular/core/rxjs-interop";
 
 /**
  * Class that contains the authentication data.
@@ -9,25 +11,25 @@ export default class Auth {
     /**
      * The user data, if the user is connected.
      *
-     * Takes the form of a BehaviorSubject to be able to be observed.
+     * Takes the form of a Signal to be able to be observed.
      * @see User
      * @private
      */
-    private _user = new BehaviorSubject<User | undefined>(undefined);
+    private _user = signal<User | undefined>(undefined);
 
     get user(): User | undefined {
-        return this._user.getValue();
+        return this._user();
     }
 
     set user(user: User | undefined) {
-        this._user.next(user);
+        this._user.set(user);
     }
 
     static checkTokenCookie(): boolean {
         return document.cookie.includes('isLogged=true');
     }
 
-    userObservable(): BehaviorSubject<User | undefined> {
+    userSignal(): Signal<User | undefined> {
         return this._user;
     }
 
@@ -39,8 +41,8 @@ export default class Auth {
      * Example: NgOnInit needs the list of characters, but the service is not loaded yet.
      * So, we use this function to wait for the service to load
      */
-    userObservableOnceLoaded(): Observable<User> {
-        return this._user.pipe(
+    userObservableOnceLoaded(injector: Injector): Observable<User> {
+        return toObservable(this._user, {injector}).pipe(
             filter((user): user is User => user !== undefined)
         );
     }

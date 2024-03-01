@@ -58,7 +58,6 @@ export class CharacterToReamingXpPipe implements PipeTransform {
                 map((char) => this.processCharacter(char))
             );
         } else {
-            console.log("called");
             return this.processCharacter(character);
         }
     }
