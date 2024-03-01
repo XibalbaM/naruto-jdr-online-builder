@@ -14,8 +14,6 @@ router.get('/', authMiddleware(), accountController.getUser);
 router.delete('/', authMiddleware(), accountController.deleteAccount);
 router.post('/username', contentMiddleware({username: "username"}), authMiddleware(), accountController.updateUsername);
 router.post('/email', contentMiddleware({email: "email"}), authMiddleware(), accountController.updateEmail);
-router.post('/picture', contentMiddleware({link: "link"}), authMiddleware(), accountController.updatePicture);
-router.delete('/picture', authMiddleware(), accountController.deletePicture);
 router.post('/discord', contentMiddleware({code: "code"}), authMiddleware(), accountController.addDiscordAccount);
 router.delete('/discord', authMiddleware(), accountController.removeDiscordAccount);
 router.get('/discord/name', authMiddleware(), accountController.getDiscordName);

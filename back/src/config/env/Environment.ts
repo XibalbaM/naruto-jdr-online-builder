@@ -1,4 +1,3 @@
-import ImageSourceConfig from "./ImageSourceConfig.js";
 import {REST} from "@discordjs/rest";
 
 export default class Environment {
@@ -71,10 +70,6 @@ export default class Environment {
      * The URL sent in the connection/creation email.
      */
     loginUrl: string;
-    /**
-     * The list of allowed image hosts.
-     */
-    imageSource: ImageSourceConfig[];
     /**
      * The list of allowed image extensions.
      */

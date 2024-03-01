@@ -88,40 +88,6 @@ test("updateEmail", async () => {
     }
 });
 
-test("updatePicture", async () => {
-    {
-        let mockRequest = createMockRequest({body: {link: "https://cdn.discordapp.com/attachments/316264059571798017/1179840195164651610/image0-3.png"}}, await getTestToken());
-        let mockResponse = createMockResponse();
-        await authenticateRequest(mockRequest, mockResponse);
-        await accountController.updatePicture(mockRequest, mockResponse);
-        expect(mockResponse.status).toBeCalledWith(200);
-        expect(mockResponse.json).toBeCalledWith({message: "Link updated."});
-        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("profileImage"))["profileImage"]).toBe("https://cdn.discordapp.com/attachments/316264059571798017/1179840195164651610/image0-3.png");
-        await UserModel.findByIdAndUpdate(mockRequest["user"]["_id"], {$unset: {profileImage: 1}});
-    }
-
-    {
-        let mockRequest = createMockRequest({body: {link: "https://bad-site.com/image.png"}}, await getTestToken());
-        let mockResponse = createMockResponse();
-        await authenticateRequest(mockRequest, mockResponse);
-        await accountController.updatePicture(mockRequest, mockResponse);
-        expect(mockResponse.status).toBeCalledWith(400);
-        expect(mockResponse.json).toBeCalledWith({error: "Link is not valid."});
-        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("profileImage"))["profileImage"]).toBeUndefined();
-    }
-});
-
-test("deletePicture", async () => {
-    let mockRequest = createMockRequest(undefined, await getTestToken());
-    let mockResponse = createMockResponse();
-    await authenticateRequest(mockRequest, mockResponse);
-    await UserModel.findByIdAndUpdate(mockRequest["user"]["_id"], {profileImage: "https://cdn.discordapp.com/attachments/316264059571798017/1179840195164651610/image0-3.png"})
-    await accountController.deletePicture(mockRequest, mockResponse);
-    expect(mockResponse.status).toBeCalledWith(200);
-    expect(mockResponse.json).toBeCalledWith({message: "Picture removed."});
-    expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("profileImage"))["profileImage"]).toBeUndefined();
-});
-
 test("deleteAccount", async () => {
     let mockRequest = createMockRequest(undefined, await getTestToken());
     let mockResponse = createMockResponse();

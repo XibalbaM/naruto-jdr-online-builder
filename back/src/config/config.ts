@@ -2,7 +2,6 @@ import Environment from "./env/Environment.js";
 import {configDotenv} from "dotenv";
 import fs from "fs";
 import {REST} from "@discordjs/rest";
-import imageSource from "./env/image-source.js";
 
 //Get the environment to use
 const env = process.env.NODE_ENV || 'test';
@@ -51,7 +50,6 @@ const config: Environment = {
         guildId: process.env.DISCORD_GUILD_ID,
         rest: new REST({version: '10', authPrefix: "Bot"}).setToken(process.env.DISCORD_BOT_TOKEN)
     },
-    imageSource: imageSource,
     allowedFileExtensions: ["png", "jpg", "jpeg", "webp", "svg"]
 };
 console.log(`Loaded ${env} environment`);

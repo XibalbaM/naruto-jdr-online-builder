@@ -27,25 +27,6 @@ export async function updateEmail(id: ObjectId, email: string) {
 }
 
 /**
- * Change the profile picture of the user
- * @param id The id of the user
- * @param link The link to the new profile picture
- */
-export async function updatePicture(id: ObjectId, link: string) {
-
-    await userModel.findByIdAndUpdate(id, {profileImage: link});
-}
-
-/**
- * Remove the profile picture of the user
- * @param id The id of the user
- */
-export async function deletePicture(id: ObjectId) {
-
-    await userModel.findByIdAndUpdate(id, {$unset: {profileImage: 1}});
-}
-
-/**
  * Delete the account of the user
  * WARNING: This will delete all the data of the user, NOT REVERSIBLE, NO BACKUP
  * @param id The id of the user

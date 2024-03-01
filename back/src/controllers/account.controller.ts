@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
 
 import * as accountService from "../services/account.service.js";
-import * as imagesService from "../services/images.service.js";
 import config from "../config/config.js";
 
 /**
@@ -72,50 +71,6 @@ export async function updateEmail(req: Request, res: Response) {
         }
     } else {
         res.status(400).json({error: "Email is not valid."});
-    }
-}
-
-/**
- * Handles POST requests to /account/picture
- *
- * Must be preceded by the authMiddleware
- *
- * Updates the picture of the user
- * @param req The request
- * @param res The response
- */
-export async function updatePicture(req: Request, res: Response) {
-
-    const link = req.body.link;
-    if (imagesService.isImageSafe(link)) {
-        try {
-            await accountService.updatePicture(req["user"]["_id"], link);
-            res.status(200).json({message: "Link updated."});
-        } catch (err) {
-            console.error(err);
-            res.status(500).json({error: err.message});
-        }
-    } else {
-        res.status(400).json({error: "Link is not valid."});
-    }
-}
-
-/**
- * Handles DELETE requests to /account/picture
- *
- * Must be preceded by the authMiddleware
- *
- * Deletes the profile picture of the user
- * @param req The request
- * @param res The response
- */
-export async function deletePicture(req: Request, res: Response) {
-    try {
-        await accountService.deletePicture(req["user"]["_id"]);
-        res.status(200).json({message: "Picture removed."});
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({error: err.message});
     }
 }
 

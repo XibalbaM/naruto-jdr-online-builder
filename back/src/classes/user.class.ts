@@ -8,7 +8,6 @@ export default class User {
     _id: mongoose.Types.ObjectId;
     email: string;
     username?: string;
-    profileImage?: string;
     isAdmin: boolean;
     groups: [mongoose.Types.ObjectId];
     characters: [mongoose.Types.ObjectId];
@@ -24,7 +23,6 @@ export default class User {
         user._id = modelUser._id;
         user.email = modelUser.email;
         user.username = modelUser.username;
-        user.profileImage = modelUser.profileImage;
         user.isAdmin = modelUser.isAdmin;
         user.groups = modelUser.groups;
         user.characters = modelUser.characters;
