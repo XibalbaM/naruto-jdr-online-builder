@@ -35,7 +35,6 @@ import {AsyncPipe, NgFor, NgIf} from "@angular/common";
 })
 export class EditComponent {
 
-    pp?: string;
     deleteNameConfirm = "";
     newEmail?: string = undefined;
     newEmailConfirm = "";
@@ -75,28 +74,6 @@ export class EditComponent {
                 this.notificationService.showNotification("Compte supprimé !", "Votre compte a bien été supprimé.");
             } else {
                 this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la suppression de votre compte.");
-            }
-        });
-    }
-
-    changePp() {
-        if (!this.pp) return;
-        this.accountService.setProfilePicture(this.pp).subscribe((result) => {
-
-            if (result.success) {
-                this.notificationService.showNotification("Photo de profil modifiée !", "Votre photo de profil a bien été modifiée.");
-            } else {
-                this.notificationService.showNotification("Erreur", result.error || "Une erreur est survenue.");
-            }
-        });
-    }
-
-    deletePp() {
-        this.accountService.deleteProfilePicture().subscribe((success) => {
-            if (success) {
-                this.notificationService.showNotification("Photo de profil supprimée !", "Votre photo de profil a bien été supprimée.");
-            } else {
-                this.notificationService.showNotification("Erreur", "Une erreur est survenue lors de la suppression de votre photo de profile.");
             }
         });
     }

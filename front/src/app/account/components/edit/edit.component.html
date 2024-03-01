@@ -32,35 +32,6 @@
         </button>
     </app-modal>
 </dialog>
-<dialog #changePpDialog>
-    <app-modal (close)="changePpDialog.close()" [dialog]="changePpDialog"
-               mtext="Entrez le lien de votre nouvelle image de profile. Seuls certains sites sont authorisés pour des raisons de sécurité. Si vous n'avez pas encore mis votre image de profile en ligne, vous pouvez utiliser <a href='https://imgur.com/upload' class='default-link'>imgur</a>. Pensez a prendre le lien direct ! (clic droit -> ouvrir l'image dans un nouvel onglet)"
-               mtitle="Changer l'image de profile">
-        <input #ppLink="ngModel" [(ngModel)]="pp" class="input h-[52px] ps-[24px] text-white" placeholder="https://i.imgur.com/4ILisqH.jpeg" required
-               type="text">
-        <div class="flex justify-between items-center mt-[12px] space-x-[18px]">
-            <button (click)="changePpDialog.close()"
-                    class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full">Retour
-            </button>
-            <button (click)="ppLink.valid ? changePpDialog.close() : null; ppLink.valid ? changePp() : null"
-                    [disabled]="!ppLink.valid"
-                    class="h-[52px] px-[28px] bg-purple rounded-[10px] hover:bg-opacity-90 w-full disabled:bg-opacity-50 disabled:cursor-default">
-                Valider
-            </button>
-        </div>
-    </app-modal>
-</dialog>
-<dialog #deletePpDialog>
-    <app-modal (close)="deletePpDialog.close()" [dialog]="deletePpDialog" mtext="Êtes vous sûr de vouloir supprimer votre image de profile ?"
-               mtitle="Supprimer l'image de profile">
-        <div class="flex justify-between items-center space-x-[18px]">
-            <button (click)="deletePpDialog.close()"
-                    class="h-[52px] px-[28px] border border-dark-gray rounded-[10px] hover:bg-opacity-10 hover:bg-white w-full">Retour
-            </button>
-            <button (click)="deletePpDialog.close(); deletePp()" class="h-[52px] px-[28px] bg-red rounded-[10px] hover:bg-opacity-90 w-full">Supprimer</button>
-        </div>
-    </app-modal>
-</dialog>
 <dialog #discordConnectDialog>
     <app-modal (close)="discordConnectDialog.close()"
                [dialog]="discordConnectDialog"
@@ -132,7 +103,7 @@
         <span *ngIf="!user.discordId">Connecter le compte à Discord</span>
         <span *ngIf="user.discordId">Déconnecter le compte Discord</span>
     </button>
-    <form (ngSubmit)="newEmail = emailField.value; changeEmailDialog.show()" class="flex max-w-md flex-col mb-[50px]">
+    <form (ngSubmit)="newEmail = emailField.value; changeEmailDialog.show()" class="flex max-w-md flex-col">
         <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[18px]">email</h2>
         <input #emailField="ngModel"
                class="input h-[55px] text-16 mb-[12px] ps-[24px]"
@@ -145,19 +116,6 @@
                 type="submit">
             Modifier
         </button>
-    </form>
-    <form class="max-w-md">
-        <h2 class="font-light uppercase font-monument text-10 text-light-gray mb-[15px]">image de profile</h2>
-        <div class="flex w-full flex-row items-center">
-            <img *ngIf="!!user.profileImage" [src]="user.profileImage" alt="Photo de profile" class="rounded-3xl object-cover w-[50px] h-[50px] me-[10px]">
-            <app-default-profile-picture *ngIf="!user.profileImage" class="fill-light-gray me-[10px] w-[50px] h-[50px]"/>
-            <div class="flex w-full flex-row">
-                <button (click)="changePpDialog.show()" class="rounded-xl w-[55%] bg-light-dark h-[52px] text-14 hover:bg-lighter-dark">Configurer</button>
-                <button (click)="deletePpDialog.show()" class="box-border rounded-xl bg-black w-[45%] h-[52px] ms-[10px] text-pink text-14 hover:bg-light-dark">
-                    Supprimer
-                </button>
-            </div>
-        </div>
     </form>
     <app-spacer-graphical class="my-[50px]"></app-spacer-graphical>
     <button (click)="disconnect()" class="w-full max-w-md justify-between black-button h-[55px]" type="submit">
