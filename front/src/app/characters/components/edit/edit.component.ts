@@ -39,11 +39,11 @@ import {NgxMarkdownItModule} from "ngx-markdown-it";
     styleUrls: ['./edit.component.scss'],
     standalone: true,
     imports: [NgIf, NgxMarkdownItModule, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, AsyncPipe, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe, JsonPipe],
-    /*changeDetection: ChangeDetectionStrategy.OnPush*/
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditComponent implements OnInit, AfterViewInit {
 
-    character = signal(new Character(), {equal: (a, b) => false});
+    character = signal(new Character(), {equal: () => false});
     commonSkills = computed(() =>
         this.character().commonSkills.map((level, id) => ({skill: this.idToData.transform(id, this.dataService.commonSkills.getValue())!, level}))
     );
