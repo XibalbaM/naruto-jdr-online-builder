@@ -1,0 +1,12 @@
+<h1 class="uppercase font-monument font-bold text-25">nouvelle comptétence</h1>
+<app-spacer class="bg-lighter-dark my-[15px]"/>
+<h2 class="flex flex-row items-center mb-[10px]">
+    <span class="stat-box__value text-blue me-[12px] h-[26px]">{{reamingSkills()}}</span>
+    <span class="font-light uppercase text-light-gray text-10 font-monument">compétence{{moreThanOneSkill() ? 's' : ''}} à choisir</span>
+</h2>
+<div class="mt-[15px] mb-[130px] grid gap-[8px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <button (click)="addSkill(skill)" *ngFor="let skill of skills()"
+            class="col-span-1 row-span-1 max-w-md text-start h-[48px] px-[24px] text-14 black-box hover:bg-dark">
+        {{skill.name}}
+    </button>
+</div>
