@@ -1,4 +1,4 @@
-import {Component, inject, Injector, OnInit} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {combineLatest} from "rxjs";
 import ChakraSpe from "../../../app/models/chakra-spe.model";
 import Auth from "../../../app/models/auth.model";

@@ -1,4 +1,4 @@
-import {Component, computed, HostListener, inject, Injector} from '@angular/core';
+import {Component, computed, HostListener, Injector} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";

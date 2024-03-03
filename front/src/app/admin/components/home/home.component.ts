@@ -1,4 +1,4 @@
-import {Component, inject, Injector, OnInit, signal} from '@angular/core';
+import {Component, Injector, OnInit, signal} from '@angular/core';
 import {DataService} from "../../../app/services/data.service";
 import Auth from "../../../app/models/auth.model";
 import Character from "../../../app/models/character.model";
