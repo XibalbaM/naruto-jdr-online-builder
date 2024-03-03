@@ -18,6 +18,7 @@ import {NotesComponent} from "./components/notes/notes.component";
 import {ChakraSpesComponent} from "./components/chrakra-spes/chakra-spes.component";
 import {SetChakraSpeComponent} from "./components/set-chakra-spe/set-chakra-spe.component";
 import {CopyAction} from "./action/copy.action";
+import {AddSkillComponent} from "./components/add-skill/add-skill.component";
 
 export const characterRoutes: Routes = [
     {path: '', component: ListComponent, resolve: {user: UserResolver}, title: "Liste de personnages — Naruto jdr", data: {navbar: NormalNavbarComponent}},
@@ -97,6 +98,13 @@ export const characterRoutes: Routes = [
         data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", navbarText: "Spécialisations de chakra"},
         resolve: {user: UserResolver},
         title: "Fiche de personnage — Spécialisations de chakra — Naruto jdr"
+    },
+    {
+        path: ':characterId/nouvelle-competence',
+        component: AddSkillComponent,
+        data: {navbar: BackNavbarComponent, bgClass: "no-repeat-image-bg", navbarText: "Fiche de personnage"},
+        resolve: {user: UserResolver},
+        title: "Fiche de personnage — Nouvelle compétence — Naruto jdr"
     },
     {
         path: ':characterId',
