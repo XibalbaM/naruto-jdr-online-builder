@@ -40,11 +40,11 @@ export class ChakraSpesComponent implements OnInit {
 
     constructor(private auth: Auth, private route: ActivatedRoute, private title: Title,
                 private idToData: IdToDataPipe, private dataService: DataService, private router: Router,
-                private characterToMaxChakraSpes: CharacterToMaxChakraSpesPipe) {
+                private characterToMaxChakraSpes: CharacterToMaxChakraSpesPipe, private injector: Injector) {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(inject(Injector))]).subscribe(([params, user]) => {
+        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).subscribe(([params, user]) => {
             if (params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId'))) {
                 const character = user.characters.find((character) => character._id === params.get('characterId'))!;
                 const datas: (string | ChakraSpe)[] = character.chakraSpes.map(spe => this.idToData.transform(spe, this.dataService.chakraSpes)!);
