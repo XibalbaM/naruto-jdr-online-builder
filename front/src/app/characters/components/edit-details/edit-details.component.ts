@@ -40,11 +40,11 @@ export class EditDetailsComponent {
     constructor(private router: Router, private route: ActivatedRoute, private auth: Auth,
                 protected dataService: DataService, private env: Environment, private idToData: IdToDataPipe,
                 private characterService: CharacterService, private notificationService: NotificationService,
-                private title: Title) {
+                private title: Title, private injector: Injector) {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(inject(Injector))]).subscribe(([params, user]) => {
+        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).subscribe(([params, user]) => {
             if (params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId'))) {
                 this.character = (user.characters.find((character) => character._id === params.get('characterId'))!);
                 this.village = this.idToData.transform(this.character.village, this.dataService.villages)!;

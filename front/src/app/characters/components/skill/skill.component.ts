@@ -32,11 +32,11 @@ export class SkillComponent implements OnInit {
 
     constructor(private router: Router, private route: ActivatedRoute, private auth: Auth, protected dataService: DataService,
                 private characterService: CharacterService, private notificationService: NotificationService, private title: Title,
-                private idToData: IdToDataPipe) {
+                private idToData: IdToDataPipe, private injector: Injector) {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.route.data, this.auth.userObservableOnceLoaded(inject(Injector))]).subscribe(([params, routeData, user]) => {
+        combineLatest([this.route.paramMap, this.route.data, this.auth.userObservableOnceLoaded(this.injector)]).subscribe(([params, routeData, user]) => {
             const isCommon = routeData['skillType'] === 'common';
             const skills = isCommon ? this.dataService.commonSkills : this.dataService.customSkills;
             if (params.get('id') && params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId')) && skills.find((base) => base._id === params.get('id'))) {

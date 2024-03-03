@@ -28,11 +28,12 @@ export class NotesComponent implements OnInit {
 
     constructor(private auth: Auth, private route: ActivatedRoute, private title: Title,
                 private idToData: IdToDataPipe, private dataService: DataService, private router: Router,
-                private characterService: CharacterService, private notificationService: NotificationService, private backNavbarService: BackNavbarService) {
+                private characterService: CharacterService, private notificationService: NotificationService, private backNavbarService: BackNavbarService,
+                private injector: Injector) {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(inject(Injector))]).subscribe(([params, user]) => {
+        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).subscribe(([params, user]) => {
             if (params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId'))) {
                 this.character = (user.characters.find((character) => character._id === params.get('characterId'))!);
                 this.notes = noteTemp.get(this.character._id) || this.character.notes;
