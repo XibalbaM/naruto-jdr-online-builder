@@ -23,8 +23,14 @@ export class CharacterService {
             tap((success) => {
                 if (success) {
                     const character = this.auth.user!.characters.find((character) => character._id === characterId)!;
-                    if (typeof skillId === "string")
-                        character.customSkills.find((skill) => skill.skill === skillId)!.level = level;
+                    if (typeof skillId === "string") {
+                        if (level === 0)
+                            character.customSkills = character.customSkills.filter((skill) => skill.skill !== skillId);
+                        else if (!character.customSkills.find((skill) => skill.skill === skillId))
+                            character.customSkills.push({skill: skillId, level});
+                        else
+                            character.customSkills.find((skill) => skill.skill === skillId)!.level = level;
+                    }
                     else
                         character.commonSkills[skillId] = level;
                     this.auth.user = this.auth.user;
