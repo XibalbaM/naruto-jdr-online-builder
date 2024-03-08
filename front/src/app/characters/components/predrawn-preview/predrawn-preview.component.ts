@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, computed, input} from '@angular/core';
 import Character from "../../../app/models/character.model";
 import Environment from "../../../../environments/environment.interface";
 import {DataService} from "../../../app/services/data.service";
@@ -14,7 +14,8 @@ import {AsyncPipe, NgIf} from '@angular/common';
 })
 export class PredrawnPreviewComponent {
 
-    @Input() character!: Character;
+    character = input.required<Character>();
+    clan = computed(() => this.dataService.clans.find(clan => clan._id === this.character().clan)!);
 
     constructor(protected env: Environment, protected dataService: DataService) {
     }
