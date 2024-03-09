@@ -22,6 +22,9 @@ import ChakraSpeModel from "./models/chakraSpe.model.js";
 import ChakraSpe from "./classes/chakraSpe.class.js";
 import charactersRoute from "./routes/characters.route.js";
 import predrawnRoute from "./routes/predrawn.route.js";
+import adminRoute from "./routes/admin.route";
+import authMiddleware from "./middlewares/security/auth.middleware";
+import adminMiddleware from "./middlewares/security/admin.middleware";
 
 /**
  * The main router of the api.
@@ -37,6 +40,7 @@ router.use('/groups', groupsRoute);
 router.use('/discord', discordRoute);
 router.use('/characters', charactersRoute);
 router.use('/predrawn', predrawnRoute);
+router.use('/admin', authMiddleware(), adminMiddleware(), adminRoute)
 router.use('/villages', await dataRoute(VillageModel, Village.fromModel));
 router.use('/bases', await dataRoute(BaseModel, Base.fromModel));
 router.use('/roads', await dataRoute(RoadModel, Road.fromModel));

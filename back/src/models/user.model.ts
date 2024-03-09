@@ -41,6 +41,14 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         sparse: true,
         index: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    lastActivity: {
+        type: Date,
+        default: Date.now
     }
 });
 

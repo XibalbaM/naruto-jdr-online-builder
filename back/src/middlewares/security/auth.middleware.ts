@@ -1,5 +1,6 @@
 import {Middleware} from "../middleware.type.js";
 import * as authService from "../../services/auth.service.js";
+import UserModel from "../../models/user.model";
 
 /**
  * A function that returns a {@link Middleware} that checks if the user is authenticated, and if yes, adds the user to the request's user property.
@@ -11,6 +12,7 @@ export default function (): Middleware {
         if (token && token !== 'none') {
             try {
                 req['user'] = await authService.getUserFromToken(token);
+                await UserModel.findByIdAndUpdate(req['user']._id, {lastActivity: Date.now()});
                 next();
             } catch (e) {
                 res.status(401).send({error: 'Cannot authenticate user.'});
