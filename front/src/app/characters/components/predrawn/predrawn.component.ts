@@ -1,4 +1,4 @@
-import {Component, computed, OnInit, signal} from '@angular/core';
+import {Component, computed, OnInit, Signal, signal} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
 import {PredrawnService} from "../../../app/services/predrawn.service";
 import Character from "../../../app/models/character.model";
@@ -23,16 +23,12 @@ import {FormsModule} from "@angular/forms";
 export class PredrawnComponent implements OnInit {
 
     predrawns = signal<Character[]>([])
-    characters = computed(() => this.predrawns().filter((character) => {
-        if (this.currentRank() !== "Tous" && !this.idToDataPipe.transform(character.rank, this.dataService.ranks)!.name.startsWith(this.currentRank())) {
-            return false;
-        }
-        let name = character.firstName + " " + this.idToDataPipe.transform(character.clan, this.dataService.clans)!.name;
-        return !(this.search() && !name.toLowerCase().includes(this.search().toLowerCase()));
-
-    }));
-    ranks = computed(() => ["Tous", ...new Set(this.dataService.ranks.map((rank) => rank.name.split(",")[0]))]);
-    currentRank = signal("Tous");
+    ranks = computed(() =>
+        ["Tous", ...new Set(this.dataService.ranks.map((rank) => rank.name.split(",")[0]))]
+            .map((rank) => ({name: rank, characters: this.getCharacters(signal(rank))}))
+    );
+    currentRankName = signal("Tous");
+    currentRank = computed(() => this.ranks().find((rank) => rank.name === this.currentRankName())!);
     search = signal("");
 
     constructor(protected auth: Auth, protected predrawnService: PredrawnService, protected dataService: DataService,
@@ -43,5 +39,15 @@ export class PredrawnComponent implements OnInit {
         this.predrawnService.getPredrawnCharacters().subscribe((characters) => {
             this.predrawns.set(characters);
         });
+    }
+
+    private getCharacters(rank: Signal<string>) {
+        return computed(() => this.predrawns().filter((character) => {
+            if (rank() !== "Tous" && !this.idToDataPipe.transform(character.rank, this.dataService.ranks)!.name.startsWith(rank())) {
+                return false;
+            }
+            let name = character.firstName + " " + this.idToDataPipe.transform(character.clan, this.dataService.clans)!.name;
+            return !(this.search() && !name.toLowerCase().includes(this.search().toLowerCase()));
+        }));
     }
 }

@@ -19,9 +19,9 @@
 <div class="relative z-10 mt-[30px] py-[8px]">
     <app-bg class="bg-black"/>
     <div class="flex flex-row overflow-x-scroll scrollbar:hidden w-full max-w-[1024px] text-14 space-x-[6px]">
-        <button class="text-nowrap py-[6px] px-[12px]" [ngClass]="rank === currentRank() ? 'border border-pink text-pink rounded-[8px]' : ''"
-                *ngFor="let rank of ranks()" (click)="rank === currentRank() ? currentRank.set('Tous') : currentRank.set(rank)">
-            {{rank}} <span class="font-light" [ngClass]="rank === currentRank() ? 'text-pink' : 'text-gray'">({{""}})</span>
+        <button class="text-nowrap py-[6px] px-[12px]" [ngClass]="rank.name === currentRank().name ? 'border border-pink text-pink rounded-[8px]' : ''"
+                *ngFor="let rank of ranks()" (click)="rank.name === currentRank().name ? currentRankName.set('Tous') : currentRankName.set(rank.name)">
+            {{rank.name}} <span class="font-light" [ngClass]="rank.name === currentRank().name ? 'text-pink' : 'text-gray'">({{rank.characters().length}})</span>
         </button>
     </div>
 </div>
@@ -29,9 +29,9 @@
     <input #searchField class="ps-[63px]" placeholder="Rechercher" [ngModel]="search()" (input)="search.set(searchField.value)">
     <label><img ngSrc="assets/images/search.svg" height="24" width="24" alt="Chercher"></label>
 </div>
-<h3 class="text-10 font-light mt-[30px]"><span class="stat-box__value text-blue text-16 font-normal">{{characters().length}}</span>{{currentRank()}}</h3>
+<h3 class="text-10 font-light mt-[30px]"><span class="stat-box__value text-blue text-16 font-normal">{{currentRank().characters.length}}</span>{{currentRank().name}}</h3>
 <app-spacer class="bg-lighter-dark mt-[18px]"/>
-<div *ngFor="let character of characters()">
+<div *ngFor="let character of currentRank().characters()">
     <app-predrawn-preview [character]="character"/>
     <app-spacer class="bg-lighter-dark"/>
 </div>
