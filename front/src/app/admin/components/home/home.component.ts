@@ -1,10 +1,6 @@
-import {Component, Injector, OnInit, signal} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {DataService} from "../../../app/services/data.service";
 import Auth from "../../../app/models/auth.model";
-import Character from "../../../app/models/character.model";
-import {PredrawnService} from "../../../app/services/predrawn.service";
-import {zip} from "rxjs";
-import {NotificationService} from "../../../app/services/notification.service";
 import {NgIf, NgOptimizedImage} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HomeButtonComponent} from '../home-button/home-button.component';
