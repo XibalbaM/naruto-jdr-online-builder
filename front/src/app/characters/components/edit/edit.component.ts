@@ -50,9 +50,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     uncommonSkills = computed(() =>
         this.character().customSkills.map(skill => ({skill: this.idToData.transform(skill.skill, this.dataService.customSkills)!, level: skill.level}))
     );
-    bases = computed(() =>
-        this.dataService.bases.map((base) => ({base, level: this.character().bases[base._id]}))
-    );
+    bases = signal(this.dataService.bases.map((base) => ({base, level: 0})), {equal: () => false});
     shouldTruncNotes = signal(false);
     notes = computed(() => this.character().notes || "Pas encore de notes.");
     chakraSpes = computed(() => {
@@ -131,7 +129,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     setSkillLevel(skill: Skill, level: number) {
-        if (level <= 0 || level > this.character().bases[skill.base] + 2) {
+        if (level <= 0 || level > this.bases().find(base => base.base._id === skill.base)!.level + 2) {
             return;
         }
         this.characterService.setSkillLevel(this.character()._id, skill._id, level).subscribe((success) => {
@@ -151,10 +149,11 @@ export class EditComponent implements OnInit, AfterViewInit {
     setBaseLevel(base: Base, level: number) {
         this.characterService.setBaseLevel(this.character()._id, base._id, level).subscribe((success) => {
             if (success) {
-                this.character.update(character => {
-                    character.bases[base._id] = level;
-                    return character;
+                this.bases.update(bases => {
+                    bases.find(base1 => base1.base._id === base._id)!.level = level;
+                    return bases;
                 })
+                this.character().bases = this.bases().map(({level}) => level);
                 this.auth.user!.characters.find((character) => character._id === character._id)!.bases = this.character().bases;
                 this.auth.user = this.auth.user;
             } else
@@ -186,6 +185,7 @@ export class EditComponent implements OnInit, AfterViewInit {
         combineLatest([this.activeRoute.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).pipe(take(1)).subscribe(([params, user]) => {
             if (params.get('characterId') && user?.characters.find((character: Character) => character._id === params.get('characterId'))) {
                 this.character.set(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
+                this.bases.set(this.dataService.bases.map((base) => ({base, level: this.character().bases[base._id]})));
             } else {
                 this.router.navigate(['/personnages']);
             }
