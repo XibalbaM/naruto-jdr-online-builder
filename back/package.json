@@ -5,7 +5,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "dev": "nodemon --ignore ./src/tests --exec tsx src/main.ts",
+        "dev": "nodemon --ignore ./src/tests --ignore dist --ignore front --exec tsx src/main.ts",
         "test": "vitest",
         "clear-db": "tsx ./clear-db.ts",
         "add-default-data": "tsx ./add-default-data.ts",
