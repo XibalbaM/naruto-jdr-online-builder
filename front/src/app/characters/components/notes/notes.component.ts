@@ -1,5 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
-import {combineLatest} from "rxjs";
+import {Component, OnInit} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import Character from "../../../app/models/character.model";

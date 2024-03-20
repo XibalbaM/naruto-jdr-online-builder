@@ -1,9 +1,8 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import Base from "../../../app/models/base.model";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
-import {combineLatest} from "rxjs";
 import {Title} from "@angular/platform-browser";
 import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/long-arrow-left.component';

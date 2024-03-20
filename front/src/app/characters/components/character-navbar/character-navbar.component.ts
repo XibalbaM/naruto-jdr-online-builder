@@ -1,4 +1,4 @@
-import {Component, inject, Injector, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import Character from "../../../app/models/character.model";
 import Auth from "../../../app/models/auth.model";
 import {NAVBAR_DATA_TOKEN} from "../../../app/app.component";
@@ -33,8 +33,7 @@ export class CharacterNavbarComponent {
     protected readonly NgxPopperjsPlacements = NgxPopperjsPlacements;
 
     constructor(private auth: Auth, protected dataService: DataService, private idToData: IdToDataPipe,
-                private characterService: CharacterService, private router: Router, private notificationService: NotificationService,
-                private injector: Injector) {
+                private characterService: CharacterService, private router: Router, private notificationService: NotificationService) {
     }
 
     ngOnInit() {

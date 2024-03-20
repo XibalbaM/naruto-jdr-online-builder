@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import Character from "../../../app/models/character.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import Auth from "../../../app/models/auth.model";

@@ -1,11 +1,11 @@
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, effect, Injector, OnInit, signal} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, effect, OnInit, signal} from '@angular/core';
 import Character from "../../../app/models/character.model";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
 import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import Environment from "../../../../environments/environment.interface";
-import {combineLatest, every, merge, Observable, take, tap} from "rxjs";
+import {every, merge, Observable, tap} from "rxjs";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import Base from "../../../app/models/base.model";
