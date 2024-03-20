@@ -1,6 +1,6 @@
 import {Middleware} from "../middleware.type.js";
 import * as authService from "../../services/auth.service.js";
-import UserModel from "../../models/user.model";
+import UserModel from "../../models/user.model.js";
 
 /**
  * A function that returns a {@link Middleware} that checks if the user is authenticated, and if yes, adds the user to the request's user property.

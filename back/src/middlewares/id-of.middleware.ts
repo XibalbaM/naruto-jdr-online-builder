@@ -1,4 +1,4 @@
-import {Middleware} from "./middleware.type";
+import {Middleware} from "./middleware.type.js";
 import {Model, Types} from "mongoose";
 
 /**

@@ -12,7 +12,7 @@ import Rank from "../classes/rank.class.js";
 import RankModel from "../models/rank.model.js";
 import ChakraSpe from "../classes/chakraSpe.class.js";
 import ChakraSpeModel from "../models/chakraSpe.model.js";
-import {CommonSkillModel, CustomSkillModel} from "../models/skill.model";
+import {CommonSkillModel, CustomSkillModel} from "../models/skill.model.js";
 
 export default async function () {
 

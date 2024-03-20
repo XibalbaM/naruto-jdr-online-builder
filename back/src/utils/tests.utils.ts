@@ -1,6 +1,6 @@
 import {vi} from "vitest";
 import {Request, Response} from "express";
-import authMiddleware from "../middlewares/security/auth.middleware";
+import authMiddleware from "../middlewares/security/auth.middleware.js";
 
 export function createMockRequest(data?: any, token?: string) {
     return {

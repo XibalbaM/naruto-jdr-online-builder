@@ -22,9 +22,9 @@ import ChakraSpeModel from "./models/chakraSpe.model.js";
 import ChakraSpe from "./classes/chakraSpe.class.js";
 import charactersRoute from "./routes/characters.route.js";
 import predrawnRoute from "./routes/predrawn.route.js";
-import adminRoute from "./routes/admin.route";
-import authMiddleware from "./middlewares/security/auth.middleware";
-import adminMiddleware from "./middlewares/security/admin.middleware";
+import adminRoute from "./routes/admin.route.js";
+import authMiddleware from "./middlewares/security/auth.middleware.js";
+import adminMiddleware from "./middlewares/security/admin.middleware.js";
 
 /**
  * The main router of the api.
