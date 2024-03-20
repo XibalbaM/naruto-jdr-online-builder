@@ -65,7 +65,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     constructor(private activeRoute: ActivatedRoute, protected router: Router, protected auth: Auth,
                 protected dataService: DataService, private idToData: IdToDataPipe, private changeDetectorRef: ChangeDetectorRef,
                 protected env: Environment, private characterService: CharacterService, private notificationService: NotificationService,
-                private title: Title, private injector: Injector) {
+                private title: Title) {
         effect(() => {
             this.title.setTitle(`${this.character().firstName} ${this.idToData.transform(this.character().clan, this.dataService.clans)?.name}, Fiche de personnage — Naruto jdr`)
         });
@@ -181,7 +181,8 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        combineLatest([this.activeRoute.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).pipe(take(1)).subscribe(([params, user]) => {
+        this.activeRoute.paramMap.subscribe(params => {
+            const user = this.auth.user!;
             if (params.get('characterId') && user?.characters.find((character: Character) => character._id === params.get('characterId'))) {
                 this.character.set(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
             } else {

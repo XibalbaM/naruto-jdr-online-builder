@@ -39,11 +39,10 @@ export class CharacterNavbarComponent {
 
     ngOnInit() {
         const id = this.navbarData?.currentRoute.params["characterId"];
-        this.auth.userObservableOnceLoaded(this.injector).subscribe(user => {
-            if (id && user.characters.find(character => character._id === id)) {
-                this.character.set(user.characters.find(character => character._id === id)!);
-            }
-        });
+        const user = this.auth.user!;
+        if (id && user.characters.find(character => character._id === id)) {
+            this.character.set(user.characters.find(character => character._id === id)!);
+        }
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Shift') {
                 this.isShiftPressed.set(true);

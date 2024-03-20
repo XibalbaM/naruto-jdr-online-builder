@@ -26,18 +26,12 @@ export class BaseComponent implements OnInit {
     nextBase!: number;
 
     constructor(private router: Router, private route: ActivatedRoute, private auth: Auth,
-                protected dataService: DataService, private title: Title, private idToData: IdToDataPipe,
-                private injector: Injector) {
-        this.auth.userObservableOnceLoaded(this.injector).subscribe((user) => {
-            if (!user) {
-                this.router.navigate(['/connexion']);
-            }
-        });
+                protected dataService: DataService, private title: Title, private idToData: IdToDataPipe) {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).subscribe(([params, user]) => {
-            console.log(params.get('id'));
+        this.route.paramMap.subscribe(params => {
+            const user = this.auth.user!;
             if (params.get('id') && params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId')) && this.dataService.bases.find((base) => base._id === Number(params.get('id')))) {
                 const character = (user.characters.find((character) => character._id === params.get('characterId'))!);
                 this.base = this.dataService.bases.find((base) => base._id === Number(params.get('id')))!;

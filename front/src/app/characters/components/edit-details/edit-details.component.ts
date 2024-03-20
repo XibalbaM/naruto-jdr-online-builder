@@ -1,8 +1,8 @@
-import {Component, computed, HostListener, Injector} from '@angular/core';
+import {Component, computed, HostListener} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
-import {combineLatest, Observable, take} from "rxjs";
+import {Observable, take} from "rxjs";
 import Character from "../../../app/models/character.model";
 import Village from "../../../app/models/village.model";
 import Clan from "../../../app/models/clan.model";
@@ -40,14 +40,13 @@ export class EditDetailsComponent {
     constructor(private router: Router, private route: ActivatedRoute, private auth: Auth,
                 protected dataService: DataService, private env: Environment, private idToData: IdToDataPipe,
                 private characterService: CharacterService, private notificationService: NotificationService,
-                private title: Title, private injector: Injector) {
+                private title: Title) {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).pipe(take(1)).subscribe(([params, user]) => {
-            console.log("user");
-            if (params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId'))) {
-                this.character = (user.characters.find((character) => character._id === params.get('characterId'))!);
+        this.route.paramMap.pipe(take(1)).subscribe(params => {
+            if (params.get('characterId') && this.auth.user!.characters.find((character) => character._id === params.get('characterId'))) {
+                this.character = (this.auth.user!.characters.find((character) => character._id === params.get('characterId'))!);
                 this.village = this.idToData.transform(this.character.village, this.dataService.villages)!;
                 this.firstName = this.character.firstName;
                 this.clan = this.idToData.transform(this.character.clan, this.dataService.clans)!;

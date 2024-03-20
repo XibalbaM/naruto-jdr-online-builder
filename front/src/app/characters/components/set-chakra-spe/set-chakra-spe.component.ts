@@ -28,12 +28,12 @@ export class SetChakraSpeComponent implements OnInit {
 
     constructor(private auth: Auth, private route: ActivatedRoute, private title: Title,
                 private idToData: IdToDataPipe, protected dataService: DataService, private router: Router,
-                private characterService: CharacterService, private notificationService: NotificationService,
-                private injector: Injector) {
+                private characterService: CharacterService, private notificationService: NotificationService) {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).subscribe(([params, user]) => {
+        this.route.paramMap.subscribe(params => {
+            const user = this.auth.user!;
             if (params.get('characterId') && params.get('id') && Number(params.get('id')) < 14 && user.characters.find((character) => character._id === params.get('characterId'))) {
                 const character = user.characters.find((character) => character._id === params.get('characterId'))!;
                 this.id = Number(params.get('id'));
