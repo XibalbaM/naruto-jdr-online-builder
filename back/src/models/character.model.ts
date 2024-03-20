@@ -88,8 +88,10 @@ characterSchema.pre('save', async function (next) {
     if (!this.isNew) {
         return next();
     }
-    this.bases = Array(await BaseModel.count()).fill(1);
-    this.commonSkills = Array(await CommonSkillModel.count()).fill(1);
+    if (this.bases.length === 0)
+        this.bases = Array(await BaseModel.count()).fill(1);
+    if (this.commonSkills.length === 0)
+        this.commonSkills = Array(await CommonSkillModel.count()).fill(1);
 	next();
 });
 
