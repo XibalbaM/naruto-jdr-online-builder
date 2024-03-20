@@ -22,7 +22,7 @@ export class CharacterToMaxSkillCountPipe implements PipeTransform {
     }
 
     processCharacter(character: Character): number {
-        const highestBase = character.bases.sort((a, b) => b - a)[0];
+        const highestBase = JSON.parse(JSON.stringify(character.bases)).sort((a: number, b: number) => b - a)[0];
         return 5 + (highestBase >= 5 ? 1 + (highestBase >= 7 ? 1 + (highestBase >= 10 ? 1 : 0) : 0) : 0);
     }
 }

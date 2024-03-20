@@ -2,7 +2,7 @@ import {Component, computed, HostListener, Injector} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
-import {combineLatest, Observable} from "rxjs";
+import {combineLatest, Observable, take} from "rxjs";
 import Character from "../../../app/models/character.model";
 import Village from "../../../app/models/village.model";
 import Clan from "../../../app/models/clan.model";
@@ -44,7 +44,8 @@ export class EditDetailsComponent {
     }
 
     ngOnInit() {
-        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).subscribe(([params, user]) => {
+        combineLatest([this.route.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).pipe(take(1)).subscribe(([params, user]) => {
+            console.log("user");
             if (params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId'))) {
                 this.character = (user.characters.find((character) => character._id === params.get('characterId'))!);
                 this.village = this.idToData.transform(this.character.village, this.dataService.villages)!;

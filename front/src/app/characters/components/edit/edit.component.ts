@@ -50,7 +50,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     uncommonSkills = computed(() =>
         this.character().customSkills.map(skill => ({skill: this.idToData.transform(skill.skill, this.dataService.customSkills)!, level: skill.level}))
     );
-    bases = signal(this.dataService.bases.map((base) => ({base, level: 0})), {equal: () => false});
+    bases = computed(() => this.character().bases.map((level, id) => ({base: this.idToData.transform(id, this.dataService.bases)!, level})));
     shouldTruncNotes = signal(false);
     notes = computed(() => this.character().notes || "Pas encore de notes.");
     chakraSpes = computed(() => {
@@ -149,11 +149,10 @@ export class EditComponent implements OnInit, AfterViewInit {
     setBaseLevel(base: Base, level: number) {
         this.characterService.setBaseLevel(this.character()._id, base._id, level).subscribe((success) => {
             if (success) {
-                this.bases.update(bases => {
-                    bases.find(base1 => base1.base._id === base._id)!.level = level;
-                    return bases;
-                })
-                this.character().bases = this.bases().map(({level}) => level);
+                this.character.update(character => {
+                    character.bases[base._id] = level;
+                    return character;
+                });
                 this.auth.user!.characters.find((character) => character._id === character._id)!.bases = this.character().bases;
                 this.auth.user = this.auth.user;
             } else
@@ -185,7 +184,6 @@ export class EditComponent implements OnInit, AfterViewInit {
         combineLatest([this.activeRoute.paramMap, this.auth.userObservableOnceLoaded(this.injector)]).pipe(take(1)).subscribe(([params, user]) => {
             if (params.get('characterId') && user?.characters.find((character: Character) => character._id === params.get('characterId'))) {
                 this.character.set(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
-                this.bases.set(this.dataService.bases.map((base) => ({base, level: this.character().bases[base._id]})));
             } else {
                 this.router.navigate(['/personnages']);
             }
