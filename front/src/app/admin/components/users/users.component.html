@@ -1,0 +1,16 @@
+<h1>comptes <span>{{users().length}}</span></h1>
+<div class="mt-[12px] labeled-input">
+    <input #searchField class="ps-[63px]" placeholder="Chercher par nom ou email" [ngModel]="search()" (input)="search.set(searchField.value)">
+    <label><img ngSrc="assets/images/search.svg" height="24" width="24" alt="Chercher"></label>
+</div>
+<div class="relative py-[30px] space-y-[12px] mt-[30px]">
+    <app-bg class="bg-black"/>
+    <a [routerLink]="user._id" *ngFor="let user of filteredUsers()" class="flex flex-row justify-between max-w-[350px] items-center black-button cursor-pointer py-[17px]">
+        <div class="space-y-[5px]">
+            <h4 class="text-pink text-16">{{user.username || 'Ninja Sans Nom'}}</h4>
+            <p class="space-x-[5px]"><span class="stat-box__value text-light">{{user.lastActivity | date:"dd-MM-YY, HH:mm":"Europe/Paris"}}</span><span class="stat-box__value text-yellow" *ngIf="user.discordId">Discord</span></p>
+            <p>{{user.email}}</p>
+        </div>
+        <app-arrow-right class="fill-light-gray"/>
+    </a>
+</div>
