@@ -5,14 +5,13 @@ import {provideAnimations} from '@angular/platform-browser/animations';
 import {bootstrapApplication, BrowserModule} from '@angular/platform-browser';
 import {DataService} from './app/app/services/data.service';
 import {AuthService} from './app/app/services/auth.service';
-import {APP_INITIALIZER, importProvidersFrom, isDevMode, LOCALE_ID} from '@angular/core';
+import {APP_INITIALIZER, importProvidersFrom, LOCALE_ID} from '@angular/core';
 import {environment} from './environments/environment';
 import Environment from "./environments/environment.interface";
 import Auth from "./app/app/models/auth.model";
 import {provideRouter} from "@angular/router";
 import {NgxPopperjsModule} from "ngx-popperjs";
 import {pipes} from "./app/pipes";
-import {provideServiceWorker} from '@angular/service-worker';
 import {registerLocaleData} from "@angular/common";
 import localeFr from '@angular/common/locales/fr';
 
@@ -40,9 +39,5 @@ bootstrapApplication(AppComponent, {
         provideRouter(appRoutes),
         pipes,
         dataProviders,
-        provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-        })
     ]
 }).catch(err => console.error(err));

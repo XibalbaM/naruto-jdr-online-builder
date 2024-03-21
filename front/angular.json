@@ -38,7 +38,6 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "serviceWorker": true,
                         "ngswConfigPath": "ngsw-config.json"
                     },
                     "configurations": {
