@@ -160,7 +160,7 @@ export default class CharactersService {
             throw new Error("Spe not yet unlocked");
         }
         const spe = ChakraSpe.fromModel(await ChakraSpeModel.findById(speId).lean());
-        if (character.chakraSpes.filter(spe => spe.toString() === speId).length >= spe.max) {
+        if (character.chakraSpes.filter(spe => spe !== null && spe.toString() === speId).length >= spe.max) {
             throw new Error("Spe already maxed");
         }
         const newChakraSpes = character.chakraSpes;
