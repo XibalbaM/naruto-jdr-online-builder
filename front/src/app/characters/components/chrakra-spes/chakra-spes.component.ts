@@ -51,6 +51,11 @@ export class ChakraSpesComponent implements OnInit {
                 while (datas.length < 14) {
                     datas.push(this.ranks[datas.length]);
                 }
+                for (let i = 0; i < datas.length; i++) {
+                    if (datas[i] === null || datas[i] === undefined) {
+                        datas[i] = this.ranks[i];
+                    }
+                }
                 const maxChakraSpes = this.characterToMaxChakraSpes.transform(character);
                 this.chakraSpes = datas.map((data, i) => ({data, unlocked: i < maxChakraSpes}));
                 this.reamingChakraSpes = maxChakraSpes - character.chakraSpes.length;
