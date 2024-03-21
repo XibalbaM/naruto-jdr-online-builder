@@ -4,7 +4,7 @@
     possède un Nindo et le met en pratique.</p>
 <app-spacer class="bg-lighter-dark mt-[30px] mb-[18px]"/>
 <div *ngFor="let exemple of exemples">
-    <h2 (click)="creationService.character.nindo = exemple.title; router.navigateByUrl(backUrl)"
+    <h2 (click)="creationService.character.nindo = exemple.description; router.navigateByUrl(backUrl)"
         class="text-16, text-pink mb-[8px] default-link">
         {{ exemple.title }}
     </h2>
