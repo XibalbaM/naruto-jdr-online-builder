@@ -1,30 +1,30 @@
-<a *ngIf="((((character() | characterToMaxChakraSpes) || 0) - character().chakraSpes.length) > 0) || (((character() | characterToMaxSkillCount) || 0) - uncommonSkills().length) > 0"
-   [routerLink]="['/personnages', character()._id, (((character() | characterToMaxSkillCount) || 0) - uncommonSkills().length) > 0 ? 'nouvelle-competence' : 'specialisations-de-chakra']"
+<a *ngIf="newChakraSpeCount() > 0 || newSkillCount() > 0"
+   [routerLink]="['/personnages', character()._id, newSkillCount() > 0 ? 'nouvelle-competence' : 'specialisations-de-chakra']"
    class="fixed right-0 bottom-0 left-0 z-30 h-[70px] px-[18px] py-[17px] purple-gradient hover:bg-opacity-95 cursor-pointer flex flex-row items-center">
     <div class="max-w-[1024px] w-full mx-auto flex flex-row items-center justify-between">
         <div class="flex flex-row items-center">
             <div class="stat-box__value text-blue me-[10px] h-[26px]">
-            <span *ngIf="(((character() | characterToMaxSkillCount) || 0) - uncommonSkills().length) > 0">
-                {{ ((character() | characterToMaxSkillCount) || 0) - uncommonSkills().length }}
+            <span *ngIf="newSkillCount() > 0">
+                {{ newSkillCount() }}
             </span>
-                <span *ngIf="((((character() | characterToMaxChakraSpes) || 0) - character().chakraSpes.length ) > 0) && (((character() | characterToMaxSkillCount) || 0) - uncommonSkills().length) > 0"
+                <span *ngIf="newSkillCount() > 0 && newChakraSpeCount() > 0"
                       class="text-gray-zambezi text-16 mx-[5px]">
                 /
             </span>
-                <span *ngIf="((((character() | characterToMaxChakraSpes) || 0) - character().chakraSpes.length) > 0)">
-                {{ ((character() | characterToMaxChakraSpes) || 0) - character().chakraSpes.length }}
+                <span *ngIf="newChakraSpeCount() > 0">
+                {{ newChakraSpeCount() }}
             </span>
             </div>
             <div class="flex flex-col">
-                <div *ngIf="(((character() | characterToMaxSkillCount ) || 0) - uncommonSkills().length) > 0">
-                    Nouvelle{{ (((character() | characterToMaxSkillCount) || 0) - uncommonSkills().length) > 1 ? 's' : '' }}
-                    compétence{{ (((character() | characterToMaxSkillCount) || 0) - uncommonSkills().length) > 1 ? 's' : '' }}
-                    disponible{{ (((character() | characterToMaxSkillCount) || 0) - uncommonSkills().length) > 1 ? 's' : '' }}
+                <div *ngIf="newSkillCount() > 0">
+                    Nouvelle{{ newSkillCount() > 1 ? 's' : '' }}
+                    compétence{{ newSkillCount() > 1 ? 's' : '' }}
+                    disponible{{ newSkillCount() > 1 ? 's' : '' }}
                 </div>
-                <div *ngIf="(((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length) > 0">
-                    Spécialisation{{ (((character() | characterToMaxChakraSpes) || 0) - character().chakraSpes.length) > 1 ? 's' : '' }} de
+                <div *ngIf="newChakraSpeCount() > 0">
+                    Spécialisation{{ newChakraSpeCount() > 1 ? 's' : '' }} de
                     chakra
-                    disponible{{ (((character() | characterToMaxChakraSpes) || 0) - character().chakraSpes.length) > 1 ? 's' : '' }}
+                    disponible{{ newChakraSpeCount() > 1 ? 's' : '' }}
                 </div>
             </div>
         </div>
@@ -199,6 +199,13 @@
     <app-skill-item (changeValue)="setSkillLevel(skill.skill, $event)" *ngFor="let skill of uncommonSkills()" [baseLevel]="getBaseLevelBySkill(skill.skill)"
                     [skill]="skill"/>
     <app-spacer class="bg-light-dark mt-[8px]"/>
+    <a routerLink="nouvelle-competence" *ngIf="newSkillCount() > 0" class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90 mt-[18px]">
+        <div>
+            <span class="stat-box__value text-blue me-[10px] h-[26px]">{{newSkillCount()}}</span>
+            Nouvelle{{ newSkillCount() > 1 ? 's' : '' }} compétence{{ newSkillCount() > 1 ? 's' : '' }} disponible{{ newSkillCount() > 1 ? 's' : '' }}
+        </div>
+        <app-arrow-right class="fill-white"/>
+    </a>
 </section>
 <section class="relative z-10 py-[50px]">
     <app-bg class="image-bg"/>

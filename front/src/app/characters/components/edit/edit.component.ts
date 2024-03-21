@@ -60,12 +60,14 @@ export class EditComponent implements OnInit, AfterViewInit {
         }, {});
         return Object.entries(map).map(([chakraSpe, number]) => ({chakraSpe: this.idToData.transform(chakraSpe, this.dataService.chakraSpes)!, number}));
     });
+    newSkillCount = computed(() => this.characterToMaxSkillCountPipe.transform(this.character()) - this.uncommonSkills().length);
+    newChakraSpeCount = computed(() => this.characterToMaxChakraSpesPipe.transform(this.character()) - this.chakraSpes().length);
     protected readonly Math = Math;
 
     constructor(private activeRoute: ActivatedRoute, protected router: Router, protected auth: Auth,
                 protected dataService: DataService, private idToData: IdToDataPipe, private changeDetectorRef: ChangeDetectorRef,
                 protected env: Environment, private characterService: CharacterService, private notificationService: NotificationService,
-                private title: Title) {
+                private title: Title, private characterToMaxSkillCountPipe: CharacterToMaxSkillCountPipe, private characterToMaxChakraSpesPipe: CharacterToMaxChakraSpesPipe) {
         effect(() => {
             this.title.setTitle(`${this.character().firstName} ${this.idToData.transform(this.character().clan, this.dataService.clans)?.name}, Fiche de personnage — Naruto jdr`)
         });
