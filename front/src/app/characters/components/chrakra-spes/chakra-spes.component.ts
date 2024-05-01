@@ -59,7 +59,7 @@ export class ChakraSpesComponent implements OnInit {
                 const maxChakraSpes = this.characterToMaxChakraSpes.transform(character);
                 this.chakraSpes = datas.map((data, i) => ({data, unlocked: i < maxChakraSpes}));
                 this.reamingChakraSpes = maxChakraSpes - character.chakraSpes.length;
-                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Spécialisations de chakra — Fiche de personnage — Naruto jdr`);
+                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Spécialisations de chakra — Fiche de personnage — Ninjadex`);
             } else {
                 this.router.navigate(['/personnages']);
             }

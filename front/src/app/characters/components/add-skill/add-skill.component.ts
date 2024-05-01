@@ -36,7 +36,7 @@ export class AddSkillComponent implements OnInit {
                 private idToData: IdToDataPipe, private auth: Auth, private characterToMaxSkillCount: CharacterToMaxSkillCountPipe,
                 private injector: Injector, private characterService: CharacterService, private notification: NotificationService) {
         effect(() => {
-            this.title.setTitle(`${this.character().firstName} ${this.idToData.transform(this.character().clan, this.dataService.clans)?.name}, Spécialisations de chakra — Fiche de personnage — Naruto jdr`);
+            this.title.setTitle(`${this.character().firstName} ${this.idToData.transform(this.character().clan, this.dataService.clans)?.name}, Spécialisations de chakra — Fiche de personnage — Ninjadex`);
         });
     }
 

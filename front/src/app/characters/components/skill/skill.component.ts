@@ -52,7 +52,7 @@ export class SkillComponent implements OnInit {
                     this.skillLevel = this.character.customSkills.find((skillWithLevel) => skillWithLevel.skill === this.skill._id)?.level || 0;
                 }
                 this.baseLevel = this.character.bases[this.base._id] || 0;
-                this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans)?.name}, Compétence ${this.skill.name} — Fiche de personnage — Naruto jdr`);
+                this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans)?.name}, Compétence ${this.skill.name} — Fiche de personnage — Ninjadex`);
             } else {
                 this.router.navigate(['/personnages']);
             }

@@ -358,7 +358,7 @@ const accountCreationTemplate = (connectionToken: string) => {
                                           <tr>
                                             <td align="left" style="padding:0;Margin:0;padding-top:25px;padding-bottom:25px">
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#424242;font-size:20px">
-                                                Afin de vérifier votre email et terminer la création de votre compte sur Ninja Builder, merci de cliquer sur le lien d’activation
+                                                Afin de vérifier votre email et terminer la création de votre compte sur Ninjadex, merci de cliquer sur le lien d’activation
                                                 suivant, qui restera valable pendant les cinq prochaines minutes.</p></td>
                                           </tr>
                                         </tbody>
@@ -439,9 +439,9 @@ const accountCreationTemplate = (connectionToken: string) => {
                                           <tr>
                                             <td align="left" style="padding:0;Margin:0;padding-bottom: 100px">
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:33px;color:#333333;font-size:22px">
-                                                <strong style="color: #030505">Ninja Builder</strong></p>
+                                                <strong style="color: #030505">Ninjadex</strong></p>
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#333333;font-size:20px">
-                                                Ninja Builder est une application gratuite de création de personnage proposée par la communauté du jeu de rôle Naruto. Aucune donnée
+                                                Ninjadex est une application gratuite de création de personnage proposée par la communauté du jeu de rôle Naruto. Aucune donnée
                                                 n’est utilisée à des fins commerciales directes, indirectes ou vendues à des entreprises tierces.<br><br></p>
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#333333;font-size:20px">
                                                 Vous pouvez contacter l’équipe de création directement sur Discord, canal “Outils-numériques”</p></td>
@@ -502,7 +502,7 @@ const accountCreationTemplate = (connectionToken: string) => {
                                                    style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#605A5A;font-size:13px"
                                                    href="https://www.dropbox.com/sh/ninpayam53pewzu/AACvLDrEC9Ub9pS1Co55CyOOa?dl=0">Ressources</a>
                                                 <br/>
-                                                <span style="color: #A3A5A2; font-size: 13px">Ninja Builder v3.0.0</span>
+                                                <span style="color: #A3A5A2; font-size: 13px">Ninjadex v3</span>
                                               </p>
                                             </td>
                                           </tr>
@@ -927,7 +927,7 @@ const connectionTemplate = (connectionToken: string, username: string) => {
                                           <tr>
                                             <td align="left" style="padding:0;Margin:0;padding-top:25px;padding-bottom:25px">
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#424242;font-size:20px">
-                                                Afin de vérifier votre email et terminer la tentative de connexion sur Ninja Builder, merci de cliquer sur ce lien d’activation, valable pendant les cinq prochaines minutes.
+                                                Afin de vérifier votre email et terminer la tentative de connexion sur Ninjadex, merci de cliquer sur ce lien d’activation, valable pendant les cinq prochaines minutes.
                                               </p>
                                             </td>
                                           </tr>
@@ -1008,9 +1008,9 @@ const connectionTemplate = (connectionToken: string, username: string) => {
                                           <tr>
                                             <td align="left" style="padding:0;Margin:0;padding-bottom: 100px">
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:33px;color:#333333;font-size:22px">
-                                                <strong style="color: #030505">Ninja Builder</strong></p>
+                                                <strong style="color: #030505">Ninjadex</strong></p>
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#333333;font-size:20px">
-                                                Ninja Builder est une application gratuite de création de personnage proposée par la communauté du jeu de rôle Naruto. Aucune donnée
+                                                Ninjadex est une application gratuite de création de personnage proposée par la communauté du jeu de rôle Naruto. Aucune donnée
                                                 n’est utilisée à des fins commerciales directes, indirectes ou vendues à des entreprises tierces.<br><br></p>
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#333333;font-size:20px">
                                                 Vous pouvez contacter l’équipe de création directement sur Discord, canal “Outils-numériques”</p></td>
@@ -1071,7 +1071,7 @@ const connectionTemplate = (connectionToken: string, username: string) => {
                                                    style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#605A5A;font-size:13px"
                                                    href="https://www.dropbox.com/sh/ninpayam53pewzu/AACvLDrEC9Ub9pS1Co55CyOOa?dl=0">Ressources</a>
                                                 <br/>
-                                                <span style="color: #A3A5A2; font-size: 13px">Ninja Builder v3.0.0</span>
+                                                <span style="color: #A3A5A2; font-size: 13px">Ninjadex v3</span>
                                               </p>
                                             </td>
                                           </tr>

@@ -53,7 +53,7 @@ export class SetChakraSpeComponent implements OnInit {
 
                 this.characterId = params.get('characterId')!;
                 this.spes = this.dataService.chakraSpes.filter(spe => (this.ownedSpes.get(spe._id) || 0) < spe.max)
-                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Spécialisation de chakra n°${this.id + 1} — Fiche de personnage — Naruto jdr`);
+                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Spécialisation de chakra n°${this.id + 1} — Fiche de personnage — Ninjadex`);
             } else {
                 this.router.navigate(['/personnages']);
             }

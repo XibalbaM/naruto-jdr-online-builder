@@ -69,7 +69,7 @@ export class EditComponent implements OnInit, AfterViewInit {
                 protected env: Environment, private characterService: CharacterService, private notificationService: NotificationService,
                 private title: Title, private characterToMaxSkillCountPipe: CharacterToMaxSkillCountPipe, private characterToMaxChakraSpesPipe: CharacterToMaxChakraSpesPipe) {
         effect(() => {
-            this.title.setTitle(`${this.character().firstName} ${this.idToData.transform(this.character().clan, this.dataService.clans)?.name}, Fiche de personnage — Naruto jdr`)
+            this.title.setTitle(`${this.character().firstName} ${this.idToData.transform(this.character().clan, this.dataService.clans)?.name}, Fiche de personnage — Ninjadex`)
         });
     }
 

@@ -36,7 +36,7 @@ export class NotesComponent implements OnInit {
             if (params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId'))) {
                 this.character = (user.characters.find((character) => character._id === params.get('characterId'))!);
                 this.notes = noteTemp.get(this.character._id) || this.character.notes;
-                this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans)?.name}, Notes — Fiche de personnage — Naruto jdr`);
+                this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans)?.name}, Notes — Fiche de personnage — Ninjadex`);
             } else {
                 this.router.navigate(['/personnages']);
             }

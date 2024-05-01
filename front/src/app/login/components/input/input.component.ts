@@ -71,7 +71,7 @@ export class InputComponent implements OnInit {
                             this.popupText = `
                                 <p class="text-13 text-light-gray">Votre email n’est rattaché à aucun compte existant</p>
                                 <br>
-                                <p class="text-16">Afin d’utiliser Ninja Builder, un compte personnel est nécessaire.<br><br>
+                                <p class="text-16">Afin d’utiliser Ninjadex, un compte personnel est nécessaire.<br><br>
 Si vous souhaitez créer un compte sur l’application, vous avez déjà reçu un lien de validation sur votre email : <br>
 ${email}<br>
 Il suffit de cliquer dessus et le tour est joué :)</p>

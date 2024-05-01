@@ -54,7 +54,7 @@ export class EditDetailsComponent {
                 this.isRoad = !!this.character.road;
                 this.road = this.character.road ? this.idToData.transform(this.character.road, this.dataService.roads) : undefined;
                 this.rank = this.idToData.transform(this.character.rank, this.dataService.ranks)!;
-                this.title.setTitle(`${this.character.firstName} ${this.clan.name}, Modification — Fiche de personnage — Naruto jdr`)
+                this.title.setTitle(`${this.character.firstName} ${this.clan.name}, Modification — Fiche de personnage — Ninjadex`)
             } else {
                 this.router.navigate(['/personnages']);
             }

@@ -37,7 +37,7 @@ export class BaseComponent implements OnInit {
                 this.baseLevel = character.bases[this.base._id] || 0;
                 this.previousBase = this.base._id === 0 ? character.bases.length - 1 : this.base._id - 1;
                 this.nextBase = this.base._id === character.bases.length - 1 ? 0 : this.base._id + 1;
-                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Base ${this.base.fullName} — Fiche de personnage — Naruto jdr`);
+                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Base ${this.base.fullName} — Fiche de personnage — Ninjadex`);
             } else {
                 this.router.navigate(['/personnages']);
             }
