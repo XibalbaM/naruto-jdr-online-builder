@@ -385,7 +385,7 @@ const accountCreationTemplate = (connectionToken: string) => {
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:33px;color:#333333;font-size:22px">
                                                 <strong style="color: #030505">Votre lien de validation<br><span style="color:#800080"><a target="_blank"
                                                                                                                                           style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#b72ebc;font-size:20px"
-                                                                                                                                          href="${config.loginUrl + connectionToken}">builder.naruto-jdr.com/validation</a></span></strong>
+                                                                                                                                          href="${config.loginUrl + connectionToken}">ninjadex.naruto-jdr.com/validation</a></span></strong>
                                               </p></td>
                                           </tr>
                                         </tbody>
@@ -955,7 +955,7 @@ const connectionTemplate = (connectionToken: string, username: string) => {
                                               <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:33px;color:#333333;font-size:22px">
                                                 <strong style="color: #030505">Votre lien de validation<br><span style="color:#800080"><a target="_blank"
                                                                                                                                           style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#b72ebc;font-size:20px"
-                                                                                                                                          href="${config.loginUrl + connectionToken}">builder.naruto-jdr.com/validation</a></span></strong>
+                                                                                                                                          href="${config.loginUrl + connectionToken}">ninjadex.naruto-jdr.com/validation</a></span></strong>
                                               </p></td>
                                           </tr>
                                         </tbody>

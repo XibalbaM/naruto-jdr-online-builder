@@ -11,7 +11,7 @@ const client = new Client({
         activities: [{
             name: "/aide pour les commandes",
             type: 2,
-            url: "https://builder.naruto-jdr.com"
+            url: "https://ninjadex.naruto-jdr.com"
         }]
     },
     intents: [
