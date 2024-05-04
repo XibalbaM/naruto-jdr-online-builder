@@ -14,18 +14,6 @@ export default class Environment {
      */
     port: number;
     /**
-     * The protocol to use (used only in tests).
-     */
-    protocol: "http" | "https";
-    /**
-     * The key for https.
-     */
-    httpsKey?: string;
-    /**
-     * The cert for https.
-     */
-    httpsCert?: string;
-    /**
      * The database connection string.
      */
     db: string;
