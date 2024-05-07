@@ -71,7 +71,7 @@ jobs:
                         export EMAIL_USER="builder@naruto-jdr.com"
                         export EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}"
                         export EMAIL_USERNAME="Naruto jeu de rôle <builder@naruto-jdr.com>"
-                        export SERVER_ADDRESS="builder.naruto-jdr.com"
+                        export SERVER_ADDRESS="ninjadex.naruto-jdr.com"
                         export RECAPTCHA_SECRET_KEY="${{ secrets.RECAPTCHA_SECRET_KEY }}"
                         export DISCORD_CLIENT_ID="${{ secrets.DISCORD_CLIENT_ID }}"
                         export DISCORD_CLIENT_SECRET="${{ secrets.DISCORD_CLIENT_SECRET }}"
