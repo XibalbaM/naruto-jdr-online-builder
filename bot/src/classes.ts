@@ -1,7 +1,13 @@
-import {AutocompleteInteraction, ChatInputCommandInteraction, Collection, SlashCommandBuilder} from "discord.js";
+import {
+    AutocompleteInteraction,
+    ChatInputCommandInteraction,
+    Collection,
+    SlashCommandOptionsOnlyBuilder,
+    SlashCommandSubcommandsOnlyBuilder
+} from "discord.js";
 
 export interface SlashCommand {
-    command: SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup" | "addBooleanOption" | "addUserOption" | "addChannelOption" | "addRoleOption" | "addAttachmentOption" | "addMentionableOption" | "addStringOption" | "addIntegerOption" | "addNumberOption">,
+    command: SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder,
     execute: (interaction: ChatInputCommandInteraction) => Promise<void> | void,
     autocomplete?: (interaction: AutocompleteInteraction) => void,
     implemented?: boolean
