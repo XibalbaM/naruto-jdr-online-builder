@@ -73,8 +73,8 @@ export async function addDiscordAccount(user: User, discordCode: string): Promis
     const clientRest = new REST({version: "10", authPrefix: "Bearer"}).setToken(token);
     const discordUser = await clientRest.get(Routes.user("@me"));
     if (await userModel.exists({discordId: discordUser['id']})) throw new Error("Discord account already linked to another user");
-
-    return getDiscordName(User.fromModel(await userModel.findByIdAndUpdate(user._id, {discordId: discordUser['id']})).discordId);
+    await userModel.findByIdAndUpdate(user._id, {discordId: discordUser['id']});
+    return getDiscordName(discordUser['id']);
 }
 
 /**
@@ -94,6 +94,7 @@ export async function removeDiscordAccount(user: User): Promise<void> {
  * @param discordId The discord id of the user
  */
 export async function getDiscordName(discordId: string): Promise<string> {
+    console.log(discordId);
     const guildUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
 
     if (guildUser && guildUser['nick'])

@@ -16,7 +16,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@discordjs/rest": "^1.7.1",
+        "@discordjs/rest": "^2.3.0",
         "cookie-parser": "^1.4.6",
         "discord-api-types": "^0.37.70",
         "dotenv": "^16.4.4",
