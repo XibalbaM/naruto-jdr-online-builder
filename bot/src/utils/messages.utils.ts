@@ -95,6 +95,10 @@ export default class Messages {
         }
     }
 
+    static SKILLS = {
+        SKILL_NOT_FOUND: "La compétence n'a pas été trouvée.",
+    }
+
     static EASTER_EGG = "Vous avez trouvé un easter egg !";
 
     static SENSEI_MODE_CHANGED(newSenseiMode: boolean) {
