@@ -14,7 +14,7 @@ export default class DataService {
     static spes: ChakraSpe[] = []
     static clans: Clan[] = []
     static ranks: Rank[] = []
-    static road: Road[] = []
+    static roads: Road[] = []
     static commonSkills: Skill[] = []
     static customSkills: CustomSkill[] = []
     static villages: Village[] = []
@@ -24,7 +24,7 @@ export default class DataService {
         DataService.spes = await this.fetch('chakraSpes')
         DataService.clans = await this.fetch('clans')
         DataService.ranks = await this.fetch('ranks')
-        DataService.road = await this.fetch('roads')
+        DataService.roads = await this.fetch('roads')
         DataService.commonSkills = await this.fetch('skills/common')
         DataService.customSkills = await this.fetch('skills/custom')
         DataService.villages = await this.fetch('villages')

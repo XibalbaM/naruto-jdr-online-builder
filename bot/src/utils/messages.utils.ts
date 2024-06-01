@@ -1,4 +1,6 @@
 import Character from "../models/character.model.js";
+import {findById} from "./data.utils";
+import DataService from "../services/data.service";
 
 /**
  * Class containing messages texts. Grouped here so they can easily be changed.
@@ -51,12 +53,46 @@ export default class Messages {
         NO_SELECTED_CHARACTER: "Aucun personnage n'est sélectionné.",
         CHARACTER_INFO: (character: Character) => {
             let message = `Voici les informations sur le personnage ${character.firstName} :\n`;
+            message += `Clan : ${findById(DataService.clans, character.clan)?.name}\n`;
+            message += `Village : ${findById(DataService.villages, character.village)?.name}\n`;
+            if (character.road) message += `Voie : ${findById(DataService.roads, character.road)?.name}\n`;
             message += `XP : ${character.xp}\n`;
+            message += `Grade : ${findById(DataService.ranks, character.rank)?.name}\n`;
             message += `Nindô : ${character.nindo}\n`;
             message += `Points de nindô : ${character.nindoPoints}\n`;
             message += `Modifié le : <t:${Math.floor(Date.parse(character.updatedAt as unknown as string)/1000)}:R>\n`;
             return message;
-        },//TODO
+        },
+        BASES(character: Character) {
+            let message = `Voici les bases du personnage ${character.firstName} :\n`;
+            character.bases.forEach((base, index) => {
+                message += `- ${findById(DataService.bases, index)?.fullName} : ${base}\n`;
+            });
+            return message;
+        },
+        COMMON_SKILLS(character: Character) {
+            let message = `Voici les compétences communes du personnage ${character.firstName} :\n`;
+            character.commonSkills.forEach((level, index) => {
+                let skill = findById(DataService.commonSkills, index);
+                message += `- ${skill?.name} (${findById(DataService.bases, skill!.base)?.shortName}) : ${level} (Total : ${level + character.bases[skill?.base ?? 0]})\n`;
+            });
+            return message;
+        },
+        CUSTOM_SKILLS(character: Character) {
+            let message = `Voici les compétences personnalisées du personnage ${character.firstName} :\n`;
+            character.customSkills.forEach((skillData) => {
+                let skill = findById(DataService.customSkills, skillData.skill);
+                message += `- ${skill?.name} (${findById(DataService.bases, skill!.base)?.shortName}) : ${skillData.level} (Total : ${skillData.level + character.bases[skill?.base ?? 0]})\n`;
+            });
+            return message;
+        },
+        SPES(character: Character) {
+            let message = `Voici les spécialités de chakra du personnage ${character.firstName} :\n`;
+            character.chakraSpes.forEach((spe) => {
+                message += `- ${findById(DataService.spes, spe)?.name}\n`;
+            });
+            return message;
+        }
     }
 
     static EASTER_EGG = "Vous avez trouvé un easter egg !";
