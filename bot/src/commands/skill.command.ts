@@ -37,7 +37,7 @@ const command: SlashCommand = {
     },
     async autocomplete(interaction) {
         if (!StateService.getSelectedCharacter(interaction.user.id)) {
-            return await interaction.respond([]);
+            return await interaction.respond([{name: "Aucun personnage sélectionné", value: "Aucun personnage sélectionné"}]);
         }
         const character = StateService.getSelectedCharacter(interaction.user.id)!;
         const characterSkills = character.getAllSkills().map(skill => skill.skill.name);
