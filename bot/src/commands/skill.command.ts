@@ -6,6 +6,8 @@ import Responses from "../utils/responses.utils.js";
 import Messages from "../utils/messages.utils.js";
 import StateService from "../services/state.service.js";
 import DiceUtils from "../utils/dice.utils.js";
+import DataService from "../services/data.service";
+import {findById} from "../utils/data.utils";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
@@ -32,7 +34,7 @@ const command: SlashCommand = {
         else if (bonus?.match(/^[+\-\/*][0-9+\-\/*]+$/)) bonus = `1d10e10${bonus}+${skillInfo.level + character.bases[skillInfo.skill.base]}`;
         else bonus = "1d10e10+" + (skillInfo.level + character.bases[skillInfo.skill.base]);
         let roll = DiceUtils.parseDiceRoll(bonus);
-        let username = interaction.guild?.members.cache.get(interaction.user.id)?.displayName || interaction.user.username;
+        let username = StateService.getSelectedCharacter(interaction.user.id)!.firstName + " " + findById(DataService.clans, StateService.getSelectedCharacter(interaction.user.id)!.clan)?.name;
         await Responses.success(interaction, Messages.DICE.SUCCESS(bonus, roll.result, roll.details, username, skill), StateService.isInSenseiMode(interaction.user.id));
     },
     async autocomplete(interaction) {
