@@ -42,6 +42,12 @@ export default class Messages {
         MAP: {title: "Carte du monde", url: "./assets/map.webp"}
     }
 
+    static CHARACTER = {
+        NO_CHARACTER: "Aucun personnage n'a été trouvé.",
+        CHARACTERS_LIST: (characters: {name: string, xp: number}[]) => `Voici la liste de vos personnages : ${characters.map((character, i) => `\n${i++}. ${character.name} (${character.xp} XP)\nCliquez sur l'un d'entre eux pour le sélectionner.`).join()}`,
+        CHARACTER_SELECTED: (name: string) => `Le personnage ${name} a bien été sélectionné.`,
+    }
+
     static EASTER_EGG = "Vous avez trouvé un easter egg !";
 
     static SENSEI_MODE_CHANGED(newSenseiMode: boolean) {

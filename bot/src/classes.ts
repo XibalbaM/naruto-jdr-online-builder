@@ -8,7 +8,7 @@ import {
 
 export interface SlashCommand {
     command: SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder,
-    execute: (interaction: ChatInputCommandInteraction) => Promise<void> | void,
+    execute: (interaction: ChatInputCommandInteraction) => any,
     autocomplete?: (interaction: AutocompleteInteraction) => void,
     implemented?: boolean
 }

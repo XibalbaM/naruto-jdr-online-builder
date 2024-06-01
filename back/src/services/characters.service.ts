@@ -48,6 +48,16 @@ export default class CharactersService {
         return characters;
     }
 
+    static async summaryCharacters(user: User) {
+        const characters: {_id: mongoose.Types.ObjectId, name: string, xp: number}[] = [];
+        for (let character of user.characters) {
+            let data = Character.fromModel(await CharacterModel.findById(character).select(["_id", "firstName", "clan", "xp"]).lean());
+            let clanName = (await ClanModel.findById(data.clan).select("name").lean()).name;
+            characters.push({_id: data._id, name: data.firstName + " " + clanName, xp: data.xp});
+        }
+        return characters;
+    }
+
     static async createCharacter(userId: ObjectId, body: { character: Omit<Character, "_id" | "bases" | "skills" | "chakraSpes" | "nindoPoints"> }) {
         const character = Character.fromModel(await CharacterModel.create(body.character));
         await UserModel.findByIdAndUpdate(userId, {$push: {characters: character._id}});
