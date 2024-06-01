@@ -1,3 +1,5 @@
+import Character from "../models/character.model";
+
 /**
  * Class containing messages texts. Grouped here so they can easily be changed.
  */
@@ -46,6 +48,15 @@ export default class Messages {
         NO_CHARACTER: "Aucun personnage n'a été trouvé.",
         CHARACTERS_LIST: (characters: {name: string, xp: number}[]) => `Voici la liste de vos personnages : ${characters.map((character, i) => `\n${i++}. ${character.name} (${character.xp} XP)\nCliquez sur l'un d'entre eux pour le sélectionner.`).join()}`,
         CHARACTER_SELECTED: (name: string) => `Le personnage ${name} a bien été sélectionné.`,
+        NO_SELECTED_CHARACTER: "Aucun personnage n'est sélectionné.",
+        CHARACTER_INFO: (character: Character) => {
+            let message = `Voici les informations sur le personnage ${character.firstName} :\n`;
+            message += `XP : ${character.xp}\n`;
+            message += `Nindô : ${character.nindo}\n`;
+            message += `Points de nindô : ${character.nindoPoints}\n`;
+            message += `Modifié le : <t:${Math.floor(Date.parse(character.updatedAt as unknown as string)/1000)}:R>\n`;
+            return message;
+        },//TODO
     }
 
     static EASTER_EGG = "Vous avez trouvé un easter egg !";

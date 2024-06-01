@@ -9,4 +9,13 @@ export default class DiscordCharacterController {
             res.status(500).json({message: e.message});
         }
     }
+
+    static async get(req, res) {
+        try {
+            const character = await CharactersService.getCharacter(req.user, req.params.id);
+            res.status(200).json(character);
+        } catch (e) {
+            res.status(500).json({message: e.message});
+        }
+    }
 }
