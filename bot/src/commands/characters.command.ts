@@ -20,15 +20,19 @@ const command: SlashCommand = {
         if (characters.length === 0) {
             return await Responses.error(interaction, Messages.CHARACTER.NO_CHARACTER);
         }
-        const rows = [];
-        for (const character of characters) {
-            rows.push(new ActionRowBuilder().addComponents(
+        const rows: ActionRowBuilder[] = [];
+        for (let i = 1; i <= Math.ceil(characters.length/5); i += 1) {
+            rows.push(new ActionRowBuilder());
+        }
+        characters.forEach((character, index) => {
+            if (index >= 25) return;
+            rows[Math.floor(index/5)].addComponents(
                 new ButtonBuilder()
                     .setCustomId(character._id)
                     .setLabel(character.name)
                     .setStyle(ButtonStyle.PRIMARY)
-            ));
-        }
+            );
+        });
         let message = await Responses.success(interaction, Messages.CHARACTER.CHARACTERS_LIST(characters), true, rows);
         message.createMessageComponentCollector({componentType: ComponentType.Button, time: 60000}).on("collect", async i => {
             StateService.setSelectedCharacter(interaction.user.id, i.customId);
