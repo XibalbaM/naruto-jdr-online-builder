@@ -46,7 +46,7 @@ export default class Messages {
 
     static CHARACTER = {
         NO_CHARACTER: "Aucun personnage n'a été trouvé.",
-        CHARACTERS_LIST: (characters: {name: string, xp: number}[]) => `Voici la liste de vos personnages : ${characters.map((character, i) => `\n${i++}. ${character.name} (${character.xp} XP)\nCliquez sur l'un d'entre eux pour le sélectionner.`).join()}`,
+        CHARACTERS_LIST: (characters: {name: string, xp: number}[]) => `Voici la liste de vos personnages : ${characters.map((character, i) => `\n${i++}. ${character.name} (${character.xp} XP)`).join()}\nCliquez sur l'un d'entre eux pour le sélectionner.`,
         CHARACTER_SELECTED: (name: string) => `Le personnage ${name} a bien été sélectionné.`,
         NO_SELECTED_CHARACTER: "Aucun personnage n'est sélectionné.",
         CHARACTER_INFO: (character: Character) => {
