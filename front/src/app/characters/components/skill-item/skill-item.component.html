@@ -1,8 +1,15 @@
+<popper-content #info>
+    Base : {{(skill.skill.base | idToData:dataService.bases)?.fullName}}
+</popper-content>
 <app-spacer class="bg-light-dark my-[8px]"/>
 <div class="flex flex-row justify-between items-center">
     <a [routerLink]="'competence/' + skill.skill._id"
        class="space-x-[12px] flex flex-row items-center w-full h-[38px]">
-        <span [tooltip]="'Base : ' + (skill.skill.base | idToData:dataService.bases)?.fullName">{{ skill.skill.name }}</span>
+        <span [popper]="info" [popperTrigger]="NgxPopperjsTriggers.hover"
+              popperApplyClass="bg-[#61616199]  !rounded-[4px] text-13 !px-[6px] !py-[2px] !border-none"
+              popperApplyArrowClass="!bg-[#61616199]">
+            {{ skill.skill.name }}
+        </span>
         <span class="text-16 text-yellow px-[12px] py-[3px] bg-light-dark border border-lighter-dark rounded-[8px] ms-[12px]">{{ skill.level + baseLevel }}</span>
     </a>
     <div class="flex flex-row">

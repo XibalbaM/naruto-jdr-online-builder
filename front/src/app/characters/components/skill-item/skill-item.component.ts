@@ -3,17 +3,17 @@ import {DataService} from "../../../app/services/data.service";
 import {IdToDataPipe} from '../../../utils/pipes/id-to-data.pipe';
 import {PlusSymbolComponent} from '../../../utils/components/plus-symbol/plus-symbol.component';
 import {MinusSymbolComponent} from '../../../utils/components/minus-symbol/minus-symbol.component';
-import {TooltipDirective} from '../../../utils/directives/tooltip.directive';
 import {RouterLink} from '@angular/router';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {Skill} from "../../../app/models/skill.model";
+import {NgxPopperjsContentComponent, NgxPopperjsDirective, NgxPopperjsTriggers} from "ngx-popperjs";
 
 @Component({
     selector: 'app-skill-item',
     templateUrl: './skill-item.component.html',
     styleUrls: ['./skill-item.component.scss'],
     standalone: true,
-    imports: [SpacerComponent, RouterLink, TooltipDirective, MinusSymbolComponent, PlusSymbolComponent, IdToDataPipe]
+    imports: [SpacerComponent, RouterLink, MinusSymbolComponent, PlusSymbolComponent, IdToDataPipe, NgxPopperjsContentComponent, NgxPopperjsDirective]
 })
 export class SkillItemComponent {
 
@@ -23,4 +23,6 @@ export class SkillItemComponent {
 
     constructor(protected dataService: DataService) {
     }
+
+    protected readonly NgxPopperjsTriggers = NgxPopperjsTriggers;
 }
