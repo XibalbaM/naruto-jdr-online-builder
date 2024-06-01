@@ -65,7 +65,7 @@ jobs:
                         cd /home/discord/bot
                         npm install
                         export NODE_ENV=prod
-                        export DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
-                        export DISCORD_CLIENT_ID=${{ secrets.DISCORD_CLIENT_ID }}
-                        export JWT_SECRET=${{ secrets.JWT_SECRET }}
+                        export DISCORD_TOKEN="${{ secrets.DISCORD_TOKEN }}"
+                        export DISCORD_CLIENT_ID="${{ secrets.DISCORD_CLIENT_ID }}"
+                        export JWT_SECRET="${{ secrets.JWT_SECRET }}"
                         pm2 start --name=DiscordBot main.js --update-env
