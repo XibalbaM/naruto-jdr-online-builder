@@ -68,4 +68,8 @@ export default class Messages {
     static SENSEI_MODE_NOT_CHANGED(senseiMode: boolean) {
         return `Le mode sensei est déjà ${senseiMode ? "activé" : "désactivé"}.`;
     }
+
+    static NO_PERMISSION(name: string) {
+        return `Vous avez besoin de la permission "${name}".`;
+    }
 }

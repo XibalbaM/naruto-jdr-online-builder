@@ -1,4 +1,4 @@
-import {ComponentType, SlashCommandBuilder} from "discord.js";
+import {SlashCommandBuilder} from "discord.js";
 import Responses from "../utils/responses.utils.js";
 import {SlashCommand} from "../classes.js";
 import StateService from "../services/state.service.js";
@@ -10,7 +10,7 @@ const command: SlashCommand = {
 	async execute(interaction) {
 
 		const text = "- " + interaction.client.slashCommands
-			.filter(value => value.implemented === undefined || value.implemented)
+			.filter(value => !value.hidden)
 			.sort((a, b) => a.command.name.localeCompare(b.command.name))
 			.map((value) => `**/${value.command.name}**\n${value.command.description}`)
 			.join("\n- ");

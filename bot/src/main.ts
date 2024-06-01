@@ -4,6 +4,7 @@ import {glob} from "glob";
 import {SlashCommand} from "./classes";
 import config from "./config/env.js";
 import axios from "axios";
+import DataService from "./services/data.service.js";
 
 const client = new Client({
     presence: {
@@ -30,6 +31,8 @@ for (const handler of glob.sync("**/*.+(ts|js)", {cwd: "./handlers"})) {
 console.log("Handlers run finished");
 
 client.login(config.token);
+
+DataService.refreshData().then(() => console.log("Data fetched"));
 
 if (config.env === "production" || true) {
     setInterval(() => {

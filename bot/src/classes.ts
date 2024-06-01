@@ -10,7 +10,7 @@ export interface SlashCommand {
     command: SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder,
     execute: (interaction: ChatInputCommandInteraction) => any,
     autocomplete?: (interaction: AutocompleteInteraction) => void,
-    implemented?: boolean
+    hidden?: boolean
 }
 
 export class ButtonStyle {

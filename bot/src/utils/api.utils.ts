@@ -14,7 +14,7 @@ export default class ApiUtils {
      */
     static processUrl(url: string) {
         if (url.startsWith("/")) {
-            return config.api_url + url;
+            return config.api_url + "/discord" + url;
         }
         return url;
     }
