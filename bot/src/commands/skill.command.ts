@@ -6,8 +6,8 @@ import Responses from "../utils/responses.utils.js";
 import Messages from "../utils/messages.utils.js";
 import StateService from "../services/state.service.js";
 import DiceUtils from "../utils/dice.utils.js";
-import DataService from "../services/data.service";
-import {findById} from "../utils/data.utils";
+import DataService from "../services/data.service.js";
+import {findById} from "../utils/data.utils.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
