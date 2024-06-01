@@ -12,7 +12,7 @@ export default function (): Middleware {
         if (token && token !== 'none') {
             try {
                 req['user'] = await authService.getUserFromToken(token);
-                await UserModel.findByIdAndUpdate(req['user']._id, {lastActivity: Date.now()});
+                await UserModel.findByIdAndUpdate(req['user']._id, {lastActivity: new Date()});
                 next();
             } catch (e) {
                 res.status(401).send({error: 'Cannot authenticate user.'});

@@ -94,7 +94,6 @@ export async function removeDiscordAccount(user: User): Promise<void> {
  * @param discordId The discord id of the user
  */
 export async function getDiscordName(discordId: string): Promise<string> {
-    console.log(discordId);
     const guildUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
 
     if (guildUser && guildUser['nick'])

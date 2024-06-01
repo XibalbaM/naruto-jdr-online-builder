@@ -20,6 +20,8 @@ export default class Character {
     chakraSpes: mongoose.Types.ObjectId[];
     notes: string;
     isPredrawn: boolean;
+    createdAt: Date;
+    updatedAt: Date;
 
     /**
      * Creates a new character from a model
@@ -43,6 +45,8 @@ export default class Character {
         character.chakraSpes = modelCharacter.chakraSpes;
         character.notes = modelCharacter.notes;
         character.isPredrawn = modelCharacter.isPredrawn === undefined ? false : modelCharacter.isPredrawn;
+        character.createdAt = modelCharacter.createdAt || new Date(0);
+        character.updatedAt = modelCharacter.updatedAt || new Date(0);
 
         return character;
     }

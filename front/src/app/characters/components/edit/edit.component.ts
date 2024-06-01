@@ -153,9 +153,12 @@ export class EditComponent implements OnInit, AfterViewInit {
             if (success) {
                 this.character.update(character => {
                     character.bases[base._id] = level;
+                    character.updatedAt = new Date();
                     return character;
                 });
-                this.auth.user!.characters.find((character) => character._id === character._id)!.bases = this.character().bases;
+                let character1 = this.auth.user!.characters.find((character) => character._id === character._id)!;
+                character1.bases = this.character().bases;
+                character1.updatedAt = new Date();
                 this.auth.user = this.auth.user;
             } else
                 this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du niveau de la base, si le problème persiste, contactez nous');

@@ -82,6 +82,8 @@ const characterSchema = new mongoose.Schema({
         required: true,
         default: false
     }
+}, {
+    timestamps: true
 });
 
 characterSchema.pre('save', async function (next) {

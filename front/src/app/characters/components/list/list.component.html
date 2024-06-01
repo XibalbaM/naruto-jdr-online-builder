@@ -2,7 +2,7 @@
 <h1 class="font-bold uppercase text-28 font-monument mt-[25px] mb-[15px]">liste des personnages</h1>
 <h2 class="text-14 text-gray">Naruto jeu de rôle</h2>
 <app-spacer-graphical class="my-[50px]"/>
-<app-character-list-preview *ngFor="let character of ($user | async)?.characters" [character]="character"/>
+<app-character-list-preview *ngFor="let character of characters()" [character]="character"/>
 <a class="w-full justify-center black-button h-[76px] mb-[50px]"
    routerLink="/personnages/creation">
     <app-plus-symbol class="fill-pink"/>

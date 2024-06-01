@@ -17,6 +17,8 @@ export default class Character {
     nindoPoints!: number;
     chakraSpes: string[] = [];
     notes!: string;
+    createdAt!: Date;
+    updatedAt!: Date;
 
     constructor(character?: Character) {
         if (character) Object.assign(this, character);
@@ -31,6 +33,8 @@ export default class Character {
         delete character.commonSkills;
         delete character.customSkills;
         delete character.nindoPoints;
+        delete character.createdAt;
+        delete character.updatedAt;
         return character;
     }
 }

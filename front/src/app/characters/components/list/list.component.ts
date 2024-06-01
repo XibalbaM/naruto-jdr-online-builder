@@ -1,4 +1,4 @@
-import {Component, inject, Injector} from '@angular/core';
+import {Component, computed, effect} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {PlusSymbolComponent} from '../../../utils/components/plus-symbol/plus-symbol.component';
@@ -16,8 +16,11 @@ import {RouterLink} from '@angular/router';
 })
 export class ListComponent {
 
-    $user = this.auth.userObservableOnceLoaded(inject(Injector));
+    characters = computed(() => this.auth.userSignal()()?.characters.sort((a, b) => a.updatedAt > b.updatedAt ? -1 : 1))
 
     constructor(private auth: Auth) {
+        effect(() => {
+            console.log(this.characters());
+        });
     }
 }

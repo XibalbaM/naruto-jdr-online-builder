@@ -33,6 +33,7 @@ export class CharacterService {
                     }
                     else
                         character.commonSkills[skillId] = level;
+                    character.updatedAt = new Date();
                     this.auth.user = this.auth.user;
                 }
             })
@@ -50,7 +51,9 @@ export class CharacterService {
             map((response) => response.status === 200),
             tap((success) => {
                 if (success) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.nindoPoints = points;
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.nindoPoints = points;
+                    character.updatedAt = new Date();
                     this.auth.user = this.auth.user;
                 }
             })
@@ -62,7 +65,9 @@ export class CharacterService {
             map((response) => response.status === 200),
             tap((success) => {
                 if (success && !multi) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.village = village;
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.village = village;
+                    character.updatedAt = new Date();
                     this.auth.user = this.auth.user;
                 }
             })
@@ -74,7 +79,9 @@ export class CharacterService {
             map((response) => response.status === 200),
             tap((success) => {
                 if (success && !multi) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.firstName = firstName;
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.firstName = firstName;
+                    character.updatedAt = new Date();
                     this.auth.user = this.auth.user;
                 }
             })
@@ -86,7 +93,9 @@ export class CharacterService {
             map((response) => response.status === 200),
             tap((success) => {
                 if (success && !multi) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.clan = clan;
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.clan = clan;
+                    character.updatedAt = new Date();
                     this.auth.user = this.auth.user;
                 }
             })
@@ -98,7 +107,9 @@ export class CharacterService {
             map((response) => response.status === 200),
             tap((success) => {
                 if (success && !multi) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.xp = xp;
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.xp = xp;
+                    character.updatedAt = new Date();
                     this.auth.user = this.auth.user;
                 }
             })
@@ -110,7 +121,9 @@ export class CharacterService {
             map((response) => response.status === 200),
             tap((success) => {
                 if (success && !multi) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.road = road;
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.road = road;
+                    character.updatedAt = new Date();
                     this.auth.user = this.auth.user;
                 }
             })
@@ -122,7 +135,9 @@ export class CharacterService {
             map((response) => response.status === 200),
             tap((success) => {
                 if (success && !multi) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.rank = rank;
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.rank = rank;
+                    character.updatedAt = new Date();
                     this.auth.user = this.auth.user;
                 }
             })
@@ -134,7 +149,9 @@ export class CharacterService {
             map((response) => response.status === 200),
             tap((success) => {
                 if (success && !multi) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.notes = notes;
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.notes = notes;
+                    character.updatedAt = new Date();
                     this.auth.user = this.auth.user;
                 }
             })
@@ -146,7 +163,9 @@ export class CharacterService {
             map((response) => response.status === 200),
             tap((success) => {
                 if (success && !multi) {
-                    this.auth.user!.characters.find((character) => character._id === characterId)!.chakraSpes[speIndex] = speId;
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.chakraSpes[speIndex] = speId;
+                    character.updatedAt = new Date();
                     this.auth.user = this.auth.user;
                 }
             })

@@ -31,6 +31,10 @@ export class AuthService {
                         const user = new User(response.body?.user!);
                         if (characterResponse.body && !characterResponse.body.error && characterResponse.body.characters)
                             user.characters = characterResponse.body.characters;
+                        user.characters.forEach((character) => {
+                            character.createdAt = new Date(Date.parse(character.createdAt as unknown as string));
+                            character.updatedAt = new Date(Date.parse(character.updatedAt as unknown as string));
+                        });
                         this.auth.user = user;
                     });
                 } else this.auth.user = undefined;
