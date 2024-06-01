@@ -35,7 +35,7 @@ const command: SlashCommand = {
         });
         let message = await Responses.success(interaction, Messages.CHARACTER.CHARACTERS_LIST(characters), true, rows);
         message.createMessageComponentCollector({componentType: ComponentType.Button, time: 60000}).on("collect", async i => {
-            StateService.setSelectedCharacter(interaction.user.id, i.customId);
+            StateService.setSelectedCharacter(interaction.user.id, await CharacterService.getCharacter(i.customId, interaction.user.id));
             await Responses.success(i, Messages.CHARACTER.CHARACTER_SELECTED(characters.find(c => c._id === i.customId)!.name));
         })
     }

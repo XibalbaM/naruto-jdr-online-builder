@@ -1,6 +1,8 @@
+import Character from "../models/character.model.js";
+
 export default class StateService {
 
-    static userData: Map<string, {isInSenseiMode: boolean, selectedCharacter?: string}> = new Map();
+    static userData: Map<string, {isInSenseiMode: boolean, selectedCharacter?: Character}> = new Map();
     static defaultUserData: {isInSenseiMode: boolean} = {isInSenseiMode: false};
 
     static setInSenseiMode(userId: string, isInSenseiMode: boolean) {
@@ -15,11 +17,11 @@ export default class StateService {
         return this.userData.get(userId)?.isInSenseiMode ?? false;
     }
 
-    static setSelectedCharacter(userId: string, characterId: string | undefined) {
+    static setSelectedCharacter(userId: string, character: Character | undefined) {
         this.userData.set(userId, {
             ...this.defaultUserData,
             ...this.userData.get(userId),
-            selectedCharacter: characterId
+            selectedCharacter: character
         });
     }
 

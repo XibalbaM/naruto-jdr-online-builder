@@ -4,7 +4,6 @@ import {ButtonStyle, SlashCommand} from "../classes.js";
 import AuthService from "../services/auth.service.js";
 import Responses from "../utils/responses.utils.js";
 import Messages from "../utils/messages.utils.js";
-import CharacterService from "../services/character.service.js";
 import StateService from "../services/state.service.js";
 
 const command: SlashCommand = {
@@ -23,7 +22,7 @@ const command: SlashCommand = {
             .addComponents(new ButtonBuilder().setCustomId("common-skills").setLabel("Compétences communes").setStyle(ButtonStyle.PRIMARY))
             .addComponents(new ButtonBuilder().setCustomId("custom-skills").setLabel("Compétences de terrain/combat/clan").setStyle(ButtonStyle.PRIMARY))
             .addComponents(new ButtonBuilder().setCustomId("spes").setLabel("Spécialisations de chakra").setStyle(ButtonStyle.PRIMARY))
-        let character = await CharacterService.getCharacter(StateService.getSelectedCharacter(interaction.user.id)!, interaction.user.id)
+        let character = StateService.getSelectedCharacter(interaction.user.id)!
         let message = await Responses.success(interaction, Messages.CHARACTER.CHARACTER_INFO(character), true, [buttons]);
         message.createMessageComponentCollector({componentType: ComponentType.Button, time: 60000}).on("collect", async i => {
             switch (i.customId) {
