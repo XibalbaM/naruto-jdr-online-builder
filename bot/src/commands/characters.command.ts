@@ -4,8 +4,8 @@ import {ButtonStyle, SlashCommand} from "../classes.js";
 import AuthService from "../services/auth.service.js";
 import Responses from "../utils/responses.utils.js";
 import Messages from "../utils/messages.utils.js";
-import CharacterService from "../services/character.service";
-import StateService from "../services/state.service";
+import CharacterService from "../services/character.service.js";
+import StateService from "../services/state.service.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()

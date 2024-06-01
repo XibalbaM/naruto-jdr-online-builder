@@ -1,6 +1,6 @@
 import apiUtils from "../utils/api.utils.js";
 import {Snowflake} from "discord.js";
-import Character, {CharacterInfo} from "../models/character.model";
+import Character, {CharacterInfo} from "../models/character.model.js";
 
 export default class CharacterService {
 

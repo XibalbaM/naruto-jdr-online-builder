@@ -1,4 +1,4 @@
-import Character from "../models/character.model";
+import Character from "../models/character.model.js";
 
 /**
  * Class containing messages texts. Grouped here so they can easily be changed.

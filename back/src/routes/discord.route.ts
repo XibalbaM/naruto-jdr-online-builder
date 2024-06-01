@@ -3,7 +3,7 @@ import {Router} from "express";
 import userRoute from "./discord/user.route.js";
 import authRoute from "./discord/auth.route.js";
 import groupsRoute from "./discord/groups.route.js";
-import characterRoute from "./discord/character.route";
+import characterRoute from "./discord/character.route.js";
 
 /**
  * The router for the /discord path.

@@ -1,6 +1,6 @@
 import {Router} from "express";
-import discordAuthMiddleware from "../../middlewares/security/discord-auth.middleware";
-import DiscordCharacterController from "../../controllers/discord/character.controller";
+import discordAuthMiddleware from "../../middlewares/security/discord-auth.middleware.js";
+import DiscordCharacterController from "../../controllers/discord/character.controller.js";
 
 /**
  * The router for the /discord/auth path.

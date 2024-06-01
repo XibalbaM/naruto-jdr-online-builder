@@ -1,4 +1,4 @@
-import {Snowflake, User} from "discord.js";
+import {Snowflake} from "discord.js";
 import apiUtils from "../utils/api.utils.js";
 
 export default class AuthService {
