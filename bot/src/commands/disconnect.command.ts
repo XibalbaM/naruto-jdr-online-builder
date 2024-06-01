@@ -10,7 +10,7 @@ const command: SlashCommand = {
         .setName("déconnexion")
         .setDescription("Permet de déconnecter son compte discord de son compte en ligne"),
     async execute(interaction) {
-        /*if (await AuthService.isDiscordAccountLinked(interaction.user.id)) {
+        if (await AuthService.isDiscordAccountLinked(interaction.user.id)) {
             if (await AuthService.unlinkDiscordAccount(interaction.user.id)) {
                 await Responses.success(interaction, Messages.LINKING.UNLINKED);
             } else {
@@ -18,10 +18,8 @@ const command: SlashCommand = {
             }
         } else {
             await Responses.error(interaction, Messages.LINKING.NO_ACCOUNT_LINKED);
-        }*/
-        await Responses.error(interaction, Messages.ERRORS.NOT_IMPLEMENTED);
-    },
-    implemented: false
+        }
+    }
 }
 
 export default command;

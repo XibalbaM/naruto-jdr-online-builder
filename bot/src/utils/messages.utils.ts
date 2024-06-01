@@ -21,6 +21,7 @@ export default class Messages {
         EMAIL_ALREADY_SENT: "Un email a déjà été envoyé à cette adresse. Veuillez vérifier vos spams, ou patienter quelques minutes avant de réessayer",
         UNLINKED: "Votre compte discord a été délié de votre compte en ligne.",
         UNLINK_FAILED: "Une erreur est survenue lors de la déconnexion de votre compte discord.",
+        STATUS: (linked: boolean) => linked ? "Votre compte discord est bien lié à un compte en ligne." : "Votre compte discord n'est pas lié à un compte en ligne.",
     }
 
     static GROUPS = {
