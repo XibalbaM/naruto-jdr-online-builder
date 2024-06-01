@@ -1,6 +1,6 @@
 import Character from "../models/character.model.js";
-import {findById} from "./data.utils";
-import DataService from "../services/data.service";
+import {findById} from "./data.utils.js";
+import DataService from "../services/data.service.js";
 
 /**
  * Class containing messages texts. Grouped here so they can easily be changed.

@@ -1,14 +1,11 @@
 import {SlashCommandBuilder} from "discord.js";
 
 import {SlashCommand} from "../classes.js";
-import AuthService from "../services/auth.service";
-import Responses from "../utils/responses.utils";
-import Messages from "../utils/messages.utils";
-import StateService from "../services/state.service";
-import CharacterService from "../services/character.service";
-import DataService from "../services/data.service";
-import DiceUtils from "../utils/dice.utils";
-import axios from "axios";
+import AuthService from "../services/auth.service.js";
+import Responses from "../utils/responses.utils.js";
+import Messages from "../utils/messages.utils.js";
+import StateService from "../services/state.service.js";
+import DiceUtils from "../utils/dice.utils.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
