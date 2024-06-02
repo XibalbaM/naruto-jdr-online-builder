@@ -1,6 +1,7 @@
 import Character from "../models/character.model.js";
 import {findById} from "./data.utils.js";
 import DataService from "../services/data.service.js";
+import {GuildMember} from "discord.js";
 
 /**
  * Class containing messages texts. Grouped here so they can easily be changed.
@@ -111,5 +112,16 @@ export default class Messages {
 
     static NO_PERMISSION(name: string) {
         return `Vous avez besoin de la permission "${name}".`;
+    }
+
+    static WELCOME(member: GuildMember) {
+        return `Hello <@${member.user.id}> bienvenue parmi nous :slight_smile:
+Les infos sur le serveur et notre charte sont dans le canal <#532699779155886100> :sunglasses: 
+On organise des initiations tous les mois / deux mois pour présenter le jeu, ça s'organise dans <#709169837183729664> ⁠ ⁠ ⁠ ⁠  ⁠ ⁠ ⁠ ⁠ ⁠
+Si tu décides de participer, préviens nous au plus tôt en cas d'empêchement, que quelqu'un d'autre puisse jouer.
+A côté de ça, tu peux explorer :
+- des actual plays sur Youtube : https://www.youtube.com/@narutojdr
+- Ninjadex, notre plateforme de création / d'évolution de perso (en alpha) : https://builder.naruto-jdr.com/
+- les campagnes en cours, en obs (les dates des sessions sont dans la section événement du serveur !)`;
     }
 }
