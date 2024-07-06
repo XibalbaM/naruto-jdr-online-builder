@@ -19,6 +19,7 @@ export class SkillItemComponent {
 
     @Input() skill!: { skill: Skill, level: number };
     @Input() baseLevel!: number;
+    @Input() isCommon !: boolean
     @Output() changeValue = new EventEmitter<number>();
 
     constructor(protected dataService: DataService) {

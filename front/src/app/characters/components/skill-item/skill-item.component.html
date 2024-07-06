@@ -3,7 +3,7 @@
 </popper-content>
 <app-spacer class="bg-light-dark my-[8px]"/>
 <div class="flex flex-row justify-between items-center">
-    <a [routerLink]="'competence/' + skill.skill._id"
+    <a [routerLink]="'competence/' + (isCommon ? 'commune/' : 'personnelle/') + skill.skill._id"
        class="space-x-[12px] flex flex-row items-center w-full h-[38px]">
         <span [popper]="info" [popperTrigger]="NgxPopperjsTriggers.hover"
               popperApplyClass="bg-[#61616199]  !rounded-[4px] text-13 !px-[6px] !py-[2px] !border-none"

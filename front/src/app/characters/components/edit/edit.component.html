@@ -190,14 +190,14 @@
     <app-bg class="bg-black"/>
     <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[10px]">compétences communes</h2>
     <app-skill-item (changeValue)="setSkillLevel(skill.skill, $event)" *ngFor="let skill of commonSkills()" [baseLevel]="getBaseLevelBySkill(skill.skill)"
-                    [skill]="skill"/>
+                    [skill]="skill" [isCommon]="true"/>
     <app-spacer class="bg-light-dark mt-[8px] mb-[50px]"/>
     <h2 class="flex flex-row items-center mb-[10px]">
         <span class="stat-box__value text-blue me-[12px] h-[26px]">{{ character() | characterToMaxSkillCount  }}</span>
         <span class="font-light uppercase text-light-gray text-10 font-monument">compétences <br/>combat, terrain, clan</span>
     </h2>
     <app-skill-item (changeValue)="setSkillLevel(skill.skill, $event)" *ngFor="let skill of uncommonSkills()" [baseLevel]="getBaseLevelBySkill(skill.skill)"
-                    [skill]="skill"/>
+                    [skill]="skill" [isCommon]="false"/>
     <app-spacer class="bg-light-dark mt-[8px]"/>
     <a routerLink="nouvelle-competence" *ngIf="newSkillCount() > 0" class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90 mt-[18px]">
         <div>
