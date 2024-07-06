@@ -36,14 +36,13 @@ export class SkillComponent implements OnInit {
     }
 
     ngOnInit() {
-
         const user = this.auth.user!;
         combineLatest([this.route.paramMap, this.route.data]).subscribe(([params, routeData]) => {
             const isCommon = routeData['skillType'] === 'common';
             const skills = isCommon ? this.dataService.commonSkills : this.dataService.customSkills;
-            if (params.get('id') && params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId')) && skills.find((base) => base._id === params.get('id'))) {
+            if (params.get('id') && params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId')) && skills.find((skill) => skill._id == params.get('id'))) {
                 this.character = (user.characters.find((character) => character._id === params.get('characterId'))!);
-                this.skill = skills.find((skill) => skill._id === params.get('id'))!;
+                this.skill = skills.find((skill) => skill._id == params.get('id'))!;
                 this.isSkillRemovable = !isCommon && (this.skill as CustomSkill).type !== "clan";
                 this.base = this.dataService.bases.find((base) => base._id === this.skill.base)!;
                 if (isCommon) {
