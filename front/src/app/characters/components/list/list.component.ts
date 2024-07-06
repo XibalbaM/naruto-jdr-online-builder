@@ -1,4 +1,4 @@
-import {Component, computed, effect} from '@angular/core';
+import {Component, computed} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {PlusSymbolComponent} from '../../../utils/components/plus-symbol/plus-symbol.component';
@@ -19,8 +19,5 @@ export class ListComponent {
     characters = computed(() => this.auth.userSignal()()?.characters.sort((a, b) => a.updatedAt > b.updatedAt ? -1 : 1))
 
     constructor(private auth: Auth) {
-        effect(() => {
-            console.log(this.characters());
-        });
     }
 }
