@@ -64,11 +64,13 @@ export class CharacterService {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.VILLAGE(characterId), {id: village}).pipe(
             map((response) => response.status === 200),
             tap((success) => {
-                if (success && !multi) {
+                if (success) {
                     let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
                     character.village = village;
                     character.updatedAt = new Date();
-                    this.auth.user = this.auth.user;
+                    if (!multi) {
+                        this.auth.user = this.auth.user;
+                    }
                 }
             })
         );
@@ -78,11 +80,13 @@ export class CharacterService {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.FIRST_NAME(characterId), {text: firstName}).pipe(
             map((response) => response.status === 200),
             tap((success) => {
-                if (success && !multi) {
+                if (success) {
                     let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
                     character.firstName = firstName;
                     character.updatedAt = new Date();
-                    this.auth.user = this.auth.user;
+                    if (!multi) {
+                        this.auth.user = this.auth.user;
+                    }
                 }
             })
         );
@@ -92,11 +96,13 @@ export class CharacterService {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.CLAN(characterId), {id: clan}).pipe(
             map((response) => response.status === 200),
             tap((success) => {
-                if (success && !multi) {
+                if (success) {
                     let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
                     character.clan = clan;
                     character.updatedAt = new Date();
-                    this.auth.user = this.auth.user;
+                    if (!multi) {
+                        this.auth.user = this.auth.user;
+                    }
                 }
             })
         );
@@ -106,11 +112,13 @@ export class CharacterService {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.XP(characterId), {xp}).pipe(
             map((response) => response.status === 200),
             tap((success) => {
-                if (success && !multi) {
+                if (success) {
                     let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
                     character.xp = xp;
                     character.updatedAt = new Date();
-                    this.auth.user = this.auth.user;
+                    if (!multi) {
+                        this.auth.user = this.auth.user;
+                    }
                 }
             })
         );
@@ -120,11 +128,13 @@ export class CharacterService {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.ROAD(characterId), {id: road}).pipe(
             map((response) => response.status === 200),
             tap((success) => {
-                if (success && !multi) {
+                if (success) {
                     let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
                     character.road = road;
                     character.updatedAt = new Date();
-                    this.auth.user = this.auth.user;
+                    if (!multi) {
+                        this.auth.user = this.auth.user;
+                    }
                 }
             })
         );
@@ -134,11 +144,13 @@ export class CharacterService {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.RANK(characterId), {id: rank}).pipe(
             map((response) => response.status === 200),
             tap((success) => {
-                if (success && !multi) {
+                if (success) {
                     let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
                     character.rank = rank;
                     character.updatedAt = new Date();
-                    this.auth.user = this.auth.user;
+                    if (!multi) {
+                        this.auth.user = this.auth.user;
+                    }
                 }
             })
         );
@@ -148,11 +160,13 @@ export class CharacterService {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.NOTES(characterId), {text: notes}).pipe(
             map((response) => response.status === 200),
             tap((success) => {
-                if (success && !multi) {
+                if (success) {
                     let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
                     character.notes = notes;
                     character.updatedAt = new Date();
-                    this.auth.user = this.auth.user;
+                    if (!multi) {
+                        this.auth.user = this.auth.user;
+                    }
                 }
             })
         );
@@ -162,11 +176,13 @@ export class CharacterService {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.CHAKRA_SPE(characterId, speIndex), {id: speId}).pipe(
             map((response) => response.status === 200),
             tap((success) => {
-                if (success && !multi) {
+                if (success) {
                     let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
                     character.chakraSpes[speIndex] = speId;
                     character.updatedAt = new Date();
-                    this.auth.user = this.auth.user;
+                    if (!multi) {
+                        this.auth.user = this.auth.user;
+                    }
                 }
             })
         );
