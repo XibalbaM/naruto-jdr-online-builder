@@ -62,7 +62,7 @@ export class SkillComponent implements OnInit {
         if (this.isSkillRemovable) {
             this.characterService.removeSkill(this.skill._id, this.character._id).subscribe((success) => {
                 if (success)
-                    this.router.navigate(['/personnages', this.auth.user!.characters[0]._id]);
+                    this.router.navigate(['/personnages', this.character._id]);
                 else
                     this.notificationService.showNotification('Erreur', 'Une erreur est survenue lors de la suppression de la compétence. Réessayez plus tard.')
             });
