@@ -1,4 +1,4 @@
-import {Component, computed, HostListener} from '@angular/core';
+import {Component, computed, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
@@ -18,13 +18,14 @@ import {SpacerComponent} from '../../../utils/components/spacer/spacer.component
 import {FormsModule} from '@angular/forms';
 import {AsyncPipe, NgClass, NgFor, NgIf, TitleCasePipe} from '@angular/common';
 import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/long-arrow-left.component';
+import {ModalComponent} from "../../../utils/components/modal/modal.component";
 
 @Component({
     selector: 'app-edit-details',
     templateUrl: './edit-details.component.html',
     styleUrls: ['./edit-details.component.scss'],
     standalone: true,
-    imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, AsyncPipe, TitleCasePipe, CharacterToReamingXpPipe]
+    imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, AsyncPipe, TitleCasePipe, CharacterToReamingXpPipe, ModalComponent, IdToDataPipe]
 })
 export class EditDetailsComponent {
     character!: Character;
@@ -36,6 +37,8 @@ export class EditDetailsComponent {
     road?: Road;
     rank!: Rank;
     clans = computed(() => this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)));
+    @ViewChild('changeClanConfirmation')
+    clanConfirmModal!: ElementRef<HTMLDialogElement>;
 
     constructor(private router: Router, private route: ActivatedRoute, private auth: Auth,
                 protected dataService: DataService, private env: Environment, private idToData: IdToDataPipe,
@@ -71,26 +74,35 @@ export class EditDetailsComponent {
 
     submit() {
         if (this.hasChanges()) {
-            const requests: Observable<boolean>[] = [];
-            if (this.village._id !== this.character.village)
-                requests.push(this.characterService.setVillage(this.character._id, this.village._id, true));
-            if (this.firstName !== this.character.firstName)
-                requests.push(this.characterService.setFirstName(this.character._id, this.firstName, true));
-            if (this.clan._id !== this.character.clan)
-                requests.push(this.characterService.setClan(this.character._id, this.clan._id, true));
-            if (this.xp !== this.character.xp)
-                requests.push(this.characterService.setXp(this.character._id, this.xp, true));
-            if (this.road?._id !== this.character.road || this.isRoad !== !!this.character.road)
-                requests.push(this.characterService.setRoad(this.character._id, this.isRoad ? this.road?._id || "" : "", true));
-            if (this.rank._id !== this.character.rank)
-                requests.push(this.characterService.setRank(this.character._id, this.rank._id, true));
-            this.characterService.multiRequest(requests).subscribe((overallSuccess) => {
-                if (overallSuccess)
-                    this.router.navigate(['..'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
-                else
-                    this.notificationService.showNotification('Erreur', 'Une erreur est survenue lors de la modification des informations du personnage. Si le problème persiste, contactez un administrateur.');
-            });
+            if (this.clan._id !== this.character.clan) {
+                this.clanConfirmModal.nativeElement.show();
+            } else {
+                this.processSubmit();
+            }
         }
+    }
+
+    processSubmit() {
+        const requests: Observable<boolean>[] = [];
+        if (this.village._id !== this.character.village)
+            requests.push(this.characterService.setVillage(this.character._id, this.village._id, true));
+        if (this.firstName !== this.character.firstName)
+            requests.push(this.characterService.setFirstName(this.character._id, this.firstName, true));
+        if (this.clan._id !== this.character.clan)
+            requests.push(this.characterService.setClan(this.character._id, this.clan._id, true));
+        if (this.xp !== this.character.xp)
+            requests.push(this.characterService.setXp(this.character._id, this.xp, true));
+        if (this.road?._id !== this.character.road || this.isRoad !== !!this.character.road)
+            requests.push(this.characterService.setRoad(this.character._id, this.isRoad ? this.road?._id || "" : "", true));
+        if (this.rank._id !== this.character.rank)
+            requests.push(this.characterService.setRank(this.character._id, this.rank._id, true));
+        this.characterService.multiRequest(requests).subscribe((overallSuccess) => {
+            if (overallSuccess)
+                this.router.navigate(['..'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
+            else
+                this.notificationService.showNotification('Erreur', 'Une erreur est survenue lors de la modification des informations du personnage. Si le problème persiste, contactez un administrateur.');
+        });
+
     }
 
     hasChanges() {

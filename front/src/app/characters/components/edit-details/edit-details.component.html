@@ -1,3 +1,20 @@
+<dialog #changeClanConfirmation>
+    <app-modal (close)="changeClanConfirmation.close()" [dialog]="changeClanConfirmation"
+               mtext="<span class='text-16'>Vous vous apprêtez à changer de clan. Cela entraînera la suppression de vos compétences. Êtes-vous sûr de vouloir continuer ?</span>"
+               mtitle="changer de clan">
+        <div class="flex flex-row w-full justify-between space-x-[15px]">
+            <button (click)="changeClanConfirmation.close(); processSubmit()"
+                    class="rounded-xl bg-red text-center p-0 h-[52px] hover:bg-opacity-95 w-full">
+                Oui, changer de clan
+            </button>
+            <button (click)="changeClanConfirmation.close()"
+                    class="black-button p-0 h-[52px] w-full text-center block">
+                Annuler
+            </button>
+        </div>
+    </app-modal>
+</dialog>
+
 <div class="w-full pt-[20px] pb-[15px] flex flex-row items-center justify-between relative">
     <a class="flex flex-row items-center text-16 hover:underline self-start flex-shrink-0"
        routerLink="..">
