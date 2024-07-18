@@ -100,6 +100,26 @@ export default class Messages {
         SKILL_NOT_FOUND: "La compétence n'a pas été trouvée.",
     }
 
+    static INITIATIVE = {
+        NO_INITIATIVE: "Aucune initiative n'a été enregistrée. Pour lancer une initiative, utilisez la commande `/initiative`.",
+        LIST: (initiatives: {name: string, score: number}[]) => {
+            initiatives.sort((a, b) => b.score - a.score);
+            let groupedInitiatives = new Map<number, string[]>();
+            initiatives.forEach(initiative => {
+                if (!groupedInitiatives.has(initiative.score)) {
+                    groupedInitiatives.set(initiative.score, []);
+                }
+                groupedInitiatives.get(initiative.score)!.push(initiative.name);
+            });
+            let message = "Voici les initiatives dans l'ordre :\n";
+            groupedInitiatives.forEach((names, score) => {
+                message += `- **${score}** : ${names.join(", ")}\n`;
+            });
+            return message;
+        },
+        CLEARED: "Les initiatives ont bien été effacées."
+    }
+
     static EASTER_EGG = "Vous avez trouvé un easter egg !";
 
     static SENSEI_MODE_CHANGED(newSenseiMode: boolean) {
@@ -109,6 +129,8 @@ export default class Messages {
     static SENSEI_MODE_NOT_CHANGED(senseiMode: boolean) {
         return `Le mode sensei est déjà ${senseiMode ? "activé" : "désactivé"}.`;
     }
+
+    static SENSEI_MODE_NOT_ACTIVATED = "Vous devez être en mode sensei pour utiliser cette commande.";
 
     static NO_PERMISSION(name: string) {
         return `Vous avez besoin de la permission "${name}".`;
