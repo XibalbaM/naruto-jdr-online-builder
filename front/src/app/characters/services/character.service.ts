@@ -156,6 +156,22 @@ export class CharacterService {
         );
     }
 
+    setShareStatus(characterId: string, status: "private" | "not-referenced" | "public", multi: boolean = false) {
+        return this.apiService.doRequest('POST', CharacterApiEndpoints.SHARE_STATUS(characterId), {status}).pipe(
+            map((response) => response.status === 200),
+            tap((success) => {
+                if (success) {
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.shareStatus = status;
+                    character.updatedAt = new Date();
+                    if (!multi) {
+                        this.auth.user = this.auth.user;
+                    }
+                }
+            })
+        );
+    }
+
     setNotes(characterId: string, notes: string, multi: boolean = false) {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.NOTES(characterId), {text: notes}).pipe(
             map((response) => response.status === 200),
@@ -255,6 +271,9 @@ export const CharacterApiEndpoints = {
     },
     RANK(characterId: string): string {
         return `/characters/${characterId}/rank`;
+    },
+    SHARE_STATUS(characterId: string): string {
+        return `/characters/${characterId}/shareStatus`;
     },
     NOTES(characterId: string): string {
         return `/characters/${characterId}/notes`;

@@ -19,6 +19,7 @@ export default class Character {
     notes!: string;
     createdAt!: Date;
     updatedAt!: Date;
+    shareStatus!: "private" | "not-referenced" | "public" | "predrawn";
 
     constructor(character?: Character) {
         if (character) Object.assign(this, character);
@@ -35,6 +36,7 @@ export default class Character {
         delete character.nindoPoints;
         delete character.createdAt;
         delete character.updatedAt;
+        delete character.shareStatus;
         return character;
     }
 }

@@ -90,6 +90,20 @@
             </option>
         </select>
     </div>
+    <div>
+        <div class="labeled-select mt-[18px]">
+            <label>Partage</label>
+            <select [(ngModel)]="shareStatus" [class.!text-yellow]="shareStatus" class="pl-[85px]" name="shareStatus">
+                <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
+                <option *ngFor="let shareStatus of shareStatuses" [ngValue]="shareStatus.value"
+                        class="text-yellow">{{ shareStatus.name }}
+                </option>
+            </select>
+        </div>
+        <p class="ms-[5px] mt-[5px] text-12 text-light-gray">
+            {{shareStatusDescription()}}
+        </p>
+    </div>
     <!--TODO-->
     <button [disabled]="!hasChanges()" class="bg-purple rounded-[10px] w-full py-[18px] mt-[50px] enabled:hover:bg-opacity-95
                                                             disabled:bg-transparent disabled:border disabled:text-dark-gray disabled:border-lighter-dark"

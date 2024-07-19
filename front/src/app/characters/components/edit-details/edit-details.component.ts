@@ -28,6 +28,13 @@ import {ModalComponent} from "../../../utils/components/modal/modal.component";
     imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, AsyncPipe, TitleCasePipe, CharacterToReamingXpPipe, ModalComponent, IdToDataPipe]
 })
 export class EditDetailsComponent {
+    shareStatuses = [
+        {name: 'Public', value: 'public', description: 'Tous les utilisateurs peuvent voir ce personnage.'},
+        {name: 'Non référencé', value: 'not-referenced', description: 'Seuls les utilisateurs ayant le lien peuvent voir ce personnage.'},
+        {name: 'Privé', value: 'private', description: 'Seul le propriétaire du personnage peut le voir.'}
+    ]
+    clans = computed(() => this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)));
+
     character!: Character;
     village!: Village;
     firstName!: string;
@@ -36,7 +43,12 @@ export class EditDetailsComponent {
     isRoad!: boolean;
     road?: Road;
     rank!: Rank;
-    clans = computed(() => this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)));
+    shareStatus!: "public" | "not-referenced" | "private";
+
+    shareStatusDescription() {
+        return this.shareStatuses.find((status) => status.value === this.shareStatus)?.description;
+    }
+
     @ViewChild('changeClanConfirmation')
     clanConfirmModal!: ElementRef<HTMLDialogElement>;
 
@@ -57,6 +69,11 @@ export class EditDetailsComponent {
                 this.isRoad = !!this.character.road;
                 this.road = this.character.road ? this.idToData.transform(this.character.road, this.dataService.roads) : undefined;
                 this.rank = this.idToData.transform(this.character.rank, this.dataService.ranks)!;
+                if (this.character.shareStatus === "predrawn") {
+                    this.router.navigate(['/personnages']);
+                    return;
+                }
+                this.shareStatus = this.character.shareStatus;
                 this.title.setTitle(`${this.character.firstName} ${this.clan.name}, Modification — Fiche de personnage — Ninjadex`)
             } else {
                 this.router.navigate(['/personnages']);
@@ -96,6 +113,8 @@ export class EditDetailsComponent {
             requests.push(this.characterService.setRoad(this.character._id, this.isRoad ? this.road?._id || "" : "", true));
         if (this.rank._id !== this.character.rank)
             requests.push(this.characterService.setRank(this.character._id, this.rank._id, true));
+        if (this.shareStatus !== this.character.shareStatus)
+            requests.push(this.characterService.setShareStatus(this.character._id, this.shareStatus, true));
         this.characterService.multiRequest(requests).subscribe((overallSuccess) => {
             if (overallSuccess)
                 this.router.navigate(['..'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
@@ -112,7 +131,8 @@ export class EditDetailsComponent {
             || this.xp !== this.character.xp
             || this.road?._id !== this.character.road
             || this.isRoad !== !!this.character.road
-            || this.rank._id !== this.character.rank;
+            || this.rank._id !== this.character.rank
+            || this.shareStatus !== this.character.shareStatus;
     }
 
     @HostListener("document:keydown", ["$event"])
