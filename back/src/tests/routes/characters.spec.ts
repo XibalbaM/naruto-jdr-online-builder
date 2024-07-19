@@ -259,7 +259,7 @@ test("Set spe", async () => {
     let id = characterId;
     let spe = (await ChakraSpeModel.findOne().lean())!;
     let speId = spe._id.toString();
-    await CharacterModel.findByIdAndUpdate(id, {$set: {rank: await RankModel.findOne({name: "Kage"}), "bases.0": 12, "bases.1": 12}});
+    await CharacterModel.findByIdAndUpdate(id, {$set: {rank: (await RankModel.findOne({name: "Kage"}))!._id, "bases.0": 12, "bases.1": 12}});
 
     for (let i = 0; i < spe.max; i++) {
         let request = createMockRequest({params: {id, speIndex: i}, body: {id: speId}}, await getTestToken());
