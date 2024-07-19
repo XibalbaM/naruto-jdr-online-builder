@@ -55,6 +55,7 @@ router.post('/:id/village', authMiddleware(), idOfMiddleware(CharacterModel, "id
 router.post('/:id/name', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({text: 'string'}), charactersController.setName);
 router.post('/:id/clan', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({id: 'string'}), idOfMiddleware(ClanModel, "id", true), charactersController.setClan);
 router.post('/:id/road', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({id: 'string'}), charactersController.setRoad);
+router.post('/:id/shareStatus', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({status: 'string'}), charactersController.setShareStatus);
 router.delete('/:id', authMiddleware(), idOfMiddleware(CharacterModel, "id"), charactersController.deleteCharacter);
 
 export default router;

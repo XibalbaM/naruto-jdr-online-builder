@@ -19,7 +19,7 @@ export default class Character {
     nindoPoints: number;
     chakraSpes: mongoose.Types.ObjectId[];
     notes: string;
-    isPredrawn: boolean;
+    shareStatus: "private" | "not-referenced" | "public" | "predrawn";
     createdAt: Date;
     updatedAt: Date;
 
@@ -34,7 +34,7 @@ export default class Character {
         character.firstName = modelCharacter.firstName;
         character.clan = modelCharacter.clan;
         character.village = modelCharacter.village;
-        character.road = modelCharacter.road || undefined;
+        character.road = modelCharacter.road ?? undefined;
         character.xp = modelCharacter.xp;
         character.rank = modelCharacter.rank;
         character.bases = modelCharacter.bases;
@@ -44,9 +44,9 @@ export default class Character {
         character.nindoPoints = modelCharacter.nindoPoints;
         character.chakraSpes = modelCharacter.chakraSpes;
         character.notes = modelCharacter.notes;
-        character.isPredrawn = modelCharacter.isPredrawn === undefined ? false : modelCharacter.isPredrawn;
-        character.createdAt = modelCharacter.createdAt || new Date(0);
-        character.updatedAt = modelCharacter.updatedAt || new Date(0);
+        character.shareStatus = modelCharacter.shareStatus ?? "private";
+        character.createdAt = modelCharacter.createdAt ?? new Date(0);
+        character.updatedAt = modelCharacter.updatedAt ?? new Date(0);
 
         return character;
     }

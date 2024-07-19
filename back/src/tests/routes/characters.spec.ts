@@ -1,4 +1,4 @@
-import {expect, Mock, test} from "vitest";
+import {beforeAll, expect, Mock, test} from "vitest";
 
 import VillageModel from "../../models/village.model";
 import Character from "../../classes/character.class";
@@ -15,8 +15,14 @@ import {CustomSkill} from "../../classes/skill.class";
 import ChakraSpeModel from "../../models/chakraSpe.model";
 import ChakraSpe from "../../classes/chakraSpe.class";
 import RoadModel from "../../models/road.model";
+import {Types} from "mongoose";
 
-const characterData: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "isPredrawn"> = {
+beforeAll(async () => {
+    await CharacterModel.deleteMany({});
+    await UserModel.findByIdAndUpdate(await getTestUserId(), {$set: {characters: []}});
+});
+
+const characterData: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "shareStatus" | "createdAt" | "updatedAt"> = {
     firstName: "test",
     village: (await VillageModel.findOne().lean().select("_id"))._id,
     xp: 100,
@@ -45,12 +51,47 @@ test("List", async () => {
 });
 
 test("Get", async () => {
-    let request = createMockRequest({params: {id: (await CharacterModel.findOne().lean().select("_id"))._id}}, await getTestToken())
-    let response = createMockResponse();
-    await authenticateRequest(request, response);
-    await CharacterController.getCharacter(request, response);
-    expect(response.status).toBeCalledWith(200);
-    expect(response.json).toBeCalledWith({character: expect.objectContaining(characterData)});
+    let expectCanReadCharacter = async (characterId: Types.ObjectId) => {
+        let request = createMockRequest({params: {id: characterId}}, await getTestToken())
+        let response = createMockResponse();
+        await authenticateRequest(request, response);
+        await CharacterController.getCharacter(request, response);
+        expect(response.status).toBeCalledWith(200);
+        expect(response.json).toBeCalledWith({character: expect.objectContaining(characterData)});
+    }
+
+    {
+        await expectCanReadCharacter((await CharacterModel.findOne().lean().select("_id"))._id);
+    }
+
+    {
+        let characterId = (await CharacterModel.create({...characterData, shareStatus: "private"}))._id;
+        let request = createMockRequest({params: {id: characterId}}, await getTestToken())
+        let response = createMockResponse();
+        await authenticateRequest(request, response);
+        await CharacterController.getCharacter(request, response);
+        expect(response.status).toBeCalledWith(404);
+        expect(response.json).toBeCalledWith({error: "Character not found"});
+        await CharacterModel.findByIdAndDelete(characterId);
+    }
+
+    {
+        let characterId = (await CharacterModel.create({...characterData, shareStatus: "not-referenced"}))._id;
+        await expectCanReadCharacter(characterId);
+        await CharacterModel.findByIdAndDelete(characterId);
+    }
+
+    {
+        let characterId = (await CharacterModel.create({...characterData, shareStatus: "public"}))._id;
+        await expectCanReadCharacter(characterId);
+        await CharacterModel.findByIdAndDelete(characterId);
+    }
+
+    {
+        let characterId = (await CharacterModel.create({...characterData, shareStatus: "predrawn"}))._id;
+        await expectCanReadCharacter(characterId);
+        await CharacterModel.findByIdAndDelete(characterId);
+    }
 });
 
 test("Copy", async () => {
@@ -396,6 +437,27 @@ test("Set road", async () => {
         expect(response.status).toBeCalledWith(404);
     }
 })
+
+test("Set share status", async () => {
+   let id = (await CharacterModel.findOne())._id;
+
+    {
+         let request = createMockRequest({params: {id}, body: {status: "public"}}, await getTestToken());
+         let response = createMockResponse();
+         await authenticateRequest(request, response);
+         await CharacterController.setShareStatus(request, response);
+         expect(response.sendStatus).toBeCalledWith(200);
+         expect(Character.fromModel(await CharacterModel.findById(id)).shareStatus).toBe("public");
+    }
+
+    {
+         let request = createMockRequest({params: {id}, body: {status: "invalid"}}, await getTestToken());
+         let response = createMockResponse();
+         await authenticateRequest(request, response);
+         await CharacterController.setShareStatus(request, response);
+         expect(response.status).toBeCalledWith(400);
+    }
+});
 
 test("Delete", async () => {
     let id = (await CharacterModel.findOne())._id;

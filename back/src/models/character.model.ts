@@ -76,25 +76,25 @@ const characterSchema = new mongoose.Schema({
 	notes: {
 		type: String,
 		required: false
-	},
-    isPredrawn: {
-        type: Boolean,
+    },
+    shareStatus: {
+        type: String,
         required: true,
-        default: false
+        default: "private",
+        enum: ["private", "not-referenced", "public", "predrawn"]
     }
 }, {
     timestamps: true
 });
 
 characterSchema.pre('save', async function (next) {
-    if (!this.isNew) {
-        return next();
+    if (this.isNew) {
+        if (this.bases.length === 0)
+            this.bases = Array(await BaseModel.countDocuments()).fill(1);
+        if (this.commonSkills.length === 0)
+            this.commonSkills = Array(await CommonSkillModel.countDocuments()).fill(1);
     }
-    if (this.bases.length === 0)
-        this.bases = Array(await BaseModel.count()).fill(1);
-    if (this.commonSkills.length === 0)
-        this.commonSkills = Array(await CommonSkillModel.count()).fill(1);
-	next();
+    next();
 });
 
 const CharacterModel = mongoose.model('character', characterSchema);

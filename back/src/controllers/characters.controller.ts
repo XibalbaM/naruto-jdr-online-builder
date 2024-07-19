@@ -251,6 +251,23 @@ export async function setRoad(req: Request, res: Response) {
     }
 }
 
+export async function setShareStatus(req: Request, res: Response) {
+    try {
+        if (req.body.status !in ["private", "not-referenced", "public", "predrawn"]) {
+            return res.status(400).json({error: "Invalid state"});
+        }
+        await CharactersService.setShareStatus(req["user"], req.params.id, req.body.status);
+        res.sendStatus(200);
+    } catch (error) {
+        if (error.message === "Character not found") {
+            res.status(404).json({error: "Character not found"});
+        } else {
+            console.error(error);
+            res.status(500).json({error: "Internal server error"});
+        }
+    }
+}
+
 export async function deleteCharacter(req: Request, res: Response) {
     try {
         await CharactersService.deleteCharacter(req["user"], req.params.id);

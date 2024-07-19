@@ -37,7 +37,7 @@ export default class CharactersService {
     }
 
     static async canUserReadCharacter(user: User, character: Character) {
-        return user.isAdmin || character.isPredrawn || user.characters.includes(character._id)
+        return user.isAdmin || character.shareStatus !== "private" || user.characters.includes(character._id)
     }
 
     static async listCharacters(user: User) {
@@ -78,7 +78,7 @@ export default class CharactersService {
             throw new Error("Character not found");
         }
         delete character._id;
-        character.isPredrawn = false;
+        character.shareStatus = "private";
         character.firstName = "(Copie) " + character.firstName;
         const newCharacter = Character.fromModel(await CharacterModel.create(character));
         await UserModel.findByIdAndUpdate(user._id, {$push: {characters: newCharacter._id}});
@@ -255,6 +255,13 @@ export default class CharactersService {
             }
             await CharacterModel.findByIdAndUpdate(characterId, {road, $pull: {customSkills: {}}});
         }
+    }
+
+    static async setShareStatus(user: User, characterId: string, status: "private" | "not-referenced" | "public" | "predrawn") {
+        if (!user.characters.includes(characterId as any)) {
+            throw new Error("Character not found");
+        }
+        await CharacterModel.findByIdAndUpdate(characterId, {shareStatus: status});
     }
 
     static async deleteCharacter(user: User, characterId: string) {
