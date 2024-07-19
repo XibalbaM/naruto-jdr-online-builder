@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import Village from "../interfaces/village.interface";
 
 /**
  * Represents a village in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-const VillageSchema = new mongoose.Schema({
+const VillageSchema = new mongoose.Schema<Village>({
     name: {
         type: String,
         required: true,

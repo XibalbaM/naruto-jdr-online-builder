@@ -1,18 +1,18 @@
 import mongoose from "mongoose";
+import Clan from "../interfaces/clan.interface";
 
 /**
  * Represents a clan in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-const clanSchema = new mongoose.Schema({
+const clanSchema = new mongoose.Schema<Clan>({
     name: {
         type: String,
         required: true,
         unique: true
     },
     village: {
-        type: mongoose.Types.ObjectId,
-        ref: 'village',
+        type: String,
         required: true
     },
     description: {

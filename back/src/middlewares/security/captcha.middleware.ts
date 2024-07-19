@@ -27,7 +27,7 @@ export default function (): Middleware {
 export async function testToken(token: string): Promise<boolean> {
     try {
         const response= await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${config.reCaptchaSecretKey}&response=${token}`);
-        return !!((await response.json())["success"]);
+        return !!((await response.json() as {success: any}).success);
     } catch (e) {
         return false;
     }

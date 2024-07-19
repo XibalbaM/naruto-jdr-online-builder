@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from "express";
+import {Response, NextFunction, Request} from "express";
 
 /**
  * Define the middleware type

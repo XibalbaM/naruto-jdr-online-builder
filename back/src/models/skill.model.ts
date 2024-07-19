@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import Skill from "../interfaces/skill.interface";
 
-const CommonSkillSchema = new mongoose.Schema({
+const CommonSkillSchema = new mongoose.Schema<Skill>({
     _id: {
         type: Number,
         required: true,

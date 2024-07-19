@@ -1,17 +1,16 @@
-import {ObjectId} from "mongoose";
 import {Routes} from "discord-api-types/v10";
 import {makeURLSearchParams, REST} from "@discordjs/rest";
 
 import userModel from "../models/user.model.js";
 import config from "../config/config.js";
-import User from "../classes/user.class.js";
+import User from "../interfaces/user.interface";
 
 /**
  * Change the username of the user
  * @param id The id of the user
  * @param username The new username
  */
-export async function updateUsername(id: ObjectId, username: string) {
+export async function updateUsername(id: string, username: string) {
 
     await userModel.findByIdAndUpdate(id, {username: username});
 }
@@ -21,7 +20,7 @@ export async function updateUsername(id: ObjectId, username: string) {
  * @param id The id of the user
  * @param email The new email
  */
-export async function updateEmail(id: ObjectId, email: string) {
+export async function updateEmail(id: string, email: string) {
 
     await userModel.findByIdAndUpdate(id, {email: email});
 }
@@ -31,7 +30,7 @@ export async function updateEmail(id: ObjectId, email: string) {
  * WARNING: This will delete all the data of the user, NOT REVERSIBLE, NO BACKUP
  * @param id The id of the user
  */
-export async function deleteAccount(id: ObjectId) {
+export async function deleteAccount(id: string) {
     await userModel.findByIdAndDelete(id);
 }
 
@@ -67,14 +66,14 @@ export async function addDiscordAccount(user: User, discordCode: string): Promis
         redirect_uri: config.discord.redirectUri,
         scope: "identify"
     })
-    const token = (await config.discord.rest.post(Routes.oauth2TokenExchange(), {body: body.toString(), passThroughBody: true, headers: {'Content-Type': 'application/x-www-form-urlencoded'}}))["access_token"];
+    const token = (await config.discord.rest.post(Routes.oauth2TokenExchange(), {body: body.toString(), passThroughBody: true, headers: {'Content-Type': 'application/x-www-form-urlencoded'}}) as {access_token: string}).access_token;
     if (!token) throw new Error("Invalid code");
 
     const clientRest = new REST({version: "10", authPrefix: "Bearer"}).setToken(token);
-    const discordUser = await clientRest.get(Routes.user("@me"));
-    if (await userModel.exists({discordId: discordUser['id']})) throw new Error("Discord account already linked to another user");
-    await userModel.findByIdAndUpdate(user._id, {discordId: discordUser['id']});
-    return getDiscordName(discordUser['id']);
+    const discordUser = await clientRest.get(Routes.user("@me")) as {id: string};
+    if (await userModel.exists({discordId: discordUser.id})) throw new Error("Discord account already linked to another user");
+    await userModel.findByIdAndUpdate(user._id, {discordId: discordUser.id});
+    return getDiscordName(discordUser.id);
 }
 
 /**
@@ -94,12 +93,12 @@ export async function removeDiscordAccount(user: User): Promise<void> {
  * @param discordId The discord id of the user
  */
 export async function getDiscordName(discordId: string): Promise<string> {
-    const guildUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
+    const guildUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId)) as {nick?: string};
 
     if (guildUser && guildUser['nick'])
         return guildUser['nick'];
 
-    const discordUser = await config.discord.rest.get(Routes.user(discordId));
+    const discordUser = await config.discord.rest.get(Routes.user(discordId)) as {username: string};
     return discordUser['username'];
 }
 
@@ -110,11 +109,11 @@ export async function getDiscordName(discordId: string): Promise<string> {
  * @param discordId The discord id of the user
  */
 export async function getDiscordPicture(discordId: string): Promise<string> {
-    const guildUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId));
+    const guildUser = await config.discord.rest.get(Routes.guildMember(config.discord.guildId, discordId)) as {avatar?: string};
 
     if (guildUser && guildUser['avatar'])
         return `https://cdn.discordapp.com/guilds/${config.discord.guildId}/users/${discordId}/avatars/${guildUser['avatar']}?size=`;
 
-    const discordUser = await config.discord.rest.get(Routes.user(discordId));
+    const discordUser = await config.discord.rest.get(Routes.user(discordId)) as {avatar: string};
     return `https://cdn.discordapp.com/avatars/${discordId}/${discordUser['avatar']}?size=`;
 }

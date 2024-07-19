@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import Base from "../interfaces/base.interface";
 
 /**
  * Represents a base in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-const baseSchema = new mongoose.Schema({
+const baseSchema = new mongoose.Schema<Base>({
     _id: {
         type: Number,
         required: true,

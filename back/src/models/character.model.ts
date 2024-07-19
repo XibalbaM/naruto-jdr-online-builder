@@ -1,29 +1,27 @@
 import mongoose from "mongoose";
 import BaseModel from "./base.model.js";
 import {CommonSkillModel} from "./skill.model.js";
+import Character from "../interfaces/character.interface";
 
 /**
  * Represents a character in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-const characterSchema = new mongoose.Schema({
+const characterSchema = new mongoose.Schema<Character>({
 	firstName: {
 		type: String,
 		required: true
 	},
 	clan: {
-		type: mongoose.Types.ObjectId,
-		ref: 'clan',
+		type: String,
 		required: true
 	},
 	village: {
-		type: mongoose.Types.ObjectId,
-		ref: 'village',
+		type: String,
 		required: true
 	},
 	road: {
-		type: mongoose.Types.ObjectId,
-		ref: 'road',
+		type: String,
 		required: false
 	},
 	xp: {
@@ -32,8 +30,7 @@ const characterSchema = new mongoose.Schema({
 		default: 100
 	},
     rank: {
-        type: mongoose.Types.ObjectId,
-        ref: 'rank',
+        type: String,
         required: true
     },
 	bases: {
@@ -47,8 +44,7 @@ const characterSchema = new mongoose.Schema({
 	customSkills: {
 		type: [{
 			skill: {
-				type: mongoose.Types.ObjectId,
-				ref: 'customSkill',
+				type: String,
 				required: true
 			},
 			level: {
@@ -69,7 +65,7 @@ const characterSchema = new mongoose.Schema({
         default: 1
 	},
 	chakraSpes: {
-        type: [mongoose.Types.ObjectId],
+        type: [String],
         required: true,
         default: []
 	},

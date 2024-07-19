@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import Road from "../interfaces/road.interface";
 
 /**
  * Represents a road in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-const roadSchema = new mongoose.Schema({
+const roadSchema = new mongoose.Schema<Road>({
     name: {
         type: String,
         required: true,

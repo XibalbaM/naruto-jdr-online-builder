@@ -3,30 +3,28 @@ import {Model} from "mongoose";
 export default class DataService {
     /**
      * @param model The mongoose model to use
-     * @param modelToClass A function that converts the mongoose model to a class sendable to the client
      */
-    constructor(private model: Model<any>, private modelToClass: (model: any) => any) {}
+    constructor(private model: Model<any>) {}
 
     async getAll() {
-        return (await this.model.find()).map((data: any) => this.modelToClass(data));
+        return (await this.model.find().lean());
     }
 
     async get(id: string) {
-        const data = await this.model.findById(id);
-        return data ? this.modelToClass(data) : null;
+        return this.model.findById(id).lean();
     }
 
     async create(data: any) {
         if (data._id) delete data._id;
-        return this.modelToClass(await this.model.create(data));
+        return await this.model.create(data);
     }
 
     async update(id: string, data: any) {
         if (data._id) delete data._id;
-        await this.model.findByIdAndUpdate(id, data);
+        await this.model.findByIdAndUpdate(id, data).lean();
     }
 
     async delete(id: string) {
-        await this.model.findByIdAndDelete(id);
+        await this.model.findByIdAndDelete(id).lean();
     }
 }

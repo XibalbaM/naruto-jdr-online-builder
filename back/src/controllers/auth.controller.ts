@@ -26,7 +26,7 @@ export async function requestEmail(req: Request, res: Response) {
                 default:
                     res.status(500).json({error: "Internal server error"});
             }
-        } catch (err) {
+        } catch (err: any) {
             res.status(500).json({error: "Internal server error"});
             console.error(err);
         }
@@ -45,7 +45,7 @@ export async function requestEmail(req: Request, res: Response) {
  */
 export async function login(req: Request, res: Response) {
 
-    const code = req.params.code;
+    const code = req.params["code"];
 
     try {
         let data = await authService.useCode(code)
@@ -54,7 +54,7 @@ export async function login(req: Request, res: Response) {
             httpOnly: true
         }).cookie("isLogged", true, {maxAge: config.jwt_expiration_in_ms})
             .json({discordUsername: data.discordUsername});
-    } catch (err) {
+    } catch (err: any) {
         if (err.message === "Invalid code") {
             res.status(400).clearCookie("token", {
                 maxAge: config.jwt_expiration_in_ms,

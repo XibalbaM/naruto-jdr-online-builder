@@ -20,8 +20,8 @@ export default class PredrawnController {
      */
     static async take(req: Request, res: Response) {
         try {
-            res.status(201).json({character: await PredrawnService.take(req['user']._id, req.params.id)});
-        } catch (error) {
+            res.status(201).json({character: await PredrawnService.take(req.user!, req.params["id"])});
+        } catch (error: any) {
             res.status(400).json({error: error.message});
         }
     }
@@ -36,7 +36,7 @@ export default class PredrawnController {
     static async add(req: Request, res: Response) {
         try {
             res.status(201).json({id: await PredrawnService.add(req.body.id)});
-        } catch (error) {
+        } catch (error: any) {
             res.status(400).json({error: error.message});
         }
     }
@@ -48,9 +48,9 @@ export default class PredrawnController {
      */
     static async remove(req: Request, res: Response) {
         try {
-            await PredrawnService.remove(req.params.id)
+            await PredrawnService.remove(req.params["id"])
             res.sendStatus(200);
-        } catch (error) {
+        } catch (error: any) {
             res.status(400).json({error: error.message});
         }
     }

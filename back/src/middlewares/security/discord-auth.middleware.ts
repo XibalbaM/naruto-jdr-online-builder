@@ -10,7 +10,7 @@ export default function (): Middleware {
         const tokenHeader = req.headers.authorization;
         if (tokenHeader && tokenHeader.split(' ')[0] === 'Bearer') {
             authService.getUserFromDiscordToken(tokenHeader.split(' ')[1]).then(user => {
-                req['user'] = user;
+                req.user = user;
                 next();
             }).catch(() => {
                 res.status(401).send({error: 'Cannot authenticate user.'});

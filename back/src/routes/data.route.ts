@@ -13,10 +13,10 @@ import idOfMiddleware from "../middlewares/id-of.middleware.js";
  * @param modelToClass A function that returns the class of the model.
  * @returns A router with routes for the given model.
  */
-export default async function (model: Model<any>, modelToClass: (model: any) => any) {
+export default async function (model: Model<any>) {
     const router = Router();
-    const dataController = new DataController(model, modelToClass);
-    const exempleData = modelToClass(await model.findOne());
+    const dataController = new DataController(model);
+    const exempleData = (await model.findOne().lean())! as any;
     delete exempleData._id;
 
     router.get("/", dataController.getAll);

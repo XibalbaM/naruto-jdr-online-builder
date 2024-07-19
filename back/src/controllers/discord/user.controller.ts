@@ -7,5 +7,5 @@ export function discordIdLinked(req: Request, res: Response) {
 }
 
 export async function onlineAccountExists(req: Request, res: Response) {
-    res.status(await accountService.getUserNameFromEmail(req.params.email) === "No user" ? 404 : 200).send();
+    res.status(await accountService.getUserNameFromEmail(req.params["email"]) === "No user" ? 404 : 200).send();
 }

@@ -7,8 +7,8 @@ import DataService from "../services/data.service.js";
 export default class DataController {
     private dataService: DataService;
 
-    constructor(model: Model<any>, modelToClass: (model: any) => any) {
-        this.dataService = new DataService(model, modelToClass);
+    constructor(model: Model<any>) {
+        this.dataService = new DataService(model);
     }
 
     /**
@@ -39,7 +39,8 @@ export default class DataController {
         if (ifNoneMatch) {
             const etag = this.getETag(data);
             if (etag === ifNoneMatch) {
-                return res.sendStatus(304);
+                res.sendStatus(304);
+                return;
             }
         }
         res.set("ETag", DataController.getETag(data));
@@ -49,7 +50,7 @@ export default class DataController {
     getAll = async (req: Request, res: Response) => {
         try {
             DataController.sendDataOr304(req, res, await this.dataService.getAll())
-        } catch (ignored) {
+        } catch (ignored: any) {
             console.error(ignored);
             res.status(500).json({error: "Internal server error"});
         }
@@ -57,10 +58,10 @@ export default class DataController {
 
     get = async (req: Request, res: Response) => {
         try {
-            let data = await this.dataService.get(req.params.id);
+            let data = await this.dataService.get(req.params["id"]);
             if (data) DataController.sendDataOr304(req, res, data);
             else res.status(404).json({error: "Not found"});
-        } catch (ignored) {
+        } catch (ignored: any) {
             console.error(ignored);
             res.status(500).json({error: "Internal server error"});
         }
@@ -69,7 +70,7 @@ export default class DataController {
     create = async (req: Request, res: Response) => {
         try {
             res.status(201).json(await this.dataService.create(req.body.data))
-        } catch(ignored) {
+        } catch(ignored: any) {
             console.error(ignored);
             res.status(500).json({error: "Internal server error"})
         }
@@ -77,9 +78,9 @@ export default class DataController {
 
     update = async (req: Request, res: Response) => {
         try {
-            await this.dataService.update(req.params.id, req.body.data)
+            await this.dataService.update(req.params["id"], req.body.data)
             res.status(200).json({message: "Successfully updated"});
-        } catch(ignored) {
+        } catch(ignored: any) {
             console.error(ignored);
             res.status(500).json({error: "Internal server error"});
         }
@@ -87,9 +88,9 @@ export default class DataController {
 
     delete = async (req: Request, res: Response) => {
         try {
-            await this.dataService.delete(req.params.id)
+            await this.dataService.delete(req.params["id"])
             res.status(200).json({message: "Successfully deleted"})
-        } catch (err) {
+        } catch (err: any) {
             console.error(err);
             res.status(500).json({error: "Internal server error"});
         }

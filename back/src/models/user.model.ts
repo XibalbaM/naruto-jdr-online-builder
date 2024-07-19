@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import User from "../interfaces/user.interface";
 
 /**
  * Represents a user of the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema<User>({
     email: {
         type: String,
         required: true,
@@ -25,14 +26,12 @@ const UserSchema = new mongoose.Schema({
         default: false
     },
     groups: {
-        type: [mongoose.Types.ObjectId],
-        ref: 'group',
+        type: [String],
         default: [],
         required: true
     },
     characters: {
-        type: [mongoose.Types.ObjectId],
-        ref: 'character',
+        type: [String],
         default: [],
         required: true
     },

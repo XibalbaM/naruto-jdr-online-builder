@@ -7,28 +7,28 @@ import ClanModel from "../../models/clan.model";
 import {authenticateRequest, createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
 import PredrawnController from "../../controllers/predrawn.controller";
 import {getTestToken} from "../../utils/test.data";
-import Character from "../../classes/character.class";
+import Character from "../../interfaces/character.interface";
 
 const dummyPredrawn: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "createdAt" | "updatedAt"> = {
     firstName: "test",
-    village: (await VillageModel.findOne().lean().select("_id"))._id,
+    village: (await VillageModel.findOne().lean().select("_id"))!._id.toString(),
     xp: 100,
-    rank: (await RankModel.findOne().lean().select("_id"))._id,
+    rank: (await RankModel.findOne().lean().select("_id"))!._id.toString(),
     notes: "test",
     nindo: "test",
-    clan: (await ClanModel.findOne().lean().select("_id"))._id,
+    clan: (await ClanModel.findOne().lean().select("_id"))!._id.toString(),
     shareStatus: "predrawn",
 }
 const dummyPredrawnId = (await CharacterModel.create(dummyPredrawn))._id;
 
 const dummyCharacter: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "createdAt" | "updatedAt" | "shareStatus"> = {
     firstName: "test",
-    village: (await VillageModel.findOne().lean().select("_id"))._id,
+    village: (await VillageModel.findOne().lean().select("_id"))!._id.toString(),
     xp: 100,
-    rank: (await RankModel.findOne().lean().select("_id"))._id,
+    rank: (await RankModel.findOne().lean().select("_id"))!._id.toString(),
     notes: "test",
     nindo: "test",
-    clan: (await ClanModel.findOne().lean().select("_id"))._id,
+    clan: (await ClanModel.findOne().lean().select("_id"))!._id.toString(),
 }
 const dummyCharacterId = (await CharacterModel.create(dummyCharacter))._id;
 
@@ -40,6 +40,7 @@ test("List", async () => {
 });
 
 test("Take", async () => {
+    console.log(dummyPredrawnId);
     let request = createMockRequest({params: {id: dummyPredrawnId}}, await getTestToken());
     let response = createMockResponse();
     await authenticateRequest(request, response);

@@ -3,16 +3,17 @@ import VillageModel from "../models/village.model.js";
 import BaseModel from "../models/base.model.js";
 import RoadModel from "../models/road.model.js";
 import ClanModel from "../models/clan.model.js";
-import Village from "../classes/village.class.js";
-import Base from "../classes/base.class.js";
-import Clan from "../classes/clan.class.js";
-import Road from "../classes/road.class.js";
-import Skill, {CustomSkill} from "../classes/skill.class.js";
-import Rank from "../classes/rank.class.js";
+import Village from "../interfaces/village.interface";
+import Base from "../interfaces/base.interface";
+import Clan from "../interfaces/clan.interface";
+import Road from "../interfaces/road.interface";
+import Skill, {CustomSkill} from "../interfaces/skill.interface";
+import Rank from "../interfaces/rank.interface";
 import RankModel from "../models/rank.model.js";
-import ChakraSpe from "../classes/chakraSpe.class.js";
+import ChakraSpe from "../interfaces/chakraSpe.interface";
 import ChakraSpeModel from "../models/chakraSpe.model.js";
 import {CommonSkillModel, CustomSkillModel} from "../models/skill.model.js";
+import {Schema, Types} from "mongoose";
 
 export default async function () {
 
@@ -429,7 +430,7 @@ export default async function () {
                 qualification: "Voie du Genjutsu",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Yūryoku"}).lean().select("_id"))._id
+                        (await CustomSkillModel.findOne({name: "Yūryoku"}).lean().select("_id"))!._id.toString()
                     ]
                 }
             },
@@ -445,7 +446,7 @@ export default async function () {
                 qualification: "Voie des Armes",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Armes exotiques"}).lean().select("_id"))._id
+                        (await CustomSkillModel.findOne({name: "Armes exotiques"}).lean().select("_id"))!._id.toString()
                     ]
                 }
             },
@@ -470,7 +471,7 @@ export default async function () {
     }
 
     const addClans = async () => {
-        const konohaId = (await VillageModel.findOne({name: "Konoha"}).lean().select("_id"))._id;
+        const konohaId = (await VillageModel.findOne({name: "Konoha"}).lean().select("_id"))!._id.toString();
         const clans: Omit<Clan, "_id">[] = [
             {
                 name: "Aburame",
@@ -478,7 +479,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Kikaichū"}).lean().select("_id"))._id
+                        (await CustomSkillModel.findOne({name: "Kikaichū"}).lean().select("_id"))!._id.toString()
                     ]
                 }
             },
@@ -504,7 +505,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Sumi"}).lean().select("_id"))._id
+                        (await CustomSkillModel.findOne({name: "Sumi"}).lean().select("_id"))!._id.toString()
                     ]
                 }
             },
@@ -602,7 +603,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Jiton"}).lean().select("_id"))._id
+                        (await CustomSkillModel.findOne({name: "Jiton"}).lean().select("_id"))!._id.toString()
                     ]
                 }
             },
@@ -612,7 +613,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Kage"}).lean().select("_id"))._id
+                        (await CustomSkillModel.findOne({name: "Kage"}).lean().select("_id"))!._id.toString()
                     ]
                 }
             },
@@ -630,9 +631,9 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Mokuton"}).lean().select("_id"))._id,
-                        (await CustomSkillModel.findOne({name: "Doton"}).lean().select("_id"))._id,
-                        (await CustomSkillModel.findOne({name: "Suiton"}).lean().select("_id"))._id
+                        (await CustomSkillModel.findOne({name: "Mokuton"}).lean().select("_id"))!._id.toString(),
+                        (await CustomSkillModel.findOne({name: "Doton"}).lean().select("_id"))!._id.toString(),
+                        (await CustomSkillModel.findOne({name: "Suiton"}).lean().select("_id"))!._id.toString()
                     ]
                 }
             },
@@ -682,7 +683,7 @@ export default async function () {
                 description: "Arrive bientôt",
                 line: {
                     skills: [
-                        (await CustomSkillModel.findOne({name: "Résistances Émotionnelles"}).lean().select("_id"))._id,
+                        (await CustomSkillModel.findOne({name: "Résistances Émotionnelles"}).lean().select("_id"))!._id.toString()
                     ]
                 }
             },
@@ -838,7 +839,7 @@ export default async function () {
         await ChakraSpeModel.insertMany(chakraSpes);
     }
 
-    switch (process.env.MODEL) {
+    switch (process.env["MODEL"]) {
         case "village": {
             await addVillages();
             break;

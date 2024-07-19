@@ -7,19 +7,12 @@ import groupsRoute from "./routes/groups.route.js";
 import discordRoute from "./routes/discord.route.js";
 import dataRoute from "./routes/data.route.js";
 import VillageModel from "./models/village.model.js";
-import Village from "./classes/village.class.js";
 import BaseModel from "./models/base.model.js";
-import Base from "./classes/base.class.js";
 import RoadModel from "./models/road.model.js";
-import Road from "./classes/road.class.js";
-import Skill, {CustomSkill} from "./classes/skill.class.js";
 import {CommonSkillModel, CustomSkillModel} from "./models/skill.model.js";
 import ClanModel from "./models/clan.model.js";
-import Clan from "./classes/clan.class.js";
 import RankModel from "./models/rank.model.js";
-import Rank from "./classes/rank.class.js";
 import ChakraSpeModel from "./models/chakraSpe.model.js";
-import ChakraSpe from "./classes/chakraSpe.class.js";
 import charactersRoute from "./routes/characters.route.js";
 import predrawnRoute from "./routes/predrawn.route.js";
 import adminRoute from "./routes/admin.route.js";
@@ -41,14 +34,14 @@ router.use('/discord', discordRoute);
 router.use('/characters', charactersRoute);
 router.use('/predrawn', predrawnRoute);
 router.use('/admin', authMiddleware(), adminMiddleware(), adminRoute)
-router.use('/villages', await dataRoute(VillageModel, Village.fromModel));
-router.use('/bases', await dataRoute(BaseModel, Base.fromModel));
-router.use('/roads', await dataRoute(RoadModel, Road.fromModel));
-router.use('/skills/common', await dataRoute(CommonSkillModel, Skill.fromModel));
-router.use('/skills/custom', await dataRoute(CustomSkillModel, CustomSkill.fromModel));
-router.use('/clans', await dataRoute(ClanModel, Clan.fromModel));
-router.use('/ranks', await dataRoute(RankModel, Rank.fromModel));
-router.use('/chakraSpes', await dataRoute(ChakraSpeModel, ChakraSpe.fromModel));
+router.use('/villages', await dataRoute(VillageModel));
+router.use('/bases', await dataRoute(BaseModel));
+router.use('/roads', await dataRoute(RoadModel));
+router.use('/skills/common', await dataRoute(CommonSkillModel));
+router.use('/skills/custom', await dataRoute(CustomSkillModel));
+router.use('/clans', await dataRoute(ClanModel));
+router.use('/ranks', await dataRoute(RankModel));
+router.use('/chakraSpes', await dataRoute(ChakraSpeModel));
 router.use('/assets', express.static(path.resolve('assets'), {
     maxAge: 1000 * 60 * 60 * 24 * 3,
     etag: true,

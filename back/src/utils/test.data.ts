@@ -14,8 +14,8 @@ export async function init() {
     await createTestGroup();
 }
 
-let testToken: string;
-let adminToken: string;
+let testToken: string | null;
+let adminToken: string | null;
 const discordTestId = "569895047026180135";
 
 /**
@@ -38,7 +38,7 @@ export async function createTestAccounts() {
 export async function getTestToken(): Promise<string> {
     await databaseConnect;
     if (!testToken) {
-        testToken = jwt.sign({id: (await userModel.findOne({email: 'testdata@test.test'}))._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
+        testToken = jwt.sign({id: (await userModel.findOne({email: 'testdata@test.test'}))!._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
     }
     return testToken;
 }
@@ -49,7 +49,7 @@ export async function getTestToken(): Promise<string> {
 export async function getAdminToken(): Promise<string> {
     await databaseConnect;
     if (!adminToken) {
-        adminToken = jwt.sign({id: (await userModel.findOne({email: 'admin@test.test'}))._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
+        adminToken = jwt.sign({id: (await userModel.findOne({email: 'admin@test.test'}))!._id}, config.jwt_secret, {expiresIn: config.jwt_expiration});
     }
     return adminToken;
 }
@@ -59,8 +59,8 @@ export async function getAdminToken(): Promise<string> {
  */
 export async function createTestGroup() {
     await databaseConnect;
-    const user = await userModel.findOne({email: 'testdata@test.test'});
-    const group = await groupModel.create({name: 'testDataGroup', village: (await VillageModel.findOne({name: "Konoha"}))._id, users: [{role: "sensei", user: user}]});
+    const user = (await userModel.findOne({email: 'testdata@test.test'}))!;
+    const group = await groupModel.create({name: 'testDataGroup', village: (await VillageModel.findOne({name: "Konoha"}))!._id, users: [{role: "sensei", user: user}]});
     await UserModel.findByIdAndUpdate(user._id, {$push: {groups: {name: group.name, role: "sensei", _id: group.id}}});
     console.log("Test group created");
 }
@@ -70,7 +70,7 @@ export async function createTestGroup() {
  */
 export async function getTestGroupId(): Promise<string> {
     await databaseConnect;
-    return (await groupModel.findOne({name: 'testDataGroup'}))._id.toString();
+    return (await groupModel.findOne({name: 'testDataGroup'}))!._id.toString();
 }
 
 /**
@@ -78,7 +78,7 @@ export async function getTestGroupId(): Promise<string> {
  */
 export async function getTestUserId(): Promise<string> {
     await databaseConnect;
-    return (await userModel.findOne({email: 'testdata@test.test'}))._id.toString();
+    return (await userModel.findOne({email: 'testdata@test.test'}))!._id.toString();
 }
 
 /**

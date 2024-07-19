@@ -1,6 +1,6 @@
 import {REST} from "@discordjs/rest";
 
-export default class Environment {
+export default interface Environment {
     /**
      * The environment name
      */

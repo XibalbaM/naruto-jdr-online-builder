@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, {JwtPayload} from "jsonwebtoken";
 
 import {Middleware} from "./middleware.type.js";
 import config from "../config/config.js";
@@ -13,7 +13,7 @@ export default function (basePath: string): Middleware {
         let type: 'discord' | 'website' | undefined = undefined;
         if (req.headers.authorization) {
             try {
-                const tokenData = jwt.verify(req.headers.authorization.split(" ")[1], config.jwt_secret);
+                const tokenData = jwt.verify(req.headers.authorization.split(" ")[1], config.jwt_secret) as JwtPayload;
                 type = "discord";
                 id = tokenData["discordId"];
             } catch (e) {
@@ -21,7 +21,7 @@ export default function (basePath: string): Middleware {
             }
         } else if (req.cookies["token"]) {
             try {
-                const tokenData = jwt.verify(req.cookies["token"], config.jwt_secret);
+                const tokenData = jwt.verify(req.cookies["token"], config.jwt_secret) as JwtPayload;
                 type = "website";
                 id = tokenData["id"];
             } catch (e) {

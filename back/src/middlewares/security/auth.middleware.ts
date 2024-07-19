@@ -8,11 +8,11 @@ import UserModel from "../../models/user.model.js";
  */
 export default function (): Middleware {
     return async function (req, res, next) {
-        const token: string | undefined = req.cookies.token;
+        const token: string | undefined = req.cookies["token"];
         if (token && token !== 'none') {
             try {
-                req['user'] = await authService.getUserFromToken(token);
-                await UserModel.findByIdAndUpdate(req['user']._id, {lastActivity: new Date()});
+                req.user = await authService.getUserFromToken(token);
+                await UserModel.findByIdAndUpdate(req.user._id, {lastActivity: new Date()});
                 next();
             } catch (e) {
                 res.status(401).send({error: 'Cannot authenticate user.'});

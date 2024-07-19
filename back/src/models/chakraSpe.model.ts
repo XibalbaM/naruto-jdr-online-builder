@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import ChakraSpe from "../interfaces/chakraSpe.interface";
 
 /**
  * Represents a chakraSpe in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-const chakraSpeSchema = new mongoose.Schema({
+const chakraSpeSchema = new mongoose.Schema<ChakraSpe>({
 	name: {
 		type: String,
 		required: true,

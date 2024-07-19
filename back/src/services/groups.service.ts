@@ -1,21 +1,21 @@
-import {Types, ObjectId} from "mongoose";
+import {Types} from "mongoose";
 
 import UserModel from "../models/user.model.js";
 import GroupModel from "../models/group.model.js";
-import Group from "../classes/group.class.js";
-import User from "../classes/user.class.js";
+import Group from "../interfaces/group.interface";
+import User from "../interfaces/user.interface";
 
-export async function create(data: any, userId: ObjectId) {
+export async function create(data: any, userId: string) {
 
     if (await GroupModel.exists({name: data["name"]}))
         throw new Error("Group already exists");
 
-    const group = Group.fromModel(await GroupModel.create({
-        ...Group.fromModel(data),
+    const group = await GroupModel.create({
+        ...data,
         users: [{role: "sensei", user: await UserModel.findById(userId).lean()}]
-    }))
+    } as Partial<Group>)
 
-    await UserModel.findByIdAndUpdate(userId, {$push: {groups: {name: data["name"], role: "sensei", _id: group._id}}});
+    await UserModel.findByIdAndUpdate(userId, {$push: {groups: {name: data["name"], role: "sensei", _id: group._id}}}).lean();
 
     return group;
 }
@@ -23,7 +23,7 @@ export async function create(data: any, userId: ObjectId) {
 export async function getAll(user: User) {
     const groups: Group[] = [];
     for (let group of user.groups) {
-        groups.push(Group.fromModel(await GroupModel.findById(group).lean()));
+        groups.push((await GroupModel.findById(group).lean())!);
     }
     return groups;
 }
@@ -34,13 +34,13 @@ export async function getOne(groupId: string) {
     const docGroup = await GroupModel.findById(groupId).lean();
     if (!docGroup)
         throw new Error("Group not found");
-    return Group.fromModel(docGroup);
+    return docGroup;
 }
 
-export async function discordSelect(userId: ObjectId, groupId: ObjectId) {
+export async function discordSelect(user: User, groupId: string) {
 
     if (!await GroupModel.exists({_id: groupId}))
         throw new Error("Group not found");
 
-    await UserModel.findByIdAndUpdate(userId, {$set: {discordSelectedGroup: groupId}});
+    await UserModel.findByIdAndUpdate(user._id, {$set: {discordSelectedGroup: groupId}});
 }

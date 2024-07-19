@@ -1,6 +1,7 @@
 import CharacterModel from "../models/character.model.js";
-import Character from "../classes/character.class.js";
+import Character from "../interfaces/character.interface";
 import UserModel from "../models/user.model.js";
+import User from "../interfaces/user.interface";
 
 export default class PredrawnService {
 
@@ -8,13 +9,13 @@ export default class PredrawnService {
         return (await CharacterModel.find({shareStatus: "predrawn"}).lean().select("_id")).map((character) => character._id.toString());
     }
 
-    static async take(userId: string, id: string) {
+    static async take(user: User, id: string): Promise<Character> {
         if (await CharacterModel.exists({_id: id, shareStatus: "predrawn"})) {
-            const character = Character.fromModel(await CharacterModel.findById(id).lean());
+            const character = (await CharacterModel.findById(id).lean()) as Partial<Character>;
             character.shareStatus = "private";
             delete character._id;
-            const newCharacter = Character.fromModel(await CharacterModel.create(character));
-            await UserModel.findByIdAndUpdate(userId, {$push: {characters: newCharacter._id}});
+            const newCharacter = await CharacterModel.create(character);
+            await UserModel.findByIdAndUpdate(user._id, {$push: {characters: newCharacter._id}});
             return newCharacter;
         } else {
             throw new Error("Character is not predrawn");
@@ -22,13 +23,14 @@ export default class PredrawnService {
     }
 
     static async add(id: string) {
-        const character = Character.fromModel(await CharacterModel.findById(id).lean());
+        const character = (await CharacterModel.findById(id).lean())!;
         if (character.shareStatus === "predrawn") {
             throw new Error("Character is already predrawn");
         }
-        character.shareStatus = "predrawn";
-        delete character._id;
-        const newCharacter = await CharacterModel.create(character);
+        let data = character as Partial<Character>;
+        data.shareStatus = "predrawn";
+        delete data._id;
+        const newCharacter = await CharacterModel.create(data);
         return newCharacter._id.toString();
     }
 

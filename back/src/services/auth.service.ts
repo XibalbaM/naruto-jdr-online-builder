@@ -1,10 +1,10 @@
-import jwt from "jsonwebtoken";
+import jwt, {JwtPayload} from "jsonwebtoken";
 import NodeCache from "node-cache";
 
 import userModel from "../models/user.model.js";
 import * as emailService from "./mail.service.js";
 import config from "../config/config.js";
-import User from "../classes/user.class.js";
+import User from "../interfaces/user.interface";
 import {getDiscordName} from "./account.service.js";
 
 /**
@@ -32,7 +32,7 @@ export async function requestEmail(email: string, discordId?: string): Promise<{
     }
 
     if (discordId) {
-        if (!isRegistration && (await userModel.findOne({email: email}).lean().select("discordId")).discordId) {
+        if (!isRegistration && (await userModel.findOne({email: email}).lean().select("discordId"))!.discordId) {
             return {code: 2, isRegistration: false};
         }
         if (await userModel.exists({discordId: discordId})) {
@@ -72,7 +72,7 @@ export function getConnectionTokenFromEmail(email: string, discordId?: string): 
  */
 export async function useCode(connectionToken: string): Promise<{ token: string, isFirstLogin: boolean, discordUsername?: string }> {
     try {
-        const decodedToken = jwt.verify(connectionToken, config.login_jwt_secret, {ignoreExpiration: false});
+        const decodedToken = jwt.verify(connectionToken, config.login_jwt_secret, {ignoreExpiration: false}) as JwtPayload;
         const email: string = decodedToken["email"];
         const discordId: string = decodedToken["discordId"];
         emailSentCache.del(email);
@@ -85,7 +85,7 @@ export async function useCode(connectionToken: string): Promise<{ token: string,
         }
         const token = await generateToken(user._id);
         return {token: token, isFirstLogin, discordUsername: discordId ? await addDiscordData(user._id, discordId) : undefined};
-    } catch (e) {
+    } catch (e: any) {
         if (e.message === "jwt expired") {
             throw new Error("jwt expired");
         } else if (e.message === "jwt malformed") {
@@ -116,15 +116,15 @@ export async function generateToken(id: any): Promise<string> {
  */
 export async function getUserFromToken(token: string): Promise<User> {
 
-    const decoded = jwt.verify(token, config.jwt_secret);
+    const decoded = jwt.verify(token, config.jwt_secret) as JwtPayload;
 
-    const userDoc = await userModel.findById(decoded["id"]);
+    const userDoc = await userModel.findById(decoded["id"]).lean();
 
     if (!userDoc) {
         throw new Error("No user found");
     }
 
-    return User.fromModel(userDoc);
+    return userDoc;
 }
 
 /**
@@ -137,15 +137,15 @@ export async function getUserFromToken(token: string): Promise<User> {
  */
 export async function getUserFromDiscordToken(token: string): Promise<User> {
 
-    const decoded = jwt.verify(token, config.jwt_secret);
+    const decoded = jwt.verify(token, config.jwt_secret) as JwtPayload;
 
-    const userDoc = await userModel.findOne({discordId: decoded["discordId"]});
+    const userDoc = await userModel.findOne({discordId: decoded["discordId"]}).lean();
 
     if (!userDoc) {
         throw new Error("No user found");
     }
 
-    return User.fromModel(userDoc);
+    return userDoc;
 }
 
 /**

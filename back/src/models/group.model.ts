@@ -1,17 +1,17 @@
 import mongoose from "mongoose";
+import Group from "../interfaces/group.interface";
 
 /**
  * Represents a group in the application.
  * A mongoose model is a wrapper on the MongoDB database.
  */
-const GroupSchema = new mongoose.Schema({
+const GroupSchema = new mongoose.Schema<Group>({
     name: {
         type: String,
         required: true
     },
     village: {
-        type: mongoose.Types.ObjectId,
-        ref: "village",
+        type: String,
         required: true
     },
     users: {
@@ -23,8 +23,7 @@ const GroupSchema = new mongoose.Schema({
                 default: "player"
             },
             user: {
-                type: mongoose.Types.ObjectId,
-                ref: "user",
+                type: String,
                 required: true
             }
         }],
