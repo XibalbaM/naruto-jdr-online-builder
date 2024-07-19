@@ -67,13 +67,13 @@ test("updateUsername", async () => {
 
 test("updateEmail", async () => {
     {
-        let mockRequest = createMockRequest({body: {email: "test@test.test"}}, await getTestToken());
+        let mockRequest = createMockRequest({body: {email: "testtest@test.test"}}, await getTestToken());
         let mockResponse = createMockResponse();
         await authenticateRequest(mockRequest, mockResponse);
         await accountController.updateEmail(mockRequest, mockResponse);
         expect(mockResponse.status).toBeCalledWith(200);
         expect(mockResponse.json).toBeCalledWith({message: "Email updated."});
-        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("email"))["email"]).toBe("test@test.test");
+        expect((await UserModel.findById(mockRequest["user"]["_id"]).lean().select("email"))["email"]).toBe("testtest@test.test");
         await UserModel.findByIdAndUpdate(mockRequest["user"]["_id"], {email: mockRequest["user"]["email"]});
     }
 
