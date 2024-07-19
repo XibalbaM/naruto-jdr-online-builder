@@ -253,7 +253,7 @@ export async function setRoad(req: Request, res: Response) {
 
 export async function setShareStatus(req: Request, res: Response) {
     try {
-        if (req.body.status !in ["private", "not-referenced", "public", "predrawn"]) {
+        if (req.body.status !in ["private", "not-referenced", "public"]) {
             return res.status(400).json({error: "Invalid state"});
         }
         await CharactersService.setShareStatus(req["user"], req.params.id, req.body.status);
