@@ -25,7 +25,7 @@ jobs:
                     version: 8
 
             -   name: Install dependencies
-                run: cd ./back && pnpm install
+                run: cd ./back && pnpm install --shamefully-hoist
 
             -   name: Build
                 run: |
