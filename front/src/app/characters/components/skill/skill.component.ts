@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
 import {combineLatest} from "rxjs";
-import Base from "common/src/interfaces/base.interface";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import {Title} from "@angular/platform-browser";
@@ -12,9 +11,10 @@ import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {SkillToTypeNamePipe} from '../../pipes/skill-type-to-type-name.pipe';
 import {NgIf} from '@angular/common';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
-import Skill from "common/src/interfaces/skill.interface";
 import CustomSkill from "../../../app/models/skill.interface";
 import {NgxMarkdownItModule} from "ngx-markdown-it";
+import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
+import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
 
 @Component({
     selector: 'app-skill',

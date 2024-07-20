@@ -31,8 +31,8 @@ import {ArrowRightComponent} from '../../../utils/components/arrow-right/arrow-r
 import {AsyncPipe, JsonPipe, NgClass, NgFor, NgIf} from '@angular/common';
 import CustomSkill from "../../../app/models/skill.interface";
 import {NgxMarkdownItModule} from "ngx-markdown-it";
-import Base from "common/src/interfaces/base.interface";
-import Skill from "common/src/interfaces/skill.interface";
+import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
+import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
 
 @Component({
     selector: 'app-edit',

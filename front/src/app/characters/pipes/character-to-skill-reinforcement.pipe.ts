@@ -1,7 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import Character from "../../app/models/character.interface";
 import {map, Observable} from "rxjs";
-import {CharacterToSkillTotalLevelPipe} from "./character-to-skill-total-level.pipe";
+import {skillReinforcement} from "naruto-jdr-online-builder-common/src/utils/character.utils";
+import {DataService} from "../../app/services/data.service";
 
 @Pipe({
     name: 'characterToSkillReinforcement',
@@ -10,7 +11,7 @@ import {CharacterToSkillTotalLevelPipe} from "./character-to-skill-total-level.p
 })
 export class CharacterToSkillReinforcementPipe implements PipeTransform {
 
-    constructor(private characterToSkillTotalLevel: CharacterToSkillTotalLevelPipe) {
+    constructor(private dataService: DataService) {
     }
 
     transform(character: Character, skillName: string): number;
@@ -18,14 +19,10 @@ export class CharacterToSkillReinforcementPipe implements PipeTransform {
     transform(character: Character | Observable<Character>, skillName: string): number | Observable<number> {
         if (character instanceof Observable) {
             return character.pipe(
-                map(character => this.processCharacter(character, skillName))
+                map(character => skillReinforcement(character, skillName, this.dataService.commonSkills, this.dataService.customSkills))
             );
         } else {
-            return this.processCharacter(character, skillName);
+            return skillReinforcement(character, skillName, this.dataService.commonSkills, this.dataService.customSkills);
         }
-    }
-
-    processCharacter(character: Character, skillName: string): number {
-        return Math.floor(this.characterToSkillTotalLevel.transform(character, skillName) / 2);
     }
 }

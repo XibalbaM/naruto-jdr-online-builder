@@ -21,8 +21,8 @@
         "@angular/platform-browser-dynamic": "^17.2.2",
         "@angular/router": "^17.2.2",
         "@popperjs/core": "^2.11.8",
-        "common": "file:..\\common",
-        "markdown-it": "^14.0.0",
+        "markdown-it": "^14.1.0",
+        "naruto-jdr-online-builder-common": "workspace:*",
         "ngx-autosize": "^2.0.4",
         "ngx-captcha": "13.0.0",
         "ngx-markdown-it": "^16.0.1",
@@ -37,7 +37,7 @@
         "@angular/cli": "~17.2.1",
         "@angular/compiler-cli": "^17.2.2",
         "@types/jasmine": "^5.1.4",
-        "@types/markdown-it": "^13.0.7",
+        "@types/markdown-it": "^14.1.1",
         "autoprefixer": "^10.4.17",
         "copyfiles": "^2.4.1",
         "jasmine-core": "^5.1.2",
@@ -48,6 +48,6 @@
         "karma-jasmine-html-reporter": "^2.1.0",
         "postcss": "^8.4.35",
         "tailwindcss": "^3.4.1",
-        "typescript": "^5.3.3"
+        "typescript": "5.4.5"
     }
 }

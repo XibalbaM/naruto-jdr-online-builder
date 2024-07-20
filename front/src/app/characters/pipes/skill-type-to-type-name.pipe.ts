@@ -1,6 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import Skill from "common/src/interfaces/skill.interface";
 import CustomSkill from "../../app/models/skill.interface";
+import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
+import {skillTypeName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Pipe({
     name: 'skillToTypeName',
@@ -9,19 +10,6 @@ import CustomSkill from "../../app/models/skill.interface";
 export class SkillToTypeNamePipe implements PipeTransform {
 
     transform(value: Skill | CustomSkill): string {
-        if (typeof value._id === "number") {
-            return "Compétence commune";
-        } else {
-            switch ((value as CustomSkill).type) {
-                case "combat":
-                    return "Compétence de combat";
-                case "terrain":
-                    return "Compétence de terrain";
-                case "clan":
-                    return "Compétence de clan";
-                default:
-                    return "Compétence commune";
-            }
-        }
+        return skillTypeName(value);
     }
 }

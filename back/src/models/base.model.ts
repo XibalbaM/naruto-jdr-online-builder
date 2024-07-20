@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Base from "common/interfaces/base"
+import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
 
 /**
  * Represents a base in the application.

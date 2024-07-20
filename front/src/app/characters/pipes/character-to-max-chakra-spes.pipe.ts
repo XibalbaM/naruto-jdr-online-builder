@@ -1,7 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import Character from "../../app/models/character.interface";
-import {CharacterToChakraControlPipe} from "./character-to-chakra-control.pipe";
 import {map, Observable} from "rxjs";
+import {maxChakraSpes} from "naruto-jdr-online-builder-common/src/utils/character.utils";
+import {DataService} from "../../app/services/data.service";
 
 @Pipe({
     name: 'characterToMaxChakraSpes',
@@ -10,36 +11,15 @@ import {map, Observable} from "rxjs";
 })
 export class CharacterToMaxChakraSpesPipe implements PipeTransform {
 
-    constructor(private characterToChakraControl: CharacterToChakraControlPipe) {
+    constructor(private dataService: DataService) {
     }
 
     transform(character: Character): number
     transform(character: Observable<Character>): Observable<number>
     transform(character: Observable<Character> | Character): Observable<number> | number {
         if (character instanceof Observable)
-            return character.pipe(map(character => this.processCharacter(character)));
+            return character.pipe(map(character => maxChakraSpes(character, this.dataService.bases)));
         else
-            return this.processCharacter(character);
-    }
-
-    processCharacter(character: Character): number {
-        const chakraControl = this.characterToChakraControl.transform(character);
-        let maxChakraSpes = 1;
-        if (chakraControl >= 5) {
-            maxChakraSpes += 1;
-        }
-        if (chakraControl >= 10) {
-            maxChakraSpes += 2;
-        }
-        if (chakraControl >= 14) {
-            maxChakraSpes += 2;
-        }
-        if (chakraControl >= 20) {
-            maxChakraSpes += 3;
-        }
-        if (chakraControl >= 24) {
-            maxChakraSpes += 5;
-        }
-        return maxChakraSpes;
+            return maxChakraSpes(character, this.dataService.bases);
     }
 }

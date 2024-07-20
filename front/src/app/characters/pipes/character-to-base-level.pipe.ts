@@ -2,6 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 import Character from "../../app/models/character.interface";
 import {DataService} from "../../app/services/data.service";
 import {map, Observable} from "rxjs";
+import {baseLevel} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Pipe({
     name: 'characterToBaseLevel',
@@ -18,14 +19,10 @@ export class CharacterToBaseLevelPipe implements PipeTransform {
     transform(character: Character | Observable<Character>, baseShortName: string): number | Observable<number> {
         if (character instanceof Observable) {
             return character.pipe(
-                map(character => this.processCharacter(character, baseShortName))
+                map(character => baseLevel(character, baseShortName, this.dataService.bases))
             );
         } else {
-            return this.processCharacter(character, baseShortName);
+            return baseLevel(character, baseShortName, this.dataService.bases);
         }
-    }
-
-    processCharacter(character: Character, baseShortName: string): number {
-        return character.bases[this.dataService.bases.find(base => base.shortName === baseShortName)?._id || 0];
     }
 }

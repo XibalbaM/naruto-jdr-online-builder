@@ -2,6 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 import Character from "../../app/models/character.interface";
 import {map, Observable} from "rxjs";
 import {DataService} from "../../app/services/data.service";
+import {interceptions} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Pipe({
     name: 'characterToInterceptions',
@@ -18,15 +19,10 @@ export class CharacterToInterceptionsPipe implements PipeTransform {
     transform(character: Character | Observable<Character>, type: 'TAI' | 'ARM'): number | Observable<number> {
         if (character instanceof Observable) {
             return character.pipe(
-                map(character => this.processCharacter(character, type))
+                map(character => interceptions(character, type, this.dataService.bases))
             );
         } else {
-            return this.processCharacter(character, type);
+            return interceptions(character, type, this.dataService.bases);
         }
-    }
-
-    processCharacter(character: Character, type: 'TAI' | 'ARM'): number {
-        const baseLevel = character.bases[this.dataService.bases.find(base => base.shortName === type)!._id];
-        return Math.max(1, Math.floor(baseLevel / 2));
     }
 }

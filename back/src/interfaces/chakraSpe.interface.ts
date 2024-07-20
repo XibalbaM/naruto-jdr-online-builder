@@ -1,5 +1,5 @@
 import {ObjectId} from "mongoose";
-import _ChakraSpe from "common/interfaces/chakraSpe";
+import _ChakraSpe from "naruto-jdr-online-builder-common/src/interfaces/chakraSpe.interface";
 
 export default interface ChakraSpe extends _ChakraSpe {
 	_id: ObjectId;

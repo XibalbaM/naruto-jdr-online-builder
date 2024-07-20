@@ -1,8 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import Character from "../../app/models/character.interface";
 import {map, Observable} from "rxjs";
-import {CharacterToMaxChakraPipe} from "./character-to-max-chakra.pipe";
-import {CharacterToChakraSpeAmountPipe} from "./character-to-chakra-spe-amount.pipe";
+import {DataService} from "../../app/services/data.service";
+import {chakraRegen} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Pipe({
     name: 'characterToChakraRegen',
@@ -11,7 +11,7 @@ import {CharacterToChakraSpeAmountPipe} from "./character-to-chakra-spe-amount.p
 })
 export class CharacterToChakraRegenPipe implements PipeTransform {
 
-    constructor(private characterToMaxChakra: CharacterToMaxChakraPipe, private characterToChakraSpeAmount: CharacterToChakraSpeAmountPipe) {
+    constructor(private dataService: DataService) {
     }
 
     transform(character: Character): number;
@@ -19,14 +19,10 @@ export class CharacterToChakraRegenPipe implements PipeTransform {
     transform(character: Character | Observable<Character>): number | Observable<number> {
         if (character instanceof Observable) {
             return character.pipe(
-                map(character => this.processCharacter(character))
+                map(character => chakraRegen(character, this.dataService.clans, this.dataService.bases, this.dataService.chakraSpes)),
             );
         } else {
-            return this.processCharacter(character);
+            return chakraRegen(character, this.dataService.clans, this.dataService.bases, this.dataService.chakraSpes);
         }
-    }
-
-    processCharacter(character: Character): number {
-        return Math.floor(this.characterToMaxChakra.transform(character) * (1 + this.characterToChakraSpeAmount.transform(character, 'Inépuisable')) / 100);
     }
 }

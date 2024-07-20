@@ -29,7 +29,7 @@
     <input #searchField class="ps-[63px]" placeholder="Rechercher" [ngModel]="search()" (input)="search.set(searchField.value)">
     <label><img ngSrc="assets/images/search.svg" height="24" width="24" alt="Chercher"></label>
 </div>
-<h3 class="text-10 font-light mt-[30px]"><span class="stat-box__value text-blue text-16 font-normal">{{currentRank().characters.length}}</span>{{currentRank().name}}</h3>
+<h3 class="text-10 font-light mt-[30px]"><span class="stat-box__value text-blue text-16 font-normal">{{currentRank().characters().length}}</span>{{currentRank().name}}</h3>
 <app-spacer class="bg-lighter-dark mt-[18px]"/>
 <div *ngFor="let character of currentRank().characters()">
     <app-predrawn-preview [character]="character"/>

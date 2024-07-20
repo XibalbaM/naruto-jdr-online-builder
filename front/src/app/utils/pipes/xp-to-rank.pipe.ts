@@ -1,6 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import Rank from "../../app/models/rank.interface";
 import {DataService} from "../../app/services/data.service";
+import {xpToRank} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Pipe({
     name: 'xpToRank',
@@ -12,11 +13,6 @@ export class XpToRankPipe implements PipeTransform {
     }
 
     transform(xp: number): Rank {
-        for (const rank of this.dataService.ranks.sort((a, b) => b.minXp - a.minXp)) {
-            if (rank.minXp < xp) {
-                return rank;
-            }
-        }
-        return this.dataService.ranks[0];
+        return xpToRank(xp, this.dataService.ranks);
     }
 }

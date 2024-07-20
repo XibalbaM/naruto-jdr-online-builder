@@ -4,16 +4,16 @@ import BaseModel from "../models/base.model.js";
 import RoadModel from "../models/road.model.js";
 import ClanModel from "../models/clan.model.js";
 import Village from "../interfaces/village.interface";
-import Base from "common/interfaces/base";
 import Clan from "../interfaces/clan.interface";
 import Road from "../interfaces/road.interface";
-import Skill from "common/interfaces/skill";
 import CustomSkill from "../interfaces/skill.interface";
 import Rank from "../interfaces/rank.interface";
 import RankModel from "../models/rank.model.js";
 import ChakraSpe from "../interfaces/chakraSpe.interface";
 import ChakraSpeModel from "../models/chakraSpe.model.js";
 import {CommonSkillModel, CustomSkillModel} from "../models/skill.model.js";
+import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
+import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
 
 export default async function () {
 

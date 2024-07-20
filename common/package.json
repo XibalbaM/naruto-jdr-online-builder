@@ -1,7 +1,4 @@
 {
     "name": "naruto-jdr-online-builder-common",
-    "private": true,
-    "exports": {
-        "./interfaces/*": "./src/interfaces/*.interface.ts"
-    }
+    "private": true
 }

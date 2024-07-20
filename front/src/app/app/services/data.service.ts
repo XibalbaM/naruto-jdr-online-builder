@@ -7,8 +7,8 @@ import Road from "../models/road.interface";
 import Rank from "../models/rank.interface";
 import ChakraSpe from "../models/chakra-spe.interface";
 import CustomSkill from "../models/skill.interface";
-import Base from "common/src/interfaces/base.interface";
-import Skill from "common/src/interfaces/skill.interface";
+import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
+import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
 
 @Injectable({
     providedIn: 'root'

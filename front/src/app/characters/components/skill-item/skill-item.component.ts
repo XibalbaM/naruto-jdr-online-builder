@@ -6,8 +6,8 @@ import {MinusSymbolComponent} from '../../../utils/components/minus-symbol/minus
 import {RouterLink} from '@angular/router';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {NgxPopperjsContentComponent, NgxPopperjsDirective, NgxPopperjsTriggers} from "ngx-popperjs";
-import Skill from "common/src/interfaces/skill.interface";
 import CustomSkill from "../../../app/models/skill.interface";
+import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
 
 @Component({
     selector: 'app-skill-item',

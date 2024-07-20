@@ -1,6 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import Character from "../../app/models/character.interface";
 import {map, Observable} from "rxjs";
+import {maxSkillCount} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Pipe({
     name: 'characterToMaxSkillCount',
@@ -14,15 +15,10 @@ export class CharacterToMaxSkillCountPipe implements PipeTransform {
     transform(character: Character | Observable<Character>): number | Observable<number> {
         if (character instanceof Observable) {
             return character.pipe(
-                map(character => this.processCharacter(character))
+                map(character => maxSkillCount(character))
             );
         } else {
-            return this.processCharacter(character);
+            return maxSkillCount(character);
         }
-    }
-
-    processCharacter(character: Character): number {
-        const highestBase = JSON.parse(JSON.stringify(character.bases)).sort((a: number, b: number) => b - a)[0];
-        return 5 + (highestBase >= 5 ? 1 + (highestBase >= 7 ? 1 + (highestBase >= 10 ? 1 : 0) : 0) : 0);
     }
 }

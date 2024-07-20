@@ -2,6 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {DataService} from "../../app/services/data.service";
 import Character from "../../app/models/character.interface";
 import {map, Observable} from "rxjs";
+import {skillNaturalLevel} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Pipe({
     name: 'characterToSkillNaturalLevel',
@@ -18,20 +19,10 @@ export class CharacterToSkillNaturalLevelPipe implements PipeTransform {
     transform(character: Character | Observable<Character>, skillName: string): number | Observable<number> {
         if (character instanceof Observable) {
             return character.pipe(
-                map(character => this.processCharacter(character, skillName))
+                map(character => skillNaturalLevel(character, skillName, this.dataService.commonSkills, this.dataService.customSkills))
             );
         } else {
-            return this.processCharacter(character, skillName);
-        }
-    }
-
-    processCharacter(character: Character, skillName: string): number {
-        const skillId = this.dataService.commonSkills.find(skill => skill.name === skillName)?._id;
-        if (skillId !== undefined) {
-            return character.commonSkills[Number(skillId)];
-        } else {
-            const customSkill = this.dataService.customSkills.find(skill => skill.name === skillName)!;
-            return character.customSkills.find(skill => skill.skill === customSkill._id)?.level || 0;
+            return skillNaturalLevel(character, skillName, this.dataService.commonSkills, this.dataService.customSkills);
         }
     }
 }

@@ -2,6 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {DataService} from "../../app/services/data.service";
 import Character from "../../app/models/character.interface";
 import {map, Observable} from "rxjs";
+import {chakraSpeAmount} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Pipe({
     name: 'characterToChakraSpeAmount',
@@ -18,14 +19,10 @@ export class CharacterToChakraSpeAmountPipe implements PipeTransform {
     transform(character: Character | Observable<Character>, speName: string): number | Observable<number> {
         if (character instanceof Observable) {
             return character.pipe(
-                map(character => this.processCharacter(character, speName))
+                map(character => chakraSpeAmount(character, speName, this.dataService.chakraSpes))
             );
         } else {
-            return this.processCharacter(character, speName);
+            return chakraSpeAmount(character, speName, this.dataService.chakraSpes);
         }
-    }
-
-    processCharacter(character: Character, speName: string): number {
-        return character.chakraSpes.filter(spe => spe === this.dataService.chakraSpes.find(spe => spe.name === speName)?._id).length;
     }
 }

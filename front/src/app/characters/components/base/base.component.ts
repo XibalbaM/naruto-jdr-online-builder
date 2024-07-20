@@ -9,7 +9,7 @@ import {LongArrowRightComponent} from '../../../utils/components/long-arrow-righ
 import {AsyncPipe, NgIf, TitleCasePipe} from '@angular/common';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {NgxMarkdownItModule} from "ngx-markdown-it";
-import Base from "common/src/interfaces/base.interface";
+import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
 
 @Component({
     selector: 'app-base',
