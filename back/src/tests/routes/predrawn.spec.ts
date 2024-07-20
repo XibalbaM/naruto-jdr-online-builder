@@ -1,13 +1,13 @@
 import {test, expect} from "vitest";
 
-import CharacterModel from "../../models/character.model";
-import VillageModel from "../../models/village.model";
-import RankModel from "../../models/rank.model";
-import ClanModel from "../../models/clan.model";
+import CharacterModel from "../../models/character.model.js";
+import VillageModel from "../../models/village.model.js";
+import RankModel from "../../models/rank.model.js";
+import ClanModel from "../../models/clan.model.js";
 import {authenticateRequest, createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
-import PredrawnController from "../../controllers/predrawn.controller";
-import {getTestToken} from "../../utils/test.data";
-import Character from "../../interfaces/character.interface";
+import PredrawnController from "../../controllers/predrawn.controller.js";
+import {getTestToken} from "../../utils/test.data.js";
+import Character from "../../interfaces/character.interface.js";
 
 const dummyPredrawn: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "createdAt" | "updatedAt"> = {
     firstName: "test",

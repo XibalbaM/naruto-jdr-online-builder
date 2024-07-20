@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Clan from "../interfaces/clan.interface";
+import Clan from "../interfaces/clan.interface.js";
 
 /**
  * Represents a clan in the application.

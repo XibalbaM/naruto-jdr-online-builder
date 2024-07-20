@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import ChakraSpe from "../interfaces/chakraSpe.interface";
+import ChakraSpe from "../interfaces/chakraSpe.interface.js";
 
 /**
  * Represents a chakraSpe in the application.

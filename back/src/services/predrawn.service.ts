@@ -1,7 +1,7 @@
 import CharacterModel from "../models/character.model.js";
-import Character from "../interfaces/character.interface";
+import Character from "../interfaces/character.interface.js";
 import UserModel from "../models/user.model.js";
-import User from "../interfaces/user.interface";
+import User from "../interfaces/user.interface.js";
 
 export default class PredrawnService {
 

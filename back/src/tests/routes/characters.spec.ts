@@ -1,17 +1,17 @@
 import {beforeAll, expect, Mock, test} from "vitest";
 
-import VillageModel from "../../models/village.model";
-import Character from "../../interfaces/character.interface";
-import ClanModel from "../../models/clan.model";
-import CharacterModel from "../../models/character.model";
-import RankModel from "../../models/rank.model";
+import VillageModel from "../../models/village.model.js";
+import Character from "../../interfaces/character.interface.js";
+import ClanModel from "../../models/clan.model.js";
+import CharacterModel from "../../models/character.model.js";
+import RankModel from "../../models/rank.model.js";
 import {authenticateRequest, createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
-import {getTestToken, getTestUserId} from "../../utils/test.data";
-import * as CharacterController from "../../controllers/characters.controller";
-import UserModel from "../../models/user.model";
-import {CustomSkillModel} from "../../models/skill.model";
-import ChakraSpeModel from "../../models/chakraSpe.model";
-import RoadModel from "../../models/road.model";
+import {getTestToken, getTestUserId} from "../../utils/test.data.js";
+import * as CharacterController from "../../controllers/characters.controller.js";
+import UserModel from "../../models/user.model.js";
+import {CustomSkillModel} from "../../models/skill.model.js";
+import ChakraSpeModel from "../../models/chakraSpe.model.js";
+import RoadModel from "../../models/road.model.js";
 
 const characterData: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "shareStatus" | "createdAt" | "updatedAt"> = {
     firstName: "test",

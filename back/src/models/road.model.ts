@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Road from "../interfaces/road.interface";
+import Road from "../interfaces/road.interface.js";
 
 /**
  * Represents a road in the application.

@@ -4,7 +4,7 @@ import NodeCache from "node-cache";
 import userModel from "../models/user.model.js";
 import * as emailService from "./mail.service.js";
 import config from "../config/config.js";
-import User from "../interfaces/user.interface";
+import User from "../interfaces/user.interface.js";
 import {getDiscordName} from "./account.service.js";
 
 /**

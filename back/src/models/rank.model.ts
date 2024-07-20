@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Rank from "../interfaces/rank.interface";
+import Rank from "../interfaces/rank.interface.js";
 
 /**
  * Represents a rank in the application.

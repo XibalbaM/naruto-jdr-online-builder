@@ -1,8 +1,8 @@
 import {expect, Mock, test} from "vitest";
 
-import authMiddleware from "../../middlewares/security/auth.middleware";
+import authMiddleware from "../../middlewares/security/auth.middleware.js";
 import {createMockNext, createMockRequest, createMockResponse, sleep} from "../../utils/tests.utils.js";
-import {getTestToken} from "../../utils/test.data";
+import {getTestToken} from "../../utils/test.data.js";
 
 /**
  * Test the authMiddleware route.

@@ -1,7 +1,7 @@
 import {expect, Mock, test} from "vitest";
-import idOfMiddleware from "../../middlewares/id-of.middleware";
+import idOfMiddleware from "../../middlewares/id-of.middleware.js";
 import {createMockNext, createMockRequest, createMockResponse, sleep} from "../../utils/tests.utils.js";
-import BaseModel from "../../models/base.model";
+import BaseModel from "../../models/base.model.js";
 
 /**
  * Test the idOfMiddleware.

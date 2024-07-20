@@ -3,7 +3,7 @@ import {makeURLSearchParams, REST} from "@discordjs/rest";
 
 import userModel from "../models/user.model.js";
 import config from "../config/config.js";
-import User from "../interfaces/user.interface";
+import User from "../interfaces/user.interface.js";
 
 /**
  * Change the username of the user

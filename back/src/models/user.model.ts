@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import User from "../interfaces/user.interface";
+import User from "../interfaces/user.interface.js";
 
 /**
  * Represents a user of the application.

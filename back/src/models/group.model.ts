@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Group from "../interfaces/group.interface";
+import Group from "../interfaces/group.interface.js";
 
 /**
  * Represents a group in the application.

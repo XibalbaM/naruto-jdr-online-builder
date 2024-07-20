@@ -1,6 +1,6 @@
 import {expect, test} from "vitest";
 
-import adminMiddleware from "../../middlewares/security/admin.middleware";
+import adminMiddleware from "../../middlewares/security/admin.middleware.js";
 import {createMockNext, createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
 
 /**

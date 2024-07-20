@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Village from "../interfaces/village.interface";
+import Village from "../interfaces/village.interface.js";
 
 /**
  * Represents a village in the application.

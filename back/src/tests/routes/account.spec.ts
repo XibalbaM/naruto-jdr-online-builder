@@ -1,10 +1,10 @@
 import {test, expect, Mock} from "vitest";
 
 import * as accountController from "../../controllers/account.controller.js";
-import {addDiscordAccountToTestAccount, createTestAccounts, getTestToken, removeDiscordAccountFromTestAccount} from "../../utils/test.data";
-import {authenticateRequest, createMockRequest, createMockResponse} from "../../utils/tests.utils";
-import UserModel from "../../models/user.model";
-import config from "../../config/config";
+import {addDiscordAccountToTestAccount, createTestAccounts, getTestToken, removeDiscordAccountFromTestAccount} from "../../utils/test.data.js";
+import {authenticateRequest, createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
+import UserModel from "../../models/user.model.js";
+import config from "../../config/config.js";
 
 test("getUser", async () => {
     {

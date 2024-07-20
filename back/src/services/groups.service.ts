@@ -2,8 +2,8 @@ import {Types} from "mongoose";
 
 import UserModel from "../models/user.model.js";
 import GroupModel from "../models/group.model.js";
-import Group from "../interfaces/group.interface";
-import User from "../interfaces/user.interface";
+import Group from "../interfaces/group.interface.js";
+import User from "../interfaces/user.interface.js";
 
 export async function create(data: any, userId: string) {
 

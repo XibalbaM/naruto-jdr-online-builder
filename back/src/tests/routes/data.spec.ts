@@ -1,7 +1,7 @@
 import {test, expect} from "vitest";
 
-import VillageModel from "../../models/village.model";
-import DataController from "../../controllers/data.controller";
+import VillageModel from "../../models/village.model.js";
+import DataController from "../../controllers/data.controller.js";
 import {createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
 
 let kiri = (await VillageModel.findOne({name: "Kiri"}).lean())!;

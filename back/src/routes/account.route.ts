@@ -1,6 +1,6 @@
 import {Router} from "express";
 
-import authMiddleware from "../middlewares/security/auth.middleware";
+import authMiddleware from "../middlewares/security/auth.middleware.js";
 import * as accountController from "../controllers/account.controller.js";
 import contentMiddleware from "../middlewares/content.middleware.js";
 
