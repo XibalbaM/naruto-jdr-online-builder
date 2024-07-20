@@ -19,11 +19,16 @@ jobs:
                 with:
                     node-version: '20'
 
+            -   name: "Setup pnpm"
+                uses: pnpm/action-setup@v4
+                with:
+                    version: 8
+
             -   name: Install dependencies
-                run: cd ./bot && npm install
+                run: cd ./bot && pnpm install
 
             -   name: Build
-                run: cd ./bot && npm run build
+                run: cd ./bot && pnpm run build
 
             -   name: Stop bot process on VPS
                 uses: appleboy/ssh-action@master

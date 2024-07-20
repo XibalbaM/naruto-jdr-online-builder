@@ -19,11 +19,16 @@ jobs:
                 with:
                     node-version: '20'
 
+            -   name: "Setup pnpm"
+                uses: pnpm/action-setup@v4
+                with:
+                    version: 8
+
             -   name: Install dependencies
-                run: cd ./front && npm install --force
+                run: cd ./front && pnpm install --force
 
             -   name: Build
-                run: cd ./front && export NODE_ENV=production && npm run build
+                run: cd ./front && export NODE_ENV=production && pnpm run build
 
             -   name: Remove old build files on VPS
                 uses: appleboy/ssh-action@master

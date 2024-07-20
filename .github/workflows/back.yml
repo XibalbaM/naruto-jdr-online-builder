@@ -19,11 +19,16 @@ jobs:
                 with:
                     node-version: '20'
 
+            -   name: "Setup pnpm"
+                uses: pnpm/action-setup@v4
+                with:
+                    version: 8
+
             -   name: Install dependencies
-                run: cd ./back && npm install
+                run: cd ./back && pnpm install
 
             -   name: Build
-                run: cd ./back && rm -r ./src/tests && rm ./src/utils/tests.utils.ts && npm run build && cp ./package.json ./dist && cp -r ./assets ./dist && cp ./.env ./dist
+                run: cd ./back && rm -r ./src/tests && rm ./src/utils/tests.utils.ts && pnpm run build && cp ./package.json ./dist && cp -r ./assets ./dist && cp ./.env ./dist
 
             -   name: Stop builder process on VPS
                 uses: appleboy/ssh-action@master
