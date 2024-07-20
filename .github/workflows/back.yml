@@ -76,7 +76,6 @@ jobs:
 
                     script: |
                         cd /home/builder/app
-                        npm install
                         export NODE_ENV="prod"
                         export MONGO_URL="mongodb+srv://builder:${{ secrets.DATABASE_PASS }}@cluster0.6po1kqr.mongodb.net/?retryWrites=true&w=majority"
                         export MONGO_DB_NAME="builder"
