@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import ChakraSpe from "../../../app/models/chakra-spe.model";
+import ChakraSpe from "../../../app/models/chakra-spe.interface";
 import Auth from "../../../app/models/auth.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";

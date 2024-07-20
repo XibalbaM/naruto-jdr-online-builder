@@ -4,7 +4,7 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {DataService} from "../../../app/services/data.service";
-import ChakraSpe from "../../../app/models/chakra-spe.model";
+import ChakraSpe from "../../../app/models/chakra-spe.interface";
 import {CharacterToMaxChakraSpesPipe} from "../../pipes/character-to-max-chakra-spes.pipe";
 import {ArrowRightComponent} from '../../../utils/components/arrow-right/arrow-right.component';
 import {NgFor, NgIf} from '@angular/common';

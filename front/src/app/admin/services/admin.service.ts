@@ -1,7 +1,7 @@
 import {effect, Injectable, signal} from "@angular/core";
 import {NotificationService} from "../../app/services/notification.service";
 import {ApiService} from "../../app/services/api.service";
-import User from "../../app/models/user.model";
+import User from "../../app/models/user.interface";
 import {map, Observable} from "rxjs";
 
 @Injectable({

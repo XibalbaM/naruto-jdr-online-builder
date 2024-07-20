@@ -1,17 +1,17 @@
 import {ChangeDetectionStrategy, Component, computed, effect, Injector, OnInit, signal} from '@angular/core';
 import {SpacerComponent} from "../../../utils/components/spacer/spacer.component";
-import {CustomSkill} from "../../../app/models/skill.model";
 import {NgForOf} from "@angular/common";
 import {DataService} from "../../../app/services/data.service";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
-import Character from "../../../app/models/character.model";
 import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {combineLatest} from "rxjs";
 import Auth from "../../../app/models/auth.model";
 import {CharacterToMaxSkillCountPipe} from "../../pipes/character-to-max-skill-count.pipe";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
+import CustomSkill from "../../../app/models/skill.interface";
+import Character from "../../../app/models/character.interface";
 
 @Component({
     selector: 'app-add-skill',
@@ -27,7 +27,7 @@ import {NotificationService} from "../../../app/services/notification.service";
 })
 export class AddSkillComponent implements OnInit {
 
-    character = signal(new Character(), {equal: () => false});
+    character = signal({} as Character, {equal: () => false});
     skills = computed(() => this.dataService.customSkills.filter(skill => !this.character().customSkills.find(s => s.skill === skill._id)));
     reamingSkills = computed(() => this.characterToMaxSkillCount.transform(this.character()) - this.character().customSkills.length);
     moreThanOneSkill = computed(() => this.reamingSkills() > 1);

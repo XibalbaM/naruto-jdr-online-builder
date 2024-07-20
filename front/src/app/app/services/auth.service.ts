@@ -2,8 +2,8 @@ import {Injectable} from "@angular/core";
 import Auth from "../models/auth.model";
 import {ApiService} from "./api.service";
 import {combineLatest, map, Observable, tap} from "rxjs";
-import User from "../models/user.model";
-import Character from "../models/character.model";
+import User from "../models/user.interface";
+import Character from "../models/character.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +28,9 @@ export class AuthService {
                     combineLatest([
                         this.apiService.doRequest<{ characters?: [Character], error?: string }>("GET", "/characters")
                     ]).subscribe(([characterResponse]) => {
-                        const user = new User(response.body?.user!);
+                        const user = response.body?.user! as User;
+                        user.createdAt = new Date(Date.parse(user.createdAt as unknown as string));
+                        user.lastActivity = new Date(Date.parse(user.lastActivity as unknown as string));
                         if (characterResponse.body && !characterResponse.body.error && characterResponse.body.characters)
                             user.characters = characterResponse.body.characters;
                         user.characters.forEach((character) => {

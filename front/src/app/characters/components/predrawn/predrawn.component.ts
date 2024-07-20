@@ -1,7 +1,7 @@
 import {Component, computed, OnInit, Signal, signal} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
 import {PredrawnService} from "../../../app/services/predrawn.service";
-import Character from "../../../app/models/character.model";
+import Character from "../../../app/models/character.interface";
 import {DataService} from "../../../app/services/data.service";
 import {IdToDataPipe} from '../../../utils/pipes/id-to-data.pipe';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';

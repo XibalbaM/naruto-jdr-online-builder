@@ -5,8 +5,9 @@ import {PlusSymbolComponent} from '../../../utils/components/plus-symbol/plus-sy
 import {MinusSymbolComponent} from '../../../utils/components/minus-symbol/minus-symbol.component';
 import {RouterLink} from '@angular/router';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
-import {Skill} from "../../../app/models/skill.model";
 import {NgxPopperjsContentComponent, NgxPopperjsDirective, NgxPopperjsTriggers} from "ngx-popperjs";
+import Skill from "common/src/interfaces/skill.interface";
+import CustomSkill from "../../../app/models/skill.interface";
 
 @Component({
     selector: 'app-skill-item',
@@ -17,7 +18,7 @@ import {NgxPopperjsContentComponent, NgxPopperjsDirective, NgxPopperjsTriggers} 
 })
 export class SkillItemComponent {
 
-    @Input() skill!: { skill: Skill, level: number };
+    @Input() skill!: { skill: Skill | CustomSkill, level: number };
     @Input() baseLevel!: number;
     @Input() isCommon !: boolean
     @Output() changeValue = new EventEmitter<number>();

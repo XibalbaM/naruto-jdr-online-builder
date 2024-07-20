@@ -7,7 +7,7 @@ import {SpacerComponent} from '../../../utils/components/spacer/spacer.component
 import {AdminLogoComponent} from '../../../utils/components/admin-logo/admin-logo.component';
 import {ActivatedRoute, Router} from "@angular/router";
 import AdminService from "../../services/admin.service";
-import User from "../../../app/models/user.model";
+import User from "../../../app/models/user.interface";
 import {zip} from "rxjs";
 
 @Component({

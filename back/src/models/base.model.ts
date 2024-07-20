@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Base from "../interfaces/base.interface";
+import Base from "common/interfaces/base"
 
 /**
  * Represents a base in the application.

@@ -1,9 +1,6 @@
-import Line from "./line.interface";
 import {ObjectId} from "mongoose";
+import _Road from "common/interfaces/road";
 
-export default interface Road {
+export default interface Road extends _Road {
     _id: ObjectId;
-    name: string;
-    qualification: string;
-    line: Line
 }

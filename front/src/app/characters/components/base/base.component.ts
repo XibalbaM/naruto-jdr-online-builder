@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import Base from "../../../app/models/base.model";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
@@ -10,6 +9,7 @@ import {LongArrowRightComponent} from '../../../utils/components/long-arrow-righ
 import {AsyncPipe, NgIf, TitleCasePipe} from '@angular/common';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {NgxMarkdownItModule} from "ngx-markdown-it";
+import Base from "common/src/interfaces/base.interface";
 
 @Component({
     selector: 'app-base',

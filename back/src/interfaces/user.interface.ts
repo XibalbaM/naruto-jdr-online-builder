@@ -1,15 +1,7 @@
 import {ObjectId} from "mongoose";
+import _User from "common/interfaces/user";
 
-export default interface User {
+export default interface User extends _User {
     _id: ObjectId;
-    email: string;
-    username?: string;
-    isAdmin: boolean;
-    groups: [string];
-    characters: [string];
-    discordId?: string;
-    createdAt: Date;
-    lastActivity: Date;
-    discordName?: string;
-    profileImage?: string;
+    characters: string[];
 }

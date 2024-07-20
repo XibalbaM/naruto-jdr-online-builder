@@ -1,5 +1,4 @@
 import {Component, inject, signal} from '@angular/core';
-import Character from "../../../app/models/character.model";
 import Auth from "../../../app/models/auth.model";
 import {NAVBAR_DATA_TOKEN} from "../../../app/app.component";
 import {NgxPopperjsContentComponent, NgxPopperjsDirective, NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
@@ -14,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import {ModalComponent} from '../../../utils/components/modal/modal.component';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {AsyncPipe, NgClass, NgIf} from '@angular/common';
+import Character from "../../../app/models/character.interface";
 
 @Component({
     selector: 'app-character-navbar',
@@ -24,7 +24,7 @@ import {AsyncPipe, NgClass, NgIf} from '@angular/common';
 })
 export class CharacterNavbarComponent {
 
-    character = signal(new Character());
+    character = signal({} as Character);
     navbarData = inject(NAVBAR_DATA_TOKEN);
     deleteNameConfirm = ""
     isShiftPressed = signal(false);

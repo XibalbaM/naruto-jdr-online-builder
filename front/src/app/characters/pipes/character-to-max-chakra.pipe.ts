@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import Character from "../../app/models/character.model";
+import Character from "../../app/models/character.interface";
 import {CharacterToChakraControlPipe} from "./character-to-chakra-control.pipe";
 import {map, Observable} from "rxjs";
 import {CharacterToChakraSpeAmountPipe} from "./character-to-chakra-spe-amount.pipe";

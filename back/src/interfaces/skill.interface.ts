@@ -1,16 +1,6 @@
 import {ObjectId} from "mongoose";
+import { _CustomSkill } from "common/interfaces/skill";
 
-export default interface Skill {
-    _id: number;
-    name: string;
-    base: number;
-    description: string;
-}
-
-export interface CustomSkill {
+export default interface CustomSkill extends _CustomSkill {
     _id: ObjectId;
-    name: string;
-    base: number;
-    description: string;
-    type: "combat" | "terrain" | "clan";
 }

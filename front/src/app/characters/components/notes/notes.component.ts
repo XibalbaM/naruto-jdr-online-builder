@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
 import {ActivatedRoute, Router} from "@angular/router";
-import Character from "../../../app/models/character.model";
+import Character from "../../../app/models/character.interface";
 import {Title} from "@angular/platform-browser";
 import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {DataService} from "../../../app/services/data.service";

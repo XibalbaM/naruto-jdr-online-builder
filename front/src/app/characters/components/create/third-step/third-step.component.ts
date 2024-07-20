@@ -11,7 +11,7 @@ import {SpacerComponent} from '../../../../utils/components/spacer/spacer.compon
 import {CharacterPreviewComponent} from '../character-preview/character-preview.component';
 import {LongArrowLeftComponent} from '../../../../utils/components/long-arrow-left/long-arrow-left.component';
 import {NgClass, NgFor, NgIf} from '@angular/common';
-import {CustomSkill, Skill} from "../../../../app/models/skill.model";
+import CustomSkill from "../../../../app/models/skill.interface";
 
 @Component({
     selector: 'app-third-step',
@@ -63,7 +63,7 @@ export class ThirdStepComponent implements OnInit, OnDestroy {
         }
     }
 
-    addSkill(skill: Skill) {
+    addSkill(skill: CustomSkill) {
         if (!this.skillIds.includes(skill._id)) {
             if (5 - this.skillIds.length > 0) {
                 this.skillIds.push(skill._id);

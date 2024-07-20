@@ -1,5 +1,5 @@
 import {Component, computed, input} from '@angular/core';
-import Character from "../../../app/models/character.model";
+import Character from "../../../app/models/character.interface";
 import Environment from "../../../../environments/environment.interface";
 import {DataService} from "../../../app/services/data.service";
 import {IdToDataPipe} from '../../../utils/pipes/id-to-data.pipe';

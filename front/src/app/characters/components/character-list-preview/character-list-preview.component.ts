@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import Character from "../../../app/models/character.model";
+import Character from "../../../app/models/character.interface";
 import Environment from "../../../../environments/environment.interface";
 import {DataService} from "../../../app/services/data.service";
 import {CharacterToReamingXpPipe} from '../../../utils/pipes/character-to-reaming-xp.pipe';

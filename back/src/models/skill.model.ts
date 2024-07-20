@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Skill from "../interfaces/skill.interface";
+import Skill from "common/interfaces/skill"
 
 const CommonSkillSchema = new mongoose.Schema<Skill>({
     _id: {

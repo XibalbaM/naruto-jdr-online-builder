@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import Character from "../../app/models/character.model";
+import Character from "../../app/models/character.interface";
 import {map, Observable} from "rxjs";
 import {CharacterToSkillTotalLevelPipe} from "./character-to-skill-total-level.pipe";
 

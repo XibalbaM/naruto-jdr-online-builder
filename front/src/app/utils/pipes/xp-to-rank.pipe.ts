@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import Rank from "../../app/models/rank.model";
+import Rank from "../../app/models/rank.interface";
 import {DataService} from "../../app/services/data.service";
 
 @Pipe({

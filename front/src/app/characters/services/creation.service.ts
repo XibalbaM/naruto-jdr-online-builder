@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import Character from "../../app/models/character.model";
-import Village from "../../app/models/village.model";
-import Clan from "../../app/models/clan.model";
-import Road from "../../app/models/road.model";
+import Character, {toCreate} from "../../app/models/character.interface";
+import Village from "../../app/models/village.interface";
+import Clan from "../../app/models/clan.interface";
+import Road from "../../app/models/road.interface";
 import {XpToRankPipe} from "../../utils/pipes/xp-to-rank.pipe";
 import {catchError, map, mergeMap, Observable, of, tap, zip} from "rxjs";
 import {ApiService} from "../../app/services/api.service";
@@ -13,7 +13,7 @@ import Auth from "../../app/models/auth.model";
 })
 export class CreationService {
 
-    character: Character = new Character();
+    character: Partial<Character> = {};
     step: number = 1;
     tempSkillIds: string[] = [];
 
@@ -61,7 +61,7 @@ export class CreationService {
     stepThree(skillIds: string[], token: string): Observable<{ success: boolean, id?: string }> {
 
         return this.apiService.doRequest<{ character: Character }>("POST", "/characters", {
-            character: new Character(this.character).toCreate(),
+            character: toCreate(this.character),
             captcha: token
         }).pipe(
             map((response) => {
@@ -93,7 +93,7 @@ export class CreationService {
                 return character;
             }),
             tap((character) => {
-                this.character = new Character();
+                this.character = {};
                 this.tempSkillIds = [];
                 this.step = 1;
                 if (this.auth.user) {

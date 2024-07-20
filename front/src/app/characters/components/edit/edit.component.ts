@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, effect, OnInit, signal} from '@angular/core';
-import Character from "../../../app/models/character.model";
+import Character from "../../../app/models/character.interface";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
@@ -8,7 +8,6 @@ import Environment from "../../../../environments/environment.interface";
 import {every, merge, Observable, tap} from "rxjs";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
-import Base from "../../../app/models/base.model";
 import {Title} from "@angular/platform-browser";
 import {CharacterToSkillReinforcementPipe} from '../../pipes/character-to-skill-reinforcement.pipe';
 import {CharacterToInterceptionsPipe} from '../../pipes/character-to-interceptions.pipe';
@@ -30,8 +29,10 @@ import {SpacerComponent} from '../../../utils/components/spacer/spacer.component
 import {SpacerGraphicalComponent} from '../../../utils/components/spacer-graphical/spacer-graphical.component';
 import {ArrowRightComponent} from '../../../utils/components/arrow-right/arrow-right.component';
 import {AsyncPipe, JsonPipe, NgClass, NgFor, NgIf} from '@angular/common';
-import {CustomSkill, Skill} from "../../../app/models/skill.model";
+import CustomSkill from "../../../app/models/skill.interface";
 import {NgxMarkdownItModule} from "ngx-markdown-it";
+import Base from "common/src/interfaces/base.interface";
+import Skill from "common/src/interfaces/skill.interface";
 
 @Component({
     selector: 'app-edit',
@@ -43,7 +44,7 @@ import {NgxMarkdownItModule} from "ngx-markdown-it";
 })
 export class EditComponent implements OnInit, AfterViewInit {
 
-    character = signal(new Character(), {equal: () => false});
+    character = signal({} as Character, {equal: () => false});
     commonSkills = computed(() =>
         this.character().commonSkills.map((level, id) => ({skill: this.idToData.transform(id, this.dataService.commonSkills)!, level}))
     );
@@ -107,8 +108,8 @@ export class EditComponent implements OnInit, AfterViewInit {
         const customSkillsToDecrease = this.character().customSkills
             .filter(skill => skill.level > 1)
             .map((skill: { skill: string, level: number }) => ({skill: this.idToData.transform(skill.skill, this.dataService.customSkills)!, level: skill.level}))
-            .filter((skill: { skill: Skill, level: number }) => skill.skill.base === data.base._id)
-            .filter((skill: { skill: Skill, level: number }) => skill.level >= data.level + 2);
+            .filter((skill: { skill: CustomSkill, level: number }) => skill.skill.base === data.base._id)
+            .filter((skill: { skill: CustomSkill, level: number }) => skill.level >= data.level + 2);
         const requests = merge(...[...commonSkillsToDecrease, ...customSkillsToDecrease].map((skill) => {
             return this.characterService.setSkillLevel(this.character()._id, skill.skill._id, skill.level - 1);
         }))
@@ -130,14 +131,14 @@ export class EditComponent implements OnInit, AfterViewInit {
         );
     }
 
-    setSkillLevel(skill: Skill, level: number) {
+    setSkillLevel(skill: Skill | CustomSkill, level: number) {
         if (level <= 0 || level > this.bases().find(base => base.base._id === skill.base)!.level + 2) {
             return;
         }
         this.characterService.setSkillLevel(this.character()._id, skill._id, level).subscribe((success) => {
             if (success) {
                 this.character.update(character => {
-                    if (skill instanceof CustomSkill)
+                    if (!(skill as CustomSkill).type)
                         character.customSkills.find((data) => data.skill === skill._id)!.level = level;
                     else
                         character.commonSkills[Number(skill._id)] = level;
@@ -177,7 +178,7 @@ export class EditComponent implements OnInit, AfterViewInit {
         });
     }
 
-    getBaseLevelBySkill(skill: Skill) {
+    getBaseLevelBySkill(skill: Skill | CustomSkill): number {
         return this.bases().find((base) => base.base._id === skill.base)!.level;
     }
 

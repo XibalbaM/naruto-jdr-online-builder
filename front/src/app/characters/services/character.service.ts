@@ -3,7 +3,7 @@ import {combineLatest, map, Observable, tap} from "rxjs";
 import {ApiService} from "../../app/services/api.service";
 import Auth from "../../app/models/auth.model";
 import {AuthService} from "../../app/services/auth.service";
-import Character from "../../app/models/character.model";
+import Character from "../../app/models/character.interface";
 
 @Injectable({
     providedIn: 'root'

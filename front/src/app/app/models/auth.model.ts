@@ -1,4 +1,4 @@
-import User from "./user.model";
+import User from "./user.interface";
 import {filter, Observable} from "rxjs";
 import {Injector, Signal, signal} from "@angular/core";
 import {toObservable} from "@angular/core/rxjs-interop";

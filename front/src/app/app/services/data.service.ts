@@ -1,13 +1,14 @@
 import {Injectable, signal} from '@angular/core';
 import {ApiService} from "./api.service";
-import Village from "../models/village.model";
+import Village from "../models/village.interface";
 import {HttpHeaders} from "@angular/common/http";
-import Base from "../models/base.model";
-import Clan from "../models/clan.model";
-import Road from "../models/road.model";
-import Rank from "../models/rank.model";
-import ChakraSpe from "../models/chakra-spe.model";
-import {CustomSkill, Skill} from "../models/skill.model";
+import Clan from "../models/clan.interface";
+import Road from "../models/road.interface";
+import Rank from "../models/rank.interface";
+import ChakraSpe from "../models/chakra-spe.interface";
+import CustomSkill from "../models/skill.interface";
+import Base from "common/src/interfaces/base.interface";
+import Skill from "common/src/interfaces/skill.interface";
 
 @Injectable({
     providedIn: 'root'

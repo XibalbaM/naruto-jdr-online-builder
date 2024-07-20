@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import User from "../../app/models/user.model";
+import User from "../../app/models/user.interface";
 import {RoleNamePipe} from "./role-name.pipe";
 
 @Pipe({
@@ -20,12 +20,12 @@ export class RolesPipe implements PipeTransform {
 
         const roles: string[] = [];
 
-        if (user.groups.find(group => group.role === 'player')) {
+        //if (user.groups.find(group => group.role === 'player')) {
             roles.push(this.roleNamePipe.transform('player'));
-        }
-        if (user.groups.find(group => group.role === 'sensei')) {
-            roles.push(this.roleNamePipe.transform('sensei'));
-        }
+        //}
+        //if (user.groups.find(group => group.role === 'sensei')) {
+        //    roles.push(this.roleNamePipe.transform('sensei'));
+        //}
         if (user.isAdmin) {
             roles.push(this.roleNamePipe.transform('admin'));
         }

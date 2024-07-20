@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import Character from "../models/character.model";
+import Character from "../models/character.interface";
 import {ApiService} from "./api.service";
 import {map, mergeMap, Observable, of, zip} from "rxjs";
 

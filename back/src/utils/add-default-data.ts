@@ -4,16 +4,16 @@ import BaseModel from "../models/base.model.js";
 import RoadModel from "../models/road.model.js";
 import ClanModel from "../models/clan.model.js";
 import Village from "../interfaces/village.interface";
-import Base from "../interfaces/base.interface";
+import Base from "common/interfaces/base";
 import Clan from "../interfaces/clan.interface";
 import Road from "../interfaces/road.interface";
-import Skill, {CustomSkill} from "../interfaces/skill.interface";
+import Skill from "common/interfaces/skill";
+import CustomSkill from "../interfaces/skill.interface";
 import Rank from "../interfaces/rank.interface";
 import RankModel from "../models/rank.model.js";
 import ChakraSpe from "../interfaces/chakraSpe.interface";
 import ChakraSpeModel from "../models/chakraSpe.model.js";
 import {CommonSkillModel, CustomSkillModel} from "../models/skill.model.js";
-import {Schema, Types} from "mongoose";
 
 export default async function () {
 
