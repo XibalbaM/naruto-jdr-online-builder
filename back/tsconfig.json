@@ -21,6 +21,10 @@
             "ES2022",
             "dom"
         ],
-        "esModuleInterop": true
-    }
+        "esModuleInterop": true,
+        "types": []
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
 }
