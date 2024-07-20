@@ -35,9 +35,9 @@ jobs:
                     pnpm run build 
                     cp ./package.json ./dist 
                     cp -r ./assets ./dist 
-                    cp ./.env ./dist 
-                    pnpm prune --prod 
-                    cp -r ./node_modules ./dist
+                    cp ./.env ./dist
+                    cd ../common
+                    pnpm run build
 
             -   name: Stop builder process on VPS
                 uses: appleboy/ssh-action@master
@@ -65,6 +65,7 @@ jobs:
                     echo "${{ secrets.BUILDER_SSH_PRIVATE_KEY }}" > ./builder.key
                     chmod 600 ./builder.key
                     rsync -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./builder.key" -r ./back/dist/ builder@45.147.97.184:/home/builder/app
+                    rsync -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./builder.key" -r ../common/dist/ builder@45.147.97.184:/home/builder/common
                     rm ./builder.key
 
             -   name: Restart builder on VPS
@@ -76,6 +77,7 @@ jobs:
 
                     script: |
                         cd /home/builder/app
+                        npm install
                         export NODE_ENV="prod"
                         export MONGO_URL="mongodb+srv://builder:${{ secrets.DATABASE_PASS }}@cluster0.6po1kqr.mongodb.net/?retryWrites=true&w=majority"
                         export MONGO_DB_NAME="builder"
