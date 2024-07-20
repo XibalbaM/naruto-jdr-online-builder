@@ -28,7 +28,16 @@ jobs:
                 run: cd ./back && pnpm install
 
             -   name: Build
-                run: cd ./back && rm -r ./src/tests && rm ./src/utils/tests.utils.ts && pnpm run build && cp ./package.json ./dist && cp -r ./assets ./dist && cp ./.env ./dist
+                run: |
+                    cd ./back 
+                    rm -r ./src/tests 
+                    rm ./src/utils/tests.utils.ts 
+                    pnpm run build 
+                    cp ./package.json ./dist 
+                    cp -r ./assets ./dist 
+                    cp ./.env ./dist 
+                    pnpm prune --prod 
+                    cp ./node_modules ./dist
 
             -   name: Stop builder process on VPS
                 uses: appleboy/ssh-action@master
