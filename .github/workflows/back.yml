@@ -37,7 +37,7 @@ jobs:
                     cp -r ./assets ./dist 
                     cp ./.env ./dist 
                     pnpm prune --prod 
-                    cp ./node_modules ./dist
+                    cp -r ./node_modules ./dist
 
             -   name: Stop builder process on VPS
                 uses: appleboy/ssh-action@master
