@@ -38,6 +38,7 @@ jobs:
                     cp ./.env ./dist
                     cd ../common
                     pnpm run build
+                    cp ./package.json ./dist 
 
             -   name: Stop builder process on VPS
                 uses: appleboy/ssh-action@master
