@@ -1,4 +1,4 @@
-import Environment from "./env/Environment";
+import Environment from "./env/Environment.js";
 
 const env = process.env.NODE_ENV || "test";
 console.log(`Loading ${env} environment...`);

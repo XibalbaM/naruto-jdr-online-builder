@@ -1,7 +1,7 @@
 import {Client, REST, Routes, SlashCommandBuilder} from "discord.js";
 import {glob} from "glob";
 
-import {SlashCommand} from "../classes";
+import {SlashCommand} from "../classes.js";
 import config from "../config/env.js";
 
 export default async function (client: Client) {

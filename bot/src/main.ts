@@ -1,7 +1,7 @@
 import {Client, Collection, GatewayIntentBits, PermissionFlagsBits} from "discord.js";
 import {glob} from "glob";
 
-import {SlashCommand} from "./classes";
+import {SlashCommand} from "./classes.js";
 import config from "./config/env.js";
 import axios from "axios";
 import DataService from "./services/data.service.js";

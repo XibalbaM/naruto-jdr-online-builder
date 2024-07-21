@@ -1,5 +1,5 @@
 import {Client} from "discord.js";
-import {BotEvent} from "../classes";
+import {BotEvent} from "../classes.js";
 import {glob} from "glob";
 
 export default async function (client: Client) {

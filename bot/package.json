@@ -16,7 +16,7 @@
         "discord.js": "^14.14.1",
         "glob": "^10.3.10",
         "jsonwebtoken": "^9.0.2",
-        "naruto-jdr-online-builder-common": "workspace:*"
+        "naruto-jdr-online-builder-common": "file:../common"
     },
     "devDependencies": {
         "@types/express": "^4.17.21",
