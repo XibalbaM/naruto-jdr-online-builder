@@ -19,10 +19,10 @@ export class CharacterToChakraRegenPipe implements PipeTransform {
     transform(character: Character | Observable<Character>): number | Observable<number> {
         if (character instanceof Observable) {
             return character.pipe(
-                map(character => chakraRegen(character, this.dataService.clans, this.dataService.bases, this.dataService.chakraSpes)),
+                map(character => chakraRegen(character, this.dataService.clans, this.dataService.chakraSpes)),
             );
         } else {
-            return chakraRegen(character, this.dataService.clans, this.dataService.bases, this.dataService.chakraSpes);
+            return chakraRegen(character, this.dataService.clans, this.dataService.chakraSpes);
         }
     }
 }

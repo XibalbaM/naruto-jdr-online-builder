@@ -25,6 +25,7 @@
         "types": []
     },
     "include": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        "../common/src/**/*.ts"
     ]
 }

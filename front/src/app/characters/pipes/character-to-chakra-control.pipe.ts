@@ -2,7 +2,6 @@ import {Pipe, PipeTransform} from '@angular/core';
 import Character from "../../app/models/character.interface";
 import {map, Observable} from "rxjs";
 import {chakraControl} from "naruto-jdr-online-builder-common/src/utils/character.utils";
-import {DataService} from "../../app/services/data.service";
 
 @Pipe({
     name: 'characterToChakraControl',
@@ -11,7 +10,7 @@ import {DataService} from "../../app/services/data.service";
 })
 export class CharacterToChakraControlPipe implements PipeTransform {
 
-    constructor(private dataService: DataService) {
+    constructor() {
     }
 
     transform(character: Observable<Character>): Observable<number>;
@@ -19,9 +18,9 @@ export class CharacterToChakraControlPipe implements PipeTransform {
     transform(character: Observable<Character> | Character): Observable<number> | number {
         if (character instanceof Observable)
             return character.pipe(
-                map(character => chakraControl(character, this.dataService.bases))
+                map(character => chakraControl(character))
             );
         else
-            return chakraControl(character, this.dataService.bases);
+            return chakraControl(character);
     }
 }

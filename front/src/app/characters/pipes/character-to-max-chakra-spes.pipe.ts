@@ -18,8 +18,8 @@ export class CharacterToMaxChakraSpesPipe implements PipeTransform {
     transform(character: Observable<Character>): Observable<number>
     transform(character: Observable<Character> | Character): Observable<number> | number {
         if (character instanceof Observable)
-            return character.pipe(map(character => maxChakraSpes(character, this.dataService.bases)));
+            return character.pipe(map(character => maxChakraSpes(character)));
         else
-            return maxChakraSpes(character, this.dataService.bases);
+            return maxChakraSpes(character);
     }
 }

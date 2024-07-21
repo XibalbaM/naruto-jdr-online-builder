@@ -9,39 +9,9 @@ import RoadModel from "../models/road.model.js";
 import RankModel from "../models/rank.model.js";
 import {CommonSkillModel, CustomSkillModel} from "../models/skill.model.js";
 import Line from "naruto-jdr-online-builder-common/src/interfaces/line.interface";
+import {canUserEditCharacter, canUserReadCharacter, maxChakraSpes} from "naruto-jdr-online-builder-common/src/utils/character.utils.js";
 
 export default class CharactersService {
-
-    private static async calculateMaxChakraSpes(character: Character): Promise<number> {
-        const corBaseId = 0;
-        const espBaseId = 1;
-        const chakraControl = character.bases.filter((_, index) => index === corBaseId || index === espBaseId).reduce((acc, base) => acc + base, 0);
-        let maxChakraSpes = 1;
-        if (chakraControl >= 5) {
-            maxChakraSpes += 1;
-        }
-        if (chakraControl >= 10) {
-            maxChakraSpes += 2;
-        }
-        if (chakraControl >= 14) {
-            maxChakraSpes += 2;
-        }
-        if (chakraControl >= 20) {
-            maxChakraSpes += 3;
-        }
-        if (chakraControl >= 24) {
-            maxChakraSpes += 5;
-        }
-        return maxChakraSpes;
-    }
-
-    static canUserReadCharacter(user: User, character: Character) {
-        return user.isAdmin || character.shareStatus !== "private" || user.characters.map(value => value.toString()).includes(character._id.toString());
-    }
-
-    static canUserEditCharacter(user: User, characterId: string) {
-        return user.characters.map(value => value.toString()).includes(characterId);
-    }
 
     static async listCharacters(user: User) {
         const characters: Character[] = [];
@@ -69,7 +39,7 @@ export default class CharactersService {
 
     static async getCharacter(user: User, characterId: string): Promise<Character> {
         const character = (await CharacterModel.findById(characterId).lean())!;
-        if (!this.canUserReadCharacter(user, character)) {
+        if (!canUserReadCharacter(user, character)) {
             throw new Error("Character not found");
         }
         return character;
@@ -77,7 +47,7 @@ export default class CharactersService {
 
     static async copyCharacter(user: User, characterId: string): Promise<Character> {
         const character = (await CharacterModel.findById(characterId).lean())!;
-        if (!this.canUserReadCharacter(user, character)) {
+        if (!canUserReadCharacter(user, character)) {
             throw new Error("Character not found");
         }
         let data = character as Partial<Character>;
@@ -93,7 +63,7 @@ export default class CharactersService {
         if (value < 1) {
             throw new Error("Invalid value");
         }
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         const skill = (await CommonSkillModel.findById(skillId).lean())!;
@@ -109,7 +79,7 @@ export default class CharactersService {
     }
 
     static async setCustomSkill(user: User, characterId: string, skillId: string, value: number) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         if (value < 1) {
@@ -139,7 +109,7 @@ export default class CharactersService {
         if (value < 1) {
             throw new Error("Invalid value");
         }
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         const character = (await CharacterModel.findById(characterId).lean())!;
@@ -156,25 +126,25 @@ export default class CharactersService {
     }
 
     static async setNindo(user: User, characterId: string, nindo: string) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {nindo});
     }
 
     static async setNindoPoints(user: User, characterId: string, nindoPoints: number) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {nindoPoints});
     }
 
     static async addSpe(user: User, characterId: string, speIndex: number, speId: string) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         const character = (await CharacterModel.findById(characterId).lean())!;
-        if (speIndex >= (await this.calculateMaxChakraSpes(character))) {
+        if (speIndex >= (maxChakraSpes(character))) {
             throw new Error("Spe not yet unlocked");
         }
         const spe = (await ChakraSpeModel.findById(speId).lean())!;
@@ -187,7 +157,7 @@ export default class CharactersService {
     }
 
     static async removeSpe(user: User, characterId: string, speIndex: number) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         let character = (await CharacterModel.findById(characterId).lean())!;
@@ -203,42 +173,42 @@ export default class CharactersService {
     }
 
     static async setNotes(user: User, characterId: string, text: string) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {notes: text});
     }
 
     static async setXp(user: User, characterId: string, xp: number) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {xp});
     }
 
     static async setRank(user: User, characterId: string, rank: string) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {rank});
     }
 
     static async setVillage(user: User, characterId: string, village: string) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {village});
     }
 
     static async setName(user: User, characterId: string, firstName: string) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {firstName});
     }
 
     static async setClan(user: User, characterId: string, clan: string) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         const line = (await ClanModel.findById(clan).lean().select("line"))!.line as Line;
@@ -251,7 +221,7 @@ export default class CharactersService {
     }
 
     static async setRoad(user: User, characterId: string, road: string) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         if (road === "") {
@@ -269,14 +239,14 @@ export default class CharactersService {
     }
 
     static async setShareStatus(user: User, characterId: string, status: "private" | "not-referenced" | "public" | "predrawn") {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {shareStatus: status});
     }
 
     static async deleteCharacter(user: User, characterId: string) {
-        if (!this.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await UserModel.findByIdAndUpdate(user._id, {$pull: {characters: characterId}});

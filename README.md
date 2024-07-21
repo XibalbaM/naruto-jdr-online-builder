@@ -1,5 +1,7 @@
 # naruto-jdr-online-builder
 
+Regex pour ajouter les .js aux imports :(\bfrom\s+["']\.(?:(?!\.js).)*)(["']) -> $1.js$2
+
 ## Structure
 - ### Back
 Contient un app Express qui sert l'API.
