@@ -1,7 +1,7 @@
 <a *ngIf="(character.clan | idToData:dataService.clans) as clan" [routerLink]="'/personnages/' + character._id"
    class="flex gray-box py-[18px] px-[12px] mb-[12px] hover:bg-lighter-dark">
-    <img [src]="env.api_url + '/assets/clans/'+ clan.name.toLowerCase() + '-purple.svg'"
-         alt="character image" class="gray-box ms-[12px] me-[18px] !bg-black x-[52px] h-[52px] p-[13px]">
+    <img [ngSrc]="env.api_url + '/assets/clans/'+ clan.name.toLowerCase() + '-purple.svg'" width="52" height="52"
+         alt="character image" class="gray-box ms-[12px] me-[18px] !bg-black w-[52px] h-[52px] p-[13px]">
     <div>
         <p class="text-20">{{ character.firstName }} {{ clan.name }}</p>
         <span [ngClass]="((character | characterToReamingXp) || 0) >= 0 ? 'text-blue' : 'text-orange'"

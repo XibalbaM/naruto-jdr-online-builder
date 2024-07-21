@@ -1,4 +1,4 @@
-import {test, expect, Mock} from "vitest";
+import {expect, Mock, test} from "vitest";
 
 import * as accountController from "../../controllers/account.controller.js";
 import {addDiscordAccountToTestAccount, createTestAccounts, getTestToken, removeDiscordAccountFromTestAccount} from "../../utils/test.data.js";
@@ -43,8 +43,8 @@ test("updateUsername", async () => {
         await UserModel.findByIdAndUpdate(mockRequest.user!._id, {$unset: {username: 1}});
     }
 
-    {
-        let mockRequest = createMockRequest({body: {username: "testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"}}, await getTestToken());
+    let shouldNotUpdate = async (username: string) => {
+        let mockRequest = createMockRequest({body: {username}}, await getTestToken());
         let mockResponse = createMockResponse();
         await authenticateRequest(mockRequest, mockResponse);
         await accountController.updateUsername(mockRequest, mockResponse);
@@ -53,15 +53,8 @@ test("updateUsername", async () => {
         expect((await UserModel.findById(mockRequest.user!._id).lean().select("username"))!.username).toBeUndefined();
     }
 
-    {
-        let mockRequest = createMockRequest({body: {username: "te"}}, await getTestToken());
-        let mockResponse = createMockResponse();
-        await authenticateRequest(mockRequest, mockResponse);
-        await accountController.updateUsername(mockRequest, mockResponse);
-        expect(mockResponse.status).toBeCalledWith(400);
-        expect(mockResponse.json).toBeCalledWith({error: `Username must be between 3 and 20 characters.`});
-        expect((await UserModel.findById(mockRequest.user!._id).lean().select("username"))!.username).toBeUndefined();
-    }
+    await shouldNotUpdate("teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+    await shouldNotUpdate("te");
 });
 
 test("updateEmail", async () => {

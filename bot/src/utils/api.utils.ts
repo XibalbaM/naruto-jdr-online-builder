@@ -31,7 +31,7 @@ export default class ApiUtils {
      */
     static get<T>(url: string, id?: string): Promise<AxiosResponse<T>> {
         return axios.get<T>(this.processUrl(url), {
-            validateStatus: (status) => true,
+            validateStatus: () => true,
             headers: {
                 "Authorization": this.tokenFromId(id) ? `Bearer ${this.tokenFromId(id)}` : "",
             },
@@ -47,7 +47,7 @@ export default class ApiUtils {
      */
     static post<T>(url: string, body: any, id?: string): Promise<AxiosResponse<T>> {
         return axios.post<T>(this.processUrl(url), body, {
-            validateStatus: (status) => true,
+            validateStatus: () => true,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": this.tokenFromId(id) ? `Bearer ${this.tokenFromId(id)}` : "",
@@ -64,7 +64,7 @@ export default class ApiUtils {
      */
     static put<T>(url: string, body: any, id?: string): Promise<AxiosResponse<T>> {
         return axios.put<T>(this.processUrl(url), body, {
-            validateStatus: (status) => true,
+            validateStatus: () => true,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": this.tokenFromId(id) ? `Bearer ${this.tokenFromId(id)}` : "",
@@ -80,7 +80,7 @@ export default class ApiUtils {
      */
     static del<T>(url: string, id?: string): Promise<AxiosResponse<T>> {
         return axios.delete<T>(this.processUrl(url), {
-            validateStatus: (status) => true,
+            validateStatus: () => true,
             headers: {
                 "Authorization": this.tokenFromId(id) ? `Bearer ${this.tokenFromId(id)}` : "",
             },

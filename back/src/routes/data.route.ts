@@ -10,7 +10,6 @@ import idOfMiddleware from "../middlewares/id-of.middleware.js";
 /**
  * Returns a router with routes for the given model. It allows everyone to read the data, but only admins to create, update and delete it.
  * @param model The model to create the routes for.
- * @param modelToClass A function that returns the class of the model.
  * @returns A router with routes for the given model.
  */
 export default async function (model: Model<any>) {

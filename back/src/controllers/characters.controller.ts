@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import CharactersService from "../services/characters.service.js";
 import ChakraSpeModel from "../models/chakraSpe.model.js";
-import mongoose, {Types} from "mongoose";
+import {Types} from "mongoose";
 
 export async function create(req: Request, res: Response) {
     try {

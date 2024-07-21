@@ -48,13 +48,14 @@
 <div class="flex flex-row flex-wrap gap-x-[8px] gap-y-[8px]">
     <div *ngIf="(character().clan | idToData:dataService.clans) as clan"
          class="flex flex-row items-center bg-black py-[12px] px-[18px] rounded-[22px]">
-        <img [src]="env.api_url + '/assets/clans/' + clan.name.toLowerCase() + '-purple.svg'" alt="Symbole du clan du ninja"
-             class="x-[25px] h-[25px] me-[12px]"/>
+        <img [ngSrc]="env.api_url + '/assets/clans/' + clan.name.toLowerCase() + '-purple.svg'" alt="Symbole du clan du ninja"
+             class="w-[25px] h-[25px] me-[12px]" width="25" height="25"/>
         Clan {{ clan.name }}
     </div>
-    <img [src]="env.api_url + '/assets/villages/' + ((character().village | idToData:dataService.villages)?.name || '').toLowerCase() + '-purple.svg'"
+    <img [ngSrc]="env.api_url + '/assets/villages/' + ((character().village | idToData:dataService.villages)?.name || '').toLowerCase() + '-purple.svg'"
          alt="Symbole du Village du ninja"
-         class="border py-[12px] px-[18px] border-dark-gray rounded-[22px]"/>
+         class="border py-[12px] px-[18px] border-dark-gray rounded-[22px]"
+         width="20" height="18"/>
     <div *ngIf="(character().road | idToData:dataService.roads) as road"
          class="flex flex-row items-center bg-black py-[12px] px-[18px] rounded-[22px]">
         {{ road.name + ', ' + road.qualification }}
@@ -68,9 +69,10 @@
         <div class="flex flex-row items-center justify-between">
             <a [routerLink]="'base/' + base.base._id"
                class="flex w-full flex-row items-center space-x-[12px] h-[38px]">
-                <img [src]="env.api_url + '/assets/bases/' + base.base.shortName.toLowerCase() + '.svg'"
+                <img [ngSrc]="env.api_url + '/assets/bases/' + base.base.shortName.toLowerCase() + '.svg'"
                      alt="Icon de la base"
-                     class="w-[32px] h-[32px] p-[9px] bg-pink rounded-[10px]">
+                     class="w-[32px] h-[32px] p-[9px] bg-pink rounded-[10px]"
+                     width="32" height="32">
                 <span>{{ base.base.fullName }}</span>
                 <span class="text-gray-zambezi">({{ base.base.shortName }})</span>
                 <span class="border text-16 text-yellow px-[12px] py-[3px] bg-light-dark border-lighter-dark rounded-[8px]">{{ base.level }}</span>

@@ -2,7 +2,6 @@ import {expect, test} from "vitest";
 import {authenticateRequest, createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
 import {getTestToken, getTestUserId} from "../../utils/test.data.js";
 import * as authController from "../../controllers/auth.controller.js";
-import jwt from "jsonwebtoken";
 import {generateToken, getConnectionTokenFromEmail} from "../../services/auth.service.js";
 import config from "../../config/config.js";
 

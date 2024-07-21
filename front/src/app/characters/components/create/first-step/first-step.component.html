@@ -15,7 +15,7 @@
             </select>
         </div>
         <div class="flex flex-shrink-0 items-center gray-box w-[52px]">
-            <img [src]="currentVillageLogo()" alt="Logo du village" class="mx-auto">
+            <img [ngSrc]="currentVillageLogo()" alt="Logo du village" class="mx-auto" width="26" height="22">
         </div>
     </div>
     <app-spacer class="my-[18px] bg-lighter-dark"></app-spacer>
@@ -35,7 +35,7 @@
             </select>
         </div>
         <div [class.!bg-black]="!clan" class="flex flex-shrink-0 items-center gray-box w-[52px]">
-            <img [src]="currentClanLogo()" alt="" class="mx-auto x-[25px] h-[25px]">
+            <img [ngSrc]="currentClanLogo()" alt="" class="mx-auto w-[25px] h-[25px]" width="25" height="25">
         </div>
     </div>
     <div (click)="isRoadElement.checked = !isRoadElement.checked; isRoad = !isRoad; this.road = isRoad ? this.road : undefined"

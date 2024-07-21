@@ -1,4 +1,3 @@
-import { Request } from 'express';
 import User from "../interfaces/user.interface.js";
 
 declare module 'express' {

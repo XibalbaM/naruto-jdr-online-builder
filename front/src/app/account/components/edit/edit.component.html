@@ -99,7 +99,7 @@
     </form>
     <button (click)="user.discordId ? discordDisconnectDialog.show() : discordConnectDialog.show()"
             class="mb-[50px] gap-[10px] flex flex-row items-center justify-start px-[24px] bg-dark-purple rounded-[10px] w-full max-w-md h-[70px] hover:bg-opacity-90">
-        <img alt="Discord logo" src="assets/images/discord.svg">
+        <img alt="Discord logo" ngSrc="assets/images/discord.svg" width="33" height="25">
         <span *ngIf="!user.discordId">Connecter le compte à Discord</span>
         <span *ngIf="user.discordId">Déconnecter le compte Discord</span>
     </button>

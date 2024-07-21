@@ -16,7 +16,7 @@ import {Title} from "@angular/platform-browser";
 import {CharacterToReamingXpPipe} from '../../../utils/pipes/character-to-reaming-xp.pipe';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {FormsModule} from '@angular/forms';
-import {AsyncPipe, NgClass, NgFor, NgIf, TitleCasePipe} from '@angular/common';
+import {AsyncPipe, NgClass, NgFor, NgIf, NgOptimizedImage, TitleCasePipe} from '@angular/common';
 import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/long-arrow-left.component';
 import {ModalComponent} from "../../../utils/components/modal/modal.component";
 
@@ -25,7 +25,7 @@ import {ModalComponent} from "../../../utils/components/modal/modal.component";
     templateUrl: './edit-details.component.html',
     styleUrls: ['./edit-details.component.scss'],
     standalone: true,
-    imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, AsyncPipe, TitleCasePipe, CharacterToReamingXpPipe, ModalComponent, IdToDataPipe]
+    imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, AsyncPipe, TitleCasePipe, CharacterToReamingXpPipe, ModalComponent, IdToDataPipe, NgOptimizedImage]
 })
 export class EditDetailsComponent {
     shareStatuses = [

@@ -10,7 +10,7 @@ import {IdToDataPipe} from "../../../../utils/pipes/id-to-data.pipe";
 import {XpToRankPipe} from '../../../../utils/pipes/xp-to-rank.pipe';
 import {LongArrowRightComponent} from '../../../../utils/components/long-arrow-right/long-arrow-right.component';
 import {SpacerComponent} from '../../../../utils/components/spacer/spacer.component';
-import {AsyncPipe, NgFor, NgIf, TitleCasePipe} from '@angular/common';
+import {AsyncPipe, NgFor, NgIf, NgOptimizedImage, TitleCasePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -18,7 +18,7 @@ import {FormsModule} from '@angular/forms';
     templateUrl: './first-step.component.html',
     styleUrls: ['./first-step.component.scss'],
     standalone: true,
-    imports: [FormsModule, NgFor, SpacerComponent, NgIf, LongArrowRightComponent, AsyncPipe, TitleCasePipe, XpToRankPipe]
+    imports: [FormsModule, NgFor, SpacerComponent, NgIf, LongArrowRightComponent, AsyncPipe, TitleCasePipe, XpToRankPipe, NgOptimizedImage]
 })
 export class FirstStepComponent implements OnInit {
 

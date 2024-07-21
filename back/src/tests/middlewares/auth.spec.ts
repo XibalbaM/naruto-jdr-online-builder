@@ -1,7 +1,7 @@
-import {expect, Mock, test} from "vitest";
+import {expect, test} from "vitest";
 
 import authMiddleware from "../../middlewares/security/auth.middleware.js";
-import {createMockNext, createMockRequest, createMockResponse, sleep} from "../../utils/tests.utils.js";
+import {createMockNext, createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
 import {getTestToken} from "../../utils/test.data.js";
 
 /**

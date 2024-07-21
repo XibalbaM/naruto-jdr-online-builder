@@ -1,6 +1,6 @@
-import {expect, Mock, test} from "vitest";
+import {expect, test} from "vitest";
 import idOfMiddleware from "../../middlewares/id-of.middleware.js";
-import {createMockNext, createMockRequest, createMockResponse, sleep} from "../../utils/tests.utils.js";
+import {createMockNext, createMockRequest, createMockResponse} from "../../utils/tests.utils.js";
 import BaseModel from "../../models/base.model.js";
 
 /**

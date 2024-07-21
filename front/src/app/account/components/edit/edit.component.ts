@@ -12,7 +12,7 @@ import {DefaultProfilePictureComponent} from "../../../utils/components/default-
 import {SpacerGraphicalComponent} from "../../../utils/components/spacer-graphical/spacer-graphical.component";
 import {FormsModule} from "@angular/forms";
 import {ModalComponent} from "../../../utils/components/modal/modal.component";
-import {AsyncPipe, NgFor, NgIf} from "@angular/common";
+import {AsyncPipe, NgFor, NgIf, NgOptimizedImage} from "@angular/common";
 
 @Component({
     selector: "app-edit",
@@ -31,6 +31,7 @@ import {AsyncPipe, NgFor, NgIf} from "@angular/common";
         SpacerComponent,
         AsyncPipe,
         RolesPipe,
+        NgOptimizedImage,
     ],
 })
 export class EditComponent {

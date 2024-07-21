@@ -1,4 +1,4 @@
-import {ActionRowBuilder, ButtonBuilder, SlashCommandBuilder, ComponentType, Interaction, CommandInteraction, Snowflake, ButtonInteraction} from "discord.js";
+import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, CommandInteraction, ComponentType, SlashCommandBuilder, Snowflake} from "discord.js";
 
 import {ButtonStyle, SlashCommand} from "../classes.js";
 import AuthService from "../services/auth.service.js";

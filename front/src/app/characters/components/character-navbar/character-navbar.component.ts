@@ -12,7 +12,7 @@ import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/
 import {FormsModule} from '@angular/forms';
 import {ModalComponent} from '../../../utils/components/modal/modal.component';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
-import {AsyncPipe, NgClass, NgIf} from '@angular/common';
+import {AsyncPipe, NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 import Character from "../../../app/models/character.interface";
 
 @Component({
@@ -20,7 +20,7 @@ import Character from "../../../app/models/character.interface";
     templateUrl: './character-navbar.component.html',
     styleUrls: ['./character-navbar.component.scss'],
     standalone: true,
-    imports: [NgxPopperjsContentComponent, RouterLink, NgIf, SpacerComponent, ModalComponent, FormsModule, LongArrowLeftComponent, NgClass, NgxPopperjsDirective, RouterLinkActive, AsyncPipe, IdToDataPipe, CharacterToReamingXpPipe]
+    imports: [NgxPopperjsContentComponent, RouterLink, NgIf, SpacerComponent, ModalComponent, FormsModule, LongArrowLeftComponent, NgClass, NgxPopperjsDirective, RouterLinkActive, AsyncPipe, IdToDataPipe, CharacterToReamingXpPipe, NgOptimizedImage]
 })
 export class CharacterNavbarComponent {
 

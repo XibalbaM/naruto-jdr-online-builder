@@ -18,7 +18,7 @@ export function checkTypeFields(model: any, obj: any): boolean {
                 return Array.isArray(obj) && obj.every(item => typeof item === 'object');
             }
             const modelItem = model[0];
-            for (const [index, item] of obj.entries()) {
+            for (const [_, item] of obj.entries()) {
                 if (!checkTypeFields(modelItem, item)) {
                     return false;
                 }
