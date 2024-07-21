@@ -48,6 +48,8 @@ jobs:
                     key: ${{ secrets.BUILDER_SSH_PRIVATE_KEY }}
 
                     script: |
+                        export NVM_DIR=~/.nvm
+                        source ~/.nvm/nvm.sh
                         pm2 stop Builder
 
             -   name: Remove old build files on VPS
@@ -77,6 +79,8 @@ jobs:
                     key: ${{ secrets.BUILDER_SSH_PRIVATE_KEY }}
 
                     script: |
+                        export NVM_DIR=~/.nvm
+                        source ~/.nvm/nvm.sh
                         cd /home/builder/app
                         npm install
                         export NODE_ENV="prod"
