@@ -9,7 +9,7 @@ import RoadModel from "../models/road.model.js";
 import RankModel from "../models/rank.model.js";
 import {CommonSkillModel, CustomSkillModel} from "../models/skill.model.js";
 import Line from "naruto-jdr-online-builder-common/src/interfaces/line.interface";
-import * as characterUtils from "naruto-jdr-online-builder-common/src/utils/character.utils.js";
+import {canUserEditCharacter, canUserReadCharacter, maxChakraSpes} from "naruto-jdr-online-builder-common/src/utils/character.utils.js";
 
 export default class CharactersService {
 
@@ -39,7 +39,7 @@ export default class CharactersService {
 
     static async getCharacter(user: User, characterId: string): Promise<Character> {
         const character = (await CharacterModel.findById(characterId).lean())!;
-        if (!characterUtils.canUserReadCharacter(user, character)) {
+        if (!canUserReadCharacter(user, character)) {
             throw new Error("Character not found");
         }
         return character;
@@ -47,7 +47,7 @@ export default class CharactersService {
 
     static async copyCharacter(user: User, characterId: string): Promise<Character> {
         const character = (await CharacterModel.findById(characterId).lean())!;
-        if (!characterUtils.canUserReadCharacter(user, character)) {
+        if (!canUserReadCharacter(user, character)) {
             throw new Error("Character not found");
         }
         let data = character as Partial<Character>;
@@ -63,7 +63,7 @@ export default class CharactersService {
         if (value < 1) {
             throw new Error("Invalid value");
         }
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         const skill = (await CommonSkillModel.findById(skillId).lean())!;
@@ -79,7 +79,7 @@ export default class CharactersService {
     }
 
     static async setCustomSkill(user: User, characterId: string, skillId: string, value: number) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         if (value < 1) {
@@ -109,7 +109,7 @@ export default class CharactersService {
         if (value < 1) {
             throw new Error("Invalid value");
         }
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         const character = (await CharacterModel.findById(characterId).lean())!;
@@ -126,25 +126,25 @@ export default class CharactersService {
     }
 
     static async setNindo(user: User, characterId: string, nindo: string) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {nindo});
     }
 
     static async setNindoPoints(user: User, characterId: string, nindoPoints: number) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {nindoPoints});
     }
 
     static async addSpe(user: User, characterId: string, speIndex: number, speId: string) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         const character = (await CharacterModel.findById(characterId).lean())!;
-        if (speIndex >= (characterUtils.maxChakraSpes(character))) {
+        if (speIndex >= (maxChakraSpes(character))) {
             throw new Error("Spe not yet unlocked");
         }
         const spe = (await ChakraSpeModel.findById(speId).lean())!;
@@ -157,7 +157,7 @@ export default class CharactersService {
     }
 
     static async removeSpe(user: User, characterId: string, speIndex: number) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         let character = (await CharacterModel.findById(characterId).lean())!;
@@ -173,42 +173,42 @@ export default class CharactersService {
     }
 
     static async setNotes(user: User, characterId: string, text: string) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {notes: text});
     }
 
     static async setXp(user: User, characterId: string, xp: number) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {xp});
     }
 
     static async setRank(user: User, characterId: string, rank: string) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {rank});
     }
 
     static async setVillage(user: User, characterId: string, village: string) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {village});
     }
 
     static async setName(user: User, characterId: string, firstName: string) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {firstName});
     }
 
     static async setClan(user: User, characterId: string, clan: string) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         const line = (await ClanModel.findById(clan).lean().select("line"))!.line as Line;
@@ -221,7 +221,7 @@ export default class CharactersService {
     }
 
     static async setRoad(user: User, characterId: string, road: string) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         if (road === "") {
@@ -239,14 +239,14 @@ export default class CharactersService {
     }
 
     static async setShareStatus(user: User, characterId: string, status: "private" | "not-referenced" | "public" | "predrawn") {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {shareStatus: status});
     }
 
     static async deleteCharacter(user: User, characterId: string) {
-        if (!characterUtils.canUserEditCharacter(user, characterId)) {
+        if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
         await UserModel.findByIdAndUpdate(user._id, {$pull: {characters: characterId}});
