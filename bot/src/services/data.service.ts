@@ -6,7 +6,7 @@ import Village from "../models/village.model.js";
 import apiUtls from "../utils/api.utils.js";
 import config from "../config/env.js";
 import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
-import CustomSkill from "../models/skill.model";
+import CustomSkill from "../models/skill.model.js";
 import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
 
 export default class DataService {

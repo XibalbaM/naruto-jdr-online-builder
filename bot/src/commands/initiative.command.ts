@@ -8,7 +8,7 @@ import StateService from "../services/state.service.js";
 import DiceUtils from "../utils/dice.utils.js";
 import DataService from "../services/data.service.js";
 import {findById} from "../utils/data.utils.js";
-import {getAllSkills} from "../models/character.model";
+import {getAllSkills} from "../models/character.model.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
