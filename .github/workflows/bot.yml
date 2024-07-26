@@ -25,7 +25,7 @@ jobs:
                     version: 8
 
             -   name: Install dependencies
-                run: cd ./bot && pnpm install --shamefully-hoist && cd ../common && pnpm install --shamefully-hoist
+                run: cd ./bot && pnpm install --shamefully-hoist
 
             -   name: Build
                 run: cd ./bot && pnpm run build && cd ../common && pnpm run build && cp ./package.json ./dist
@@ -62,8 +62,8 @@ jobs:
                 run: |
                     echo "${{ secrets.BOT_SSH_PRIVATE_KEY }}" > ./bot.key
                     chmod 600 ./bot.key
-                    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./bot.key -r ./bot/dist/* discord@45.147.97.184:/home/discord/bot
-                    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./bot.key ./common/dist/* discord@45.147.97.184:/home/discord/common/src
+                    rsync -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./bot.key" -r ./bot/dist/ discord@45.147.97.184:/home/discord/bot
+                    rsync -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./bot.key" -r ./common/dist/ discord@45.147.97.184:/home/discord/common/src
                     rm ./bot.key
 
             -   name: Restart bot on VPS
