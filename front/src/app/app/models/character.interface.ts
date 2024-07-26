@@ -17,3 +17,17 @@ export function toCreate(character: Partial<Character>): Partial<Character> {
     delete newCharacter.shareStatus;
     return newCharacter;
 }
+
+export function dummy(): Character {
+    return {
+        _id: "",
+        bases: [0, 0, 0, 0, 0, 0],
+        chakraSpes: [],
+        commonSkills: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        customSkills: [],
+        nindoPoints: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        shareStatus: "private"
+    } as unknown as Character;
+}

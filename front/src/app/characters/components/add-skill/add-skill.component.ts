@@ -11,7 +11,7 @@ import {CharacterToMaxSkillCountPipe} from "../../pipes/character-to-max-skill-c
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import CustomSkill from "../../../app/models/skill.interface";
-import Character from "../../../app/models/character.interface";
+import {dummy} from "../../../app/models/character.interface";
 
 @Component({
     selector: 'app-add-skill',
@@ -27,7 +27,7 @@ import Character from "../../../app/models/character.interface";
 })
 export class AddSkillComponent implements OnInit {
 
-    character = signal({} as Character, {equal: () => false});
+    character = signal(dummy(), {equal: () => false});
     skills = computed(() => this.dataService.customSkills.filter(skill => !this.character().customSkills.find(s => s.skill === skill._id)));
     reamingSkills = computed(() => this.characterToMaxSkillCount.transform(this.character()) - this.character().customSkills.length);
     moreThanOneSkill = computed(() => this.reamingSkills() > 1);
