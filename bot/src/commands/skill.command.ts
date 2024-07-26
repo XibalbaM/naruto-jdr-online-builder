@@ -8,6 +8,7 @@ import StateService from "../services/state.service.js";
 import DiceUtils from "../utils/dice.utils.js";
 import DataService from "../services/data.service.js";
 import {findById} from "../utils/data.utils.js";
+import {getAllSkills} from "../models/character.model";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
@@ -25,7 +26,7 @@ const command: SlashCommand = {
         const skill = interaction.options.get("compétence")!.value as string;
         let bonus = interaction.options.get("bonus")?.value as string | undefined;
         const character = StateService.getSelectedCharacter(interaction.user.id)!;
-        const characterSkills = character.getAllSkills();
+        const characterSkills = getAllSkills(character);
         let skillInfo = characterSkills.find(s => s.skill.name === skill);
         if (skillInfo === undefined) {
             return await Responses.error(interaction, Messages.SKILLS.SKILL_NOT_FOUND);
@@ -42,7 +43,7 @@ const command: SlashCommand = {
             return await interaction.respond([{name: "Aucun personnage sélectionné", value: "Aucun personnage sélectionné"}]);
         }
         const character = StateService.getSelectedCharacter(interaction.user.id)!;
-        const characterSkills = character.getAllSkills().map(skill => skill.skill.name);
+        const characterSkills = getAllSkills(character).map(skill => skill.skill.name);
         const focusedValue = interaction.options.getFocused();
         const filtered = focusedValue ? characterSkills.filter(skill => skill.toLowerCase().includes(focusedValue.toLowerCase())) : characterSkills;
         await interaction.respond(filtered.map(skill => ({name: skill, value: skill})))

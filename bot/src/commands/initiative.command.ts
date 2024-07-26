@@ -8,6 +8,7 @@ import StateService from "../services/state.service.js";
 import DiceUtils from "../utils/dice.utils.js";
 import DataService from "../services/data.service.js";
 import {findById} from "../utils/data.utils.js";
+import {getAllSkills} from "../models/character.model";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
@@ -27,7 +28,7 @@ const command: SlashCommand = {
                 return await Responses.error(interaction, Messages.CHARACTER.NO_SELECTED_CHARACTER);
             }
             const baseLevel = character.bases[0];
-            const skillLevel = character.getAllSkills().find(skill => skill.skill.name === "Physique")!.level;
+            const skillLevel = getAllSkills(character).find(skill => skill.skill.name === "Physique")!.level;
             let formula = "1d10e10+" + (baseLevel + skillLevel)
             if (interaction.options.get("bonus")) {
                 formula += "+" + interaction.options.get("bonus")?.value as string;
