@@ -68,6 +68,8 @@ jobs:
                     key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
 
                     script: |
+                        export NVM_DIR=~/.nvm
+                        source ~/.nvm/nvm.sh
                         cd /home/discord/bot
                         npm install
                         export NODE_ENV=prod
