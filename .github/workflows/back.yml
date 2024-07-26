@@ -65,7 +65,7 @@ jobs:
                         find . -maxdepth 1 ! -name "front" -exec rm -rf {} \;
                         cd ..
                         rm -rf common
-                        mkdir common
+                        mkdir common/src
 
             -   name: Transfer build files to VPS
                 run: |

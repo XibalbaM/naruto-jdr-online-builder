@@ -55,7 +55,7 @@ jobs:
                         rm -rf bot
                         mkdir bot
                         rm -rf common
-                        mkdir common
+                        mkdir common/src
 
             -   name: Transfer build files to VPS
                 run: |
