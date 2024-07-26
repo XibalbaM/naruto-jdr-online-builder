@@ -39,6 +39,7 @@ jobs:
 
                     script: |
                         pm2 stop DiscordBot
+                continue-on-error: true
 
             -   name: Remove old build files on VPS
                 uses: appleboy/ssh-action@master
