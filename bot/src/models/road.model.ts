@@ -1,12 +1,5 @@
-import Line from "./line.model.js";
+import _Road from 'naruto-jdr-online-builder-common/src/interfaces/road.interface';
 
-/**
- * Class representing a road.
- * @class Road
- */
-export default class Road {
-    _id!: string;
-    name!: string;
-    qualification!: string;
-    line!: Line;
+export default interface Road extends _Road{
+    _id: string;
 }

@@ -1,8 +1,5 @@
-/**
- * Class representing a village.
- * @class Village
- */
-export default class Village {
-    _id!: string;
-    name!: string;
+import _Village from 'naruto-jdr-online-builder-common/src/interfaces/village.interface';
+
+export default interface Village extends _Village{
+    _id: string;
 }

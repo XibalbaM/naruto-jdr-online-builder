@@ -51,6 +51,7 @@ jobs:
                         export NVM_DIR=~/.nvm
                         source ~/.nvm/nvm.sh
                         pm2 stop Builder
+                continue-on-error: true
 
             -   name: Remove old build files on VPS
                 uses: appleboy/ssh-action@master
@@ -62,6 +63,9 @@ jobs:
                     script: |
                         cd /home/builder/app
                         find . -maxdepth 1 ! -name "front" -exec rm -rf {} \;
+                        cd ..
+                        rm -rf common
+                        mkdir common
 
             -   name: Transfer build files to VPS
                 run: |

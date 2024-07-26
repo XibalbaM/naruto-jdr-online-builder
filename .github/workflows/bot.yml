@@ -25,10 +25,10 @@ jobs:
                     version: 8
 
             -   name: Install dependencies
-                run: cd ./bot && pnpm install
+                run: cd ./bot && pnpm install --shamefully-hoist && cd ../common && pnpm install --shamefully-hoist
 
             -   name: Build
-                run: cd ./bot && pnpm run build
+                run: cd ./bot && pnpm run build && cd ../common && pnpm run build && cp ./package.json ./dist
 
             -   name: Stop bot process on VPS
                 uses: appleboy/ssh-action@master
@@ -38,6 +38,8 @@ jobs:
                     key: ${{ secrets.BOT_SSH_PRIVATE_KEY }}
 
                     script: |
+                        export NVM_DIR=~/.nvm
+                        source ~/.nvm/nvm.sh
                         pm2 stop DiscordBot
                 continue-on-error: true
 
@@ -52,12 +54,15 @@ jobs:
                         cd /home/discord
                         rm -rf bot
                         mkdir bot
+                        rm -rf common
+                        mkdir common
 
             -   name: Transfer build files to VPS
                 run: |
                     echo "${{ secrets.BOT_SSH_PRIVATE_KEY }}" > ./bot.key
                     chmod 600 ./bot.key
                     scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./bot.key -r ./bot/dist/* discord@45.147.97.184:/home/discord/bot
+                    scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ./bot.key ./common/dist/* discord@45.147.97.184:/home/discord/common/src
                     rm ./bot.key
 
             -   name: Restart bot on VPS

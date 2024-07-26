@@ -1,11 +1,5 @@
-import Line from "./line.model.js";
+import _Clan from 'naruto-jdr-online-builder-common/src/interfaces/clan.interface';
 
-/**
- * Class representing a clan.
- * @class Clan
- */
-export default class Clan {
-    _id!: string;
-    name!: string;
-    line!: Line;
+export default interface Clan extends _Clan {
+    _id: string;
 }
