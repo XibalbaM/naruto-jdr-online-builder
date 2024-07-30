@@ -1,3 +1,57 @@
-<h1>{{user()?.username}}</h1>
-<h2>{{user()?.email}}</h2>
-<p class="bg-black pt-[3px] pb-[4px] w-[12px]">Compte {{isActive() ? "actif" : "inactif"}}</p>
+<dialog #deleteDialog>
+    <app-modal (close)="deleteDialog.close()" [dialog]="deleteDialog"
+               mtext="<span class='text-16'>En cliquant sur le bouton “Supprimer” juste en dessous, ce compte sera définitivement effacé. Impossible d'annuler. <br/><br/><span class='text-orange'>Toute suppression est définitive.</span></span>"
+               mtitle="supprimer le compte">
+        <h2 class="text-10 text-light-gray font-light font-monument uppercase">enter l'adresse email du compte</h2>
+        <input [(ngModel)]="deleteConfirmation"
+               [placeholder]="user()?.email"
+               class="input px-[24px] py-[17px] text-white mt-[18px] mb-[30px] placeholder-light-gray font-16"
+               type="text">
+        <button (click)="deleteDialog.close(); processDelete()"
+                [disabled]="deleteConfirmation.toLowerCase() !== user()?.email"
+                class="flex items-center rounded-xl bg-red text-center px-[28px] h-[52px] hover:bg-opacity-95 disabled:text-light-gray disabled:bg-opacity-50">
+            Supprimer le compte
+        </button>
+    </app-modal>
+</dialog>
+<div *ngIf="user()" class="mb-[216px] space-y-[12px]">
+    <h1 class="font-bold font-monument text-25 uppercase">{{ user()!.username || 'Ninja Sans Nom' }}</h1>
+    <h2 class="text-yellow">{{ user()!.email }}</h2>
+    <p class="bg-black pt-[3px] pb-[4px] px-[12px] text-blue w-fit rounded-lg">Compte {{ isActive() ? "actif" : "inactif" }}</p>
+    <app-spacer class="bg-lighter-dark my-[30px]"/>
+    <div class="bg-black px-[24px] py-[18px] w-full max-w-md rounded-[26px] space-y-[10px]">
+        <p>Inscription</p>
+        <p class="text-yellow space-x-[10px]">
+            <span class="stat-box__value">{{ user()!.createdAt | date:"dd-MM-YY":"Europe/Paris" }}</span>
+            <span class="stat-box__value">{{ user()!.createdAt |date:"HH:mm":"Europe/Paris" }}</span>
+        </p>
+    </div>
+    <div class="bg-black px-[24px] py-[18px] w-full max-w-md rounded-[26px] space-y-[10px]">
+        <p>Dernière activité</p>
+        <p class="text-yellow space-x-[10px]">
+            <span class="stat-box__value">{{ user()!.lastActivity | date:"dd-MM-YY":"Europe/Paris" }}</span>
+            <span class="stat-box__value">{{ user()!.lastActivity |date:"HH:mm":"Europe/Paris" }}</span>
+        </p>
+    </div>
+    <p class="bg-black px-[24px] py-[18px] w-full max-w-md rounded-[26px] space-x-[10px]">
+        Discord
+        <span class="stat-box__value"
+              [ngClass]="user()!.discordId ? 'text-blue border border-blue' : 'text-light'">{{ user()!.discordId ? "Connecté" : "Non connecté" }}</span>
+    </p>
+    <app-spacer class="bg-lighter-dark my-[30px]"/>
+    <button (click)="sendMail()" class="block max-w-md border border-dark-gray rounded-[10px] w-full text-center py-[17px] bg-dark hover:bg-light-dark">
+        Envoyer un email de connexion
+    </button>
+    <button *ngIf="user()?.discordId" (click)="discordDisconnect()"
+            class="block max-w-md border border-dark-gray rounded-[10px] w-full text-center py-[17px] bg-dark hover:bg-light-dark disabled:bg-light-dark"
+            [disabled]="adminService.readonlyMode()">
+        Déconnecter de Discord
+    </button>
+    <button (click)="export()" class="block max-w-md border border-dark-gray rounded-[10px] w-full text-center py-[17px] bg-dark hover:bg-light-dark">
+        Exporter en JSON
+    </button>
+    <app-spacer class="bg-lighter-dark my-[30px]"/>
+    <button (click)="deleteDialog.show()" class="block max-w-md bg-red rounded-[10px] w-full text-center py-[17px] hover:bg-opacity-80 disabled:!bg-opacity-50" [disabled]="adminService.readonlyMode()">
+        Supprimer le compte
+    </button>
+</div>

@@ -21,4 +21,28 @@ export default class AdminService {
             map(response => response.body?.users || [])
         );
     }
+
+    getUser(userId: string): Observable<User | undefined> {
+        return this.apiService.doRequest<{user?: User}>('GET', `/admin/users/${userId}`).pipe(
+            map(response => response.body?.user)
+        );
+    }
+
+    sendEmail(userId: string): Observable<boolean> {
+        return this.apiService.doRequest<void>('GET', '/admin/users/' + userId + '/email').pipe(
+            map(data => data.status === 200)
+        );
+    }
+
+    disconnectDiscord(userId: string): Observable<boolean> {
+        return this.apiService.doRequest<void>('DELETE', '/admin/users/' + userId + '/discord').pipe(
+            map(data => data.status === 200)
+        );
+    }
+
+    deleteUser(userId: string): Observable<boolean> {
+        return this.apiService.doRequest<void>('DELETE', `/admin/users/${userId}`).pipe(
+            map(data => data.status === 200)
+        );
+    }
 }

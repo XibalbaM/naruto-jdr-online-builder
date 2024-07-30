@@ -8,5 +8,5 @@ import {BackNavbarComponent} from "../app/components/back-navbar/back-navbar.com
 export const adminRoutes: Routes = [
     {path: '', component: HomeComponent, title: 'Page administrateur — Ninjadex', data: {navbar: NormalNavbarComponent}},
     {path: 'comptes', component: UsersComponent, title: 'Gestion des utilisateurs — Ninjadex', data: {navbar: BackNavbarComponent, navbarText: "Espace admin"}},
-    {path: 'comptes/:id', component: UserComponent, title: 'Gestion des utilisateurs — Ninjadex', data: {navbar: BackNavbarComponent, navbarText: "Comptes"}}
+    {path: 'comptes/:id', component: UserComponent, title: 'Gestion des utilisateurs — Ninjadex', data: {navbar: BackNavbarComponent, navbarText: "Comptes", bgClass: "no-repeat-image-bg"}}
 ];
