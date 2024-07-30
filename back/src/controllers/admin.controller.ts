@@ -7,6 +7,15 @@ export default class AdminController {
         res.status(200).send({users: await AdminService.getUsers()});
     }
 
+    static async getUser(req: Request, res: Response) {
+        res.status(200).send({user: await AdminService.getUser(req.params["id"])});
+    }
+
+    static async sendEmail(req: Request, res: Response) {
+        await AdminService.sendEmail(req.params["id"]);
+        res.status(200).send({message: 'Email sent.'});
+    }
+
     static async disconnectDiscord(req: Request, res: Response) {
         await AdminService.disconnectDiscord(req.params["id"]);
         res.status(200).send({message: 'Discord account disconnected.'});

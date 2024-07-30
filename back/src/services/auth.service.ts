@@ -20,9 +20,15 @@ const emailSentCache = new NodeCache({stdTTL: config.login_jwt_expiration, check
  * Check if no email was recently sent to the passed email, generate the connection token using {@link getConnectionTokenFromEmail} and send it using {@link emailService.sendConnectionEmail}.
  * @param {string} email The user's email
  * @param {?string} discordId The user's discord id (optional)
+ * @param {boolean} adminRequest If the request is made by an admin
  * @returns {number} 0 if the email was sent, 1 if the user already requested a connection token recently
  */
-export async function requestEmail(email: string, discordId?: string): Promise<{ code: number, isRegistration: boolean }> {
+export async function requestEmail(email: string, discordId?: string, adminRequest: boolean = false): Promise<{ code: number, isRegistration: boolean }> {
+
+    if (adminRequest) {
+        emailService.sendConnectionEmail(email, getConnectionTokenFromEmail(email, discordId), false);
+        return {code: 0, isRegistration: false};
+    }
 
     const isRegistration = !await userModel.exists({email: email});
 
