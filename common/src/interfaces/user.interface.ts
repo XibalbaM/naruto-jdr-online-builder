@@ -8,8 +8,8 @@ export default interface _User {
     groups: string[];
     characters: (string | _Character)[];
     discordId?: string;
-    createdAt: Date;
-    lastActivity: Date;
+    createdAt: any;
+    lastActivity: any;
     discordName?: string;
     profileImage?: string;
 }

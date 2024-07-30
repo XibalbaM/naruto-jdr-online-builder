@@ -29,8 +29,6 @@ export class AuthService {
                         this.apiService.doRequest<{ characters?: [Character], error?: string }>("GET", "/characters")
                     ]).subscribe(([characterResponse]) => {
                         const user = response.body?.user! as User;
-                        user.createdAt = new Date(Date.parse(user.createdAt as unknown as string));
-                        user.lastActivity = new Date(Date.parse(user.lastActivity as unknown as string));
                         if (characterResponse.body && !characterResponse.body.error && characterResponse.body.characters)
                             user.characters = characterResponse.body.characters;
                         user.characters.forEach((character) => {
