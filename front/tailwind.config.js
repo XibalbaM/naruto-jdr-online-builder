@@ -59,6 +59,10 @@ module.exports = {
             listStyleType: {
                 'square': 'square',
             }
+        },
+        fontWeight: {
+        },
+        fontFamily: {
         }
     },
     plugins: [
