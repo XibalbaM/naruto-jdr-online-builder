@@ -1,6 +1,6 @@
 import {Component, computed, Injector, OnInit, signal} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
-import {DatePipe, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
+import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HomeButtonComponent} from '../home-button/home-button.component';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
@@ -8,16 +8,17 @@ import {AdminLogoComponent} from '../../../utils/components/admin-logo/admin-log
 import {Router, RouterLink} from "@angular/router";
 import AdminService from "../../services/admin.service";
 import User from "../../../app/models/user.interface";
-import {zip} from "rxjs";
+import {of, zip} from "rxjs";
 import {BgComponent} from "../../../utils/components/bg/bg.component";
 import {ArrowRightComponent} from "../../../utils/components/arrow-right/arrow-right.component";
+import {UsersDateGroupPipe} from "../../pipes/characters-date-group.pipe";
 
 @Component({
     selector: 'app-home',
     templateUrl: './users.component.html',
     styleUrls: ['./users.component.scss'],
     standalone: true,
-    imports: [AdminLogoComponent, SpacerComponent, HomeButtonComponent, FormsModule, NgIf, NgOptimizedImage, NgForOf, RouterLink, BgComponent, ArrowRightComponent, DatePipe]
+    imports: [AdminLogoComponent, SpacerComponent, HomeButtonComponent, FormsModule, NgIf, NgOptimizedImage, NgForOf, RouterLink, BgComponent, ArrowRightComponent, DatePipe, UsersDateGroupPipe, TitleCasePipe]
 })
 export class UsersComponent implements OnInit {
 
@@ -40,4 +41,6 @@ export class UsersComponent implements OnInit {
             }
         });
     }
+
+    protected readonly of = of;
 }
