@@ -3,6 +3,7 @@ import {NotificationService} from "../../app/services/notification.service";
 import {ApiService} from "../../app/services/api.service";
 import User from "../../app/models/user.interface";
 import {map, Observable} from "rxjs";
+import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -42,6 +43,12 @@ export default class AdminService {
 
     deleteUser(userId: string): Observable<boolean> {
         return this.apiService.doRequest<void>('DELETE', `/admin/users/${userId}`).pipe(
+            map(data => data.status === 200)
+        );
+    }
+
+    updateBase(baseId: number, text: string): Observable<boolean> {
+        return this.apiService.doRequest<void>('PUT', `/admin/bases/${baseId}`, {description: text}).pipe(
             map(data => data.status === 200)
         );
     }

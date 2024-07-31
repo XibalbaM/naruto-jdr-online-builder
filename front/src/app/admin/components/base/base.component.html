@@ -1,0 +1,15 @@
+<h1 class="font-bold uppercase text-25 font-monument">{{ base().fullName }} ({{ base().shortName }})</h1>
+<form (ngSubmit)="submit()" class="mb-[30px]">
+    <textarea [(ngModel)]="text" autosize class="resize-none text-white input min-h-[330px] py-[24px] px-[18px] my-[30px]" name="text"
+              [disabled]="adminService.readonlyMode()"></textarea>
+    <div class="flex flex-row gap-[10px]">
+        <button [disabled]="adminService.readonlyMode() || text() === base().description" class="bg-purple rounded-[10px] w-full py-[18px] enabled:hover:bg-opacity-95
+                                                            disabled:bg-black disabled:text-dark-gray" type="submit">
+            Enregistrer
+        </button>
+        <button (click)="goBack()" class="bg-transparent border border-dark-gray rounded-[10px] w-full py-[18px] hover:bg-light-dark">
+            Retour
+        </button>
+    </div>
+</form>
+<div (click)="goToFormatHelp()" class="mx-auto w-fit default-link mb-[30px]">Aide de mise en forme</div>

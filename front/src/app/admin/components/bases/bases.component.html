@@ -1,0 +1,8 @@
+<h1 class="text-25 font-bold font-monument uppercase mb-[18px]">Bases</h1>
+<div class="space-y-[12px]">
+    <a *ngFor="let base of dataService.bases" [routerLink]="base._id.toString()"
+       class="text-yellow hover:bg-opacity-95 flex w-full max-w-md flex-row items-center justify-between border bg-light-dark border-lighter-dark px-[24px] py-[18px] rounded-[10px] text-16">
+        {{ base.fullName }} ({{ base.shortName }})
+        <app-arrow-right class="fill-light-gray"/>
+    </a>
+</div>
