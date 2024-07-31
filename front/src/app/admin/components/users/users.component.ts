@@ -1,4 +1,4 @@
-import {Component, computed, Injector, OnInit, signal} from '@angular/core';
+import {Component, computed, Injector, OnInit, signal, WritableSignal} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -8,7 +8,7 @@ import {AdminLogoComponent} from '../../../utils/components/admin-logo/admin-log
 import {Router, RouterLink} from "@angular/router";
 import AdminService from "../../services/admin.service";
 import User from "../../../app/models/user.interface";
-import {of, zip} from "rxjs";
+import {filter, of, zip} from "rxjs";
 import {BgComponent} from "../../../utils/components/bg/bg.component";
 import {ArrowRightComponent} from "../../../utils/components/arrow-right/arrow-right.component";
 import {UsersDateGroupPipe} from "../../pipes/characters-date-group.pipe";
@@ -22,10 +22,21 @@ import {UsersDateGroupPipe} from "../../pipes/characters-date-group.pipe";
 })
 export class UsersComponent implements OnInit {
 
+    filter: WritableSignal<"Tous" | "Actifs" | "Inactifs"> = signal("Tous");
+
     users = signal<User[]>([])
     search = signal<string>('')
     filteredUsers = computed(() =>
-        this.users().filter(user => user.email.includes(this.search()) || user.username?.includes(this.search()))
+        this.users().filter(user => user.email.includes(this.search()) || user.username?.includes(this.search())).filter(user => {
+            if (this.filter() === "Tous") {
+                return true;
+            } else if (this.filter() === "Actifs") {
+                return new Date(user.lastActivity).getTime() > Date.now() - 60*60*24*7*1000;
+            } else if (this.filter() === "Inactifs") {
+                return new Date(user.lastActivity).getTime() < Date.now() - 60*60*24*7*1000;
+            }
+            return true;
+        })
     )
 
     constructor(private auth: Auth, private injector: Injector, private router: Router,
@@ -41,6 +52,4 @@ export class UsersComponent implements OnInit {
             }
         });
     }
-
-    protected readonly of = of;
 }

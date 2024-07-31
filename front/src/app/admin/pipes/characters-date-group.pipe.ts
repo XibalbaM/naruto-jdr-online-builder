@@ -34,6 +34,18 @@ export class UsersDateGroupPipe implements PipeTransform {
                 }
             }
         });
+        charactersDateGroup.forEach(group => {
+            group.days.sort((a, b) => {
+                let dateA = new Date(a.users[0].createdAt);
+                let dateB = new Date(b.users[0].createdAt);
+                return dateB.getTime() - dateA.getTime();
+            });
+        })
+        charactersDateGroup.sort((a, b) => {
+            let dateA = new Date(a.days[0].users[0].createdAt);
+            let dateB = new Date(b.days[0].users[0].createdAt);
+            return dateB.getTime() - dateA.getTime();
+        });
         return charactersDateGroup;
 
     }
