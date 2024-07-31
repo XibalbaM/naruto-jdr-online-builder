@@ -35,9 +35,6 @@ export class UserComponent implements OnInit {
 
     constructor(private auth: Auth, private injector: Injector, private router: Router, private activatedRoute: ActivatedRoute,
                 protected adminService: AdminService, protected notificationService: NotificationService) {
-        effect(() => {
-            console.log(this.user());
-        });
     }
 
     ngOnInit() {
