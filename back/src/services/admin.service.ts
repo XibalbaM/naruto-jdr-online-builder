@@ -1,6 +1,6 @@
 import UserModel from "../models/user.model.js";
 import {requestEmail} from "./auth.service.js";
-import BaseModel from "../models/base.model";
+import BaseModel from "../models/base.model.js";
 
 export default class AdminService {
     static async getUsers() {
