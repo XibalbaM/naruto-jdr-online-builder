@@ -1,9 +1,6 @@
-import {Component, computed, Injector, signal} from '@angular/core';
+import {Component, Injector} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
 import {Router, RouterLink} from "@angular/router";
-import AdminService from "../../services/admin.service";
-import {zip} from "rxjs";
-import User from "../../../app/models/user.interface";
 import {DataService} from "../../../app/services/data.service";
 import {NgForOf} from "@angular/common";
 import {ArrowRightComponent} from "../../../utils/components/arrow-right/arrow-right.component";
@@ -22,7 +19,7 @@ import {ArrowRightComponent} from "../../../utils/components/arrow-right/arrow-r
 export class BasesComponent {
 
     constructor(private auth: Auth, private injector: Injector, private router: Router,
-                protected adminService: AdminService, protected dataService: DataService) {
+                protected dataService: DataService) {
     }
 
     ngOnInit() {
