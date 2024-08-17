@@ -138,7 +138,7 @@ export class EditComponent implements OnInit, AfterViewInit {
         this.characterService.setSkillLevel(this.character()._id, skill._id, level).subscribe((success) => {
             if (success) {
                 this.character.update(character => {
-                    if (!(skill as CustomSkill).type)
+                    if (!!(skill as CustomSkill).type)
                         character.customSkills.find((data) => data.skill === skill._id)!.level = level;
                     else
                         character.commonSkills[Number(skill._id)] = level;
