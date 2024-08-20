@@ -9,8 +9,8 @@ export default class CharacterService {
         return response.data;
     }
 
-    static async getCharacters(userId: Snowflake): Promise<[CharacterInfo]> {
-        const response = await apiUtils.get<[CharacterInfo]>("/characters", userId);
+    static async getCharacters(userId: Snowflake): Promise<CharacterInfo[]> {
+        const response = await apiUtils.get<CharacterInfo[]>("/characters", userId);
         return response.data;
     }
 }
