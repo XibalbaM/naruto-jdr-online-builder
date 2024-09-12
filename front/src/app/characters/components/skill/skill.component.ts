@@ -12,16 +12,16 @@ import {SkillToTypeNamePipe} from '../../pipes/skill-type-to-type-name.pipe';
 import {NgIf} from '@angular/common';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import CustomSkill from "../../../app/models/skill.interface";
-import {NgxMarkdownItModule} from "ngx-markdown-it";
 import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
 import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
+import {MarkdownComponent} from "../../../utils/components/markdown/markdown.component";
 
 @Component({
     selector: 'app-skill',
     templateUrl: './skill.component.html',
     styleUrls: ['./skill.component.scss'],
     standalone: true,
-    imports: [SpacerComponent, NgxMarkdownItModule, NgIf, SkillToTypeNamePipe]
+    imports: [SpacerComponent, NgIf, SkillToTypeNamePipe, MarkdownComponent]
 })
 export class SkillComponent implements OnInit {
     isCommon!: boolean;

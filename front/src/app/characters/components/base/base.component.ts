@@ -8,15 +8,15 @@ import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/
 import {LongArrowRightComponent} from '../../../utils/components/long-arrow-right/long-arrow-right.component';
 import {AsyncPipe, NgIf, TitleCasePipe} from '@angular/common';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
-import {NgxMarkdownItModule} from "ngx-markdown-it";
 import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
+import {MarkdownComponent} from "../../../utils/components/markdown/markdown.component";
 
 @Component({
     selector: 'app-base',
     templateUrl: './base.component.html',
     styleUrls: ['./base.component.scss'],
     standalone: true,
-    imports: [SpacerComponent, NgxMarkdownItModule, NgIf, RouterLink, LongArrowRightComponent, LongArrowLeftComponent, AsyncPipe, TitleCasePipe, IdToDataPipe]
+    imports: [SpacerComponent, NgIf, RouterLink, LongArrowRightComponent, LongArrowLeftComponent, AsyncPipe, TitleCasePipe, IdToDataPipe, MarkdownComponent]
 })
 export class BaseComponent implements OnInit {
     base!: Base;

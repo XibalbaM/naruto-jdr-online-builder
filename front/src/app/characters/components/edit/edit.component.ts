@@ -30,16 +30,16 @@ import {SpacerGraphicalComponent} from '../../../utils/components/spacer-graphic
 import {ArrowRightComponent} from '../../../utils/components/arrow-right/arrow-right.component';
 import {AsyncPipe, JsonPipe, NgClass, NgFor, NgIf, NgOptimizedImage} from '@angular/common';
 import CustomSkill from "../../../app/models/skill.interface";
-import {NgxMarkdownItModule} from "ngx-markdown-it";
 import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
 import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
+import {MarkdownComponent} from "../../../utils/components/markdown/markdown.component";
 
 @Component({
     selector: 'app-edit',
     templateUrl: './edit.component.html',
     styleUrls: ['./edit.component.scss'],
     standalone: true,
-    imports: [NgIf, NgxMarkdownItModule, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, AsyncPipe, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe, JsonPipe, NgOptimizedImage],
+    imports: [NgIf, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, AsyncPipe, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe, JsonPipe, NgOptimizedImage, MarkdownComponent],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditComponent implements OnInit, AfterViewInit {

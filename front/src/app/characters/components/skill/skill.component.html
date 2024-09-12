@@ -30,6 +30,4 @@
     </button>
     <app-spacer class="bg-lighter-dark my-[30px]"/>
 </div>
-<markdown-it class="font-light">
-    {{ skill.description }}
-</markdown-it>
+<app-markdown class="font-light" [markdown]="skill.description"/>

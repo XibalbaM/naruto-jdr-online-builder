@@ -4,7 +4,7 @@
 <p class="max-w-md bg-black px-[24px] py-[18px] rounded-[26px]">Score <span
         class="text-16 text-yellow px-[12px] bg-light-dark rounded-[8px] py-[3px] ms-[10px]">{{ baseLevel }}</span></p>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
-<markdown-it [markdown]="base.description" class="font-light"/>
+<app-markdown [markdown]="base.description" class="font-light"/>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
 <a *ngIf="nextBase | idToData:dataService.bases as nextBase" [routerLink]="'../' + nextBase._id" class="flex w-full flex-col items-end">
     <p class="flex flex-row items-center text-pink text-16">
