@@ -49,7 +49,7 @@ export class BaseComponent {
 
     submit() {
         if (!this.adminService.readonlyMode() && this.base().description !== this.text()) {
-            this.adminService.updateBase(this.base()._id, this.text()).subscribe((success) => {
+            this.adminService.updateBase(this.base()._id, {...this.base(), description: this.text()}).subscribe((success) => {
                 if (success) {
                     this.notificationService.showNotification("Description modifiée", `La description de la base ${this.base().shortName} a été modifiée avec succès`);
                     this.base().description = this.text();

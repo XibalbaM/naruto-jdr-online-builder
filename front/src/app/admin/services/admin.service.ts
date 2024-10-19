@@ -47,8 +47,10 @@ export default class AdminService {
         );
     }
 
-    updateBase(baseId: number, text: string): Observable<boolean> {
-        return this.apiService.doRequest<void>('PUT', `/admin/bases/${baseId}`, {description: text}).pipe(
+    updateBase(baseId: number, base: Base): Observable<boolean> {
+        // @ts-ignore
+        delete base._id;
+        return this.apiService.doRequest<void>('PUT', `/bases/${baseId}`, {data: base}).pipe(
             map(data => data.status === 200)
         );
     }

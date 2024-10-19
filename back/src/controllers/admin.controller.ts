@@ -25,9 +25,4 @@ export default class AdminController {
         await AdminService.deleteUser(req.params["id"]);
         res.status(200).send({message: 'User deleted.'});
     }
-
-    static async updateBase(req: Request, res: Response) {
-        await AdminService.updateBase(req.params["id"], req.body["description"]);
-        res.status(200).send({message: 'Base updated.'});
-    }
 }
