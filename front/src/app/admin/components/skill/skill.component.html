@@ -1,0 +1,23 @@
+<h1 class="font-bold uppercase text-25 font-monument">{{ skill().name }}</h1>
+<app-spacer class="bg-lighter-dark my-[30px]"/>
+<div class="space-y-[12px]">
+    <p class="bg-black px-[24px] py-[18px] w-full max-w-md rounded-[26px]">
+        ID <span class="stat-box__value text-yellow ms-[10px] text-16">{{skill()._id}}</span>
+    </p>
+    <p class="bg-black px-[24px] py-[18px] w-full max-w-md rounded-[26px]">
+        Compétence <span class="stat-box__value text-yellow uppercase ms-[10px] text-16">{{skill() | skillToTypeName:true}}</span>
+    </p>
+    <p class="bg-black px-[24px] py-[18px] w-full max-w-md rounded-[26px]">
+        BASE <span class="stat-box__value text-yellow uppercase ms-[10px] text-16">{{base().fullName}}</span>
+    </p>
+    <p class="bg-black px-[24px] py-[18px] w-full max-w-md rounded-[26px]">
+        Disponible <span class="stat-box__value text-yellow uppercase ms-[10px] text-16">{{skill() | skillVillageListToString}}</span>
+    </p>
+</div>
+<app-spacer class="bg-lighter-dark my-[30px]"/>
+<p class="py-[24px] px-[18px] my-[30px] bg-light-dark text-light rounded-[12px] border border-lighter-dark">
+    {{skill().description}}
+</p>
+<button routerLink="modification" [disabled]="adminService.readonlyMode()" class="bg-purple rounded-[10px] w-full py-[18px] enabled:hover:bg-opacity-95 disabled:bg-black disabled:text-dark-gray">
+    Modifier
+</button>
