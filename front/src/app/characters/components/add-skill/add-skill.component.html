@@ -7,6 +7,6 @@
 <div class="mt-[15px] mb-[130px] grid gap-[8px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
     <button (click)="addSkill(skill)" *ngFor="let skill of skills()"
             class="col-span-1 row-span-1 max-w-md text-start h-[48px] px-[24px] text-14 black-box hover:bg-dark">
-        {{skill.name}}
+        {{skill.name}} ({{(skill.base | idToData:dataService.bases)?.shortName}})
     </button>
 </div>
