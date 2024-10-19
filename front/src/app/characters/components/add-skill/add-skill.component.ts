@@ -19,7 +19,8 @@ import {dummy} from "../../../app/models/character.interface";
     imports: [
         SpacerComponent,
         NgForOf,
-        CharacterToMaxSkillCountPipe
+        CharacterToMaxSkillCountPipe,
+        IdToDataPipe
     ],
     templateUrl: './add-skill.component.html',
     styleUrl: './add-skill.component.scss',
@@ -28,11 +29,11 @@ import {dummy} from "../../../app/models/character.interface";
 export class AddSkillComponent implements OnInit {
 
     character = signal(dummy(), {equal: () => false});
-    skills = computed(() => this.dataService.customSkills.filter(skill => !this.character().customSkills.find(s => s.skill === skill._id)));
+    skills = computed(() => this.dataService.customSkills.filter(skill => !(skill.type === "clan") && !this.character().customSkills.find(s => s.skill === skill._id)));
     reamingSkills = computed(() => this.characterToMaxSkillCount.transform(this.character()) - this.character().customSkills.length);
     moreThanOneSkill = computed(() => this.reamingSkills() > 1);
 
-    constructor(private dataService: DataService, private title: Title, private route: ActivatedRoute, private router: Router,
+    constructor(protected dataService: DataService, private title: Title, private route: ActivatedRoute, private router: Router,
                 private idToData: IdToDataPipe, private auth: Auth, private characterToMaxSkillCount: CharacterToMaxSkillCountPipe,
                 private injector: Injector, private characterService: CharacterService, private notification: NotificationService) {
         effect(() => {
