@@ -159,6 +159,61 @@
     .large-title {
         @apply font-monument font-bold text-25 uppercase;
     }
+    .markdown {
+        h1 {
+            font-weight: 700;
+            @apply text-28;
+        }
+
+        h2 {
+            font-weight: 700;
+            @apply text-25;
+        }
+
+        h3 {
+            font-weight: 700;
+            @apply text-20;
+        }
+
+        h4 {
+            font-weight: 700;
+            @apply text-16;
+        }
+
+        h5 {
+            font-weight: 700;
+            @apply text-12;
+        }
+
+        h6 {
+            font-weight: 700;
+            @apply text-10;
+        }
+
+        small {
+            font-size: 8px;
+        }
+
+        p {
+            @apply text-14;
+        }
+
+        a {
+            @apply text-14 text-pink hover:underline;
+        }
+
+        ul {
+            @apply text-14;
+            list-style-type: disc;
+            list-style-position: inside;
+        }
+
+        ol {
+            @apply text-14;
+            list-style-type: decimal;
+            list-style-position: inside;
+        }
+    }
 }
 
 @layer utilities {
