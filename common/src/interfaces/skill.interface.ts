@@ -3,7 +3,7 @@ export default interface Skill {
     name: string;
     base: number;
     description: string;
-    villages: string[] | null;
+    villages: string[];
 }
 
 export interface _CustomSkill {
@@ -11,6 +11,6 @@ export interface _CustomSkill {
     name: string;
     base: number;
     description: string;
-    villages: string[] | null;
+    villages: string[];
     type: "combat" | "terrain" | "clan";
 }
