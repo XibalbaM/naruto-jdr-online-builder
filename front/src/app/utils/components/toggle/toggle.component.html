@@ -1,0 +1,10 @@
+<div (click)="toggle()"
+     class="flex w-full max-w-md flex-row items-center justify-start border px-[18px] gap-[15px] border-lighter-dark py-[14px] mb-[18px] rounded-[10px] cursor-pointer">
+    <ng-container *ngIf="value; else toggleOff">
+        <img alt="Toggle activé" ngSrc="assets/images/toggle-enabled.svg" height="37" width="47"/>
+    </ng-container>
+    <ng-template #toggleOff>
+        <img  alt="Toggle désactivé" ngSrc="assets/images/toggle-disabled.svg" height="37" width="48"/>
+    </ng-template>
+    <ng-content/>
+</div>
