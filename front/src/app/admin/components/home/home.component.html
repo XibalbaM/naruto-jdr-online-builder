@@ -21,18 +21,14 @@
     <app-home-button [disabled]="false" link="competences" text="Compétences"/>
 </div>
 <app-spacer/>
-<input #editMode [ngModel]="adminService.readonlyMode()" (input)="adminService.readonlyMode.set(editMode.checked)" class="appearance-none" id="editMode" name="editMode" type="checkbox">
-<label class="flex w-full max-w-md flex-row items-center justify-start border px-[18px] gap-[15px] border-lighter-dark py-[14px] mb-[18px] rounded-[10px] cursor-pointer"
-       for="editMode">
-    <ng-container *ngIf="!adminService.readonlyMode(); else readonlyOn">
-        <img  alt="Toggle désactivé" ngSrc="assets/images/toggle-disabled.svg" height="37" width="48"/>
-        Passer en lecture seule
-    </ng-container>
-    <ng-template #readonlyOn>
-        <img alt="Toggle activé" ngSrc="assets/images/toggle-enabled.svg" height="37" width="47"/>
+<app-toggle [(value)]="adminService.readonlyMode">
+    <ng-container *ngIf="adminService.readonlyMode(); else readonlyOff">
         Lecture seule
+    </ng-container>
+    <ng-template #readonlyOff>
+        Passer en lecture seule
     </ng-template>
-</label>
+</app-toggle>
 <p class="mb-[150px] text-light-gray">
     Le mode lecture seule permet de consulter les contenus sans les options d’édition.
 </p>
