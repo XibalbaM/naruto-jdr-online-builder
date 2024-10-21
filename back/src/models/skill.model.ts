@@ -19,6 +19,11 @@ const CommonSkillSchema = new mongoose.Schema<Skill>({
     description: {
         type: String,
         required: true
+    },
+    villages: {
+        type: [String],
+        required: true,
+        default: []
     }
 }, {_id: false});
 
@@ -41,6 +46,11 @@ const CustomSkillSchema = new mongoose.Schema({
         type: String,
         enum: ["combat", "terrain", "clan"],
         required: true
+    },
+    villages: {
+        type: [String],
+        required: true,
+        default: []
     }
 });
 
