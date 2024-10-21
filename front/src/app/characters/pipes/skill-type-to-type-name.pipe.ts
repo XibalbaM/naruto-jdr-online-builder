@@ -9,7 +9,12 @@ import {skillTypeName} from "naruto-jdr-online-builder-common/src/utils/characte
 })
 export class SkillToTypeNamePipe implements PipeTransform {
 
-    transform(value: Skill | CustomSkill): string {
-        return skillTypeName(value);
+    transform(value: Skill | CustomSkill, short: boolean = false): string {
+        if (short) {
+            let words = skillTypeName(value).split(' ');
+            words.shift();
+            return words.join(' ');
+        } else
+            return skillTypeName(value);
     }
 }
