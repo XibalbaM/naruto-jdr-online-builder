@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Clan from "../interfaces/clan.interface.js";
-import {removeVersionFromResponse} from "./middlewares";
+import {removeVersionFromResponse} from "./middlewares.js";
 
 /**
  * Represents a clan in the application.

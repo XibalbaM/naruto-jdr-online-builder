@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
-import {removeVersionFromResponse} from "./middlewares";
+import {removeVersionFromResponse} from "./middlewares.js";
 
 /**
  * Represents a base in the application.

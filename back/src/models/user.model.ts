@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import User from "../interfaces/user.interface.js";
-import {removeVersionFromResponse} from "./middlewares";
+import {removeVersionFromResponse} from "./middlewares.js";
 
 /**
  * Represents a user of the application.

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
-import {removeVersionFromResponse} from "./middlewares";
+import {removeVersionFromResponse} from "./middlewares.js";
 
 const CommonSkillSchema = new mongoose.Schema<Skill>({
     _id: {

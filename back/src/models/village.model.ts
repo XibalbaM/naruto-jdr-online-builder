@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Village from "../interfaces/village.interface.js";
-import {removeVersionFromResponse} from "./middlewares";
+import {removeVersionFromResponse} from "./middlewares.js";
 
 /**
  * Represents a village in the application.

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import BaseModel from "./base.model.js";
 import {CommonSkillModel} from "./skill.model.js";
 import Character from "../interfaces/character.interface.js";
-import {removeVersionFromResponse} from "./middlewares";
+import {removeVersionFromResponse} from "./middlewares.js";
 
 /**
  * Represents a character in the application.

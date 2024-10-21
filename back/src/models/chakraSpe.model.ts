@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import ChakraSpe from "../interfaces/chakraSpe.interface.js";
-import {removeVersionFromResponse} from "./middlewares";
+import {removeVersionFromResponse} from "./middlewares.js";
 
 /**
  * Represents a chakraSpe in the application.

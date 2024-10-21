@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Group from "../interfaces/group.interface.js";
-import {removeVersionFromResponse} from "./middlewares";
+import {removeVersionFromResponse} from "./middlewares.js";
 
 /**
  * Represents a group in the application.

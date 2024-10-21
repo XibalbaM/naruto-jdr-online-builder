@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Rank from "../interfaces/rank.interface.js";
-import {removeVersionFromResponse} from "./middlewares";
+import {removeVersionFromResponse} from "./middlewares.js";
 
 /**
  * Represents a rank in the application.

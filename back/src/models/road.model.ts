@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Road from "../interfaces/road.interface.js";
-import {removeVersionFromResponse} from "./middlewares";
+import {removeVersionFromResponse} from "./middlewares.js";
 
 /**
  * Represents a road in the application.
