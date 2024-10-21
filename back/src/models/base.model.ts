@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
+import {removeVersionFromResponse} from "./middlewares";
 
 /**
  * Represents a base in the application.
@@ -27,6 +28,7 @@ const baseSchema = new mongoose.Schema<Base>({
         required: true
     }
 });
+removeVersionFromResponse(baseSchema);
 
 const BaseModel = mongoose.model('base', baseSchema);
 export default BaseModel;

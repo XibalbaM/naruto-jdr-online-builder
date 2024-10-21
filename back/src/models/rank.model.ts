@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Rank from "../interfaces/rank.interface.js";
+import {removeVersionFromResponse} from "./middlewares";
 
 /**
  * Represents a rank in the application.
@@ -21,6 +22,7 @@ const rankSchema = new mongoose.Schema<Rank>({
         required: true
     }
 });
+removeVersionFromResponse(rankSchema);
 
 const RankModel = mongoose.model('rank', rankSchema);
 export default RankModel;

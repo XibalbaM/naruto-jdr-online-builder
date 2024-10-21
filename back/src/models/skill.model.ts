@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
+import {removeVersionFromResponse} from "./middlewares";
 
 const CommonSkillSchema = new mongoose.Schema<Skill>({
     _id: {
@@ -26,6 +27,7 @@ const CommonSkillSchema = new mongoose.Schema<Skill>({
         default: []
     }
 }, {_id: false});
+removeVersionFromResponse(CommonSkillSchema);
 
 export const CommonSkillModel = mongoose.model('commonSkill', CommonSkillSchema);
 
@@ -53,5 +55,6 @@ const CustomSkillSchema = new mongoose.Schema({
         default: []
     }
 });
+removeVersionFromResponse(CustomSkillSchema);
 
 export const CustomSkillModel = mongoose.model('customSkill', CustomSkillSchema);

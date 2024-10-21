@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import BaseModel from "./base.model.js";
 import {CommonSkillModel} from "./skill.model.js";
 import Character from "../interfaces/character.interface.js";
+import {removeVersionFromResponse} from "./middlewares";
 
 /**
  * Represents a character in the application.
@@ -82,6 +83,7 @@ const characterSchema = new mongoose.Schema<Character>({
 }, {
     timestamps: true
 });
+removeVersionFromResponse(characterSchema);
 
 characterSchema.pre('save', async function (next) {
     if (this.isNew) {

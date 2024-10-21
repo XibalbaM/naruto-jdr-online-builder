@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import ChakraSpe from "../interfaces/chakraSpe.interface.js";
+import {removeVersionFromResponse} from "./middlewares";
 
 /**
  * Represents a chakraSpe in the application.
@@ -20,6 +21,7 @@ const chakraSpeSchema = new mongoose.Schema<ChakraSpe>({
         required: true
     }
 });
+removeVersionFromResponse(chakraSpeSchema);
 
 const ChakraSpeModel = mongoose.model('chakraSpe', chakraSpeSchema);
 export default ChakraSpeModel;

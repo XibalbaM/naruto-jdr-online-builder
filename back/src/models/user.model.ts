@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import User from "../interfaces/user.interface.js";
+import {removeVersionFromResponse} from "./middlewares";
 
 /**
  * Represents a user of the application.
@@ -50,6 +51,7 @@ const UserSchema = new mongoose.Schema<User>({
         default: Date.now
     }
 });
+removeVersionFromResponse(UserSchema);
 
 const UserModel = mongoose.model('user', UserSchema);
 export default UserModel;

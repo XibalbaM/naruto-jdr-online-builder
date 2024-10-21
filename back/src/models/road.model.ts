@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Road from "../interfaces/road.interface.js";
+import {removeVersionFromResponse} from "./middlewares";
 
 /**
  * Represents a road in the application.
@@ -21,6 +22,7 @@ const roadSchema = new mongoose.Schema<Road>({
         required: true
     }
 });
+removeVersionFromResponse(roadSchema);
 
 const RoadModel = mongoose.model('road', roadSchema);
 export default RoadModel;

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Group from "../interfaces/group.interface.js";
+import {removeVersionFromResponse} from "./middlewares";
 
 /**
  * Represents a group in the application.
@@ -30,6 +31,7 @@ const GroupSchema = new mongoose.Schema<Group>({
         required: true
     }
 });
+removeVersionFromResponse(GroupSchema);
 
 const GroupModel = mongoose.model("group", GroupSchema);
 export default GroupModel;

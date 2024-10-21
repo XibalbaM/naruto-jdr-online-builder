@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Clan from "../interfaces/clan.interface.js";
+import {removeVersionFromResponse} from "./middlewares";
 
 /**
  * Represents a clan in the application.
@@ -24,6 +25,7 @@ const clanSchema = new mongoose.Schema<Clan>({
         required: true
     }
 });
+removeVersionFromResponse(clanSchema);
 
 const ClanModel = mongoose.model('clan', clanSchema);
 export default ClanModel;

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Village from "../interfaces/village.interface.js";
+import {removeVersionFromResponse} from "./middlewares";
 
 /**
  * Represents a village in the application.
@@ -12,6 +13,7 @@ const VillageSchema = new mongoose.Schema<Village>({
         unique: true
     }
 });
+removeVersionFromResponse(VillageSchema);
 
 const VillageModel = mongoose.model("village", VillageSchema);
 export default VillageModel;
