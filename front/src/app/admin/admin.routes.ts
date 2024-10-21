@@ -8,6 +8,7 @@ import {BasesComponent} from "./components/bases/bases.component";
 import {BaseComponent} from "./components/base/base.component";
 import {SkillsComponent} from "./components/skills/skills.component";
 import {SkillComponent} from "./components/skill/skill.component";
+import {SkillEditComponent} from "./components/skill-edit/skill-edit.component";
 
 export const adminRoutes: Routes = [
     {path: '', component: HomeComponent, title: 'Page administrateur — Ninjadex', data: {navbar: NormalNavbarComponent}},
@@ -17,4 +18,5 @@ export const adminRoutes: Routes = [
     {path: 'bases/:id', component: BaseComponent, title: 'Textes des bases — Ninjadex', data: {navbar: BackNavbarComponent, navbarText: "Bases"}},
     {path: 'competences', component: SkillsComponent, title: 'Textes des compétences — Ninjadex', data: {navbar: BackNavbarComponent, navbarText: "Espace admin"}},
     {path: 'competences/:id', component: SkillComponent, title: 'Textes des compétences — Ninjadex', data: {navbar: BackNavbarComponent, navbarText: "Compétences"}},
+    {path: 'competences/:id/modification', component: SkillEditComponent, title: 'Textes des compétences — Ninjadex', data: {navbar: BackNavbarComponent}},
 ];

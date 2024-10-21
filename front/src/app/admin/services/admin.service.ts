@@ -4,6 +4,8 @@ import {ApiService} from "../../app/services/api.service";
 import User from "../../app/models/user.interface";
 import {map, Observable} from "rxjs";
 import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
+import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
+import CustomSkill from "../../app/models/skill.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -51,6 +53,18 @@ export default class AdminService {
         // @ts-ignore
         delete base._id;
         return this.apiService.doRequest<void>('PUT', `/bases/${baseId}`, {data: base}).pipe(
+            map(data => data.status === 200)
+        );
+    }
+
+    updateCommonSkill(skillId: number, skill: Omit<Skill, "_id">): Observable<boolean> {
+        return this.apiService.doRequest<void>('PUT', `/skills/common/${skillId}`, {data: skill}).pipe(
+            map(data => data.status === 200)
+        );
+    }
+
+    updateCustomSkill(skillId: string, skill: Omit<CustomSkill, "_id">): Observable<boolean> {
+        return this.apiService.doRequest<void>('PUT', `/skills/custom/${skillId}`, {data: skill}).pipe(
             map(data => data.status === 200)
         );
     }

@@ -1,0 +1,51 @@
+<h1 class="font-bold uppercase text-25 font-monument">modifier</h1>
+<app-spacer class="bg-lighter-dark my-[30px]"/>
+<div class="space-y-[12px]">
+    <div class="mt-[12px] labeled-input">
+        <label>Nom</label>
+        <input class="!text-yellow ps-[83px]" placeholder="Katon" [(ngModel)]="name">
+    </div>
+    <div class="mt-[12px] labeled-select">
+        <label>Base</label>
+        <select [(ngModel)]="base" class="!text-yellow pl-[83px]" name="filter">
+            <option *ngFor="let base of dataService.bases" [ngValue]="base._id">
+                {{ base.fullName }} ({{ base.shortName }})
+            </option>
+        </select>
+    </div>
+    <div class="mt-[12px] labeled-select" *ngIf="!isCommon(); else commonSkill">
+        <label>Type</label>
+        <select [(ngModel)]="type" class="!text-yellow pl-[83px]" name="filter">
+            <option *ngFor="let typeValue of ['Combat', 'Terrain', 'Clan']" [ngValue]="typeValue.toLowerCase()">
+                {{ typeValue }}
+            </option>
+        </select>
+    </div>
+    <ng-template #commonSkill>
+        <div class="mt-[12px] labeled-select">
+            <label>Type</label>
+            <select class="!text-yellow pl-[83px] opacity-100" disabled>
+                <option defaultSelected>
+                    Commune
+                </option>
+            </select>
+        </div>
+    </ng-template>
+</div>
+<app-spacer class="bg-lighter-dark my-[30px]"/>
+<h2 class="small-title mb-[18px]">disponible</h2>
+<app-toggle #byDefault [value]="isByDefault()" (valueChange)="$event ? villages.set([]) : byDefault.toggle()">
+    Par défaut
+</app-toggle>
+<p class="text-light mb-[18px]">ou choisir un ou plusieurs villages</p>
+<div class="grid grid-cols-2">
+    <app-toggle *ngFor="let village of dataService.villages" [value]="villages().includes(village._id)" (valueChange)="$event ? addVillage(village._id) : removeVillage(village._id)">
+        {{ village.name }}
+    </app-toggle>
+</div>
+<!--TODO: add-->
+<app-spacer class="bg-lighter-dark my-[30px]"/>
+<textarea [(ngModel)]="description" autosize class="resize-none input min-h-[330px] py-[24px] px-[18px] my-[30px] bg-light-dark text-light rounded-[12px] border border-lighter-dark" name="description"></textarea>
+<button (click)="save()" [disabled]="!changed()" class="bg-purple rounded-[10px] w-full py-[18px] mb-[100px] enabled:hover:bg-opacity-95 disabled:bg-black disabled:text-dark-gray">
+    Sauvegarder
+</button>
