@@ -100,62 +100,74 @@ export default async function () {
             {
                 name: "Armes Simples",
                 base: 2,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             },
             {
                 name: "Camouflage",
                 base: 4,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             },
             {
                 name: "Corps à Corps",
                 base: 3,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             },
             {
                 name: "Esquive",
                 base: 3,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             },
             {
                 name: "Gensou",
                 base: 5,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             },
             {
                 name: "Henge",
                 base: 4,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             },
             {
                 name: "Kawarimi",
                 base: 5,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             },
             {
                 name: "Mental",
                 base: 1,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             },
             {
                 name: "Parade",
                 base: 2,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             },
             {
                 name: "Physique",
                 base: 0,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             },
             {
                 name: "Survie",
                 base: 4,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             },
             {
                 name: "Vigilance",
                 base: 4,
-                description: "Arrive bientôt"
+                description: "Arrive bientôt",
+                villages: []
             }
         ]
         if (await CommonSkillModel.countDocuments() > 0)
@@ -167,255 +179,297 @@ export default async function () {
                 name: "Armes exotiques",
                 base: 2,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Chūken",
                 base: 3,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Coup spécial",
                 base: 2,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Coup spécial",
                 base: 3,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Doton",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Futon",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Gōken",
                 base: 3,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Jūken",
                 base: 3,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Intimidation",
                 base: 0,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Katon",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Premiers soins",
                 base: 0,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Raïton",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Régénération",
                 base: 0,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Résistances Élémentaires",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Résistances Environnementales",
                 base: 0,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Résistances Physiques",
                 base: 0,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Résistances Psychiques",
                 base: 1,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Science des Explosifs",
                 base: 2,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Science des Pièges",
                 base: 2,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Suiton",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             {
                 name: "Yūryoku",
                 base: 5,
                 description: "Arrive bientôt",
-                type: "combat"
+                type: "combat",
+                villages: []
             },
             // Terrain
             {
                 name: "Collecter des informations",
                 base: 1,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Éducation",
                 base: 1,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Empathie",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Faux Semblants",
                 base: 5,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Fūin",
                 base: 5,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Iryō",
                 base: 5,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Kuchiyose",
                 base: 5,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Lois et Traditions",
                 base: 1,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Manipulation",
                 base: 3,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Médecine",
                 base: 1,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Science des Drogues",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Science des Poisons",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Sentinelle",
                 base: 5,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Sixième Sens",
                 base: 5,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             {
                 name: "Technologie",
                 base: 2,
                 description: "Arrive bientôt",
-                type: "terrain"
+                type: "terrain",
+                villages: []
             },
             // Clan
             {
                 name: "Jiton",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "clan"
+                type: "clan",
+                villages: []
             },
             {
                 name: "Kage",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "clan"
+                type: "clan",
+                villages: []
             },
             {
                 name: "Kikaichū",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "clan"
+                type: "clan",
+                villages: []
             },
             {
                 name: "Mokuton",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "clan"
+                type: "clan",
+                villages: []
             },
             {
                 name: "Résistances Émotionnelles",
                 base: 5,
                 description: "Arrive bientôt",
-                type: "clan"
+                type: "clan",
+                villages: []
             },
             {
                 name: "Sumi",
                 base: 4,
                 description: "Arrive bientôt",
-                type: "clan"
+                type: "clan",
+                villages: []
             }
         ]
         if (await CustomSkillModel.countDocuments() > 0)
