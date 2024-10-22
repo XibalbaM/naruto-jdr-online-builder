@@ -23,7 +23,7 @@
     </p>
 </div>
 <app-spacer class="bg-lighter-dark my-[30px]"/>
-<div *ngIf="isSkillRemovable">
+<div *ngIf="isSkillRemovable(skill)">
     <button (click)="remove()"
             class="border border-orange font-light text-orange px-[28px] py-[16px] max-w-md w-full rounded-[10px] hover:bg-white hover:bg-opacity-5">
         Supprimer la compétence
