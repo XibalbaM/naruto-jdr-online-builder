@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {combineLatest, map, Observable, tap} from "rxjs";
+import {combineLatest, map, Observable, of, tap} from "rxjs";
 import {ApiService} from "../../app/services/api.service";
 import Auth from "../../app/models/auth.model";
 import {AuthService} from "../../app/services/auth.service";
@@ -11,6 +11,33 @@ import Character from "../../app/models/character.interface";
 export class CharacterService {
 
     constructor(private apiService: ApiService, private auth: Auth, private authService: AuthService) {
+    }
+
+    resolveCharacter(characterId: string): {character: Character, editable: true} | {character: Observable<Character | undefined>, editable: false} {
+        if (this.auth.user!.characters.find(character => character._id === characterId)) {
+            return {character: this.auth.user!.characters.find(character => character._id === characterId)!, editable: true};
+        } else {
+            return {character: this.getPublicCharacter(characterId), editable: false};
+        }
+    }
+
+    publicCharacterCache: { [key: string]: Character | undefined } = {};
+
+    getPublicCharacter(characterId: string): Observable<Character | undefined> {
+        if (!this.publicCharacterCache[characterId]) {
+            return this.apiService.doRequest<{ character?: Character, error?: string }>('GET', `/characters/${characterId}`).pipe(
+                map((response) => {
+                    if (response.status === 200)
+                        return response.body?.character;
+                    else
+                        return undefined;
+                }),
+                tap((character) => {
+                    this.publicCharacterCache[characterId] = character;
+                })
+            );
+        }
+        return of(this.publicCharacterCache[characterId]);
     }
 
     removeSkill(id: string, characterId: string): Observable<boolean> {
