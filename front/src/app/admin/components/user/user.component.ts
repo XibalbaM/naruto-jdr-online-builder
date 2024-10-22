@@ -1,4 +1,4 @@
-import {Component, computed, effect, Injector, OnInit, signal} from '@angular/core';
+import {Component, computed, Injector, OnInit, signal} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
 import {DatePipe, NgClass, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {FormsModule} from '@angular/forms';

@@ -8,7 +8,7 @@ import {AdminLogoComponent} from '../../../utils/components/admin-logo/admin-log
 import {Router, RouterLink} from "@angular/router";
 import AdminService from "../../services/admin.service";
 import User from "../../../app/models/user.interface";
-import {filter, of, zip} from "rxjs";
+import {zip} from "rxjs";
 import {BgComponent} from "../../../utils/components/bg/bg.component";
 import {ArrowRightComponent} from "../../../utils/components/arrow-right/arrow-right.component";
 import {UsersDateGroupPipe} from "../../pipes/characters-date-group.pipe";

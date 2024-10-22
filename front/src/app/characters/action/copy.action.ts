@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {take} from "rxjs";
 import {CharacterService} from "../services/character.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import Auth from "../../app/models/auth.model";
 import {NotificationService} from "../../app/services/notification.service";
 
 @Component({

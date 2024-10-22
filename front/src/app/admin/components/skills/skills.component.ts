@@ -8,7 +8,6 @@ import {DataService} from "../../../app/services/data.service";
 import {FormsModule} from "@angular/forms";
 import {removeAccents} from "naruto-jdr-online-builder-common/src/utils/text.utils";
 import CustomSkill from "../../../app/models/skill.interface";
-import {filter} from "rxjs";
 
 let filterMem: "Toutes" | "Communes" | "Combat" | "Terrain" | "Clan" = "Toutes";
 

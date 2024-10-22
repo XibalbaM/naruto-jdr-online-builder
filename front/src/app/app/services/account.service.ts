@@ -47,39 +47,6 @@ export class AccountService {
     }
 
     /**
-     * Change the profile picture of the current user
-     * @param profilePicture The new profile picture
-     * @returns {Observable<{ success: boolean, error?: string }>} The result of the request
-     */
-    setProfilePicture(profilePicture: string): Observable<{ success: boolean, error?: string }> {
-
-        return this.apiService.doRequest<{ error?: string }>("POST", "/account/picture", {link: profilePicture}).pipe(
-            map((response: HttpResponse<{ error?: string }>) => {
-                return {success: response.status === 200, error: response.body?.error || undefined};
-            }),
-            tap(() => {
-                this.authService.refreshUser();
-            })
-        );
-    }
-
-    /**
-     * Delete the profile picture of the current user
-     * @returns {Observable<boolean>} The result of the request
-     */
-    deleteProfilePicture(): Observable<boolean> {
-
-        return this.apiService.doRequest("DELETE", "/account/picture").pipe(
-            map((response: HttpResponse<any>) => {
-                return response.status === 200;
-            }),
-            tap(() => {
-                this.authService.refreshUser();
-            })
-        );
-    }
-
-    /**
      * Delete the account of the current user.
      *
      * WARNING: This will delete the account and all the data associated with it.

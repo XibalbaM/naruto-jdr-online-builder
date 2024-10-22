@@ -1,5 +1,4 @@
 import {Component, inject, signal} from '@angular/core';
-import Auth from "../../../app/models/auth.model";
 import {NAVBAR_DATA_TOKEN} from "../../../app/app.component";
 import {NgxPopperjsContentComponent, NgxPopperjsDirective, NgxPopperjsPlacements, NgxPopperjsTriggers} from "ngx-popperjs";
 import {DataService} from "../../../app/services/data.service";
