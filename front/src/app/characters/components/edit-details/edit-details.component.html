@@ -93,9 +93,6 @@
     <div>
         Partage
         <app-privacy-selector class="my-[12px]" [(privacy)]="shareStatus"/>
-        <p class="ms-[5px] font-light text-light-gray">
-            {{shareStatusDescription()}}
-        </p>
     </div>
     <!--TODO-->
     <button [disabled]="!hasChanges()" class="bg-purple rounded-[10px] w-full py-[18px] mt-[50px] enabled:hover:bg-opacity-95

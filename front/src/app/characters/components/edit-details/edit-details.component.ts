@@ -29,11 +29,6 @@ import {PrivacySelectorComponent} from "../../../utils/components/privacy-select
     imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, AsyncPipe, TitleCasePipe, CharacterToReamingXpPipe, ModalComponent, IdToDataPipe, NgOptimizedImage, PrivacySelectorComponent]
 })
 export class EditDetailsComponent {
-    shareStatuses = [
-        {name: 'Public', value: 'public', description: 'Tous les utilisateurs peuvent voir ce personnage.'},
-        {name: 'Non référencé', value: 'not-referenced', description: 'Seuls les utilisateurs ayant le lien peuvent voir ce personnage.'},
-        {name: 'Privé', value: 'private', description: 'Seul le propriétaire du personnage peut le voir.'}
-    ]
     clans = computed(() => this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)));
 
     character!: Character;
@@ -45,10 +40,6 @@ export class EditDetailsComponent {
     road?: Road;
     rank!: Rank;
     shareStatus: WritableSignal<"public" | "not-referenced" | "private"> = signal("private");
-
-    shareStatusDescription() {
-        return this.shareStatuses.find((status) => status.value === this.shareStatus())?.description;
-    }
 
     @ViewChild('changeClanConfirmation')
     clanConfirmModal!: ElementRef<HTMLDialogElement>;

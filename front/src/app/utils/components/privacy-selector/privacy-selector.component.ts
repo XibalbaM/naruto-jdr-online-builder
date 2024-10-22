@@ -11,6 +11,11 @@ import {NgClass} from "@angular/common";
   styleUrl: './privacy-selector.component.scss'
 })
 export class PrivacySelectorComponent {
+    shareStatuses = [
+        {name: 'Public', value: 'public', description: 'Tous les utilisateurs peuvent voir ce personnage.'},
+        {name: 'Non référencé', value: 'not-referenced', description: 'Seuls les utilisateurs ayant le lien peuvent voir ce personnage.'},
+        {name: 'Privé', value: 'private', description: 'Seul le propriétaire du personnage peut le voir.'}
+    ]
 
     @Input() privacy: "private" | "not-referenced" | "public" = "private";
     @Output() privacyChange = new EventEmitter<"private" | "not-referenced" | "public">();
@@ -21,5 +26,9 @@ export class PrivacySelectorComponent {
         }
         this.privacy = privacy;
         this.privacyChange.emit(privacy);
+    }
+
+    shareStatusDescription() {
+        return this.shareStatuses.find((status) => status.value === this.privacy)?.description;
     }
 }
