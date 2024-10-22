@@ -14,6 +14,7 @@ import {ModalComponent} from '../../../utils/components/modal/modal.component';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {AsyncPipe, NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 import Character from "../../../app/models/character.interface";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'app-character-navbar',
@@ -24,6 +25,7 @@ import Character from "../../../app/models/character.interface";
 })
 export class CharacterNavbarComponent {
 
+    isEditable = signal(false);
     character = signal({} as Character);
     navbarData = inject(NAVBAR_DATA_TOKEN);
     deleteNameConfirm = ""
@@ -32,15 +34,26 @@ export class CharacterNavbarComponent {
     protected readonly NgxPopperjsTriggers = NgxPopperjsTriggers;
     protected readonly NgxPopperjsPlacements = NgxPopperjsPlacements;
 
-    constructor(private auth: Auth, protected dataService: DataService, private idToData: IdToDataPipe,
-                private characterService: CharacterService, private router: Router, private notificationService: NotificationService) {
+    constructor(protected dataService: DataService, private idToData: IdToDataPipe, private characterService: CharacterService,
+                private router: Router, private notificationService: NotificationService) {
     }
 
     ngOnInit() {
         const id = this.navbarData?.currentRoute.params["characterId"];
-        const user = this.auth.user!;
-        if (id && user.characters.find(character => character._id === id)) {
-            this.character.set(user.characters.find(character => character._id === id)!);
+        if (id) {
+            let {character, editable} = this.characterService.resolveCharacter(id);
+            this.isEditable.set(editable);
+            if (editable) {
+                this.character.set(character as Character);
+            } else {
+                (character as Observable<Character>).subscribe((character) => {
+                    if (character) {
+                        this.character.set(character);
+                    } else {
+                        this.router.navigate(['/personnages']);
+                    }
+                });
+            }
         }
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Shift') {
@@ -76,6 +89,8 @@ export class CharacterNavbarComponent {
     }
 
     deleteCharacter(skipConfirmation = false) {
+        if (!this.isEditable())
+            return;
         const name = (this.character().firstName + ' ' + this.idToData.transform(this.character().clan, this.dataService.clans)?.name)
         if (skipConfirmation || this.deleteNameConfirm.toLowerCase().replace("ō", "o").replace("ū", "u") === name.toLowerCase().replace("ō", "o").replace("ū", "u")) {
             this.characterService.deleteCharacter(this.character()._id).subscribe((success) => {

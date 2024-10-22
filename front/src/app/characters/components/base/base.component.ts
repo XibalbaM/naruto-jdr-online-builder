@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
 import {Title} from "@angular/platform-browser";
 import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
@@ -10,6 +9,9 @@ import {AsyncPipe, NgIf, TitleCasePipe} from '@angular/common';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
 import {MarkdownComponent} from "../../../utils/components/markdown/markdown.component";
+import Character from "../../../app/models/character.interface";
+import {Observable} from "rxjs";
+import {CharacterService} from "../../services/character.service";
 
 @Component({
     selector: 'app-base',
@@ -24,23 +26,37 @@ export class BaseComponent implements OnInit {
     previousBase!: number;
     nextBase!: number;
 
-    constructor(private router: Router, private route: ActivatedRoute, private auth: Auth,
-                protected dataService: DataService, private title: Title, private idToData: IdToDataPipe) {
+    constructor(private router: Router, private route: ActivatedRoute, protected dataService: DataService,
+                private title: Title, private idToData: IdToDataPipe, private characterService: CharacterService) {
     }
 
     ngOnInit() {
         this.route.paramMap.subscribe(params => {
-            const user = this.auth.user!;
-            if (params.get('id') && params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId')) && this.dataService.bases.find((base) => base._id === Number(params.get('id')))) {
-                const character = (user.characters.find((character) => character._id === params.get('characterId'))!);
-                this.base = this.dataService.bases.find((base) => base._id === Number(params.get('id')))!;
-                this.baseLevel = character.bases[this.base._id] || 0;
-                this.previousBase = this.base._id === 0 ? character.bases.length - 1 : this.base._id - 1;
-                this.nextBase = this.base._id === character.bases.length - 1 ? 0 : this.base._id + 1;
-                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Base ${this.base.fullName} — Fiche de personnage — Ninjadex`);
-            } else {
+            if (!params.get('id') || !params.get('characterId') || !this.dataService.bases.find((base) => base._id === Number(params.get('id')))) {
                 this.router.navigate(['/personnages']);
+                return;
+            }
+            let baseId = Number(params.get('id'));
+            let {character, editable} = this.characterService.resolveCharacter(params.get('characterId')!);
+            if (editable) {
+                this.setup(character as Character, baseId);
+            } else {
+                (character as Observable<Character>).subscribe((character) => {
+                    if (character) {
+                        this.setup(character, baseId);
+                    } else {
+                        this.router.navigate(['/personnages']);
+                    }
+                });
             }
         });
+    }
+
+    setup(character: Character, baseId: number) {
+        this.base = this.dataService.bases.find((base) => base._id === baseId)!;
+        this.baseLevel = character.bases[this.base._id] || 0;
+        this.previousBase = this.base._id === 0 ? character.bases.length - 1 : this.base._id - 1;
+        this.nextBase = this.base._id === character.bases.length - 1 ? 0 : this.base._id + 1;
+        this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Base ${this.base.fullName} — Fiche de personnage — Ninjadex`);
     }
 }

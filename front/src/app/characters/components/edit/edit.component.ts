@@ -44,6 +44,7 @@ import {MarkdownComponent} from "../../../utils/components/markdown/markdown.com
 })
 export class EditComponent implements OnInit, AfterViewInit {
 
+    isEditable = signal(false);
     character = signal({} as Character, {equal: () => false});
     commonSkills = computed(() =>
         this.character().commonSkills.map((level, id) => ({skill: this.idToData.transform(id, this.dataService.commonSkills)!, level}))
@@ -74,6 +75,28 @@ export class EditComponent implements OnInit, AfterViewInit {
         });
     }
 
+    ngOnInit() {
+        this.activeRoute.paramMap.subscribe(params => {
+            if (!params.get('characterId')) {
+                this.router.navigate(['/personnages']);
+                return;
+            }
+            let {character, editable} = this.characterService.resolveCharacter(params.get('characterId')!);
+            this.isEditable.set(editable);
+            if (editable) {
+                this.character.set(character as Character);
+            } else {
+                (character as Observable<Character>).subscribe((character) => {
+                    if (character) {
+                        this.character.set(character);
+                    } else {
+                        this.router.navigate(['/personnages']);
+                    }
+                });
+            }
+        });
+    }
+
     ngAfterViewInit() {
         const notes = document.getElementById('notes')!;
         const lineHeight = parseInt(window.getComputedStyle(notes).lineHeight);
@@ -83,13 +106,13 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     increaseBaseLevel(base: Base, currentLevel: number) {
-        if (currentLevel < this.idToData.transform(this.character().rank, this.dataService.ranks)!.maxBase) {
+        if (this.isEditable() && currentLevel < this.idToData.transform(this.character().rank, this.dataService.ranks)!.maxBase) {
             this.setBaseLevel(base, currentLevel + 1);
         }
     }
 
     decreaseBaseLevel(base: Base, currentLevel: number) {
-        if (this.canBaseLevelReduced({base, level: currentLevel})) {
+        if (this.isEditable() && this.canBaseLevelReduced({base, level: currentLevel})) {
             this.decreaseSkillLevelsIfNeeded({base, level: currentLevel}).subscribe((success) => {
                 if (success)
                     this.setBaseLevel(base, currentLevel - 1);
@@ -132,7 +155,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     setSkillLevel(skill: Skill | CustomSkill, level: number) {
-        if (level <= 0 || level > this.bases().find(base => base.base._id === skill.base)!.level + 2) {
+        if (!this.isEditable() || level <= 0 || level > this.bases().find(base => base.base._id === skill.base)!.level + 2) {
             return;
         }
         this.characterService.setSkillLevel(this.character()._id, skill._id, level).subscribe((success) => {
@@ -150,6 +173,8 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     setBaseLevel(base: Base, level: number) {
+        if (!this.isEditable())
+            return;
         this.characterService.setBaseLevel(this.character()._id, base._id, level).subscribe((success) => {
             if (success) {
                 this.character.update(character => {
@@ -167,7 +192,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     setNindoPoints(nindo: number) {
-        if (nindo < 0) {
+        if (!this.isEditable() || nindo < 0) {
             return;
         }
         this.characterService.setNindoPoints(this.character()._id, nindo).subscribe((success) => {
@@ -184,16 +209,5 @@ export class EditComponent implements OnInit, AfterViewInit {
 
     canBaseLevelReduced(data: { base: Base, level: number }): boolean {
         return data.level > 1;
-    }
-
-    ngOnInit() {
-        this.activeRoute.paramMap.subscribe(params => {
-            const user = this.auth.user!;
-            if (params.get('characterId') && user?.characters.find((character: Character) => character._id === params.get('characterId'))) {
-                this.character.set(user?.characters.find((character: Character) => character._id === params.get('characterId'))!);
-            } else {
-                this.router.navigate(['/personnages']);
-            }
-        });
     }
 }

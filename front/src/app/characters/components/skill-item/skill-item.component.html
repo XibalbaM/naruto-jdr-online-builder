@@ -12,12 +12,14 @@
         </span>
         <span class="text-16 text-yellow px-[12px] py-[3px] bg-light-dark border border-lighter-dark rounded-[8px] ms-[12px]">{{ skill.level + baseLevel }}</span>
     </a>
-    <div class="flex flex-row">
-        <button (click)="changeValue.emit(skill.level - 1)" [disabled]="skill.level <= 1" class="change-button me-[3px] group">
-            <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
-        </button>
-        <button (click)="changeValue.emit(skill.level + 1)" [disabled]="skill.level >= baseLevel + 2" class="change-button group">
-            <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
-        </button>
+    <div>
+        <div *ngIf="isEditable" class="flex flex-row">
+            <button (click)="changeValue.emit(skill.level - 1)" [disabled]="skill.level <= 1" class="change-button me-[3px] group">
+                <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+            </button>
+            <button (click)="changeValue.emit(skill.level + 1)" [disabled]="skill.level >= baseLevel + 2" class="change-button group">
+                <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+            </button>
+        </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<a *ngIf="newChakraSpeCount() > 0 || newSkillCount() > 0"
+<a *ngIf="isEditable() && (newChakraSpeCount() > 0 || newSkillCount() > 0)"
    [routerLink]="['/personnages', character()._id, newSkillCount() > 0 ? 'nouvelle-competence' : 'specialisations-de-chakra']"
    class="fixed right-0 bottom-0 left-0 z-30 h-[70px] px-[18px] py-[17px] purple-gradient hover:bg-opacity-95 cursor-pointer flex flex-row items-center">
     <div class="max-w-[1024px] w-full mx-auto flex flex-row items-center justify-between">
@@ -30,6 +30,11 @@
         </div>
         <app-arrow-right class="fill-white"/>
     </div>
+</a>
+<a *ngIf="!isEditable()"
+   [routerLink]="['/personnages/copy', character()._id]"
+   class="fixed right-0 bottom-0 left-0 z-30 h-[70px] px-[18px] py-[17px] purple-gradient hover:bg-opacity-95 cursor-pointer flex flex-row items-center justify-center">
+    <p>Dupliquer sur mon compte</p>
 </a>
 <h1 class="font-bold uppercase font-monument text-25">{{ character().firstName }} {{ (character().clan | idToData:dataService.clans)?.name }}</h1>
 <p class="py-[12px]">
@@ -77,15 +82,17 @@
                 <span class="text-gray-zambezi">({{ base.base.shortName }})</span>
                 <span class="border text-16 text-yellow px-[12px] py-[3px] bg-light-dark border-lighter-dark rounded-[8px]">{{ base.level }}</span>
             </a>
-            <div class="flex flex-row">
-                <button (click)="decreaseBaseLevel(base.base, base.level)" [disabled]="!canBaseLevelReduced(base)"
-                        class="change-button me-[3px] group">
-                    <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
-                </button>
-                <button (click)="increaseBaseLevel(base.base, base.level)"
-                        [disabled]="base.level >= ((character().rank | idToData:dataService.ranks)?.maxBase || 0)" class="change-button group">
-                    <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
-                </button>
+            <div>
+                <div *ngIf="isEditable()" class="flex flex-row">
+                    <button (click)="decreaseBaseLevel(base.base, base.level)" [disabled]="!canBaseLevelReduced(base)"
+                            class="change-button me-[3px] group">
+                        <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+                    </button>
+                    <button (click)="increaseBaseLevel(base.base, base.level)"
+                            [disabled]="base.level >= ((character().rank | idToData:dataService.ranks)?.maxBase || 0)" class="change-button group">
+                        <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -178,30 +185,41 @@
             Nindo
             <span class="stat-box__value text-yellow ms-[12px]">{{ character().nindoPoints }}</span>
         </p>
-        <div class="flex flex-row">
-            <button (click)="setNindoPoints(character().nindoPoints - 1)" [disabled]="character().nindoPoints < 1" class="change-button me-[3px] group">
-                <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
-            </button>
-            <button (click)="setNindoPoints(character().nindoPoints + 1)" class="change-button">
-                <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
-            </button>
+        <div>
+            <div *ngIf="isEditable()" class="flex flex-row">
+                <button (click)="setNindoPoints(character().nindoPoints - 1)" [disabled]="character().nindoPoints < 1" class="change-button me-[3px] group">
+                    <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+                </button>
+                <button (click)="setNindoPoints(character().nindoPoints + 1)" class="change-button">
+                    <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+                </button>
+            </div>
         </div>
     </div>
 </section>
 <section class="relative z-10 mt-[50px] py-[50px]">
     <app-bg class="bg-black"/>
     <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[10px]">compétences communes</h2>
-    <app-skill-item (changeValue)="setSkillLevel(skill.skill, $event)" *ngFor="let skill of commonSkills()" [baseLevel]="getBaseLevelBySkill(skill.skill)"
-                    [skill]="skill" [isCommon]="true"/>
+    <app-skill-item *ngFor="let skill of commonSkills()"
+                    [isEditable]="isEditable()"
+                    [baseLevel]="getBaseLevelBySkill(skill.skill)"
+                    (changeValue)="setSkillLevel(skill.skill, $event)"
+                    [skill]="skill"
+                    [isCommon]="true"/>
     <app-spacer class="bg-light-dark mt-[8px] mb-[50px]"/>
     <h2 class="flex flex-row items-center mb-[10px]">
         <span class="stat-box__value text-blue me-[12px] h-[26px]">{{ character() | characterToMaxSkillCount  }}</span>
         <span class="font-light uppercase text-light-gray text-10 font-monument">compétences <br/>combat, terrain, clan</span>
     </h2>
-    <app-skill-item (changeValue)="setSkillLevel(skill.skill, $event)" *ngFor="let skill of uncommonSkills()" [baseLevel]="getBaseLevelBySkill(skill.skill)"
-                    [skill]="skill" [isCommon]="false"/>
+    <app-skill-item *ngFor="let skill of uncommonSkills()"
+                    [isEditable]="isEditable()"
+                    [baseLevel]="getBaseLevelBySkill(skill.skill)"
+                    (changeValue)="setSkillLevel(skill.skill, $event)"
+                    [skill]="skill"
+                    [isCommon]="false"/>
     <app-spacer class="bg-light-dark mt-[8px]"/>
-    <a routerLink="nouvelle-competence" *ngIf="newSkillCount() > 0" class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90 mt-[18px]">
+    <a routerLink="nouvelle-competence" *ngIf="isEditable() && newSkillCount() > 0"
+       class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90 mt-[18px]">
         <div>
             <span class="stat-box__value text-blue me-[10px] h-[26px]">{{newSkillCount()}}</span>
             Nouvelle{{ newSkillCount() > 1 ? 's' : '' }} compétence{{ newSkillCount() > 1 ? 's' : '' }} disponible{{ newSkillCount() > 1 ? 's' : '' }}
@@ -238,25 +256,27 @@
         <p class="text-light-gray">{{ spe.chakraSpe.effect }}</p>
         <app-spacer class="bg-light-dark my-[12px]"/>
     </div>
-    <a *ngIf="(((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length) > 0;else noNewSpe"
-       class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90"
-       routerLink="specialisations-de-chakra">
-        <div>
-            <span class="stat-box__value text-blue me-[10px] h-[26px]">{{ ((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length }}</span>
-            Spécialisation{{ (((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length) > 1 ? 's' : '' }} de chakra
-            disponible{{ (((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length) > 1 ? 's' : '' }}
-        </div>
-        <app-arrow-right class="fill-white"/>
-    </a>
-    <ng-template #noNewSpe>
-        <a class="flex w-full max-w-md flex-row items-center justify-between px-[28px] py-[17px] rounded-[10px] border border-lighter-dark hover:bg-dark"
+    <ng-container *ngIf="isEditable()">
+        <a *ngIf="(((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length) > 0;else noNewSpe"
+           class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90"
            routerLink="specialisations-de-chakra">
+            <div>
+                <span class="stat-box__value text-blue me-[10px] h-[26px]">{{ ((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length }}</span>
+                Spécialisation{{ (((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length) > 1 ? 's' : '' }} de chakra
+                disponible{{ (((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length) > 1 ? 's' : '' }}
+            </div>
+            <app-arrow-right class="fill-white"/>
+        </a>
+        <ng-template #noNewSpe>
+            <a class="flex w-full max-w-md flex-row items-center justify-between px-[28px] py-[17px] rounded-[10px] border border-lighter-dark hover:bg-dark"
+               routerLink="specialisations-de-chakra">
                 <span>
                     Modifier
                 </span>
-            <app-arrow-right class="fill-pink"/>
-        </a>
-    </ng-template>
+                <app-arrow-right class="fill-pink"/>
+            </a>
+        </ng-template>
+    </ng-container>
 </section>
 <section class="mt-[50px] mb-[75px] lg:mb-[150px]">
     <h2 class="font-light uppercase text-light-gray text-10 font-monument mb-[18px]">notes</h2>
@@ -266,11 +286,13 @@
             <span *ngIf="shouldTruncNotes()">...</span>
         </p>
         <button (click)="shouldTruncNotes.set(false)" *ngIf="shouldTruncNotes()" class="mt-[12px] mb-[30px] text-pink hover:underline">Tout lire</button>
-        <app-spacer class="bg-light-dark mb-[18px]"/>
-        <a class="flex w-full max-w-md flex-row items-center justify-between border bg-black border-lighter-dark rounded-[10px] px-[24px] py-[18px] hover:bg-dark"
-           routerLink="notes">
-            <span class="text-16">Éditer</span>
-            <app-arrow-right class="fill-pink"/>
-        </a>
+        <ng-container *ngIf="isEditable()">
+            <app-spacer class="bg-light-dark mb-[18px]"/>
+            <a class="flex w-full max-w-md flex-row items-center justify-between border bg-black border-lighter-dark rounded-[10px] px-[24px] py-[18px] hover:bg-dark"
+               routerLink="notes">
+                <span class="text-16">Éditer</span>
+                <app-arrow-right class="fill-pink"/>
+            </a>
+        </ng-container>
     </div>
 </section>

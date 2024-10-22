@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import Character from "../../../app/models/character.interface";
 import {ActivatedRoute, Router} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
-import {combineLatest} from "rxjs";
+import {combineLatest, Observable} from "rxjs";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import {Title} from "@angular/platform-browser";
@@ -24,6 +24,7 @@ import {MarkdownComponent} from "../../../utils/components/markdown/markdown.com
     imports: [SpacerComponent, NgIf, SkillToTypeNamePipe, MarkdownComponent]
 })
 export class SkillComponent implements OnInit {
+    isEditable = signal(false);
     isCommon!: boolean;
     skill!: Skill | CustomSkill;
     skillLevel: number = 0;
@@ -37,25 +38,42 @@ export class SkillComponent implements OnInit {
     }
 
     ngOnInit() {
-        const user = this.auth.user!;
         combineLatest([this.route.paramMap, this.route.data]).subscribe(([params, routeData]) => {
             this.isCommon = routeData['skillType'] === 'common';
             const skills = this.isCommon ? this.dataService.commonSkills : this.dataService.customSkills;
-            if (params.get('id') && params.get('characterId') && user.characters.find((character) => character._id === params.get('characterId')) && skills.find((skill) => skill._id == params.get('id'))) {
-                this.character = (user.characters.find((character) => character._id === params.get('characterId'))!);
-                this.skill = skills.find((skill) => skill._id == params.get('id'))!;
-                this.base = this.dataService.bases.find((base) => base._id === this.skill.base)!;
-                if (this.isCommon) {
-                    this.skillLevel = this.character.commonSkills[Number(this.skill._id)] || 0;
-                } else {
-                    this.skillLevel = this.character.customSkills.find((skillWithLevel) => skillWithLevel.skill === this.skill._id)?.level || 0;
-                }
-                this.baseLevel = this.character.bases[this.base._id] || 0;
-                this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans)?.name}, Compétence ${this.skill.name} — Fiche de personnage — Ninjadex`);
-            } else {
+            if (!params.get('id') || !params.get('characterId') || !skills.find((skill) => skill._id == params.get('id'))) {
                 this.router.navigate(['/personnages']);
+                return;
+            }
+            let skillId = params.get('id')!;
+            let {character, editable} = this.characterService.resolveCharacter(params.get('characterId')!);
+            this.isEditable.set(editable);
+            if (editable) {
+                this.setup(character as Character, skillId);
+            } else {
+                (character as Observable<Character>).subscribe((character) => {
+                    if (character) {
+                        this.setup(character, skillId);
+                    } else {
+                        this.router.navigate(['/personnages']);
+                    }
+                });
             }
         });
+    }
+
+    setup(character: Character, skillId: string) {
+        const skills = this.isCommon ? this.dataService.commonSkills : this.dataService.customSkills;
+        this.character = character;
+        this.skill = skills.find((skill) => skill._id == skillId)!;
+        this.base = this.dataService.bases.find((base) => base._id === this.skill.base)!;
+        if (this.isCommon) {
+            this.skillLevel = this.character.commonSkills[Number(this.skill._id)] || 0;
+        } else {
+            this.skillLevel = this.character.customSkills.find((skillWithLevel) => skillWithLevel.skill === this.skill._id)?.level || 0;
+        }
+        this.baseLevel = this.character.bases[this.base._id] || 0;
+        this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans)?.name}, Compétence ${this.skill.name} — Fiche de personnage — Ninjadex`);
     }
 
     remove() {
@@ -70,6 +88,6 @@ export class SkillComponent implements OnInit {
     }
 
     isSkillRemovable(skill: Skill | CustomSkill): skill is CustomSkill {
-        return !this.isCommon && (this.skill as CustomSkill).type !== "clan";
+        return this.isEditable() && !this.isCommon && (this.skill as CustomSkill).type !== "clan";
     }
 }
