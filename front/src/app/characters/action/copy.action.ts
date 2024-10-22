@@ -11,8 +11,8 @@ import {NotificationService} from "../../app/services/notification.service";
 })
 export class CopyAction implements OnInit {
 
-    constructor(private activeRoute: ActivatedRoute, private auth: Auth, private characterService: CharacterService,
-                private router: Router, private notificationService: NotificationService) {
+    constructor(private activeRoute: ActivatedRoute, private characterService: CharacterService, private router: Router,
+                private notificationService: NotificationService) {
     }
 
     ngOnInit() {
