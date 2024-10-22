@@ -12,13 +12,14 @@ import {LongArrowRightComponent} from '../../../../utils/components/long-arrow-r
 import {SpacerComponent} from '../../../../utils/components/spacer/spacer.component';
 import {AsyncPipe, NgFor, NgIf, NgOptimizedImage, TitleCasePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {PrivacySelectorComponent} from "../../../../utils/components/privacy-selector/privacy-selector.component";
 
 @Component({
     selector: 'app-first-step',
     templateUrl: './first-step.component.html',
     styleUrls: ['./first-step.component.scss'],
     standalone: true,
-    imports: [FormsModule, NgFor, SpacerComponent, NgIf, LongArrowRightComponent, AsyncPipe, TitleCasePipe, XpToRankPipe, NgOptimizedImage]
+    imports: [FormsModule, NgFor, SpacerComponent, NgIf, LongArrowRightComponent, AsyncPipe, TitleCasePipe, XpToRankPipe, NgOptimizedImage, PrivacySelectorComponent]
 })
 export class FirstStepComponent implements OnInit {
 
@@ -27,6 +28,7 @@ export class FirstStepComponent implements OnInit {
     clan?: Clan = this.idToData.transform(this.creationService.character.clan, this.dataService.clans);
     xp: number = this.creationService.character.xp || 100;
     isRoad: boolean = !!this.creationService.character.road;
+    shareStatus: "private" | "not-referenced" | "public" = this.creationService.character.shareStatus || "private" as any;
     road?: Road = this.creationService.character.road ? this.idToData.transform(this.creationService.character.road, this.dataService.roads) : undefined;
     clans = computed(() => this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)));
 
@@ -50,7 +52,7 @@ export class FirstStepComponent implements OnInit {
     submit() {
 
         if (this.firstName && this.clan && (!this.isRoad || this.road)) {
-            this.creationService.stepOne(this.village, this.firstName, this.clan, this.xp, this.road);
+            this.creationService.stepOne(this.village, this.firstName, this.clan, this.xp, this.shareStatus, this.road);
             this.router.navigate(['/personnages/creation/' + this.creationService.step]);
         }
     }

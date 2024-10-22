@@ -14,7 +14,6 @@ export function toCreate(character: Partial<Character>): Partial<Character> {
     delete newCharacter.nindoPoints;
     delete newCharacter.createdAt;
     delete newCharacter.updatedAt;
-    delete newCharacter.shareStatus;
     return newCharacter;
 }
 

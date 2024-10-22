@@ -26,15 +26,17 @@ export class CreationService {
      * @param firstName The first name of the character.
      * @param clan The clan of the character.
      * @param xp The xp of the character.
+     * @param shareStatus The share status of the character.
      * @param road The road of the character.
      */
-    stepOne(village: Village, firstName: string, clan: Clan, xp: number, road?: Road) {
+    stepOne(village: Village, firstName: string, clan: Clan, xp: number, shareStatus: "private" | "not-referenced" | "public", road?: Road) {
 
         this.character.village = village._id;
         this.character.firstName = firstName;
         this.character.clan = clan._id;
         this.character.xp = xp;
         this.character.rank = this.rankPipe.transform(xp)._id;
+        this.character.shareStatus = shareStatus;
         this.character.road = road?._id;
 
         this.step = 2;

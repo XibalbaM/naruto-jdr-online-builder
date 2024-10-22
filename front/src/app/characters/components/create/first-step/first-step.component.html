@@ -63,6 +63,7 @@
         <h3>Rang officiel</h3>
         <p class="w-fit rounded-xl text-yellow mt-[10px] bg-light-dark px-[12px] py-[4px]">{{ (xp | xpToRank).name }}</p>
     </div>
+    <app-privacy-selector [(privacy)]="shareStatus"/>
     <button [disabled]="!firstName || !clan || (isRoad && !road)"
             class="flex w-full flex-row items-center justify-center rounded-xl mb-[120px] group mt-[50px] h-[55px] bg-purple disabled:border-lighter-dark disabled:text-dark-gray disabled:border disabled:bg-black"
             type="submit">

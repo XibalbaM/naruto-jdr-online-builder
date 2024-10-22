@@ -25,7 +25,8 @@ router.post('/', captchaMiddleware(), authMiddleware(), contentMiddleware({
 		village: "string",
 		xp: 42,
         rank: "string",
-		nindo: "string"
+		nindo: "string",
+        shareStatus: "string"
     }, captcha: "string"
 }, {
     character: {
@@ -36,7 +37,8 @@ router.post('/', captchaMiddleware(), authMiddleware(), contentMiddleware({
         xp: 42,
         rank: "string",
         nindo: "string",
-        road: "string"
+        road: "string",
+        shareStatus: "string"
     }, captcha: "string"
 }), charactersController.create);
 router.get('/', authMiddleware(), charactersController.getCharacters);
