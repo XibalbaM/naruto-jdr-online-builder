@@ -20,7 +20,7 @@ import CustomSkill from "../../../../app/models/skill.interface";
     standalone: true,
     imports: [NgIf, LongArrowLeftComponent, CharacterPreviewComponent, SpacerComponent, NgFor, NgClass, LongArrowRightComponent, IdToDataPipe]
 })
-export class ThirdStepComponent implements OnInit, OnDestroy {
+export class ThirdStepComponent implements OnInit {
     clanSkillsIds: string[] = this.creationService.character.road
         ? this.idToData.transform(this.creationService.character.road, this.dataService.roads)?.line.skills || []
         : this.idToData.transform(this.creationService.character.clan, this.dataService.clans)?.line.skills || [];
@@ -37,10 +37,6 @@ export class ThirdStepComponent implements OnInit, OnDestroy {
         if (this.creationService.step !== 3) {
             this.router.navigate(['/personnages/creation/' + this.creationService.step]);
         }
-    }
-
-    ngOnDestroy() {
-        this.creationService.tempSkillIds = this.skillIds;
     }
 
     back() {
@@ -71,5 +67,6 @@ export class ThirdStepComponent implements OnInit, OnDestroy {
         } else {
             this.skillIds = this.skillIds.filter(id => id !== skill._id);
         }
+        this.creationService.tempSkillIds = this.skillIds;
     }
 }
