@@ -33,7 +33,7 @@ const command: SlashCommand = {
         let characterName = interaction.options.get("nom")?.value as string ?? character!.firstName + " " + findById(DataService.clans, character!.clan)?.name;
         StateService.setInitiative(interaction.guildId!, interaction.channelId!, characterName, roll.result);
         await Responses.success(interaction, Messages.DICE.SUCCESS(formula, roll.result, roll.details, characterName, "Initiative"), StateService.isInSenseiMode(interaction.user.id));
-        //await Responses.followUp(interaction, Messages.CHARACTER.SUMMARY(character), true);
+        await Responses.followUp(interaction, Messages.CHARACTER.NEW_TURN_SUMMARY(character), true);
     }
 };
 

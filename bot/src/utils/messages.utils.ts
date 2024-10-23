@@ -3,6 +3,7 @@ import {findById} from "./data.utils.js";
 import DataService from "../services/data.service.js";
 import {GuildMember} from "discord.js";
 import {RollResult} from "./dice.utils.js";
+import {interceptions, maxChakra} from "naruto-jdr-online-builder-common/src/utils/character.utils.js";
 
 /**
  * Class containing messages texts. Grouped here so they can easily be changed.
@@ -95,8 +96,10 @@ export default class Messages {
             });
             return message;
         },
-        SUMMARY(character: Character) {
-
+        NEW_TURN_SUMMARY(character: Character) {
+            return `Interceptions : ARM ${interceptions(character, "ARM", DataService.bases)} / TAI ${interceptions(character, "TAI", DataService.bases)}\n`
+                + `Chakra : ${maxChakra(character, DataService.clans, DataService.spes)}\n`
+                + `Nindo : ${character.nindoPoints}`; //TODO add active chakra, nindo
         }
     }
 
