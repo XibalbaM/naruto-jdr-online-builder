@@ -41,6 +41,7 @@ export default class Responses {
             ephemeral: true
         });
         if (interaction.channel) {
+            // @ts-ignore
             return await interaction.channel.send({
                 content: message,
                 components
