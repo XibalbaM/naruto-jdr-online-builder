@@ -2,6 +2,7 @@ import Character from "../models/character.model.js";
 import {findById} from "./data.utils.js";
 import DataService from "../services/data.service.js";
 import {GuildMember} from "discord.js";
+import {RollResult} from "./dice.utils.js";
 
 /**
  * Class containing messages texts. Grouped here so they can easily be changed.
@@ -93,6 +94,9 @@ export default class Messages {
                 message += `- ${findById(DataService.spes, spe)?.name}\n`;
             });
             return message;
+        },
+        SUMMARY(character: Character) {
+
         }
     }
 
@@ -117,7 +121,30 @@ export default class Messages {
             });
             return message;
         },
-        CLEARED: "Les initiatives ont bien été effacées."
+        CLEARED: "Les initiatives ont bien été effacées.",
+        NO_PNJS: "Aucun PNJ n'a été configuré. Pour configurer des PNJs, utilisez la commande `/initiative-pnj configurer`.",
+        PNJS_ROLLED: (rolls: {name: string, roll: RollResult}[]) => {
+            rolls.sort((a, b) => b.roll.result - a.roll.result);
+            let message = "Voici les initiatives des PNJs :\n";
+            rolls.forEach(roll => {
+                message += `- **${roll.roll.result}** (${roll.roll.details}) : ${roll.name}\n`;
+            });
+            return message;
+        },
+        PNJ_ADDED: (name: string, initiative: number) => `Le PNJ ${name} a bien été ajouté à la liste des PNJs avec une initiative de ${initiative}.`,
+        PNJ_REMOVED: (name: string) => `Le PNJ ${name} a bien été retiré de la liste des PNJs.`,
+        PNJS_LIST: (pnjs: {name: string, initiative: number}[]) => {
+            let sorted = pnjs.sort((a, b) => b.initiative - a.initiative);
+            let message = "Voici la liste des PNJs configurés :\n";
+            for (let pnj of sorted) {
+                message += `- **${pnj.name}** : ${pnj.initiative}\n`;
+            }
+            return message;
+        },
+        PNJ_ALREADY_EXISTS: (name: string) => `Le PNJ ${name} est déjà configuré.`,
+        PNJ_CLEAR_CONFIRM: "Êtes-vous sûr de vouloir effacer la liste des PNJs configurés ?",
+        PNJ_CLEARED: "La liste des PNJs configurés a bien été effacée.",
+        PNJ_CLEAR_CANCEL: "La liste des PNJs configurés n'a pas été effacée.",
     }
 
     static EASTER_EGG = "Vous avez trouvé un easter egg !";
