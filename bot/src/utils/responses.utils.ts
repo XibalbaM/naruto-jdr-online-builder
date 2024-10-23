@@ -27,6 +27,14 @@ export default class Responses {
         });
     }
 
+    static async followUp(interaction: AcceptedInteraction, message: string, ephemeral = true, components: any[] = []) {
+        return await interaction.followUp({
+            content: message,
+            ephemeral,
+            components
+        })
+    }
+
     static async easterEgg(interaction: AcceptedInteraction, message: string, components: any[] = []) {
         await interaction.reply({
             content: Messages.EASTER_EGG,
