@@ -16,7 +16,6 @@ const command: SlashCommand = {
             return await Responses.error(interaction, Messages.LINKING.NO_ACCOUNT_LINKED);
         }
         const characters = await CharacterService.getCharacters(interaction.user.id);
-        console.log(characters);
         if (characters.length === 0) {
             return await Responses.error(interaction, Messages.CHARACTER.NO_CHARACTER);
         }
