@@ -1,5 +1,10 @@
+export type RollResult = {
+    result: number,
+    details: string
+}
+
 export default class DiceUtils {
-    static parseDiceRoll(input: string) {
+    static parseDiceRoll(input: string): RollResult {
         input = input.replace(/\s/g, "");
         if (!input.match(/^(?:(?:\d*d)?\d+(?:e\d*)?[+\-\/*])*(?:\d*d)?\d+(?:e\d*)?$/i)) throw new Error("Invalid input");
         const entities = this.extractEntities(input);
