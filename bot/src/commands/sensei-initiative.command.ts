@@ -1,6 +1,6 @@
-import {SlashCommandBuilder} from "discord.js";
+import {ActionRowBuilder, ButtonBuilder, ComponentType, SlashCommandBuilder} from "discord.js";
 
-import {SlashCommand} from "../classes.js";
+import {ButtonStyle, SlashCommand} from "../classes.js";
 import Responses from "../utils/responses.utils.js";
 import Messages from "../utils/messages.utils.js";
 import StateService from "../services/state.service.js";
@@ -23,7 +23,13 @@ const command: SlashCommand = {
                 await Responses.error(interaction, Messages.INITIATIVE.NO_INITIATIVE, true);
                 return;
             }
-            await Responses.success(interaction, Messages.INITIATIVE.LIST(initiatives), true);
+            let button = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("public").setLabel("Rendre public").setStyle(ButtonStyle.PRIMARY))
+            let message = await Responses.success(interaction, Messages.INITIATIVE.LIST(initiatives), true, [button]);
+            message.createMessageComponentCollector({componentType: ComponentType.Button, time: 60000}).on("collect", async i => {
+                if (i.customId === "public") {
+                    await Responses.success(i, Messages.INITIATIVE.LIST(initiatives), false);
+                }
+            })
         } else if (interaction.options.getSubcommand(true) === "effacer") {
             StateService.clearInitiatives(interaction.guildId!, interaction.channelId!);
             await Responses.success(interaction, Messages.INITIATIVE.CLEARED, true);
