@@ -8,7 +8,7 @@ import {
     MessageComponentInteraction
 } from "discord.js";
 import Messages from "./messages.utils.js";
-import {ButtonStyle} from "../classes";
+import {ButtonStyle} from "../classes.js";
 
 /**
  * Type of interaction that can be accepted by the responses.
