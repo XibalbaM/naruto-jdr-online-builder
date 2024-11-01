@@ -23,13 +23,7 @@ const command: SlashCommand = {
                 await Responses.error(interaction, Messages.INITIATIVE.NO_INITIATIVE, true);
                 return;
             }
-            let button = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("public").setLabel("Rendre public").setStyle(ButtonStyle.PRIMARY))
-            let message = await Responses.success(interaction, Messages.INITIATIVE.LIST(initiatives), true, [button]);
-            message.createMessageComponentCollector({componentType: ComponentType.Button, time: 60000}).on("collect", async i => {
-                if (i.customId === "public") {
-                    await Responses.success(i, Messages.INITIATIVE.LIST(initiatives), false);
-                }
-            })
+            await Responses.success(interaction, Messages.INITIATIVE.LIST(initiatives), true, Messages.INITIATIVE.LIST(initiatives));
         } else if (interaction.options.getSubcommand(true) === "effacer") {
             StateService.clearInitiatives(interaction.guildId!, interaction.channelId!);
             await Responses.success(interaction, Messages.INITIATIVE.CLEARED, true);

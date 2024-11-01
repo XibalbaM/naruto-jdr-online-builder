@@ -1,5 +1,14 @@
-import {AttachmentBuilder, ChatInputCommandInteraction, CommandInteraction, EmbedBuilder, MessageComponentInteraction} from "discord.js";
+import {
+    ActionRowBuilder,
+    AttachmentBuilder, ButtonBuilder,
+    ChatInputCommandInteraction,
+    CommandInteraction,
+    ComponentType,
+    EmbedBuilder,
+    MessageComponentInteraction
+} from "discord.js";
 import Messages from "./messages.utils.js";
+import {ButtonStyle} from "../classes";
 
 /**
  * Type of interaction that can be accepted by the responses.
@@ -11,12 +20,23 @@ type AcceptedInteraction = ChatInputCommandInteraction<any> | CommandInteraction
  */
 export default class Responses {
 
-    static async success(interaction: AcceptedInteraction, message: string, ephemeral = true, components: any[] = []) {
-        return await interaction.reply({
-            content: message,
+    static async success(interaction: AcceptedInteraction, text: string, ephemeral = true, components: any[] | string = []) {
+        let componentsToUse = typeof components === "string"
+            ? [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("public").setLabel("Rendre public").setStyle(ButtonStyle.PRIMARY))]
+            : components;
+        let message = await interaction.reply({
+            content: text,
             ephemeral,
-            components
+            components: componentsToUse
         });
+        if (typeof components === "string") {
+            message.createMessageComponentCollector({componentType: ComponentType.Button, time: 60000}).on("collect", async i => {
+                if (i.customId === "public") {
+                    await Responses.success(i, components, false)
+                }
+            })
+        }
+        return message;
     }
 
     static async error(interaction: AcceptedInteraction, message: string, ephemeral = true, components: any[] = []) {

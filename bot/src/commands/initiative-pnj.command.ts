@@ -77,7 +77,8 @@ const command: SlashCommand = {
                     StateService.setInitiative(interaction.guildId!, interaction.channelId!, pnj.name, roll.result);
                     return {name: pnj.name, roll: roll};
                 });
-                await Responses.success(interaction, Messages.INITIATIVE.PNJS_ROLLED(rolls), StateService.isInSenseiMode(interaction.user.id));
+                await Responses.success(interaction, Messages.INITIATIVE.PNJS_ROLLED(rolls, interaction.user.displayName), StateService.isInSenseiMode(interaction.user.id),
+                    StateService.isInSenseiMode(interaction.user.id) ? Messages.INITIATIVE.PNJS_ROLLED_LIGHT(rolls, interaction.user.displayName) : []);
                 break;
         }
     },

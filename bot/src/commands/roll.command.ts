@@ -24,7 +24,8 @@ const command: SlashCommand = {
         try {
             const parseDiceRoll = DiceUtils.parseDiceRoll(input);
             const username = interaction.guild?.members.cache.get(interaction.user.id)?.displayName || interaction.user.username;
-            await Responses.success(interaction, Messages.DICE.SUCCESS(input, parseDiceRoll.result, parseDiceRoll.details, username, interaction.options.get("label")?.value as string ?? null), StateService.isInSenseiMode(interaction.user.id));
+            await Responses.success(interaction, Messages.DICE.SUCCESS(input, parseDiceRoll.result, parseDiceRoll.details, username, interaction.options.get("label")?.value as string ?? null), StateService.isInSenseiMode(interaction.user.id),
+                StateService.isInSenseiMode(interaction.user.id) ? Messages.DICE.LIGHT(parseDiceRoll.result, username, interaction.options.get("label")?.value as string ?? null) : []);
         } catch (e) {
             switch (e.message) {
                 case "Invalid input":

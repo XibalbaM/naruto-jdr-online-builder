@@ -15,7 +15,14 @@ export default class Messages {
         D: "https://tenor.com/view/gad-elmaleh-r%C3%A9ponse-d-qui-veut-gagner-des-millions-gif-19797483",
 	    SUCCESS: (input: string, result: number, details: string | undefined, username: string, label: string | null) =>
             (label ? `Jet de ${username} [${label}]` : `Jet de ${username}`) +
-            ` :\nJet : \`[${input}]\`${details ? `Détails : \`${details}\`` : ""} Résultat : \`${result}\``
+            ` :\nJet : \`[${input}]\`${details ? `Détails : \`${details}\`` : ""} Résultat : \`${result}\``,
+        LIGHT(result: number, characterName: string, label: string | null) {
+            if (label) {
+                return `Jet de ${label} de ${characterName} : ${result}`;
+            } else {
+                return `Jet de ${characterName} : ${result}`;
+            }
+        }
     }
 
     static LINKING = {
@@ -126,9 +133,9 @@ export default class Messages {
         },
         CLEARED: "Les initiatives ont bien été effacées.",
         NO_PNJS: "Aucun PNJ n'a été configuré. Pour configurer des PNJs, utilisez la commande `/initiative-pnj configurer`.",
-        PNJS_ROLLED: (rolls: {name: string, roll: RollResult}[]) => {
+        PNJS_ROLLED: (rolls: {name: string, roll: RollResult}[], username: string) => {
             rolls.sort((a, b) => b.roll.result - a.roll.result);
-            let message = "Voici les initiatives des PNJs :\n";
+            let message = `Voici les initiatives des PNJs de ${username} :\n`;
             rolls.forEach(roll => {
                 message += `- **${roll.roll.result}** (${roll.roll.details}) : ${roll.name}\n`;
             });
@@ -148,6 +155,14 @@ export default class Messages {
         PNJ_CLEAR_CONFIRM: "Êtes-vous sûr de vouloir effacer la liste des PNJs configurés ?",
         PNJ_CLEARED: "La liste des PNJs configurés a bien été effacée.",
         PNJ_CLEAR_CANCEL: "La liste des PNJs configurés n'a pas été effacée.",
+        PNJS_ROLLED_LIGHT(rolls: { name: string; roll: RollResult }[], username: string) {
+            rolls.sort((a, b) => b.roll.result - a.roll.result);
+            let message = `Voici les initiatives des PNJs de ${username} :\n`;
+            rolls.forEach(roll => {
+                message += `- **${roll.roll.result}** : ${roll.name}\n`;
+            });
+            return message;
+        }
     }
 
     static EASTER_EGG = "Vous avez trouvé un easter egg !";

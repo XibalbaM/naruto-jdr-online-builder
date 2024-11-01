@@ -21,7 +21,8 @@ const command: SlashCommand = {
         }
         let roll = DiceUtils.parseDiceRoll(formula);
         let username = interaction.options.get("nom")?.value as string ?? interaction.guild?.members.cache.get(interaction.user.id)?.displayName ?? interaction.user.username;
-        await Responses.success(interaction, Messages.DICE.SUCCESS(formula, roll.result, roll.details, username, "Initiative"), StateService.isInSenseiMode(interaction.user.id));
+        await Responses.success(interaction, Messages.DICE.SUCCESS(formula, roll.result, roll.details, username, "Initiative"), StateService.isInSenseiMode(interaction.user.id),
+            StateService.isInSenseiMode(interaction.user.id) ? Messages.DICE.LIGHT(roll.result, username, "Initiative") : []);
         StateService.setInitiative(interaction.guildId!, interaction.channelId!, username, roll.result);
     }
 };
