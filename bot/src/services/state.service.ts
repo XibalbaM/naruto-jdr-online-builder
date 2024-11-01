@@ -30,21 +30,22 @@ export default class StateService {
 
     private static initUserIfNeeded(userId: string) {
         if (!this.userData.has(userId))
-            this.userData.set(userId, this.defaultUserData);
+            this.userData.set(userId, structuredClone(this.defaultUserData));
     }
     private static initGuildIfNeeded(guildId: Snowflake) {
         if (!this.guildData.has(guildId))
-            this.guildData.set(guildId, this.defaultGuildData);
+            this.guildData.set(guildId, structuredClone(this.defaultGuildData));
     }
     private static initChannelIfNeeded(guildId: Snowflake, channelId: Snowflake) {
         this.initGuildIfNeeded(guildId);
+        console.log(this.guildData.get(guildId));
         if (!this.guildData.get(guildId)!.channels.has(channelId))
-            this.guildData.get(guildId)!.channels.set(channelId, this.defaultChannelData);
+            this.guildData.get(guildId)!.channels.set(channelId, structuredClone(this.defaultChannelData));
     }
     private static initChannelUserIfNeeded(guildId: Snowflake, channelId: Snowflake, userId: Snowflake) {
         this.initChannelIfNeeded(guildId, channelId);
         if (!this.guildData.get(guildId)!.channels.get(channelId)!.users.has(userId))
-            this.guildData.get(guildId)!.channels.get(channelId)!.users.set(userId, this.defaultChannelUserData);
+            this.guildData.get(guildId)!.channels.get(channelId)!.users.set(userId, structuredClone(this.defaultChannelUserData));
     }
 
     static setInSenseiMode(userId: string, isInSenseiMode: boolean) {
@@ -80,8 +81,11 @@ export default class StateService {
     }
 
     static addPNJ(guildId: Snowflake, channelId: Snowflake, userId: Snowflake, name: string, initiative: number) {
+        console.log(guildId, channelId, userId, name, initiative);
+        console.log(this.guildData.get(guildId)?.channels.get(channelId)?.users);
         this.initChannelUserIfNeeded(guildId, channelId, userId);
         this.guildData.get(guildId)!.channels.get(channelId)!.users.get(userId)!.pnjs.push({name, initiative});
+        console.log(this.guildData.get(guildId)?.channels.get(channelId)?.users);
     }
 
     static removePNJ(guildId: Snowflake, channelId: Snowflake, userId: Snowflake, name: string) {
