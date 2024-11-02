@@ -36,7 +36,7 @@ test("List", async () => {
     let response = createMockResponse();
     await PredrawnController.list(createMockRequest(), response);
     expect(response.status).toBeCalledWith(200);
-    expect(response.json).toBeCalledWith({characters: [dummyPredrawnId.toString()]});
+    expect(response.json).toBeCalledWith({characters: [expect.objectContaining({_id: dummyPredrawnId})]});
 });
 
 test("Take", async () => {

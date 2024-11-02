@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import Character from "../models/character.interface";
+import Character, {PredrawnCharacter} from "../models/character.interface";
 import {ApiService} from "./api.service";
-import {map, mergeMap, Observable, of, zip} from "rxjs";
+import {map, Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -11,21 +11,17 @@ export class PredrawnService {
     constructor(private apiService: ApiService) {
     }
 
-    getPredrawnCharacters(): Observable<Character[]> {
-        return this.apiService.doRequest<{ characters: string[] }>("GET", "/predrawn").pipe(
+    getPredrawnCharacters(): Observable<PredrawnCharacter[]> {
+        return this.apiService.doRequest<{ characters: { character: Character, ownerName: string }[] }>("GET", "/predrawn").pipe(
             map((response) => {
                 if (response.status !== 200 || response.body === null) {
                     return [];
                 } else {
-                    return response.body.characters;
+                    return response.body.characters.map((character) => ({
+                        ...character.character,
+                        owner: character.ownerName
+                    }));
                 }
-            }),
-            mergeMap((characterIds) => {
-                const requests = characterIds.map((characterId) => this.apiService.doRequest<{ character: Character }>("GET", "/characters/" + characterId));
-                return zip(...requests, of(null));
-            }),
-            map((responses) => {
-                return responses.filter(response => response && response.status === 200 && response.body !== null).map(response => response!.body!.character);
             })
         );
     }

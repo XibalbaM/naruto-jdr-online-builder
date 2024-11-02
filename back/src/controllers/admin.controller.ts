@@ -25,4 +25,8 @@ export default class AdminController {
         await AdminService.deleteUser(req.params["id"]);
         res.status(200).send({message: 'User deleted.'});
     }
+
+    static async getCharacters(req: Request, res: Response) {
+        res.status(200).send({characters: await AdminService.getCharacters()});
+    }
 }

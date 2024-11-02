@@ -1,0 +1,11 @@
+<h1 class="text-25 font-bold font-monument uppercase mb-[18px]">prétirés</h1>
+<a routerLink="ajout" class="text-yellow hover:bg-opacity-95 flex w-full max-w-md flex-row items-center justify-between border bg-light-dark border-lighter-dark px-[24px] py-[18px] rounded-[10px] text-16">
+    Ajouter un prétiré
+    <app-arrow-right class="fill-light-gray"/>
+</a>
+<app-spacer class="my-[30px] bg-lighter-dark"/>
+<h2 class="flex flex-row items-center mb-[10px]">
+    <span class="stat-box__value text-blue me-[12px] h-[26px]">{{predrawnsCount()}}</span>
+    <span class="font-light uppercase text-light-gray text-10 font-monument">prétirés</span>
+</h2>
+<app-character-list-preview *ngFor="let predrawn of predrawns()" [character]="predrawn"/>

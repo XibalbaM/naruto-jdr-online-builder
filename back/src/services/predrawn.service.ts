@@ -5,8 +5,12 @@ import User from "../interfaces/user.interface.js";
 
 export default class PredrawnService {
 
-    static async getAll() {
-        return (await CharacterModel.find({shareStatus: "predrawn"}).lean().select("_id")).map((character) => character._id.toString());
+    static async getAll(): Promise<{ character: Character, ownerName: string }[]> {
+        let characters = (await CharacterModel.find({shareStatus: "predrawn"}).lean()) as Character[];
+        return Promise.all(characters.map(async (character) => {
+            let ownerName = (await UserModel.findOne({characters: character._id}).lean().select("username"))!.username || "Ninja sans nom";
+            return {character, ownerName};
+        }));
     }
 
     static async take(user: User, id: string): Promise<Character> {
@@ -31,6 +35,7 @@ export default class PredrawnService {
         data.shareStatus = "predrawn";
         delete data._id;
         const newCharacter = await CharacterModel.create(data);
+        await UserModel.updateMany({characters: id}, {$push: {characters: newCharacter._id}});
         return newCharacter._id.toString();
     }
 

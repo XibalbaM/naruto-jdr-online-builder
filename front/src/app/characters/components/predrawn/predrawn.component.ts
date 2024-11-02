@@ -1,7 +1,5 @@
 import {Component, computed, OnInit, Signal, signal} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
-import {PredrawnService} from "../../../app/services/predrawn.service";
-import Character from "../../../app/models/character.interface";
 import {DataService} from "../../../app/services/data.service";
 import {IdToDataPipe} from '../../../utils/pipes/id-to-data.pipe';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
@@ -12,6 +10,8 @@ import {RouterLink} from '@angular/router';
 import {ModalComponent} from '../../../utils/components/modal/modal.component';
 import {BgComponent} from "../../../utils/components/bg/bg.component";
 import {FormsModule} from "@angular/forms";
+import {PredrawnCharacter} from "../../../app/models/character.interface";
+import {PredrawnService} from "../../../app/services/predrawn.service";
 
 @Component({
     selector: 'app-predrawn',
@@ -22,7 +22,7 @@ import {FormsModule} from "@angular/forms";
 })
 export class PredrawnComponent implements OnInit {
 
-    predrawns = signal<Character[]>([])
+    predrawns = signal<PredrawnCharacter[]>([])
     ranks = computed(() =>
         ["Tous", ...new Set(this.dataService.ranks.map((rank) => rank.name.split(",")[0]))]
             .map((rank) => ({name: rank, characters: this.getCharacters(signal(rank))}))

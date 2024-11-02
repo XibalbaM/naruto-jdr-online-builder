@@ -9,4 +9,6 @@ router.get('/users/:id/email', AdminController.sendEmail);
 router.delete('/users/:id/discord', AdminController.disconnectDiscord);
 router.delete('/users/:id', AdminController.deleteUser);
 
+router.get('/characters', AdminController.getCharacters);
+
 export default router;

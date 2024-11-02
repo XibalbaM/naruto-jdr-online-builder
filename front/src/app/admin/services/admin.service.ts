@@ -6,6 +6,7 @@ import {map, Observable} from "rxjs";
 import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
 import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
 import CustomSkill from "../../app/models/skill.interface";
+import Character from "../../app/models/character.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -28,6 +29,12 @@ export default class AdminService {
     getUser(userId: string): Observable<User | undefined> {
         return this.apiService.doRequest<{user?: User}>('GET', `/admin/users/${userId}`).pipe(
             map(response => response.body?.user)
+        );
+    }
+
+    getAllCharacters(): Observable<Character[]> {
+        return this.apiService.doRequest<{characters: Character[]}>('GET', '/admin/characters').pipe(
+            map(response => response.body?.characters || [])
         );
     }
 

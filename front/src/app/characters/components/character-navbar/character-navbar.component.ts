@@ -14,6 +14,7 @@ import {SpacerComponent} from '../../../utils/components/spacer/spacer.component
 import {AsyncPipe, NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 import Character from "../../../app/models/character.interface";
 import {Observable} from "rxjs";
+import Auth from "../../../app/models/auth.model";
 
 @Component({
     selector: 'app-character-navbar',
@@ -34,7 +35,7 @@ export class CharacterNavbarComponent {
     protected readonly NgxPopperjsPlacements = NgxPopperjsPlacements;
 
     constructor(protected dataService: DataService, private idToData: IdToDataPipe, private characterService: CharacterService,
-                private router: Router, private notificationService: NotificationService) {
+                private router: Router, private notificationService: NotificationService, protected auth: Auth) {
     }
 
     ngOnInit() {

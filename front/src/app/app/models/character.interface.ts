@@ -4,6 +4,10 @@ export default interface Character extends _Character{
     _id: string;
 }
 
+export interface PredrawnCharacter extends Character {
+    owner: string;
+}
+
 export function toCreate(character: Partial<Character>): Partial<Character> {
     const newCharacter = { ...character } as Partial<Character>;
     delete newCharacter._id;

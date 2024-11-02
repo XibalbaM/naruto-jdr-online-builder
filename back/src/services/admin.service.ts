@@ -1,6 +1,7 @@
 import UserModel from "../models/user.model.js";
 import {requestEmail} from "./auth.service.js";
 import BaseModel from "../models/base.model.js";
+import CharacterModel from "../models/character.model";
 
 export default class AdminService {
     static async getUsers() {
@@ -26,5 +27,9 @@ export default class AdminService {
 
     static async updateBase(id: string, description: string) {
         return BaseModel.findByIdAndUpdate(id, {description});
+    }
+
+    static async getCharacters() {
+        return CharacterModel.find().lean();
     }
 }

@@ -1,0 +1,15 @@
+<h1 class="text-25 font-bold font-monument uppercase space-x-[10px]">ajouter un prétiré</h1>
+<div class="mt-[12px] labeled-select">
+    <label>Filtrer</label>
+    <select [(ngModel)]="filter" class="!text-yellow pl-[83px]" name="filter" disabled>
+        <option *ngFor="let filter of ['Tous', 'Actifs', 'Inactifs']"
+                [ngValue]="filter">{{ filter }}
+        </option>
+    </select>
+</div>
+<div class="mt-[12px] labeled-input">
+    <input #searchField class="ps-[63px]" placeholder="Chercher par nom" [ngModel]="search()" (input)="search.set(searchField.value)">
+    <label><img ngSrc="assets/images/search.svg" height="24" width="24" alt="Chercher"></label>
+</div>
+<app-spacer class="my-[30px] bg-lighter-dark"/>
+<app-character-list-preview *ngFor="let character of filteredCharacters()" [character]="character" [link]="'/admin/pretires/ajout/' + character._id"/>

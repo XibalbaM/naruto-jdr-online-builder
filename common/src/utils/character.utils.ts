@@ -175,6 +175,10 @@ export function skillTypeName(skill: Skill | _CustomSkill): string {
     }
 }
 
+export function fullName(character: _Character, clans: _Clan[]): string {
+    return `${character.firstName} ${idToData(character.clan, clans).name}`;
+}
+
 export function canUserReadCharacter(user: _User, character: _Character) {
     return user.isAdmin || character.shareStatus !== "private" || user.characters.map(value => value.toString()).includes(character._id.toString());
 }

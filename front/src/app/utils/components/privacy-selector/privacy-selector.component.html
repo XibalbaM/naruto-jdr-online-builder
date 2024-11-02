@@ -1,14 +1,15 @@
-<div class="grid grid-cols-3 grid-rows-1 bg-light-dark w-full rounded-[10px] gap-[4px] p-[4px]">
+<div class="hidden opacity-30"></div>
+<div class="grid grid-cols-3 grid-rows-1 bg-light-dark w-full rounded-[10px] gap-[4px] p-[4px]" [class.opacity-30]="disabled">
     <div (click)="setPrivacy('private')" class="text-center py-[18px] rounded-[8px] text-16"
-         [ngClass]="privacy === 'private' ? 'bg-yellow text-black cursor-default' : 'bg-dark cursor-pointer hover:bg-lighter-dark'">
+         [ngClass]="privacy === 'private' ? 'bg-yellow text-black' : ('bg-dark' + (!disabled ? ' cursor-pointer hover:bg-lighter-dark' : ''))">
         Privé
     </div>
     <div (click)="setPrivacy('not-referenced')" class="text-center py-[18px] rounded-[8px] text-16"
-         [ngClass]="privacy === 'not-referenced' ? 'bg-yellow text-black cursor-default' : 'bg-dark cursor-pointer hover:bg-lighter-dark'">
+         [ngClass]="privacy === 'not-referenced' ? 'bg-yellow text-black' : ('bg-dark' + (!disabled ? ' cursor-pointer hover:bg-lighter-dark' : ''))">
         Lien
     </div>
     <div (click)="setPrivacy('public')" class="text-center py-[18px] rounded-[8px] text-16"
-         [ngClass]="privacy === 'public' ? 'bg-yellow text-black cursor-default' : 'bg-dark cursor-pointer hover:bg-lighter-dark'">
+         [ngClass]="privacy === 'public' ? 'bg-yellow text-black' : ('bg-dark' + (!disabled ? ' cursor-pointer hover:bg-lighter-dark' : ''))">
         Public
     </div>
 </div>

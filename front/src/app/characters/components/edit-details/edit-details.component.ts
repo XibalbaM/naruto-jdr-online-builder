@@ -39,7 +39,7 @@ export class EditDetailsComponent {
     isRoad!: boolean;
     road?: Road;
     rank!: Rank;
-    shareStatus: WritableSignal<"public" | "not-referenced" | "private"> = signal("private");
+    shareStatus: WritableSignal<"public" | "not-referenced" | "private" | 'predrawn'> = signal("private");
 
     @ViewChild('changeClanConfirmation')
     clanConfirmModal!: ElementRef<HTMLDialogElement>;
@@ -61,10 +61,6 @@ export class EditDetailsComponent {
                 this.isRoad = !!this.character.road;
                 this.road = this.character.road ? this.idToData.transform(this.character.road, this.dataService.roads) : undefined;
                 this.rank = this.idToData.transform(this.character.rank, this.dataService.ranks)!;
-                if (this.character.shareStatus === "predrawn") {
-                    this.router.navigate(['/personnages']);
-                    return;
-                }
                 this.shareStatus.set(this.character.shareStatus);
                 this.title.setTitle(`${this.character.firstName} ${this.clan.name}, Modification — Fiche de personnage — Ninjadex`)
             } else {
@@ -105,8 +101,8 @@ export class EditDetailsComponent {
             requests.push(this.characterService.setRoad(this.character._id, this.isRoad ? this.road?._id || "" : "", true));
         if (this.rank._id !== this.character.rank)
             requests.push(this.characterService.setRank(this.character._id, this.rank._id, true));
-        if (this.shareStatus() !== this.character.shareStatus)
-            requests.push(this.characterService.setShareStatus(this.character._id, this.shareStatus(), true));
+        if (this.shareStatus() !== this.character.shareStatus && this.shareStatus() !== 'predrawn')
+            requests.push(this.characterService.setShareStatus(this.character._id, this.shareStatus() as any, true));
         this.characterService.multiRequest(requests).subscribe((overallSuccess) => {
             if (overallSuccess)
                 this.router.navigate(['..'], {relativeTo: this.route, queryParamsHandling: 'preserve'});

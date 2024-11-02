@@ -9,6 +9,10 @@ import {BaseComponent} from "./components/base/base.component";
 import {SkillsComponent} from "./components/skills/skills.component";
 import {SkillComponent} from "./components/skill/skill.component";
 import {SkillEditComponent} from "./components/skill-edit/skill-edit.component";
+import {AddPredrawnAction} from "./action/add-predrawn/add-predrawn.action";
+import {UserResolver} from "../app/resolvers/user.resolver";
+import {PredrawnsComponent} from "./components/predrawns/predrawns.component";
+import {AddPredrawnComponent} from "./components/add-predrawn/add-predrawn.component";
 
 export const adminRoutes: Routes = [
     {path: '', component: HomeComponent, title: 'Page administrateur — Ninjadex', data: {navbar: NormalNavbarComponent}},
@@ -19,4 +23,7 @@ export const adminRoutes: Routes = [
     {path: 'competences', component: SkillsComponent, title: 'Textes des compétences — Ninjadex', data: {navbar: BackNavbarComponent, navbarText: "Espace admin"}},
     {path: 'competences/:id', component: SkillComponent, title: 'Textes des compétences — Ninjadex', data: {navbar: BackNavbarComponent, navbarText: "Compétences"}},
     {path: 'competences/:id/modification', component: SkillEditComponent, title: 'Textes des compétences — Ninjadex', data: {navbar: BackNavbarComponent}},
+    {path: 'pretires', component: PredrawnsComponent, title: 'Prétirés — Ninjadex', data: {navbar: BackNavbarComponent, navbarText: "Espace admin"}},
+    {path: 'pretires/ajout', component: AddPredrawnComponent, title: 'Ajout de prétiré — Ninjadex', data: {navbar: BackNavbarComponent, navbarText: "Prétirés"}},
+    {path: 'pretires/ajout/:predrawnId', component: AddPredrawnAction, resolve: UserResolver, title: 'Ajout de personnage aux prétirés — Ninjadex'},
 ];
