@@ -1,8 +1,0 @@
-<a class="flex py-[18px]">
-    <img [ngSrc]="env.api_url + '/assets/clans/'+ clan().name.toLowerCase() + '-purple.svg'"
-         alt="character image" class="gray-box ms-[12px] me-[18px] !bg-black w-[52px] h-[52px] p-[13px]" width="52" height="52">
-    <div>
-        <p class="text-20">{{ character().firstName }} {{ clan().name }}</p>
-        <p class="text-light-gray font-light text-12">{{ (character().rank | idToData:dataService.ranks)?.name }}</p>
-    </div>
-</a>

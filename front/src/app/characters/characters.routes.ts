@@ -36,13 +36,13 @@ export const characterRoutes: Routes = [
             {path: '3', component: ThirdStepComponent, title: "Création de personnage — Étape 3 — Ninjadex"}
         ]
     },
-    /*{
+    {
         path: 'pretires',
         component: PredrawnComponent,
         resolve: {user: UserResolver},
         data: {bgClass: "no-repeat-image-bg", navbar: BackNavbarComponent, navbarText: "Liste de personnages"},
         title: "Personnages prétirés — Ninjadex"
-    },*/
+    },
     {
         path: "copy/:characterId",
         component: CopyAction,
