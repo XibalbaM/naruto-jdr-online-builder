@@ -1,18 +1,15 @@
 import {Component, computed, Injector, signal, WritableSignal} from '@angular/core';
 import CustomSkill from "../../../app/models/skill.interface";
 import Auth from "../../../app/models/auth.model";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {DataService} from "../../../app/services/data.service";
 import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import AdminService from "../../services/admin.service";
 import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
-import {SkillToTypeNamePipe} from "../../../characters/pipes/skill-type-to-type-name.pipe";
-import {SkillVillageListToStringPipe} from "../../pipes/skill-village-list-to-string.pipe";
 import {SpacerComponent} from "../../../utils/components/spacer/spacer.component";
-import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ToggleComponent} from "../../../utils/components/toggle/toggle.component";
-import {PlusSymbolComponent} from "../../../utils/components/plus-symbol/plus-symbol.component";
 import {AutosizeModule} from "ngx-autosize";
 import {NotificationService} from "../../../app/services/notification.service";
 
@@ -20,17 +17,12 @@ import {NotificationService} from "../../../app/services/notification.service";
   selector: 'app-skill-edit',
   standalone: true,
     imports: [
-        RouterLink,
-        SkillToTypeNamePipe,
-        SkillVillageListToStringPipe,
         SpacerComponent,
-        NgOptimizedImage,
         ReactiveFormsModule,
         FormsModule,
         NgForOf,
         NgIf,
         ToggleComponent,
-        PlusSymbolComponent,
         AutosizeModule
     ],
   templateUrl: './skill-edit.component.html',

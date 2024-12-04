@@ -1,4 +1,4 @@
-import {Component, computed, effect, ElementRef, HostListener, signal, ViewChild, WritableSignal} from '@angular/core';
+import {Component, computed, ElementRef, HostListener, signal, ViewChild, WritableSignal} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
@@ -16,7 +16,7 @@ import {Title} from "@angular/platform-browser";
 import {CharacterToReamingXpPipe} from '../../../utils/pipes/character-to-reaming-xp.pipe';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {FormsModule} from '@angular/forms';
-import {AsyncPipe, NgClass, NgFor, NgIf, NgOptimizedImage, TitleCasePipe} from '@angular/common';
+import {NgClass, NgFor, NgIf, NgOptimizedImage, TitleCasePipe} from '@angular/common';
 import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/long-arrow-left.component';
 import {ModalComponent} from "../../../utils/components/modal/modal.component";
 import {PrivacySelectorComponent} from "../../../utils/components/privacy-selector/privacy-selector.component";
@@ -26,7 +26,7 @@ import {PrivacySelectorComponent} from "../../../utils/components/privacy-select
     templateUrl: './edit-details.component.html',
     styleUrls: ['./edit-details.component.scss'],
     standalone: true,
-    imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, AsyncPipe, TitleCasePipe, CharacterToReamingXpPipe, ModalComponent, IdToDataPipe, NgOptimizedImage, PrivacySelectorComponent]
+    imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, TitleCasePipe, CharacterToReamingXpPipe, ModalComponent, NgOptimizedImage, PrivacySelectorComponent]
 })
 export class EditDetailsComponent {
     clans = computed(() => this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)));

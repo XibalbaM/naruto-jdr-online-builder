@@ -19,7 +19,6 @@ import {dummy} from "../../../app/models/character.interface";
     imports: [
         SpacerComponent,
         NgForOf,
-        CharacterToMaxSkillCountPipe,
         IdToDataPipe
     ],
     templateUrl: './add-skill.component.html',

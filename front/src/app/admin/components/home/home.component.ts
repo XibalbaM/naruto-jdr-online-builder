@@ -1,7 +1,7 @@
 import {Component, Injector, OnInit} from '@angular/core';
 import {DataService} from "../../../app/services/data.service";
 import Auth from "../../../app/models/auth.model";
-import {NgIf, NgOptimizedImage} from '@angular/common';
+import {NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HomeButtonComponent} from '../home-button/home-button.component';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
@@ -15,7 +15,7 @@ import {ToggleComponent} from "../../../utils/components/toggle/toggle.component
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
     standalone: true,
-    imports: [AdminLogoComponent, SpacerComponent, HomeButtonComponent, FormsModule, NgIf, NgOptimizedImage, ToggleComponent]
+    imports: [AdminLogoComponent, SpacerComponent, HomeButtonComponent, FormsModule, NgIf, ToggleComponent]
 })
 export class HomeComponent implements OnInit {
 

@@ -2,9 +2,7 @@ import {Component, computed, Injector, OnInit, signal, WritableSignal} from '@an
 import Auth from "../../../app/models/auth.model";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, TitleCasePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {HomeButtonComponent} from '../home-button/home-button.component';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
-import {AdminLogoComponent} from '../../../utils/components/admin-logo/admin-logo.component';
 import {Router, RouterLink} from "@angular/router";
 import AdminService from "../../services/admin.service";
 import User from "../../../app/models/user.interface";
@@ -18,7 +16,7 @@ import {UsersDateGroupPipe} from "../../pipes/characters-date-group.pipe";
     templateUrl: './users.component.html',
     styleUrls: ['./users.component.scss'],
     standalone: true,
-    imports: [AdminLogoComponent, SpacerComponent, HomeButtonComponent, FormsModule, NgIf, NgOptimizedImage, NgForOf, RouterLink, BgComponent, ArrowRightComponent, DatePipe, UsersDateGroupPipe, TitleCasePipe]
+    imports: [SpacerComponent, FormsModule, NgIf, NgOptimizedImage, NgForOf, RouterLink, BgComponent, ArrowRightComponent, DatePipe, UsersDateGroupPipe, TitleCasePipe]
 })
 export class UsersComponent implements OnInit {
 

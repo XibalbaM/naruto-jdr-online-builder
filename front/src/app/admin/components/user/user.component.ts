@@ -1,16 +1,13 @@
 import {Component, computed, Injector, OnInit, signal} from '@angular/core';
 import Auth from "../../../app/models/auth.model";
-import {DatePipe, NgClass, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
+import {DatePipe, NgClass, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {HomeButtonComponent} from '../home-button/home-button.component';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
-import {AdminLogoComponent} from '../../../utils/components/admin-logo/admin-logo.component';
 import {ActivatedRoute, Router} from "@angular/router";
 import AdminService from "../../services/admin.service";
 import User from "../../../app/models/user.interface";
 import {zip} from "rxjs";
 import {NotificationService} from "../../../app/services/notification.service";
-import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {ModalComponent} from "../../../utils/components/modal/modal.component";
 
 @Component({
@@ -18,7 +15,7 @@ import {ModalComponent} from "../../../utils/components/modal/modal.component";
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.scss'],
     standalone: true,
-    imports: [AdminLogoComponent, SpacerComponent, HomeButtonComponent, FormsModule, NgIf, NgOptimizedImage, NgForOf, DatePipe, NgClass, IdToDataPipe, ModalComponent]
+    imports: [SpacerComponent, FormsModule, NgIf, DatePipe, NgClass, ModalComponent]
 })
 export class UserComponent implements OnInit {
 

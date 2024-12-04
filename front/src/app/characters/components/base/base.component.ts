@@ -5,7 +5,7 @@ import {Title} from "@angular/platform-browser";
 import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/long-arrow-left.component';
 import {LongArrowRightComponent} from '../../../utils/components/long-arrow-right/long-arrow-right.component';
-import {AsyncPipe, NgIf, TitleCasePipe} from '@angular/common';
+import {NgIf, TitleCasePipe} from '@angular/common';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
 import {MarkdownComponent} from "../../../utils/components/markdown/markdown.component";
@@ -18,7 +18,7 @@ import {CharacterService} from "../../services/character.service";
     templateUrl: './base.component.html',
     styleUrls: ['./base.component.scss'],
     standalone: true,
-    imports: [SpacerComponent, NgIf, RouterLink, LongArrowRightComponent, LongArrowLeftComponent, AsyncPipe, TitleCasePipe, IdToDataPipe, MarkdownComponent]
+    imports: [SpacerComponent, NgIf, RouterLink, LongArrowRightComponent, LongArrowLeftComponent, TitleCasePipe, IdToDataPipe, MarkdownComponent]
 })
 export class BaseComponent implements OnInit {
     base!: Base;

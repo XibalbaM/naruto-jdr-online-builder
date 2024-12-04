@@ -8,7 +8,6 @@ import Auth from "../../../app/models/auth.model";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {SpacerComponent} from "../../../utils/components/spacer/spacer.component";
-import {DatePipe} from "@angular/common";
 import {SkillToTypeNamePipe} from "../../../characters/pipes/skill-type-to-type-name.pipe";
 import AdminService from "../../services/admin.service";
 import {SkillVillageListToStringPipe} from "../../pipes/skill-village-list-to-string.pipe";
@@ -20,7 +19,6 @@ import {SkillVillageListToStringPipe} from "../../pipes/skill-village-list-to-st
         AutosizeModule,
         FormsModule,
         SpacerComponent,
-        DatePipe,
         SkillToTypeNamePipe,
         RouterLink,
         SkillVillageListToStringPipe

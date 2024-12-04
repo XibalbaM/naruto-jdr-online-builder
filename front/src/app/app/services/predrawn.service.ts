@@ -25,24 +25,6 @@ export class PredrawnService {
             })
         );
     }
-
-    takePredrawnCharacter(characterId: string): Observable<{ success: boolean, character?: Character }> {
-        return this.apiService.doRequest<{ character: Character }>("PUT", "/predrawn/" + characterId).pipe(
-            map((response) => {
-                if (response.status === 200 && response.body !== null) {
-                    return {
-                        success: true,
-                        character: response.body.character
-                    };
-                } else {
-                    return {
-                        success: false
-                    };
-                }
-            })
-        );
-    }
-
     addPredrawnCharacter(characterId: string): Observable<{ success: boolean, id?: string }> {
 
         return this.apiService.doRequest<{ id: string }>("POST", "/predrawn", {id: characterId}).pipe(
@@ -50,12 +32,6 @@ export class PredrawnService {
                 success: response.status === 201 && response.body?.id !== null,
                 id: response.body?.id
             }))
-        );
-    }
-
-    removePredrawnCharacter(characterId: string) {
-        return this.apiService.doRequest("DELETE", "/predrawn/" + characterId).pipe(
-            map((response) => response.status === 200)
         );
     }
 }

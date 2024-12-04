@@ -3,7 +3,7 @@ import Auth from "../../../app/models/auth.model";
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
 import {PlusSymbolComponent} from '../../../utils/components/plus-symbol/plus-symbol.component';
 import {CharacterListPreviewComponent} from '../character-list-preview/character-list-preview.component';
-import {AsyncPipe, NgFor} from '@angular/common';
+import {NgFor} from '@angular/common';
 import {SpacerGraphicalComponent} from '../../../utils/components/spacer-graphical/spacer-graphical.component';
 import {RouterLink} from '@angular/router';
 
@@ -12,7 +12,7 @@ import {RouterLink} from '@angular/router';
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss'],
     standalone: true,
-    imports: [RouterLink, SpacerGraphicalComponent, NgFor, CharacterListPreviewComponent, PlusSymbolComponent, SpacerComponent, AsyncPipe]
+    imports: [RouterLink, SpacerGraphicalComponent, NgFor, CharacterListPreviewComponent, PlusSymbolComponent, SpacerComponent]
 })
 export class ListComponent {
 

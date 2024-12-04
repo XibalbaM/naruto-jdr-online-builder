@@ -2,7 +2,7 @@ import {Component, effect} from "@angular/core";
 import {Subscription, timer} from "rxjs";
 import {NotificationService} from "../../services/notification.service";
 import {animate, style, transition, trigger} from "@angular/animations";
-import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
 
 @Component({
     selector: "app-notification",
@@ -33,7 +33,7 @@ import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
         ]),
     ],
     standalone: true,
-    imports: [NgIf, AsyncPipe, NgOptimizedImage],
+    imports: [NgIf, NgOptimizedImage],
 })
 export class NotificationComponent {
     private timeout?: Subscription;

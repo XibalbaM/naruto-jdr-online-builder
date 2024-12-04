@@ -11,7 +11,7 @@ import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/
 import {FormsModule} from '@angular/forms';
 import {ModalComponent} from '../../../utils/components/modal/modal.component';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
-import {AsyncPipe, NgClass, NgIf, NgOptimizedImage} from '@angular/common';
+import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 import Character from "../../../app/models/character.interface";
 import {Observable} from "rxjs";
 import Auth from "../../../app/models/auth.model";
@@ -21,7 +21,7 @@ import Auth from "../../../app/models/auth.model";
     templateUrl: './character-navbar.component.html',
     styleUrls: ['./character-navbar.component.scss'],
     standalone: true,
-    imports: [NgxPopperjsContentComponent, RouterLink, NgIf, SpacerComponent, ModalComponent, FormsModule, LongArrowLeftComponent, NgClass, NgxPopperjsDirective, RouterLinkActive, AsyncPipe, IdToDataPipe, CharacterToReamingXpPipe, NgOptimizedImage]
+    imports: [NgxPopperjsContentComponent, RouterLink, NgIf, SpacerComponent, ModalComponent, FormsModule, LongArrowLeftComponent, NgClass, NgxPopperjsDirective, RouterLinkActive, IdToDataPipe, CharacterToReamingXpPipe, NgOptimizedImage]
 })
 export class CharacterNavbarComponent {
 

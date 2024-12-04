@@ -2,7 +2,7 @@ import {Component, ElementRef, inject, InjectionToken, Injector, OnInit, signal,
 import {ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet} from "@angular/router";
 import {filter} from "rxjs";
 import {NotificationComponent} from "./components/notification/notification.component";
-import {AsyncPipe, NgClass, NgComponentOutlet} from "@angular/common";
+import {NgClass, NgComponentOutlet} from "@angular/common";
 
 @Component({
     selector: "app-root",
@@ -14,7 +14,6 @@ import {AsyncPipe, NgClass, NgComponentOutlet} from "@angular/common";
         NotificationComponent,
         NgClass,
         RouterOutlet,
-        AsyncPipe,
     ],
 })
 export class AppComponent implements OnInit {

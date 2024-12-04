@@ -8,7 +8,6 @@ import Environment from "../../../../environments/environment.interface";
 import {RolesPipe} from "../../../utils/pipes/roles.pipe";
 import {SpacerComponent} from "../../../utils/components/spacer/spacer.component";
 import {ArrowRightComponent} from "../../../utils/components/arrow-right/arrow-right.component";
-import {DefaultProfilePictureComponent} from "../../../utils/components/default-profile-picture/default-profile-picture.component";
 import {SpacerGraphicalComponent} from "../../../utils/components/spacer-graphical/spacer-graphical.component";
 import {FormsModule} from "@angular/forms";
 import {ModalComponent} from "../../../utils/components/modal/modal.component";
@@ -26,7 +25,6 @@ import {AsyncPipe, NgFor, NgIf, NgOptimizedImage} from "@angular/common";
         RouterLink,
         NgFor,
         SpacerGraphicalComponent,
-        DefaultProfilePictureComponent,
         ArrowRightComponent,
         SpacerComponent,
         AsyncPipe,

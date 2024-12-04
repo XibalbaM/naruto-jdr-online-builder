@@ -5,7 +5,7 @@ import {DataService} from "../../../app/services/data.service";
 import {CharacterToReamingXpPipe} from '../../../utils/pipes/character-to-reaming-xp.pipe';
 import {IdToDataPipe} from '../../../utils/pipes/id-to-data.pipe';
 import {RouterLink} from '@angular/router';
-import {AsyncPipe, NgClass, NgIf, NgOptimizedImage} from '@angular/common';
+import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 
 @Component({
     selector: 'app-character-list-preview',

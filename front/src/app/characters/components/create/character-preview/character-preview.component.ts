@@ -4,14 +4,14 @@ import Environment from "../../../../../environments/environment.interface";
 import {DataService} from "../../../../app/services/data.service";
 import {IdToDataPipe} from '../../../../utils/pipes/id-to-data.pipe';
 import {SpacerGraphicalComponent} from '../../../../utils/components/spacer-graphical/spacer-graphical.component';
-import {AsyncPipe, NgIf, NgOptimizedImage} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 
 @Component({
     selector: 'app-character-preview',
     templateUrl: './character-preview.component.html',
     styleUrls: ['./character-preview.component.scss'],
     standalone: true,
-    imports: [NgIf, SpacerGraphicalComponent, AsyncPipe, IdToDataPipe, NgOptimizedImage]
+    imports: [NgIf, SpacerGraphicalComponent, IdToDataPipe, NgOptimizedImage]
 })
 export class CharacterPreviewComponent {
 
