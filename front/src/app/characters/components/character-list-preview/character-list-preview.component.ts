@@ -12,13 +12,13 @@ import {AsyncPipe, NgClass, NgIf, NgOptimizedImage} from '@angular/common';
     templateUrl: './character-list-preview.component.html',
     styleUrls: ['./character-list-preview.component.scss'],
     standalone: true,
-    imports: [NgIf, RouterLink, NgClass, AsyncPipe, IdToDataPipe, CharacterToReamingXpPipe, NgOptimizedImage]
+    imports: [NgIf, RouterLink, NgClass, IdToDataPipe, CharacterToReamingXpPipe, NgOptimizedImage]
 })
 export class CharacterListPreviewComponent implements OnInit {
 
     @Input() character!: Character | PredrawnCharacter;
     @Input() link?: string = undefined;
-    isPredrawn = false;
+    isPredrawnRender = false;
     predrawnCharacter = this.character as PredrawnCharacter;
     protected readonly Math = Math;
 
@@ -26,8 +26,7 @@ export class CharacterListPreviewComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.character);
-        this.isPredrawn = !!(this.character as PredrawnCharacter).owner;
+        this.isPredrawnRender = !!(this.character as PredrawnCharacter).owner;
         this.predrawnCharacter = this.character as PredrawnCharacter;
     }
 }
