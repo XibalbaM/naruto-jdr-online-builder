@@ -1,7 +1,7 @@
 import UserModel from "../models/user.model.js";
 import {requestEmail} from "./auth.service.js";
 import BaseModel from "../models/base.model.js";
-import CharacterModel from "../models/character.model";
+import CharacterModel from "../models/character.model.js";
 
 export default class AdminService {
     static async getUsers() {
