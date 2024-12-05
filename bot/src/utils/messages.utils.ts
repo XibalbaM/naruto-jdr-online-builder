@@ -107,6 +107,9 @@ export default class Messages {
             return `Interceptions : ARM ${interceptions(character, "ARM", DataService.bases)} / TAI ${interceptions(character, "TAI", DataService.bases)}\n`
                 + `Chakra : ${maxChakra(character, DataService.clans, DataService.spes)}\n`
                 + `Nindo : ${character.nindoPoints}`; //TODO add active chakra, nindo
+        },
+        NOTES(character: Character) {
+            return `Voici les notes du personnage ${character.firstName} :\n${character.notes}`;
         }
     }
 
