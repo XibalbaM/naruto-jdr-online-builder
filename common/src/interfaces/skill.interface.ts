@@ -3,7 +3,6 @@ export default interface Skill {
     name: string;
     base: number;
     description: string;
-    villages: string[];
 }
 
 export interface _CustomSkill {

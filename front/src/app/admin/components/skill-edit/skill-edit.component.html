@@ -32,16 +32,18 @@
         </div>
     </ng-template>
 </div>
-<app-spacer class="bg-lighter-dark my-[30px]"/>
-<h2 class="small-title mb-[18px]">disponible</h2>
-<app-toggle #byDefault [value]="isByDefault()" (valueChange)="$event ? villages.set([]) : byDefault.toggle()">
-    Par défaut
-</app-toggle>
-<p class="text-light mb-[18px]">ou choisir un ou plusieurs villages</p>
-<div class="grid grid-cols-2">
-    <app-toggle *ngFor="let village of dataService.villages" [value]="villages().includes(village._id)" (valueChange)="$event ? addVillage(village._id) : removeVillage(village._id)">
-        {{ village.name }}
+<div *ngIf="!isCommon()">
+    <app-spacer class="bg-lighter-dark my-[30px]"/>
+    <h2 class="small-title mb-[18px]">disponible</h2>
+    <app-toggle #byDefault [value]="isByDefault()" (valueChange)="$event ? villages.set([]) : byDefault.toggle()">
+        Par défaut
     </app-toggle>
+    <p class="text-light mb-[18px]">ou choisir un ou plusieurs villages</p>
+    <div class="grid grid-cols-2">
+        <app-toggle *ngFor="let village of dataService.villages" [value]="villages().includes(village._id)" (valueChange)="$event ? addVillage(village._id) : removeVillage(village._id)">
+            {{ village.name }}
+        </app-toggle>
+    </div>
 </div>
 <!--TODO: add-->
 <app-spacer class="bg-lighter-dark my-[30px]"/>

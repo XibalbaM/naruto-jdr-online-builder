@@ -42,8 +42,8 @@ export class SkillEditComponent {
         let skill = this.skill();
         return skill.name !== this.name()
             || skill.base !== this.base()
-            || skill.villages.some(v => !this.villages().includes(v))
-            || this.villages().some(v => !skill.villages.includes(v))
+            || ((skill as CustomSkill).villages || []).some(v => !this.villages().includes(v))
+            || this.villages().some(v => !((skill as CustomSkill).villages || []).includes(v))
             || skill.description !== this.description()
             || (!this.isCommon() && (skill as CustomSkill).type !== this.type());
     })
@@ -70,7 +70,7 @@ export class SkillEditComponent {
                 this.base.set(skill.base);
                 if (!this.isCommon())
                     this.type.set((skill as CustomSkill).type);
-                this.villages.set(skill.villages);
+                this.villages.set((skill as CustomSkill).villages || []);
                 this.description.set(skill.description);
             } else {
                 this.router.navigate(['/']);

@@ -100,74 +100,62 @@ export default async function () {
             {
                 name: "Armes Simples",
                 base: 2,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             },
             {
                 name: "Camouflage",
                 base: 4,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             },
             {
                 name: "Corps à Corps",
                 base: 3,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             },
             {
                 name: "Esquive",
                 base: 3,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             },
             {
                 name: "Gensou",
                 base: 5,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             },
             {
                 name: "Henge",
                 base: 4,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             },
             {
                 name: "Kawarimi",
                 base: 5,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             },
             {
                 name: "Mental",
                 base: 1,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             },
             {
                 name: "Parade",
                 base: 2,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             },
             {
                 name: "Physique",
                 base: 0,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             },
             {
                 name: "Survie",
                 base: 4,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             },
             {
                 name: "Vigilance",
                 base: 4,
-                description: "Arrive bientôt",
-                villages: []
+                description: "Arrive bientôt"
             }
         ]
         if (await CommonSkillModel.countDocuments() > 0)

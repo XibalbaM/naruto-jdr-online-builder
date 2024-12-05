@@ -14,9 +14,10 @@ export class SkillVillageListToStringPipe implements PipeTransform {
     }
 
     transform(value: Skill | CustomSkill): String {
-        if (!value.villages || value.villages.length === 0) {
+        let skill = value as CustomSkill;
+        if (!skill.villages || skill.villages.length === 0) {
             return "Par défaut";
         }
-        return value.villages.map(village => this.idToDataPipe.transform(village, this.dataService.villages)?.name).join(', ');
+        return skill.villages.map(village => this.idToDataPipe.transform(village, this.dataService.villages)?.name).join(', ');
     }
 }

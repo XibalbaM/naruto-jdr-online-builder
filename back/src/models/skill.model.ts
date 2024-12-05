@@ -20,11 +20,6 @@ const CommonSkillSchema = new mongoose.Schema<Skill>({
     description: {
         type: String,
         required: true
-    },
-    villages: {
-        type: [String],
-        required: true,
-        default: []
     }
 }, {_id: false});
 removeVersionFromResponse(CommonSkillSchema);
