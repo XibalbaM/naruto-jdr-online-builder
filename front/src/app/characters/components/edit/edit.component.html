@@ -57,10 +57,11 @@
              class="w-[25px] h-[25px] me-[12px]" width="25" height="25"/>
         Clan {{ clan.name }}
     </div>
-    <img [ngSrc]="env.api_url + '/assets/villages/' + ((character().village | idToData:dataService.villages)?.name || '').toLowerCase() + '-purple.svg'"
-         alt="Symbole du Village du ninja"
-         class="border py-[12px] px-[18px] border-dark-gray rounded-[22px]"
-         width="20" height="18"/>
+    <div class="border py-[12px] px-[18px] border-dark-gray rounded-[22px]">
+        <img [ngSrc]="env.api_url + '/assets/villages/' + ((character().village | idToData:dataService.villages)?.name || '').toLowerCase() + '-purple.svg'"
+             alt="Symbole du Village du ninja"
+             width="25" height="25"/>
+    </div>
     <div *ngIf="(character().road | idToData:dataService.roads) as road"
          class="flex flex-row items-center bg-black py-[12px] px-[18px] rounded-[22px]">
         {{ road.name + ', ' + road.qualification }}
