@@ -30,7 +30,7 @@
     <div class="flex w-full mt-[50px] h-[52px]">
         <div class="flex-shrink flex-grow labeled-select mr-[12px]">
             <label>Village</label>
-            <select [(ngModel)]="village" class="!text-yellow pl-[83px]" disabled name="village">
+            <select [(ngModel)]="village" class="!text-yellow pl-[83px]" name="village">
                 <option *ngFor="let village of dataService.villages"
                         [ngValue]="village">{{ village.name | titlecase }}
                 </option>
