@@ -34,6 +34,8 @@ export default class PredrawnService {
         let data = character as Partial<Character>;
         data.shareStatus = "predrawn";
         delete data._id;
+        delete data.createdAt;
+        delete data.updatedAt;
         const newCharacter = await CharacterModel.create(data);
         await UserModel.updateMany({characters: id}, {$push: {characters: newCharacter._id}});
         return newCharacter._id.toString();
