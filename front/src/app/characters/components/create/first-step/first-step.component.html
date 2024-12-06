@@ -59,11 +59,14 @@
         <label>Points d’expérience</label>
         <input [(ngModel)]="xp" class="!text-yellow pl-[166px]" name="xp" required type="number">
     </div>
-    <div class="w-full rounded-xl bg-black mt-[18px] p-[18px]">
+    <div class="w-full rounded-xl bg-black my-[18px] p-[18px]">
         <h3>Rang officiel</h3>
         <p class="w-fit rounded-xl text-yellow mt-[10px] bg-light-dark px-[12px] py-[4px]">{{ (xp | xpToRank).name }}</p>
     </div>
-    <app-privacy-selector [(privacy)]="shareStatus"/>
+    <div>
+        Partage
+        <app-privacy-selector class="my-[12px]" [(privacy)]="shareStatus"/>
+    </div>
     <button [disabled]="!firstName || !clan || (isRoad && !road)"
             class="flex w-full flex-row items-center justify-center rounded-xl mb-[120px] group mt-[50px] h-[55px] bg-purple disabled:border-lighter-dark disabled:text-dark-gray disabled:border disabled:bg-black"
             type="submit">
