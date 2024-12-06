@@ -34,7 +34,7 @@ export class DataService {
     }
 
     get villages(): Village[] {
-        return this.datas.villages();
+        return this.datas.villages().sort((a, b) => a.name.localeCompare(b.name));
     }
 
     get bases(): Base[] {
