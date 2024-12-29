@@ -283,3 +283,12 @@ export async function deleteCharacter(req: Request, res: Response) {
         }
     }
 }
+
+export async function getPublicCharacters(req: Request, res: Response) {
+    try {
+        res.status(200).json({characters: await CharactersService.getPublicCharacters()})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error: "Internal server error"});
+    }
+}

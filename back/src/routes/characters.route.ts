@@ -31,6 +31,7 @@ router.post('/', captchaMiddleware(), authMiddleware(), contentMiddleware({
     }, captcha: "string"
 }), charactersController.create);
 router.get('/', authMiddleware(), charactersController.getCharacters);
+router.get('/public', authMiddleware(), charactersController.getPublicCharacters);
 router.get('/:id', authMiddleware(), idOfMiddleware(CharacterModel, "id"), charactersController.getCharacter);
 router.put('/:id', authMiddleware(), idOfMiddleware(CharacterModel, "id"), charactersController.copyCharacter);
 router.post('/:id/skills/common/:skillId', authMiddleware(), idOfMiddleware(CharacterModel, "id"), idOfMiddleware(CommonSkillModel, "skillId"), contentMiddleware({value: 42}), charactersController.setCommonSkill);
