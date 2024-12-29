@@ -5,7 +5,7 @@ import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {BgComponent} from "../../../utils/components/bg/bg.component";
 import {CharacterListPreviewComponent} from "../character-list-preview/character-list-preview.component";
 import {FormsModule} from "@angular/forms";
-import {NgClass, NgForOf, NgOptimizedImage} from "@angular/common";
+import {NgClass, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-public-character-list',
@@ -16,7 +16,8 @@ import {NgClass, NgForOf, NgOptimizedImage} from "@angular/common";
         FormsModule,
         NgForOf,
         NgOptimizedImage,
-        NgClass
+        NgClass,
+        NgIf
     ],
   templateUrl: './public-character-list.component.html',
   styleUrl: './public-character-list.component.scss'
