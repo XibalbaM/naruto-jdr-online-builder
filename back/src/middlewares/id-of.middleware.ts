@@ -8,23 +8,21 @@ import {Model, Types} from "mongoose";
  * @param inBody If the id is in the body of the request. If false, the id is in the url parameters.
  */
 export default function (model: Model<any>, parameterName: string, inBody: boolean = false): Middleware {
-    if (inBody) {
-        return async (req, res, next) => {
-            if (req.body[parameterName] === undefined || !(Types.ObjectId.isValid(req.body[parameterName]) || req.body[parameterName].match(/^\d+$/))) {
-                res.status(404).json({error: `${model.modelName} not found`});
-                return;
-            }
-            if (!model.exists({_id: req.body[parameterName]})) res.status(404).json({error: `${model.modelName} not found`});
-            else next();
+    return async (req, res, next) => {
+        let data = deepValue(inBody ? req.body : req.params, parameterName);
+        if (data === undefined || !(Types.ObjectId.isValid(data) || data.match(/^\d+$/))) {
+            res.status(404).json({error: `${model.modelName} not found`});
+            return;
         }
-    } else {
-        return async (req, res, next) => {
-            if (req.params[parameterName] === undefined || !(Types.ObjectId.isValid(req.params[parameterName]) || req.params[parameterName].match(/^\d+$/))) {
-                res.status(404).json({error: `${model.modelName} not found`});
-                return;
-            }
-            if (!model.exists({_id: req.params[parameterName]})) res.status(404).json({error: `${model.modelName} not found`});
-            else next();
-        }
+        if (!model.exists({_id: data})) res.status(404).json({error: `${model.modelName} not found`});
+        else next();
     }
+}
+
+function deepValue(obj: any, path: string){
+    let paths = path.split('.');
+    for (let i=0; i < paths.length; i++){
+        obj = obj[paths[i]];
+    }
+    return obj;
 }
