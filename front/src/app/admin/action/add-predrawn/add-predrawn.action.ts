@@ -7,7 +7,8 @@ import Auth from "../../../app/models/auth.model";
 
 @Component({
   template: '',
-  standalone: true
+  standalone: true,
+  selector: 'add-predrawn-action'
 })
 export class AddPredrawnAction implements OnInit {
 
