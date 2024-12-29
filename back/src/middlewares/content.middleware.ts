@@ -2,6 +2,9 @@ import {Middleware} from "./middleware.type.js";
 
 export function checkTypeFields(model: any, obj: any): boolean {
     if (model === undefined || model === null) {
+        return false;
+    }
+    if (model === "optional" && (obj === undefined || obj === null)) {
         return true;
     }
     if (typeof model !== typeof obj || obj === undefined || obj === null) {
@@ -30,15 +33,12 @@ export function checkTypeFields(model: any, obj: any): boolean {
 
             const modelKeys = Object.keys(model);
             const objKeys = Object.keys(obj);
-
-            if (modelKeys.length !== objKeys.length) {
+            if (!objKeys.every(key => modelKeys.includes(key))) {
                 return false;
             }
 
             for (const key of modelKeys) {
-                if (!obj.hasOwnProperty(key)) {
-                    return false;
-                }
+                console.log(key, model[key], obj[key]);
                 if (model[key] !== undefined && !checkTypeFields(model[key], obj[key])) {
                     return false;
                 }
@@ -49,17 +49,9 @@ export function checkTypeFields(model: any, obj: any): boolean {
     return true;
 }
 
-export default function (...types: any): Middleware {
+export default function (type: any): Middleware {
     return async (req, res, next) => {
-        const body = req.body;
-        let success = false;
-        for (let type of types) {
-            if (checkTypeFields(type, body)) {
-                success = true;
-                break;
-            }
-        }
-        if (!success) {
+        if (!checkTypeFields(type, req.body)) {
             res.status(400).json({error: "Invalid body"});
             return;
         }
