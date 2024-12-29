@@ -53,8 +53,8 @@
 <div class="flex flex-row flex-wrap gap-x-[8px] gap-y-[8px]">
     <div *ngIf="(character().clan | idToData:dataService.clans) as clan"
          class="flex flex-row items-center bg-black py-[12px] px-[18px] rounded-[22px]">
-        <img [ngSrc]="env.api_url + '/assets/clans/' + clan.name.toLowerCase() + '-purple.svg'" alt="Symbole du clan du ninja"
-             class="w-[25px] h-[25px] me-[12px]" width="25" height="25"/>
+        <img [ngSrc]="env.api_url + '/assets/clans/' + clan.name.toLowerCase() + '-purple.svg'"  [appImageFallback]="env.api_url + '/assets/clans/custom-purple.svg'"
+             alt="Symbole du clan du ninja" class="w-[25px] h-[25px] me-[12px]" width="25" height="25"/>
         Clan {{ clan.name }}
     </div>
     <div class="border py-[12px] px-[18px] border-dark-gray rounded-[22px]">

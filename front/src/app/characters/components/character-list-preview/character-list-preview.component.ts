@@ -6,13 +6,14 @@ import {CharacterToReamingXpPipe} from '../../../utils/pipes/character-to-reamin
 import {IdToDataPipe} from '../../../utils/pipes/id-to-data.pipe';
 import {RouterLink} from '@angular/router';
 import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
+import {ImageFallbackDirective} from "../../../utils/directives/image-fallback.directive";
 
 @Component({
     selector: 'app-character-list-preview',
     templateUrl: './character-list-preview.component.html',
     styleUrls: ['./character-list-preview.component.scss'],
     standalone: true,
-    imports: [NgIf, RouterLink, NgClass, IdToDataPipe, CharacterToReamingXpPipe, NgOptimizedImage]
+    imports: [NgIf, RouterLink, NgClass, IdToDataPipe, CharacterToReamingXpPipe, NgOptimizedImage, ImageFallbackDirective]
 })
 export class CharacterListPreviewComponent implements OnInit {
 

@@ -20,13 +20,14 @@ import {NgClass, NgFor, NgIf, NgOptimizedImage, TitleCasePipe} from '@angular/co
 import {LongArrowLeftComponent} from '../../../utils/components/long-arrow-left/long-arrow-left.component';
 import {ModalComponent} from "../../../utils/components/modal/modal.component";
 import {PrivacySelectorComponent} from "../../../utils/components/privacy-selector/privacy-selector.component";
+import {ImageFallbackDirective} from "../../../utils/directives/image-fallback.directive";
 
 @Component({
     selector: 'app-edit-details',
     templateUrl: './edit-details.component.html',
     styleUrls: ['./edit-details.component.scss'],
     standalone: true,
-    imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, TitleCasePipe, CharacterToReamingXpPipe, ModalComponent, NgOptimizedImage, PrivacySelectorComponent]
+    imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, TitleCasePipe, CharacterToReamingXpPipe, ModalComponent, NgOptimizedImage, PrivacySelectorComponent, ImageFallbackDirective]
 })
 export class EditDetailsComponent {
     clans = computed(() => this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)));
@@ -45,7 +46,7 @@ export class EditDetailsComponent {
     clanConfirmModal!: ElementRef<HTMLDialogElement>;
 
     constructor(private router: Router, private route: ActivatedRoute, private auth: Auth,
-                protected dataService: DataService, private env: Environment, private idToData: IdToDataPipe,
+                protected dataService: DataService, protected env: Environment, private idToData: IdToDataPipe,
                 private characterService: CharacterService, private notificationService: NotificationService,
                 private title: Title) {
     }
