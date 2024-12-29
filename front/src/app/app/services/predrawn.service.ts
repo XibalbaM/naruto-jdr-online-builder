@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import Character, {PredrawnCharacter} from "../models/character.interface";
+import Character, {SharedCharacter} from "../models/character.interface";
 import {ApiService} from "./api.service";
 import {map, Observable} from "rxjs";
 
@@ -11,7 +11,7 @@ export class PredrawnService {
     constructor(private apiService: ApiService) {
     }
 
-    getPredrawnCharacters(): Observable<PredrawnCharacter[]> {
+    getPredrawnCharacters(): Observable<SharedCharacter[]> {
         return this.apiService.doRequest<{ characters: { character: Character, ownerName: string }[] }>("GET", "/predrawn").pipe(
             map((response) => {
                 if (response.status !== 200 || response.body === null) {

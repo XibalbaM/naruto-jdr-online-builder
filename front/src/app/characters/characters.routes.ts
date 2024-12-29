@@ -19,6 +19,7 @@ import {ChakraSpesComponent} from "./components/chrakra-spes/chakra-spes.compone
 import {SetChakraSpeComponent} from "./components/set-chakra-spe/set-chakra-spe.component";
 import {CopyAction} from "./action/copy.action";
 import {AddSkillComponent} from "./components/add-skill/add-skill.component";
+import {PublicComponent} from "./components/public/public.component";
 
 export const characterRoutes: Routes = [
     {path: '', component: ListComponent, resolve: {user: UserResolver}, title: "Liste de personnages — Ninjadex", data: {navbar: NormalNavbarComponent}},
@@ -42,6 +43,13 @@ export const characterRoutes: Routes = [
         resolve: {user: UserResolver},
         data: {bgClass: "no-repeat-image-bg", navbar: BackNavbarComponent, navbarText: "Liste de personnages"},
         title: "Personnages prétirés — Ninjadex"
+    },
+    {
+        path: 'publics',
+        component: PublicComponent,
+        resolve: {user: UserResolver},
+        data: {bgClass: "no-repeat-image-bg", navbar: BackNavbarComponent, navbarText: "Liste de personnages"},
+        title: "Personnages publics — Ninjadex"
     },
     {
         path: "copy/:characterId",

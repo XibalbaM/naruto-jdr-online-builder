@@ -4,7 +4,7 @@ export default interface Character extends _Character{
     _id: string;
 }
 
-export interface PredrawnCharacter extends Character {
+export interface SharedCharacter extends Character {
     owner: string;
 }
 

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import Character, {PredrawnCharacter} from "../../../app/models/character.interface";
+import Character, {SharedCharacter} from "../../../app/models/character.interface";
 import Environment from "../../../../environments/environment.interface";
 import {DataService} from "../../../app/services/data.service";
 import {CharacterToReamingXpPipe} from '../../../utils/pipes/character-to-reaming-xp.pipe';
@@ -16,17 +16,17 @@ import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 })
 export class CharacterListPreviewComponent implements OnInit {
 
-    @Input() character!: Character | PredrawnCharacter;
+    @Input() character!: Character | SharedCharacter;
     @Input() link?: string = undefined;
     isPredrawnRender = false;
-    predrawnCharacter = this.character as PredrawnCharacter;
+    predrawnCharacter = this.character as SharedCharacter;
     protected readonly Math = Math;
 
     constructor(protected env: Environment, protected dataService: DataService) {
     }
 
     ngOnInit() {
-        this.isPredrawnRender = !!(this.character as PredrawnCharacter).owner;
-        this.predrawnCharacter = this.character as PredrawnCharacter;
+        this.isPredrawnRender = !!(this.character as SharedCharacter).owner;
+        this.predrawnCharacter = this.character as SharedCharacter;
     }
 }

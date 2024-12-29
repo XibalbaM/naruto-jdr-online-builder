@@ -3,7 +3,7 @@ import {combineLatest, map, Observable, of, tap} from "rxjs";
 import {ApiService} from "../../app/services/api.service";
 import Auth from "../../app/models/auth.model";
 import {AuthService} from "../../app/services/auth.service";
-import Character from "../../app/models/character.interface";
+import Character, {SharedCharacter} from "../../app/models/character.interface";
 import {DataService} from "../../app/services/data.service";
 import {idToData} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
@@ -40,6 +40,21 @@ export class CharacterService {
             );
         }
         return of(this.publicCharacterCache[characterId]);
+    }
+
+    getPublicCharacters(): Observable<SharedCharacter[]> {
+        return this.apiService.doRequest<{ characters: { character: Character, ownerName: string }[] }>('GET', '/characters/public').pipe(
+            map((response) => {
+                if (response.status !== 200 || response.body === null) {
+                    return [];
+                } else {
+                    return response.body.characters.map((character) => ({
+                        ...character.character,
+                        owner: character.ownerName
+                    }));
+                }
+            })
+        );
     }
 
     removeSkill(id: string, characterId: string): Observable<boolean> {

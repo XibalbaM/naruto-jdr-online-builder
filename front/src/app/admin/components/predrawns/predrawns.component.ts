@@ -3,7 +3,7 @@ import {ArrowRightComponent} from "../../../utils/components/arrow-right/arrow-r
 import {NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {SpacerComponent} from "../../../utils/components/spacer/spacer.component";
-import {PredrawnCharacter} from "../../../app/models/character.interface";
+import {SharedCharacter} from "../../../app/models/character.interface";
 import {PredrawnService} from "../../../app/services/predrawn.service";
 import {CharacterListPreviewComponent} from "../../../characters/components/character-list-preview/character-list-preview.component";
 
@@ -22,7 +22,7 @@ import {CharacterListPreviewComponent} from "../../../characters/components/char
 })
 export class PredrawnsComponent implements OnInit {
 
-    predrawns = signal<PredrawnCharacter[]>([]);
+    predrawns = signal<SharedCharacter[]>([]);
     predrawnsCount = computed(() => this.predrawns().length);
 
     constructor(private predrawnService: PredrawnService) { }
