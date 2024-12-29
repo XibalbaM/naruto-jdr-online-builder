@@ -1,7 +1,10 @@
 export default interface _Character {
     _id: any;
     firstName: string;
-    clan: string;
+    clan: {
+        id: string; // "custom" for custom clans
+        clanName?: string; // Custom name if id is "custom", otherwise unused
+    };
     village: string;
     road?: string;
     xp: number;

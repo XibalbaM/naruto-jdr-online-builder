@@ -14,8 +14,14 @@ const characterSchema = new mongoose.Schema<Character>({
 		required: true
 	},
 	clan: {
-		type: String,
-		required: true
+		id: {
+			type: String,
+			required: true
+		},
+		clanName: {
+			type: String,
+			required: false
+		}
 	},
 	village: {
 		type: String,

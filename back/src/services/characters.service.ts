@@ -25,7 +25,7 @@ export default class CharactersService {
         const characters: {_id: string, name: string, xp: number}[] = [];
         for (let character of user.characters) {
             let data = (await CharacterModel.findById(character).select(["_id", "firstName", "clan", "xp"]).lean())!;
-            let clanName = (await ClanModel.findById(data.clan).select("name").lean())!.name;
+            let clanName = (await ClanModel.findById(data.clan.id).select("name").lean())!.name;
             characters.push({_id: data._id.toString(), name: data.firstName + " " + clanName, xp: data.xp});
         }
         return characters;
@@ -84,7 +84,7 @@ export default class CharactersService {
         }
         if (value < 1) {
             const character = (await CharacterModel.findById(characterId).lean())!;
-            if (((await ClanModel.findById(character.clan).lean().select("line"))!.line as Line).skills.find(skill => skill.toString() === skillId)) {
+            if (((await ClanModel.findById(character.clan.id).lean().select("line"))!.line as Line).skills.find(skill => skill.toString() === skillId)) {
                 throw new Error("Cannot remove clan skill");
             }
             await CharacterModel.updateOne({_id: characterId}, {$pull: {customSkills: {skill: skillId}}}, {multi: true});
@@ -94,7 +94,7 @@ export default class CharactersService {
             if (value > (character.customSkills.find(skill => skill.skill.toString() === skillId)?.level ?? 0) && value > character.bases.find((_, index) => index === skill.base)! + 2) {
                 throw new Error("Invalid value");
             }
-            if (skill.type === "clan" && !((await ClanModel.findById(character.clan).lean().select("line"))!.line as Line).skills.find(skill => skill.toString() === skillId)) {
+            if (skill.type === "clan" && !((await ClanModel.findById(character.clan.id).lean().select("line"))!.line as Line).skills.find(skill => skill.toString() === skillId)) {
                 throw new Error("Not allowed skill");
             }
             if (character.customSkills.find(skill => skill.skill.toString() === skillId)) {
@@ -207,13 +207,12 @@ export default class CharactersService {
         await CharacterModel.findByIdAndUpdate(characterId, {firstName});
     }
 
-    static async setClan(user: User, characterId: string, clan: string) {
+    static async setClan(user: User, characterId: string, clan: {id: string, name?: string}) {
         if (!canUserEditCharacter(user, characterId)) {
             throw new Error("Character not found");
         }
-        const line = (await ClanModel.findById(clan).lean().select("line"))!.line as Line;
+        const line = clan.id !== "custom" ? (await ClanModel.findById(clan.id).lean().select("line"))!.line as Line : {skills: []};
         if (line.skills.length > 0) {
-            console.log(line.skills);
             await CharacterModel.findByIdAndUpdate(characterId, {clan, customSkills: line.skills.map(skill => ({skill, level: 1}))});
         } else {
             await CharacterModel.findByIdAndUpdate(characterId, {clan, $pull: {customSkills: {}}});
@@ -225,8 +224,8 @@ export default class CharactersService {
             throw new Error("Character not found");
         }
         if (road === "") {
-            const clanId = (await CharacterModel.findByIdAndUpdate(characterId, {$unset: {road: 1}, $pull: {customSkills: {}}}).lean().select("clan"))!.clan;
-            const line = (await ClanModel.findById(clanId).lean().select("line"))!.line as Line;
+            const clan = (await CharacterModel.findByIdAndUpdate(characterId, {$unset: {road: 1}, $pull: {customSkills: {}}}).lean().select("clan"))!.clan;
+            const line = (await ClanModel.findById(clan.id).lean().select("line"))!.line as Line;
             if (line.skills.length > 0) {
                 await CharacterModel.findByIdAndUpdate(characterId, {customSkills: line.skills.map(skill => ({skill, level: 1}))});
             }

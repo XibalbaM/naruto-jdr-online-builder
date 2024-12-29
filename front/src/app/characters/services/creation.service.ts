@@ -33,7 +33,7 @@ export class CreationService {
 
         this.character.village = village._id;
         this.character.firstName = firstName;
-        this.character.clan = clan._id;
+        this.character.clan = {id: clan._id};
         this.character.xp = xp;
         this.character.rank = this.rankPipe.transform(xp)._id;
         this.character.shareStatus = shareStatus;

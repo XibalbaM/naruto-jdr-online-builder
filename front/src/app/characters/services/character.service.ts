@@ -4,13 +4,15 @@ import {ApiService} from "../../app/services/api.service";
 import Auth from "../../app/models/auth.model";
 import {AuthService} from "../../app/services/auth.service";
 import Character from "../../app/models/character.interface";
+import {DataService} from "../../app/services/data.service";
+import {idToData} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CharacterService {
 
-    constructor(private apiService: ApiService, private auth: Auth, private authService: AuthService) {
+    constructor(private apiService: ApiService, private auth: Auth, private authService: AuthService, private dataService: DataService) {
     }
 
     resolveCharacter(characterId: string): {character: Character, editable: true} | {character: Observable<Character | undefined>, editable: false} {
@@ -119,13 +121,16 @@ export class CharacterService {
         );
     }
 
-    setClan(characterId: string, clan: string, multi: boolean = false): Observable<boolean> {
-        return this.apiService.doRequest('POST', CharacterApiEndpoints.CLAN(characterId), {id: clan}).pipe(
+    setClan(characterId: string, clan: {id: string, clanName?: string}, multi: boolean = false): Observable<boolean> {
+        return this.apiService.doRequest('POST', CharacterApiEndpoints.CLAN(characterId), {clan: clan}).pipe(
             map((response) => response.status === 200),
             tap((success) => {
                 if (success) {
                     let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
                     character.clan = clan;
+                    character.customSkills = idToData(character.clan.id, this.dataService.clans)!.line.skills.map((skill) => {
+                        return {skill, level: 1};
+                    });
                     character.updatedAt = new Date();
                     if (!multi) {
                         this.auth.user = this.auth.user;

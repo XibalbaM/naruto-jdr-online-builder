@@ -79,7 +79,7 @@ export class EditDetailsComponent {
 
     submit() {
         if (this.hasChanges()) {
-            if (this.clan._id !== this.character.clan) {
+            if (this.clan._id !== this.character.clan.id) {
                 this.clanConfirmModal.nativeElement.show();
             } else {
                 this.processSubmit();
@@ -93,8 +93,8 @@ export class EditDetailsComponent {
             requests.push(this.characterService.setVillage(this.character._id, this.village._id, true));
         if (this.firstName !== this.character.firstName)
             requests.push(this.characterService.setFirstName(this.character._id, this.firstName, true));
-        if (this.clan._id !== this.character.clan)
-            requests.push(this.characterService.setClan(this.character._id, this.clan._id, true));
+        if (this.clan._id !== this.character.clan.id)
+            requests.push(this.characterService.setClan(this.character._id, {id: this.clan._id}, true));
         if (this.xp !== this.character.xp)
             requests.push(this.characterService.setXp(this.character._id, this.xp, true));
         if (this.road?._id !== this.character.road || this.isRoad !== !!this.character.road)
@@ -115,7 +115,7 @@ export class EditDetailsComponent {
     hasChanges() {
         return this.village._id !== this.character.village
             || this.firstName !== this.character.firstName
-            || this.clan._id !== this.character.clan
+            || this.clan._id !== this.character.clan.id
             || this.xp !== this.character.xp
             || this.road?._id !== this.character.road
             || this.isRoad !== !!this.character.road

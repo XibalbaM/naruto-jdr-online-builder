@@ -223,7 +223,7 @@ export async function setName(req: Request, res: Response) {
 
 export async function setClan(req: Request, res: Response) {
     try {
-        await CharactersService.setClan(req.user!, req.params["id"], req.body.id);
+        await CharactersService.setClan(req.user!, req.params["id"], req.body.clan);
         res.sendStatus(200);
     } catch (error: any) {
         if (error.message === "Character not found") {

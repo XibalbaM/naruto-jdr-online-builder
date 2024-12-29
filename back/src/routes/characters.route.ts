@@ -21,23 +21,12 @@ router.post('/', captchaMiddleware(), authMiddleware(), contentMiddleware({
 	character: {
 		notes: "string",
 		firstName: "string",
-		clan: "string",
+		clan: {id: "string", clanName: "optional"},
 		village: "string",
 		xp: 42,
         rank: "string",
 		nindo: "string",
-        shareStatus: "string"
-    }, captcha: "string"
-}, {
-    character: {
-        notes: "string",
-        firstName: "string",
-        clan: "string",
-        village: "string",
-        xp: 42,
-        rank: "string",
-        nindo: "string",
-        road: "string",
+        road: "optional",
         shareStatus: "string"
     }, captcha: "string"
 }), charactersController.create);
@@ -55,7 +44,7 @@ router.post('/:id/xp', authMiddleware(), idOfMiddleware(CharacterModel, "id"), c
 router.post('/:id/rank', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({id: 'string'}), idOfMiddleware(RankModel, "id", true), charactersController.setRank);
 router.post('/:id/village', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({id: 'string'}), idOfMiddleware(VillageModel, "id", true), charactersController.setVillage);
 router.post('/:id/name', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({text: 'string'}), charactersController.setName);
-router.post('/:id/clan', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({id: 'string'}), idOfMiddleware(ClanModel, "id", true), charactersController.setClan);
+router.post('/:id/clan', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({clan: {id: 'string', clanName: 'optional'}}), idOfMiddleware(ClanModel, "clan.id", true), charactersController.setClan);
 router.post('/:id/road', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({id: 'string'}), charactersController.setRoad);
 router.post('/:id/shareStatus', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({status: 'string'}), charactersController.setShareStatus);
 router.delete('/:id', authMiddleware(), idOfMiddleware(CharacterModel, "id"), charactersController.deleteCharacter);

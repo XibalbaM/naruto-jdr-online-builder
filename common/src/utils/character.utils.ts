@@ -47,8 +47,23 @@ const xpUsedBySkillPerLevel = {
     18: 170,
 }
 
-function idToData<T extends { _id: string | number }>(id: string | number, data: T[]): T {
-    return data.find(d => d._id === id)!;
+export function idToData<T extends { _id: string }>(input: string | number | {id: string, clanName?: string} | undefined, list: T[] | null): T | undefined {
+    if (input === undefined) {
+        return undefined;
+    }
+    let id = input;
+    if (typeof input === "object") {
+        id = input.id;
+    }
+    if (id == "custom") {
+        if (typeof input === "object" && input.clanName) {
+            return {_id: "custom", name: input.clanName, description: "Clan custom", line: {}} as unknown as T;
+        } else {
+            return undefined;
+        }
+    } else {
+        return list && id !== undefined ? list.find(item => item._id === id) : undefined;
+    }
 }
 
 export function totalXp(character: _Character): number {
@@ -176,7 +191,7 @@ export function skillTypeName(skill: Skill | _CustomSkill): string {
 }
 
 export function fullName(character: _Character, clans: _Clan[]): string {
-    return `${character.firstName} ${idToData(character.clan, clans).name}`;
+    return `${character.firstName} ${idToData(character.clan, clans)!.name}`;
 }
 
 export function canUserReadCharacter(user: _User, character: _Character) {
