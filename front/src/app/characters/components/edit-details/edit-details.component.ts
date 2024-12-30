@@ -5,7 +5,6 @@ import {DataService} from "../../../app/services/data.service";
 import {Observable, take} from "rxjs";
 import Character from "../../../app/models/character.interface";
 import Village from "../../../app/models/village.interface";
-import Clan from "../../../app/models/clan.interface";
 import Road from "../../../app/models/road.interface";
 import Environment from "../../../../environments/environment.interface";
 import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
@@ -30,12 +29,13 @@ import {ImageFallbackDirective} from "../../../utils/directives/image-fallback.d
     imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, TitleCasePipe, CharacterToReamingXpPipe, ModalComponent, NgOptimizedImage, PrivacySelectorComponent, ImageFallbackDirective]
 })
 export class EditDetailsComponent {
-    clans = computed(() => this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)));
+    clans = computed(() => [...this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)).map((clan) => clan.name), "custom"]);
 
     character!: Character;
     village!: Village;
     firstName!: string;
-    clan!: Clan;
+    clanId!: string;
+    clanName?: string;
     xp!: number;
     isRoad!: boolean;
     road?: Road;
@@ -57,13 +57,14 @@ export class EditDetailsComponent {
                 this.character = (this.auth.user!.characters.find((character) => character._id === params.get('characterId'))!);
                 this.village = this.idToData.transform(this.character.village, this.dataService.villages)!;
                 this.firstName = this.character.firstName;
-                this.clan = this.idToData.transform(this.character.clan, this.dataService.clans)!;
+                this.clanId = this.character.clan.id;
+                this.clanName = this.clanId === 'custom' ? this.character.clan.clanName : undefined;
                 this.xp = this.character.xp;
                 this.isRoad = !!this.character.road;
                 this.road = this.character.road ? this.idToData.transform(this.character.road, this.dataService.roads) : undefined;
                 this.rank = this.idToData.transform(this.character.rank, this.dataService.ranks)!;
                 this.shareStatus.set(this.character.shareStatus);
-                this.title.setTitle(`${this.character.firstName} ${this.clan.name}, Modification — Fiche de personnage — Ninjadex`)
+                this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans)?.name}, Modification — Fiche de personnage — Ninjadex`)
             } else {
                 this.router.navigate(['/personnages']);
             }
@@ -75,12 +76,12 @@ export class EditDetailsComponent {
     }
 
     currentClanLogo() {
-        return this.clan ? this.env.api_url + '/assets/clans/' + this.clan.name.toLowerCase() + '-white.svg' : '';
+        return this.clanId ? this.env.api_url + '/assets/clans/' + this.idToData.transform(this.clanId, this.dataService.clans)?.name.toLowerCase() + '-white.svg' : '';
     }
 
     submit() {
         if (this.hasChanges()) {
-            if (this.clan._id !== this.character.clan.id) {
+            if (this.clanId !== this.character.clan.id) {
                 this.clanConfirmModal.nativeElement.show();
             } else {
                 this.processSubmit();
@@ -94,8 +95,8 @@ export class EditDetailsComponent {
             requests.push(this.characterService.setVillage(this.character._id, this.village._id, true));
         if (this.firstName !== this.character.firstName)
             requests.push(this.characterService.setFirstName(this.character._id, this.firstName, true));
-        if (this.clan._id !== this.character.clan.id)
-            requests.push(this.characterService.setClan(this.character._id, {id: this.clan._id}, true));
+        if (this.clanId !== this.character.clan.id || this.clanId === 'custom' && this.clanName !== this.character.clan.clanName)
+            requests.push(this.characterService.setClan(this.character._id, {id: this.clanId, clanName: this.clanName}, true));
         if (this.xp !== this.character.xp)
             requests.push(this.characterService.setXp(this.character._id, this.xp, true));
         if (this.road?._id !== this.character.road || this.isRoad !== !!this.character.road)
@@ -116,7 +117,8 @@ export class EditDetailsComponent {
     hasChanges() {
         return this.village._id !== this.character.village
             || this.firstName !== this.character.firstName
-            || this.clan._id !== this.character.clan.id
+            || this.clanId !== this.character.clan.id
+            || this.clanId === 'custom' && this.clanName !== this.character.clan.clanName
             || this.xp !== this.character.xp
             || this.road?._id !== this.character.road
             || this.isRoad !== !!this.character.road
