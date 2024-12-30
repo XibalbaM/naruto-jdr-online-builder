@@ -14,8 +14,8 @@ export default function (model: Model<any>, parameterName: string, inBody: boole
             res.status(404).json({error: `${model.modelName} not found`});
             return;
         }
-        if (!model.exists({_id: data})) res.status(404).json({error: `${model.modelName} not found`});
-        else next();
+        if (await model.exists({_id: data})) next();
+        else res.status(404).json({error: `${model.modelName} not found`});
     }
 }
 
