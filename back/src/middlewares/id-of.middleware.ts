@@ -6,10 +6,15 @@ import {Model, Types} from "mongoose";
  * @param model The model of the database.
  * @param parameterName The name of the url parameter.
  * @param inBody If the id is in the body of the request. If false, the id is in the url parameters.
+ * @param allowCustom If the id can be 'custom'.
  */
-export default function (model: Model<any>, parameterName: string, inBody: boolean = false): Middleware {
+export default function (model: Model<any>, parameterName: string, inBody: boolean = false, allowCustom: boolean = true): Middleware {
     return async (req, res, next) => {
         let data = deepValue(inBody ? req.body : req.params, parameterName);
+        if (allowCustom && data == 'custom') {
+            next();
+            return;
+        }
         if (data === undefined || !(Types.ObjectId.isValid(data) || data.match(/^\d+$/))) {
             res.status(404).json({error: `${model.modelName} not found`});
             return;
