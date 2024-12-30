@@ -27,16 +27,20 @@
     <div class="flex w-full mt-[18px] h-[52px]">
         <div class="flex-shrink flex-grow labeled-select mr-[12px]">
             <label>Clan</label>
-            <select [(ngModel)]="clan" [class.!text-yellow]="clan" class="pl-[69px]" name="clan">
+            <select [(ngModel)]="clanId" [class.!text-yellow]="clanId" class="pl-[69px]" name="clan">
                 <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
                 <option *ngFor="let clan of clans()" [ngValue]="clan"
-                        class="text-yellow">{{ clan.name | titlecase }}
+                        class="text-yellow">{{ clan | titlecase }}
                 </option>
             </select>
         </div>
-        <div [class.!bg-black]="!clan" class="flex flex-shrink-0 items-center gray-box w-[52px]">
-            <img *ngIf="clan" [ngSrc]="currentClanLogo()" alt="" class="mx-auto w-[25px] h-[25px]" width="25" height="25">
+        <div [class.!bg-black]="!clanId" class="flex flex-shrink-0 items-center gray-box w-[52px]">
+            <img *ngIf="clanId" [ngSrc]="currentClanLogo()" [appImageFallback]="env.api_url + '/assets/clans/custom-purple.svg'" alt="" class="mx-auto w-[25px] h-[25px]" width="25" height="25">
         </div>
+    </div>
+    <div *ngIf="clanId == 'custom'" class="labeled-input mt-[18px]">
+        <label>Nom du clan custom</label>
+        <input [(ngModel)]="clanName" class="!text-yellow pl-[166px]" name="clanName" required type="text">
     </div>
     <div (click)="isRoadElement.checked = !isRoadElement.checked; isRoad = !isRoad; this.road = isRoad ? this.road : undefined"
          class="flex w-full flex-row items-center rounded-xl border h-[55px] p-[16px] border-lighter-dark mt-[18px]">
@@ -67,7 +71,7 @@
         Partage
         <app-privacy-selector class="my-[12px]" [(privacy)]="shareStatus"/>
     </div>
-    <button [disabled]="!firstName || !clan || (isRoad && !road)"
+    <button [disabled]="!firstName || !clanId || (isRoad && !road) || (this.clanId == 'custom' && !this.clanName)"
             class="flex w-full flex-row items-center justify-center rounded-xl mb-[120px] group mt-[50px] h-[55px] bg-purple disabled:border-lighter-dark disabled:text-dark-gray disabled:border disabled:bg-black"
             type="submit">
         Étape suivante
