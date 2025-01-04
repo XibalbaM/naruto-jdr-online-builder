@@ -1,3 +1,4 @@
+<app-stat-popup #vigorStatPopup [formula]="vigorFormula"/>
 <a *ngIf="isEditable() && (newChakraSpeCount() > 0 || newSkillCount() > 0)"
    [routerLink]="['/personnages', character()._id, newSkillCount() > 0 ? 'nouvelle-competence' : 'specialisations-de-chakra']"
    class="fixed right-0 bottom-0 left-0 z-30 h-[70px] px-[18px] py-[17px] purple-gradient hover:bg-opacity-95 cursor-pointer flex flex-row items-center">
@@ -103,7 +104,7 @@
     <div class="space-y-[12px] lg:space-y-0 lg:space-x-[12px] lg:flex lg:flex-row">
         <p class="stat-box">
             Vigueur
-            <span class="text-yellow ms-[12px] stat-box__value">{{ 2 + (character() | characterToBaseLevel:'COR' )! + (character() | characterToChakraSpeAmount:'Endurci' )! }}</span>
+            <button (click)="vigorStatPopup.show()" class="text-yellow ms-[12px] stat-box__value">{{ 2 + (character() | characterToBaseLevel:'COR' )! + (character() | characterToChakraSpeAmount:'Endurci' )! }}</button>
             <span *ngIf="(character() | characterToSkillNaturalLevel:'Résistances Élémentaires' )! > 0" class="text-pink ms-[12px] stat-box__value">
                         ELEM
                         <span class="text-white">

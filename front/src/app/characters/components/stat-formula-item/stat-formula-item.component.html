@@ -1,0 +1,9 @@
+<popper-content #info>
+    {{data.descriptor}}
+</popper-content>
+<span [popper]="info" [popperTrigger]="NgxPopperjsTriggers.hover" [popperDisabled]="!data.descriptor"
+        popperApplyClass="!bg-[#616161]  !rounded-[4px] text-13 !px-[6px] !py-[2px] !border-none" popperApplyArrowClass="!bg-[#616161]"
+        [class.me-[3px]]="data.descriptor != '('" [class.ms-[3px]]="data.descriptor != ')'" [class.stat-box__value]="data.descriptor"
+        [class.text-yellow]="data.type === 'variable'" [class.text-blue]="data.type === 'constant'">
+    {{data.value}}
+</span>

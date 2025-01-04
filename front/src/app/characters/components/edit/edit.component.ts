@@ -34,13 +34,15 @@ import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface
 import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
 import {MarkdownComponent} from "../../../utils/components/markdown/markdown.component";
 import {ImageFallbackDirective} from "../../../utils/directives/image-fallback.directive";
+import {StatPopupComponent} from "../stat-popup/stat-popup.component";
+import {Constant, Formula, Operator, StatFormulaComponent, Variable} from "../stat-formula/stat-formula.component";
 
 @Component({
     selector: 'app-edit',
     templateUrl: './edit.component.html',
     styleUrls: ['./edit.component.scss'],
     standalone: true,
-    imports: [NgIf, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe, NgOptimizedImage, MarkdownComponent, ImageFallbackDirective],
+    imports: [NgIf, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe, NgOptimizedImage, MarkdownComponent, ImageFallbackDirective, StatPopupComponent, StatFormulaComponent],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditComponent implements OnInit, AfterViewInit {
@@ -211,4 +213,20 @@ export class EditComponent implements OnInit, AfterViewInit {
     canBaseLevelReduced(data: { base: Base, level: number }): boolean {
         return data.level > 1;
     }
+    //TODO : move to common module
+    vigorFormula = new Formula(
+        'Vigueur',
+        new Formula(
+            'Vigueur naturelle',
+            new Variable(1, 'Valeur de base'),
+            Operator.PLUS,
+            new Variable(2, 'Bonus de clan')
+        ),
+        Operator.TIMES,
+        new Constant(3, 'Niveau de base'),
+        Operator.MINUS,
+        new Constant(1, 'Malus de blessure'),
+        Operator.DIVIDE,
+        new Constant(2, 'Malus de rang'),
+    );
 }

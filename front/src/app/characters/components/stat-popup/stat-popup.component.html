@@ -1,0 +1,8 @@
+<dialog #dialog>
+    <app-modal [dialog]="dialog" (close)="dialog.close()" [mtitle]="'Détail du calcul de ' + formula().descriptor" [mtext]="'Voici la formule de ' + formula().descriptor + ':<br>'">
+        <h1>EXEMPLE, LA FORMULE CI DESSOUS EST ÉVIDEMENT FAUSSE</h1>
+        <app-stat-formula [data]="formula()"/>
+        <p class="mt-[20px] text-12 text-light-gray font-light">Calculé de gauche à droite</p>
+        <p class="text-12 text-light-gray font-light">Les valeurs en bleu sont des constantes, celles en jaunes dépendent du personnage</p>
+    </app-modal>
+</dialog>
