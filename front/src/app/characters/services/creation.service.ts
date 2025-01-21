@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import Character, {toCreate} from "../../app/models/character.interface";
 import Village from "../../app/models/village.interface";
-import Clan from "../../app/models/clan.interface";
 import Road from "../../app/models/road.interface";
 import {XpToRankPipe} from "../../utils/pipes/xp-to-rank.pipe";
 import {catchError, map, mergeMap, Observable, of, tap, zip} from "rxjs";
@@ -92,6 +91,7 @@ export class CreationService {
                 skillIds.forEach((skillId) => {
                     character.customSkills.push({skill: skillId, level: 1});
                 });
+                character.updatedAt = new Date();
                 return character;
             }),
             tap((character) => {
