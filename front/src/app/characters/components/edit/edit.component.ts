@@ -36,13 +36,14 @@ import {MarkdownComponent} from "../../../utils/components/markdown/markdown.com
 import {ImageFallbackDirective} from "../../../utils/directives/image-fallback.directive";
 import {StatPopupComponent} from "../stat-popup/stat-popup.component";
 import {Constant, Formula, Operator, StatFormulaComponent, Variable} from "../stat-formula/stat-formula.component";
+import {CharacterToReamingChakraSpesPipe} from "../../pipes/character-to-reaming-chakra-spes.pipe";
 
 @Component({
     selector: 'app-edit',
     templateUrl: './edit.component.html',
     styleUrls: ['./edit.component.scss'],
     standalone: true,
-    imports: [NgIf, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe, NgOptimizedImage, MarkdownComponent, ImageFallbackDirective, StatPopupComponent, StatFormulaComponent],
+    imports: [NgIf, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe, NgOptimizedImage, MarkdownComponent, ImageFallbackDirective, StatPopupComponent, StatFormulaComponent, CharacterToReamingChakraSpesPipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditComponent implements OnInit, AfterViewInit {
@@ -66,13 +67,13 @@ export class EditComponent implements OnInit, AfterViewInit {
         return Object.entries(map).map(([chakraSpe, number]) => ({chakraSpe: this.idToData.transform(chakraSpe, this.dataService.chakraSpes)!, number}));
     });
     newSkillCount = computed(() => this.characterToMaxSkillCountPipe.transform(this.character()) - this.uncommonSkills().length);
-    newChakraSpeCount = computed(() => this.characterToMaxChakraSpesPipe.transform(this.character()) - this.chakraSpes().length);
+    newChakraSpeCount = computed(() => this.characterToReamingChakraSpesPipe.transform(this.character()) || 0);
     protected readonly Math = Math;
 
     constructor(private activeRoute: ActivatedRoute, protected router: Router, protected auth: Auth,
                 protected dataService: DataService, private idToData: IdToDataPipe, private changeDetectorRef: ChangeDetectorRef,
                 protected env: Environment, private characterService: CharacterService, private notificationService: NotificationService,
-                private title: Title, private characterToMaxSkillCountPipe: CharacterToMaxSkillCountPipe, private characterToMaxChakraSpesPipe: CharacterToMaxChakraSpesPipe) {
+                private title: Title, private characterToMaxSkillCountPipe: CharacterToMaxSkillCountPipe, private characterToReamingChakraSpesPipe: CharacterToReamingChakraSpesPipe) {
         effect(() => {
             this.title.setTitle(`${this.character().firstName} ${this.idToData.transform(this.character().clan, this.dataService.clans)?.name}, Fiche de personnage — Ninjadex`)
         });

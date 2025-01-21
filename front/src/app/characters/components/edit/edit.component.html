@@ -259,13 +259,13 @@
         <app-spacer class="bg-light-dark my-[12px]"/>
     </div>
     <ng-container *ngIf="isEditable()">
-        <a *ngIf="(((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length) > 0;else noNewSpe"
+        <a *ngIf="newChakraSpeCount() > 0;else noNewSpe"
            class="flex w-full max-w-md flex-row items-center justify-between px-[18px] py-[17px] purple-gradient rounded-[10px] hover:bg-opacity-90"
            routerLink="specialisations-de-chakra">
             <div>
-                <span class="stat-box__value text-blue me-[10px] h-[26px]">{{ ((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length }}</span>
-                Spécialisation{{ (((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length) > 1 ? 's' : '' }} de chakra
-                disponible{{ (((character() | characterToMaxChakraSpes ) || 0) - character().chakraSpes.length) > 1 ? 's' : '' }}
+                <span class="stat-box__value text-blue me-[10px] h-[26px]">{{ newChakraSpeCount() }}</span>
+                Spécialisation{{ newChakraSpeCount() > 1 ? 's' : '' }} de chakra
+                disponible{{ newChakraSpeCount() > 1 ? 's' : '' }}
             </div>
             <app-arrow-right class="fill-white"/>
         </a>

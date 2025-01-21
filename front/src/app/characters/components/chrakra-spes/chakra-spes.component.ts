@@ -8,6 +8,7 @@ import ChakraSpe from "../../../app/models/chakra-spe.interface";
 import {CharacterToMaxChakraSpesPipe} from "../../pipes/character-to-max-chakra-spes.pipe";
 import {ArrowRightComponent} from '../../../utils/components/arrow-right/arrow-right.component';
 import {NgFor, NgIf} from '@angular/common';
+import {CharacterToReamingChakraSpesPipe} from "../../pipes/character-to-reaming-chakra-spes.pipe";
 
 @Component({
     selector: 'app-chrakra-spes',
@@ -39,7 +40,7 @@ export class ChakraSpesComponent implements OnInit {
 
     constructor(private auth: Auth, private route: ActivatedRoute, private title: Title,
                 private idToData: IdToDataPipe, private dataService: DataService, private router: Router,
-                private characterToMaxChakraSpes: CharacterToMaxChakraSpesPipe) {
+                private characterToMaxChakraSpes: CharacterToMaxChakraSpesPipe, private characterToReamingChakraSpes: CharacterToReamingChakraSpesPipe) {
     }
 
     ngOnInit() {
@@ -58,7 +59,7 @@ export class ChakraSpesComponent implements OnInit {
                 }
                 const maxChakraSpes = this.characterToMaxChakraSpes.transform(character);
                 this.chakraSpes = datas.map((data, i) => ({data, unlocked: i < maxChakraSpes}));
-                this.reamingChakraSpes = maxChakraSpes - character.chakraSpes.length;
+                this.reamingChakraSpes = this.characterToReamingChakraSpes.transform(character);
                 this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Spécialisations de chakra — Fiche de personnage — Ninjadex`);
             } else {
                 this.router.navigate(['/personnages']);
