@@ -143,9 +143,13 @@ export class CharacterService {
                 if (success) {
                     let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
                     character.clan = clan;
-                    character.customSkills = idToData(character.clan.id, this.dataService.clans)!.line.skills.map((skill) => {
-                        return {skill, level: 1};
-                    });
+                    if (clan.id != "custom") {
+                        character.customSkills = idToData(character.clan.id, this.dataService.clans)!.line.skills.map((skill) => {
+                            return {skill, level: 1};
+                        });
+                    } else {
+                        character.customSkills = [];
+                    }
                     character.updatedAt = new Date();
                     if (!multi) {
                         this.auth.user = this.auth.user;
