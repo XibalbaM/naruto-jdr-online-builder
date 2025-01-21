@@ -19,7 +19,7 @@ import {ImageFallbackDirective} from "../../../../utils/directives/image-fallbac
     templateUrl: './first-step.component.html',
     styleUrls: ['./first-step.component.scss'],
     standalone: true,
-    imports: [FormsModule, NgFor, SpacerComponent, NgIf, LongArrowRightComponent, TitleCasePipe, XpToRankPipe, NgOptimizedImage, PrivacySelectorComponent, IdToDataPipe, ImageFallbackDirective]
+    imports: [FormsModule, NgFor, SpacerComponent, NgIf, LongArrowRightComponent, TitleCasePipe, XpToRankPipe, NgOptimizedImage, PrivacySelectorComponent, ImageFallbackDirective]
 })
 export class FirstStepComponent implements OnInit {
 
@@ -31,7 +31,7 @@ export class FirstStepComponent implements OnInit {
     isRoad: boolean = !!this.creationService.character.road;
     shareStatus: "private" | "not-referenced" | "public" = this.creationService.character.shareStatus || "private" as any;
     road?: Road = this.creationService.character.road ? this.idToData.transform(this.creationService.character.road, this.dataService.roads) : undefined;
-    clans = computed(() => [...this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)).map((clan) => clan.name), "custom"]);
+    clans = computed(() => [...this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)), {_id: "custom", name: "custom"}]);
 
     constructor(private creationService: CreationService, private router: Router, public dataService: DataService, protected env: Environment, private idToData: IdToDataPipe) {
     }

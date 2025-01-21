@@ -29,8 +29,8 @@
             <label>Clan</label>
             <select [(ngModel)]="clanId" [class.!text-yellow]="clanId" class="pl-[69px]" name="clan">
                 <option [ngValue]="undefined" class="text-light-gray" disabled selected>Choisir parmi la liste</option>
-                <option *ngFor="let clan of clans()" [ngValue]="clan"
-                        class="text-yellow">{{ clan | titlecase }}
+                <option *ngFor="let clan of clans()" [ngValue]="clan._id"
+                        class="text-yellow">{{ clan.name | titlecase }}
                 </option>
             </select>
         </div>

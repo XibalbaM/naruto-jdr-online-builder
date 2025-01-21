@@ -29,7 +29,7 @@ import {ImageFallbackDirective} from "../../../utils/directives/image-fallback.d
     imports: [RouterLink, LongArrowLeftComponent, NgClass, FormsModule, NgFor, SpacerComponent, NgIf, TitleCasePipe, CharacterToReamingXpPipe, ModalComponent, NgOptimizedImage, PrivacySelectorComponent, ImageFallbackDirective]
 })
 export class EditDetailsComponent {
-    clans = computed(() => [...this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)).map((clan) => clan.name), "custom"]);
+    clans = computed(() => [...this.dataService.clans.sort((a, b) => a.name.localeCompare(b.name)), {_id: "custom", name: "custom"}]);
 
     character!: Character;
     village!: Village;
