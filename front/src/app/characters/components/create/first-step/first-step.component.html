@@ -35,7 +35,7 @@
             </select>
         </div>
         <div [class.!bg-black]="!clanId" class="flex flex-shrink-0 items-center gray-box w-[52px]">
-            <img *ngIf="clanId" [ngSrc]="currentClanLogo()" [appImageFallback]="env.api_url + '/assets/clans/custom-purple.svg'" alt="" class="mx-auto w-[25px] h-[25px]" width="25" height="25">
+            <img *ngIf="clanId" [ngSrc]="currentClanLogo()" [appImageFallback]="env.api_url + '/assets/clans/custom-white.svg'" alt="" class="mx-auto w-[25px] h-[25px]" width="25" height="25">
         </div>
     </div>
     <div *ngIf="clanId == 'custom'" class="labeled-input mt-[18px]">
