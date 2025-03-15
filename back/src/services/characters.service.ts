@@ -84,7 +84,7 @@ export default class CharactersService {
         }
         if (value < 1) {
             const character = (await CharacterModel.findById(characterId).lean())!;
-            if (((await ClanModel.findById(character.clan.id).lean().select("line"))!.line as Line).skills.find(skill => skill.toString() === skillId)) {
+            if (character.clan.id !== "custom" && ((await ClanModel.findById(character.clan.id).lean().select("line"))!.line as Line).skills.find(skill => skill.toString() === skillId)) {
                 throw new Error("Cannot remove clan skill");
             }
             await CharacterModel.updateOne({_id: characterId}, {$pull: {customSkills: {skill: skillId}}}, {multi: true});
