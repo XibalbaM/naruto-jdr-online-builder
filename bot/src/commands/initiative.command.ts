@@ -30,7 +30,7 @@ const command: SlashCommand = {
             formula += "+" + interaction.options.get("bonus")?.value as string;
         }
         let roll = DiceUtils.parseDiceRoll(formula);
-        let characterName = interaction.options.get("nom")?.value as string ?? character!.firstName + " " + findById(DataService.clans, character!.clan)?.name;
+        let characterName = interaction.options.get("nom")?.value as string ?? character!.firstName + " " + character.clan.id == "custom" ? character.clan.clanName! : findById(DataService.clans, character.clan.id)!.name;
         StateService.setInitiative(interaction.guildId!, interaction.channelId!, characterName, roll.result);
         await Responses.success(interaction, Messages.DICE.SUCCESS(formula, roll.result, roll.details, characterName, "Initiative"), StateService.isInSenseiMode(interaction.user.id),
             StateService.isInSenseiMode(interaction.user.id) ? Messages.DICE.LIGHT(roll.result, characterName, "Initiative") : []);

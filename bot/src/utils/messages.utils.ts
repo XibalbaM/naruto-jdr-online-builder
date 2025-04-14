@@ -63,7 +63,7 @@ export default class Messages {
         NO_SELECTED_CHARACTER: "Aucun personnage n'est sélectionné.",
         CHARACTER_INFO: (character: Character) => {
             let message = `Voici les informations sur le personnage ${character.firstName} :\n`;
-            message += `Clan : ${findById(DataService.clans, character.clan)?.name}\n`;
+            message += `Clan : ${character.clan.id == "custom" ? character.clan.clanName! : findById(DataService.clans, character.clan.id)?.name}\n`;
             message += `Village : ${findById(DataService.villages, character.village)?.name}\n`;
             if (character.road) message += `Voie : ${findById(DataService.roads, character.road)?.name}\n`;
             message += `XP : ${character.xp}\n`;

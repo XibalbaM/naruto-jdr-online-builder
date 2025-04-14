@@ -35,7 +35,7 @@ const command: SlashCommand = {
         else if (bonus?.match(/^[+\-\/*][0-9+\-\/*]+$/)) bonus = `1d10e10${bonus}+${skillInfo.level + character.bases[skillInfo.skill.base]}`;
         else bonus = "1d10e10+" + (skillInfo.level + character.bases[skillInfo.skill.base]);
         let roll = DiceUtils.parseDiceRoll(bonus);
-        let username = StateService.getSelectedCharacter(interaction.user.id)!.firstName + " " + findById(DataService.clans, StateService.getSelectedCharacter(interaction.user.id)!.clan)?.name;
+        let username = character.firstName + " " + character.clan.id == "custom" ? character.clan.clanName! : findById(DataService.clans, character.clan.id)!.name;
         await Responses.success(interaction, Messages.DICE.SUCCESS(bonus, roll.result, roll.details, username, skill), StateService.isInSenseiMode(interaction.user.id),
             StateService.isInSenseiMode(interaction.user.id) ? Messages.DICE.LIGHT(roll.result, username, skill) : []);
     },
