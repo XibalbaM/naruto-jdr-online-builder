@@ -25,7 +25,7 @@ export default class CharactersService {
         const characters: {_id: string, name: string, xp: number}[] = [];
         for (let character of user.characters) {
             let data = (await CharacterModel.findById(character).select(["_id", "firstName", "clan", "xp"]).lean())!;
-            let clanName = (await ClanModel.findById(data.clan.id).select("name").lean())!.name;
+            let clanName = data.clan.id == "custom" ? data.clan.clanName : (await ClanModel.findById(data.clan.id).select("name").lean())!.name;
             characters.push({_id: data._id.toString(), name: data.firstName + " " + clanName, xp: data.xp});
         }
         return characters;
