@@ -38,7 +38,6 @@ export default class StateService {
     }
     private static initChannelIfNeeded(guildId: Snowflake, channelId: Snowflake) {
         this.initGuildIfNeeded(guildId);
-        console.log(this.guildData.get(guildId));
         if (!this.guildData.get(guildId)!.channels.has(channelId))
             this.guildData.get(guildId)!.channels.set(channelId, structuredClone(this.defaultChannelData));
     }
@@ -81,11 +80,8 @@ export default class StateService {
     }
 
     static addPNJ(guildId: Snowflake, channelId: Snowflake, userId: Snowflake, name: string, initiative: number) {
-        console.log(guildId, channelId, userId, name, initiative);
-        console.log(this.guildData.get(guildId)?.channels.get(channelId)?.users);
         this.initChannelUserIfNeeded(guildId, channelId, userId);
         this.guildData.get(guildId)!.channels.get(channelId)!.users.get(userId)!.pnjs.push({name, initiative});
-        console.log(this.guildData.get(guildId)?.channels.get(channelId)?.users);
     }
 
     static removePNJ(guildId: Snowflake, channelId: Snowflake, userId: Snowflake, name: string) {
