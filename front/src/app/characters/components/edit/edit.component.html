@@ -37,7 +37,7 @@
    class="fixed right-0 bottom-0 left-0 z-30 h-[70px] px-[18px] py-[17px] purple-gradient hover:bg-opacity-95 cursor-pointer flex flex-row items-center justify-center">
     <p>Dupliquer sur mon compte</p>
 </a>
-<h1 class="font-bold uppercase font-monument text-25">{{ character().firstName }} {{ (character().clan | idToData:dataService.clans)?.name }}</h1>
+<h1 class="font-bold uppercase font-monument text-25">{{ fullName(character(), dataService.clans) }}</h1>
 <p class="py-[12px]">
     <span [ngClass]="(character() | characterToReamingXp) >= 0 ? 'text-blue' : 'text-orange'" class="bg-black px-[6px] py-[3px] rounded-[10px] me-[12px]">
         {{ (character() | characterToReamingXp) >= 0 ? '↑' : '↓' }} {{ Math.abs((character() | characterToReamingXp)) }}

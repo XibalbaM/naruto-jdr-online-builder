@@ -15,6 +15,7 @@ import CustomSkill from "../../../app/models/skill.interface";
 import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
 import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
 import {MarkdownComponent} from "../../../utils/components/markdown/markdown.component";
+import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Component({
     selector: 'app-skill',
@@ -73,7 +74,7 @@ export class SkillComponent implements OnInit {
             this.skillLevel = this.character.customSkills.find((skillWithLevel) => skillWithLevel.skill === this.skill._id)?.level || 0;
         }
         this.baseLevel = this.character.bases[this.base._id] || 0;
-        this.title.setTitle(`${this.character.firstName} ${this.idToData.transform(this.character.clan, this.dataService.clans)?.name}, Compétence ${this.skill.name} — Fiche de personnage — Ninjadex`);
+        this.title.setTitle(`${fullName(this.character, this.dataService.clans)}, Compétence ${this.skill.name} — Fiche de personnage — Ninjadex`);
     }
 
     remove() {

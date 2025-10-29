@@ -9,6 +9,7 @@ import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import {FormsModule} from '@angular/forms';
 import {NgFor, NgIf} from '@angular/common';
+import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Component({
     selector: 'app-set-chakra-spe',
@@ -53,7 +54,7 @@ export class SetChakraSpeComponent implements OnInit {
 
                 this.characterId = params.get('characterId')!;
                 this.spes = this.dataService.chakraSpes.filter(spe => (this.ownedSpes.get(spe._id) || 0) < spe.max)
-                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Spécialisation de chakra n°${this.id + 1} — Fiche de personnage — Ninjadex`);
+                this.title.setTitle(`${fullName(character, this.dataService.clans)}, Spécialisation de chakra n°${this.id + 1} — Fiche de personnage — Ninjadex`);
             } else {
                 this.router.navigate(['/personnages']);
             }

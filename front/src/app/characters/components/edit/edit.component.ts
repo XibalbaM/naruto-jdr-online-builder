@@ -37,6 +37,7 @@ import {ImageFallbackDirective} from "../../../utils/directives/image-fallback.d
 import {StatPopupComponent} from "../stat-popup/stat-popup.component";
 import {Constant, Formula, Operator, StatFormulaComponent, Variable} from "../stat-formula/stat-formula.component";
 import {CharacterToReamingChakraSpesPipe} from "../../pipes/character-to-reaming-chakra-spes.pipe";
+import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Component({
     selector: 'app-edit',
@@ -75,7 +76,7 @@ export class EditComponent implements OnInit, AfterViewInit {
                 protected env: Environment, private characterService: CharacterService, private notificationService: NotificationService,
                 private title: Title, private characterToMaxSkillCountPipe: CharacterToMaxSkillCountPipe, private characterToReamingChakraSpesPipe: CharacterToReamingChakraSpesPipe) {
         effect(() => {
-            this.title.setTitle(`${this.character().firstName} ${this.idToData.transform(this.character().clan, this.dataService.clans)?.name}, Fiche de personnage — Ninjadex`)
+            this.title.setTitle(`${fullName(this.character(), this.dataService.clans)}, Fiche de personnage — Ninjadex`)
         });
     }
 
@@ -230,4 +231,5 @@ export class EditComponent implements OnInit, AfterViewInit {
         Operator.DIVIDE,
         new Constant(2, 'Malus de rang'),
     );
+    protected readonly fullName = fullName;
 }

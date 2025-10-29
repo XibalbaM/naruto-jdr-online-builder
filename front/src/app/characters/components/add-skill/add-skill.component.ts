@@ -12,6 +12,7 @@ import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import CustomSkill from "../../../app/models/skill.interface";
 import {dummy} from "../../../app/models/character.interface";
+import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Component({
     selector: 'app-add-skill',
@@ -36,7 +37,7 @@ export class AddSkillComponent implements OnInit {
                 private idToData: IdToDataPipe, private auth: Auth, private characterToMaxSkillCount: CharacterToMaxSkillCountPipe,
                 private injector: Injector, private characterService: CharacterService, private notification: NotificationService) {
         effect(() => {
-            this.title.setTitle(`${this.character().firstName} ${this.idToData.transform(this.character().clan, this.dataService.clans)?.name}, Spécialisations de chakra — Fiche de personnage — Ninjadex`);
+            this.title.setTitle(`${fullName(this.character(), this.dataService.clans)}, Spécialisations de chakra — Fiche de personnage — Ninjadex`);
         });
     }
 
@@ -56,14 +57,14 @@ export class AddSkillComponent implements OnInit {
     addSkill(skill: CustomSkill) {
         this.characterService.setSkillLevel(this.character()._id, skill._id, 1).subscribe((success) => {
             if (success) {
-                this.notification.showNotification("Compétence ajoutée", `La compétence ${skill.name} a bien été ajoutée à ${this.character().firstName}.`);
+                this.notification.showNotification("Compétence ajoutée", `La compétence ${skill.name} a bien été ajoutée à ${fullName(this.character(), this.dataService.clans)}.`);
                 if (this.moreThanOneSkill()) {
                     this.character.set(this.auth.user!.characters.find((character) => character._id === this.character()._id)!);
                 } else {
                     this.router.navigate(['/personnages', this.character()._id]);
                 }
             } else {
-                this.notification.showNotification("Erreur lors de l'ajout de la compétence", `Une erreur est survenue lors de l'ajout de la compétence ${skill.name} à ${this.character().firstName}. Réessayez ou, si le problème persiste, contactez nous sur discord.`);
+                this.notification.showNotification("Erreur lors de l'ajout de la compétence", `Une erreur est survenue lors de l'ajout de la compétence ${skill.name} à ${fullName(this.character(), this.dataService.clans)}. Réessayez ou, si le problème persiste, contactez nous sur discord.`);
             }
         });
     }

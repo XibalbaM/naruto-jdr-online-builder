@@ -9,6 +9,7 @@ import {CharacterToMaxChakraSpesPipe} from "../../pipes/character-to-max-chakra-
 import {ArrowRightComponent} from '../../../utils/components/arrow-right/arrow-right.component';
 import {NgFor, NgIf} from '@angular/common';
 import {CharacterToReamingChakraSpesPipe} from "../../pipes/character-to-reaming-chakra-spes.pipe";
+import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Component({
     selector: 'app-chrakra-spes',
@@ -60,7 +61,7 @@ export class ChakraSpesComponent implements OnInit {
                 const maxChakraSpes = this.characterToMaxChakraSpes.transform(character);
                 this.chakraSpes = datas.map((data, i) => ({data, unlocked: i < maxChakraSpes}));
                 this.reamingChakraSpes = this.characterToReamingChakraSpes.transform(character);
-                this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Spécialisations de chakra — Fiche de personnage — Ninjadex`);
+                this.title.setTitle(`${fullName(character, this.dataService.clans)}, Spécialisations de chakra — Fiche de personnage — Ninjadex`);
             } else {
                 this.router.navigate(['/personnages']);
             }

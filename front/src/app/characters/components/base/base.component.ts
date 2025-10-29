@@ -12,6 +12,7 @@ import {MarkdownComponent} from "../../../utils/components/markdown/markdown.com
 import Character from "../../../app/models/character.interface";
 import {Observable} from "rxjs";
 import {CharacterService} from "../../services/character.service";
+import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Component({
     selector: 'app-base',
@@ -57,6 +58,6 @@ export class BaseComponent implements OnInit {
         this.baseLevel = character.bases[this.base._id] || 0;
         this.previousBase = this.base._id === 0 ? character.bases.length - 1 : this.base._id - 1;
         this.nextBase = this.base._id === character.bases.length - 1 ? 0 : this.base._id + 1;
-        this.title.setTitle(`${character.firstName} ${this.idToData.transform(character.clan, this.dataService.clans)?.name}, Base ${this.base.fullName} — Fiche de personnage — Ninjadex`);
+        this.title.setTitle(`${fullName(character, this.dataService.clans)}, Base ${this.base.fullName} — Fiche de personnage — Ninjadex`);
     }
 }

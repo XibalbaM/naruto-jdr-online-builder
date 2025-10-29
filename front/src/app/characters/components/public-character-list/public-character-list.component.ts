@@ -6,6 +6,7 @@ import {BgComponent} from "../../../utils/components/bg/bg.component";
 import {CharacterListPreviewComponent} from "../character-list-preview/character-list-preview.component";
 import {FormsModule} from "@angular/forms";
 import {NgClass, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 @Component({
   selector: 'app-public-character-list',
@@ -44,7 +45,7 @@ export class PublicCharacterListComponent {
             if (rank !== "Tous" && !this.idToDataPipe.transform(character.rank, this.dataService.ranks)!.name.startsWith(rank)) {
                 return false;
             }
-            let name = character.firstName + " " + this.idToDataPipe.transform(character.clan, this.dataService.clans)!.name;
+            let name = fullName(character, this.dataService.clans);
             return !(this.search() && !name.toLowerCase().includes(this.search().toLowerCase()));
         });
         return {
