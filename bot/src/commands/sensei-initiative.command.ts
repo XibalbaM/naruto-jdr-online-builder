@@ -1,6 +1,5 @@
-import {ActionRowBuilder, ButtonBuilder, ComponentType, SlashCommandBuilder} from "discord.js";
-
-import {ButtonStyle, SlashCommand} from "../classes.js";
+import {SlashCommandBuilder} from "discord.js";
+import {SlashCommand} from "../classes.js";
 import Responses from "../utils/responses.utils.js";
 import Messages from "../utils/messages.utils.js";
 import StateService from "../services/state.service.js";

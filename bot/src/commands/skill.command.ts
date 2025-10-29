@@ -7,7 +7,6 @@ import Messages from "../utils/messages.utils.js";
 import StateService from "../services/state.service.js";
 import DiceUtils from "../utils/dice.utils.js";
 import DataService from "../services/data.service.js";
-import {findById} from "../utils/data.utils.js";
 import {getAllSkills} from "../models/character.model.js";
 import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
