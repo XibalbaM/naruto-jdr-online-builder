@@ -1,6 +1,6 @@
 # naruto-jdr-online-builder
 
-Regex pour ajouter les .js aux imports :(\bfrom\s+["']\.(?:(?!\.js).)*)(["']) -> $1.js$2
+Regex pour ajouter les .js aux imports :(\bfrom\s+["'](?:\.|naruto)(?:(?!\.js).)*)(["']) -> $1.js$2
 
 ## Structure
 - ### Back

@@ -8,7 +8,7 @@ import StateService from "../services/state.service.js";
 import DiceUtils from "../utils/dice.utils.js";
 import DataService from "../services/data.service.js";
 import {getAllSkills} from "../models/character.model.js";
-import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
+import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
