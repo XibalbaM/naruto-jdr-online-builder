@@ -160,9 +160,7 @@ export class EditComponent implements OnInit, AfterViewInit {
     }
 
     setSkillLevel(skill: Skill | CustomSkill, level: number) {
-        if (!this.isEditable() || level <= 0 || level > this.bases().find(base => base.base._id === skill.base)!.level + 2) {
-            return;
-        }
+        if (!this.isEditable() || level <= 0 || level > this.bases().find(base => base.base._id === skill.base)!.level + 2) return;
         this.characterService.setSkillLevel(this.character()._id, skill._id, level).subscribe((success) => {
             if (success) {
                 this.character.update(character => {
@@ -172,27 +170,19 @@ export class EditComponent implements OnInit, AfterViewInit {
                         character.commonSkills[Number(skill._id)] = level;
                     return character;
                 });
-            } else
-                this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du niveau de la compétence, si le problème persiste, contactez nous');
+            } else this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du niveau de la compétence, si le problème persiste, contactez nous');
         });
     }
 
     setBaseLevel(base: Base, level: number) {
-        if (!this.isEditable())
-            return;
+        if (!this.isEditable()) return;
         this.characterService.setBaseLevel(this.character()._id, base._id, level).subscribe((success) => {
             if (success) {
                 this.character.update(character => {
                     character.bases[base._id] = level;
-                    character.updatedAt = new Date();
                     return character;
                 });
-                let character1 = this.auth.user!.characters.find((character) => character._id === character._id)!;
-                character1.bases = this.character().bases;
-                character1.updatedAt = new Date();
-                this.auth.user = this.auth.user;
-            } else
-                this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du niveau de la base, si le problème persiste, contactez nous');
+            } else this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du niveau de la base, si le problème persiste, contactez nous');
         });
     }
 
