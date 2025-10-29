@@ -15,7 +15,6 @@ export class CharacterToReamingChakraSpesPipe implements PipeTransform {
         if (character instanceof Observable)
             return character.pipe(map(character => maxChakraSpes(character) - chakraSpeCount(character)));
         else {
-            console.log(maxChakraSpes(character) - chakraSpeCount(character));
             return maxChakraSpes(character) - chakraSpeCount(character);
         }
     }

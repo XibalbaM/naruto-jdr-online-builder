@@ -1,4 +1,4 @@
-import Line from "./line.interface";
+import Line from "./line.interface.js";
 
 export default interface _Clan {
     _id: any;

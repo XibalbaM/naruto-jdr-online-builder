@@ -1,10 +1,10 @@
-import _Character from "../interfaces/character.interface";
-import _Rank from "../interfaces/rank.interface";
-import Base from "../interfaces/base.interface";
-import _ChakraSpe from "../interfaces/chakraSpe.interface";
-import _Clan from "../interfaces/clan.interface";
-import Skill, {_CustomSkill} from "../interfaces/skill.interface";
-import _User from "../interfaces/user.interface";
+import _Character from "../interfaces/character.interface.js";
+import _Rank from "../interfaces/rank.interface.js";
+import Base from "../interfaces/base.interface.js";
+import _ChakraSpe from "../interfaces/chakraSpe.interface.js";
+import _Clan from "../interfaces/clan.interface.js";
+import Skill, {_CustomSkill} from "../interfaces/skill.interface.js";
+import _User from "../interfaces/user.interface.js";
 
 const xpUsedByBasePerLevel = {
     0: 0,

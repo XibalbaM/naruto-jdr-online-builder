@@ -1,4 +1,4 @@
-import _Character from "./character.interface";
+import _Character from "./character.interface.js";
 
 export default interface _User {
     _id: any;
