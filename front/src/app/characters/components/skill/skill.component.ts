@@ -7,7 +7,6 @@ import {combineLatest, Observable} from "rxjs";
 import {CharacterService} from "../../services/character.service";
 import {NotificationService} from "../../../app/services/notification.service";
 import {Title} from "@angular/platform-browser";
-import {IdToDataPipe} from "../../../utils/pipes/id-to-data.pipe";
 import {SkillToTypeNamePipe} from '../../pipes/skill-type-to-type-name.pipe';
 import {NgIf} from '@angular/common';
 import {SpacerComponent} from '../../../utils/components/spacer/spacer.component';
@@ -34,8 +33,7 @@ export class SkillComponent implements OnInit {
     character!: Character;
 
     constructor(private router: Router, private route: ActivatedRoute, private auth: Auth, protected dataService: DataService,
-                private characterService: CharacterService, private notificationService: NotificationService, private title: Title,
-                private idToData: IdToDataPipe) {
+                private characterService: CharacterService, private notificationService: NotificationService, private title: Title) {
     }
 
     ngOnInit() {

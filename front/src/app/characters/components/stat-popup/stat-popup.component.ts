@@ -1,4 +1,4 @@
-import {Component, input, Input, ViewChild} from '@angular/core';
+import {Component, input, ViewChild} from '@angular/core';
 import {ModalComponent} from "../../../utils/components/modal/modal.component";
 import {Formula, StatFormulaComponent} from "../stat-formula/stat-formula.component";
 

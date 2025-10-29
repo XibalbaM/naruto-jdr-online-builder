@@ -1,6 +1,6 @@
 import {Component, signal} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import Character, {SharedCharacter} from "../../../app/models/character.interface";
+import {SharedCharacter} from "../../../app/models/character.interface";
 import Auth from "../../../app/models/auth.model";
 import {DataService} from "../../../app/services/data.service";
 import {PublicCharacterListComponent} from "../public-character-list/public-character-list.component";

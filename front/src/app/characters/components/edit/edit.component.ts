@@ -35,7 +35,7 @@ import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interfa
 import {MarkdownComponent} from "../../../utils/components/markdown/markdown.component";
 import {ImageFallbackDirective} from "../../../utils/directives/image-fallback.directive";
 import {StatPopupComponent} from "../stat-popup/stat-popup.component";
-import {Constant, Formula, Operator, StatFormulaComponent, Variable} from "../stat-formula/stat-formula.component";
+import {Constant, Formula, Operator, Variable} from "../stat-formula/stat-formula.component";
 import {CharacterToReamingChakraSpesPipe} from "../../pipes/character-to-reaming-chakra-spes.pipe";
 import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
@@ -44,7 +44,7 @@ import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.uti
     templateUrl: './edit.component.html',
     styleUrls: ['./edit.component.scss'],
     standalone: true,
-    imports: [NgIf, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe, NgOptimizedImage, MarkdownComponent, ImageFallbackDirective, StatPopupComponent, StatFormulaComponent, CharacterToReamingChakraSpesPipe],
+    imports: [NgIf, RouterLink, ArrowRightComponent, NgClass, SpacerGraphicalComponent, NgFor, SpacerComponent, MinusSymbolComponent, PlusSymbolComponent, BgComponent, SkillItemComponent, IdToDataPipe, CharacterToReamingXpPipe, CharacterToMaxSkillCountPipe, CharacterToMaxChakraPipe, CharacterToMaxChakraSpesPipe, CharacterToChakraControlPipe, CharacterToBaseLevelPipe, CharacterToChakraSpeAmountPipe, CharacterToChakraRegenPipe, CharacterToSkillNaturalLevelPipe, CharacterToSkillTotalLevelPipe, CharacterToInterceptionsPipe, CharacterToSkillReinforcementPipe, NgOptimizedImage, MarkdownComponent, ImageFallbackDirective, StatPopupComponent],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditComponent implements OnInit, AfterViewInit {
