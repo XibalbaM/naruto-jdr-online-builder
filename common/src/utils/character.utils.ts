@@ -191,7 +191,8 @@ export function skillTypeName(skill: Skill | _CustomSkill): string {
 }
 
 export function fullName(character: _Character, clans: _Clan[]): string {
-    return `${character.firstName} ${idToData(character.clan, clans)!.name}`;
+    const clanName = character.clan.id === "custom" ? character.clan.clanName : idToData(character.clan, clans)!.name;
+    return `${character.firstName} ${clanName}`;
 }
 
 export function canUserReadCharacter(user: _User, character: _Character) {
