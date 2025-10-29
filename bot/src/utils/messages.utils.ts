@@ -3,7 +3,7 @@ import {findById} from "./data.utils.js";
 import DataService from "../services/data.service.js";
 import {GuildMember} from "discord.js";
 import {RollResult} from "./dice.utils.js";
-import {interceptions, maxChakra} from "naruto-jdr-online-builder-common/src/utils/character.utils.js";
+import {fullName, interceptions, maxChakra} from "naruto-jdr-online-builder-common/src/utils/character.utils.js";
 
 /**
  * Class containing messages texts. Grouped here so they can easily be changed.
@@ -62,7 +62,7 @@ export default class Messages {
         CHARACTER_SELECTED: (name: string) => `Le personnage ${name} a bien été sélectionné.`,
         NO_SELECTED_CHARACTER: "Aucun personnage n'est sélectionné.",
         CHARACTER_INFO: (character: Character) => {
-            let message = `Voici les informations sur le personnage ${character.firstName} :\n`;
+            let message = `Voici les informations sur le personnage ${fullName(character, DataService.clans)} :\n`;
             message += `Clan : ${character.clan.id == "custom" ? character.clan.clanName! : findById(DataService.clans, character.clan.id)?.name}\n`;
             message += `Village : ${findById(DataService.villages, character.village)?.name}\n`;
             if (character.road) message += `Voie : ${findById(DataService.roads, character.road)?.name}\n`;
@@ -74,14 +74,14 @@ export default class Messages {
             return message;
         },
         BASES(character: Character) {
-            let message = `Voici les bases du personnage ${character.firstName} :\n`;
+            let message = `Voici les bases du personnage ${fullName(character, DataService.clans)} :\n`;
             character.bases.forEach((base, index) => {
                 message += `- ${findById(DataService.bases, index)?.fullName} : ${base}\n`;
             });
             return message;
         },
         COMMON_SKILLS(character: Character) {
-            let message = `Voici les compétences communes du personnage ${character.firstName} :\n`;
+            let message = `Voici les compétences communes du personnage ${fullName(character, DataService.clans)} :\n`;
             character.commonSkills.forEach((level, index) => {
                 let skill = findById(DataService.commonSkills, index);
                 message += `- ${skill?.name} (${findById(DataService.bases, skill!.base)?.shortName}) : ${level} (Total : ${level + character.bases[skill?.base ?? 0]})\n`;
@@ -89,7 +89,7 @@ export default class Messages {
             return message;
         },
         CUSTOM_SKILLS(character: Character) {
-            let message = `Voici les compétences personnalisées du personnage ${character.firstName} :\n`;
+            let message = `Voici les compétences personnalisées du personnage ${fullName(character, DataService.clans)} :\n`;
             character.customSkills.forEach((skillData) => {
                 let skill = findById(DataService.customSkills, skillData.skill);
                 message += `- ${skill?.name} (${findById(DataService.bases, skill!.base)?.shortName}) : ${skillData.level} (Total : ${skillData.level + character.bases[skill?.base ?? 0]})\n`;
@@ -97,7 +97,7 @@ export default class Messages {
             return message;
         },
         SPES(character: Character) {
-            let message = `Voici les spécialités de chakra du personnage ${character.firstName} :\n`;
+            let message = `Voici les spécialités de chakra du personnage ${fullName(character, DataService.clans)} :\n`;
             character.chakraSpes.forEach((spe) => {
                 message += `- ${findById(DataService.spes, spe)?.name}\n`;
             });
@@ -109,7 +109,7 @@ export default class Messages {
                 + `Nindo : ${character.nindoPoints}`; //TODO add active chakra, nindo
         },
         NOTES(character: Character) {
-            return `Voici les notes du personnage ${character.firstName} :\n${character.notes}`;
+            return `Voici les notes du personnage ${fullName(character, DataService.clans)} :\n${character.notes}`;
         }
     }
 

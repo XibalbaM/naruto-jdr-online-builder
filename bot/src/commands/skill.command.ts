@@ -9,6 +9,7 @@ import DiceUtils from "../utils/dice.utils.js";
 import DataService from "../services/data.service.js";
 import {findById} from "../utils/data.utils.js";
 import {getAllSkills} from "../models/character.model.js";
+import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
@@ -35,9 +36,9 @@ const command: SlashCommand = {
         else if (bonus?.match(/^[+\-\/*][0-9+\-\/*]+$/)) bonus = `1d10e10${bonus}+${skillInfo.level + character.bases[skillInfo.skill.base]}`;
         else bonus = "1d10e10+" + (skillInfo.level + character.bases[skillInfo.skill.base]);
         let roll = DiceUtils.parseDiceRoll(bonus);
-        let username = character.firstName + " " + character.clan.id == "custom" ? character.clan.clanName! : findById(DataService.clans, character.clan.id)!.name;
-        await Responses.success(interaction, Messages.DICE.SUCCESS(bonus, roll.result, roll.details, username, skill), StateService.isInSenseiMode(interaction.user.id),
-            StateService.isInSenseiMode(interaction.user.id) ? Messages.DICE.LIGHT(roll.result, username, skill) : []);
+        let name = fullName(character, DataService.clans);
+        await Responses.success(interaction, Messages.DICE.SUCCESS(bonus, roll.result, roll.details, name, skill), StateService.isInSenseiMode(interaction.user.id),
+            StateService.isInSenseiMode(interaction.user.id) ? Messages.DICE.LIGHT(roll.result, name, skill) : []);
     },
     async autocomplete(interaction) {
         if (!StateService.getSelectedCharacter(interaction.user.id)) {

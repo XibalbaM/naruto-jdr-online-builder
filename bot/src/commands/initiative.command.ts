@@ -7,8 +7,8 @@ import Messages from "../utils/messages.utils.js";
 import StateService from "../services/state.service.js";
 import DiceUtils from "../utils/dice.utils.js";
 import DataService from "../services/data.service.js";
-import {findById} from "../utils/data.utils.js";
 import {getAllSkills} from "../models/character.model.js";
+import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
@@ -30,7 +30,7 @@ const command: SlashCommand = {
             formula += "+" + interaction.options.get("bonus")?.value as string;
         }
         let roll = DiceUtils.parseDiceRoll(formula);
-        let characterName = interaction.options.get("nom")?.value as string ?? character!.firstName + " " + character.clan.id == "custom" ? character.clan.clanName! : findById(DataService.clans, character.clan.id)!.name;
+        let characterName = interaction.options.get("nom")?.value as string ?? fullName(character, DataService.clans);
         StateService.setInitiative(interaction.guildId!, interaction.channelId!, characterName, roll.result);
         await Responses.success(interaction, Messages.DICE.SUCCESS(formula, roll.result, roll.details, characterName, "Initiative"), StateService.isInSenseiMode(interaction.user.id),
             StateService.isInSenseiMode(interaction.user.id) ? Messages.DICE.LIGHT(roll.result, characterName, "Initiative") : []);
