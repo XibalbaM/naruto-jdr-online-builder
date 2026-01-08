@@ -82,7 +82,7 @@ export function totalXp(character: _Character): number {
 
 export function xpToRank<T extends _Rank>(xp: number, ranks: T[]): T {
     for (const rank of ranks.sort((a, b) => b.minXp - a.minXp)) {
-        if (rank.minXp < xp) {
+        if (rank.minXp <= xp) {
             return rank;
         }
     }
