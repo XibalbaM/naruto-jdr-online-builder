@@ -8,7 +8,7 @@ import StateService from "../services/state.service.js";
 import DiceUtils from "../utils/dice.utils.js";
 import DataService from "../services/data.service.js";
 import {getAllSkills} from "../models/character.model.js";
-import {fullName} from "naruto-jdr-online-builder-common/src/utils/character.utils.js";
+import {fullName, chakraSpeAmount} from "naruto-jdr-online-builder-common/src/utils/character.utils.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()
@@ -25,7 +25,8 @@ const command: SlashCommand = {
         }
         const baseLevel = character.bases[0];
         const skillLevel = getAllSkills(character).find(skill => skill.skill.name === "Physique")!.level;
-        let formula = "1d10e10+" + (baseLevel + skillLevel)
+        const speLevel = chakraSpeAmount(character, "Fulgurant", DataService.spes);
+        let formula = "1d10e10+" + (baseLevel + skillLevel + 2*speLevel);
         if (interaction.options.get("bonus")) {
             formula += "+" + interaction.options.get("bonus")?.value as string;
         }
