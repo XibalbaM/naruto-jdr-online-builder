@@ -9,7 +9,7 @@ export default interface Character extends _Character {
 export type CharacterInfo = {_id: string, name: string, xp: number};
 
 export function getAllSkills(character: Character): { skill: CommonSkill, level: number }[] {
-    let commonSkills = DataService.commonSkills.map((skill, index) => ({skill, level: character.commonSkills[index]}));
+    let commonSkills = DataService.commonSkills.map(skill => ({skill, level: character.commonSkills[skill._id]}));
     let customSkills = character.customSkills.map(skillData => ({skill: DataService.customSkills.find(skill => skill._id === skillData.skill)!, level: skillData.level}));
     return [...commonSkills, ...customSkills];
 }
