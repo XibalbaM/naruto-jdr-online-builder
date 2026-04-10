@@ -20,7 +20,7 @@ const characterData: Omit<Character, "_id" | "bases" | "commonSkills" | "customS
     rank: (await RankModel.findOne().lean().select("_id"))!._id.toString(),
     notes: "test",
     nindo: "test",
-    clan: (await ClanModel.findOne({}).lean().select("_id"))!._id.toString()
+    clan: {id: (await ClanModel.findOne({}).lean().select("_id"))!._id.toString()}
 };
 let characterId: string;
 
@@ -310,12 +310,12 @@ test("Set clan", async () => {
     let id = characterId;
 
     let test = async (clanId: string, expectedSkillCount: number) => {
-        let request = createMockRequest({params: {id}, body: {id: clanId}}, await getTestToken());
+        let request = createMockRequest({params: {id}, body: {clan: {id: clanId}}}, await getTestToken());
         let response = createMockResponse();
         await authenticateRequest(request, response);
         await CharacterController.setClan(request, response);
         expect(response.sendStatus).toBeCalledWith(200);
-        expect((await CharacterModel.findById(id).lean().select("clan"))!.clan.toString()).toBe(clanId);
+        expect((await CharacterModel.findById(id).lean().select("clan"))!.clan.id.toString()).toBe(clanId);
         expect((await CharacterModel.findById(id).lean().select("customSkills"))!.customSkills.length).toBe(expectedSkillCount);
     }
 
@@ -342,10 +342,10 @@ test("Set road", async () => {
 
     await test((await RoadModel.findOne().lean().select("_id"))!._id.toString(), 0, false);
 
-    await CharacterModel.findByIdAndUpdate(id, {$set: {clan: (await ClanModel.findOne({name: "Akaba"}).lean().select("_id"))!._id}});
+    await CharacterModel.findByIdAndUpdate(id, {$set: {clan: {id: (await ClanModel.findOne({name: "Akaba"}).lean().select("_id"))!._id}}});
     await test("", 0, true);
 
-    await CharacterModel.findByIdAndUpdate(id, {$set: {clan: (await ClanModel.findOne({name: "Nara"}).lean().select("_id"))!._id}});
+    await CharacterModel.findByIdAndUpdate(id, {$set: {clan: {id: (await ClanModel.findOne({name: "Nara"}).lean().select("_id"))!._id}}});
     await test("", 1, true);
 
     {

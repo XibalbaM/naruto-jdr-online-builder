@@ -16,7 +16,7 @@ const dummyPredrawn: Omit<Character, "_id" | "bases" | "commonSkills" | "customS
     rank: (await RankModel.findOne().lean().select("_id"))!._id.toString(),
     notes: "test",
     nindo: "test",
-    clan: (await ClanModel.findOne().lean().select("_id"))!._id.toString(),
+    clan: {id: (await ClanModel.findOne({}).lean().select("_id"))!._id.toString()},
     shareStatus: "predrawn",
 }
 const dummyPredrawnId = (await CharacterModel.create(dummyPredrawn))._id;
@@ -28,7 +28,7 @@ const dummyCharacter: Omit<Character, "_id" | "bases" | "commonSkills" | "custom
     rank: (await RankModel.findOne().lean().select("_id"))!._id.toString(),
     notes: "test",
     nindo: "test",
-    clan: (await ClanModel.findOne().lean().select("_id"))!._id.toString(),
+    clan: {id: (await ClanModel.findOne({}).lean().select("_id"))!._id.toString()},
 }
 const dummyCharacterId = (await CharacterModel.create(dummyCharacter))._id;
 
@@ -36,7 +36,7 @@ test("List", async () => {
     let response = createMockResponse();
     await PredrawnController.list(createMockRequest(), response);
     expect(response.status).toBeCalledWith(200);
-    expect(response.json).toBeCalledWith({characters: [expect.objectContaining({_id: dummyPredrawnId})]});
+    expect(response.json).toBeCalledWith({characters: [{character: expect.objectContaining({_id: dummyPredrawnId})}]});
 });
 
 test("Take", async () => {
