@@ -255,7 +255,7 @@ export default class CharactersService {
     static async getPublicCharacters() {
         let characters = (await CharacterModel.find({shareStatus: "public"}).lean()) as Character[];
         return Promise.all(characters.map(async (character) => {
-            let ownerName = (await UserModel.findOne({characters: character._id}).lean().select("username"))!.username || "Ninja sans nom";
+            let ownerName = (await UserModel.findOne({characters: character._id}).lean().select("username"))?.username || "Ninja sans nom";
             return {character, ownerName};
         }));
     }
