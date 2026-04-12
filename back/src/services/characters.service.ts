@@ -8,7 +8,7 @@ import ClanModel from "../models/clan.model.js";
 import RoadModel from "../models/road.model.js";
 import RankModel from "../models/rank.model.js";
 import {CommonSkillModel, CustomSkillModel} from "../models/skill.model.js";
-import Line from "naruto-jdr-online-builder-common/src/interfaces/line.interface";
+import Line from "naruto-jdr-online-builder-common/src/interfaces/line.interface.js";
 import {canUserEditCharacter, canUserReadCharacter, maxChakraSpes} from "naruto-jdr-online-builder-common/src/utils/character.utils.js";
 
 export default class CharactersService {

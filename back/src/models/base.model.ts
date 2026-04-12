@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
+import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface.js";
 import {removeVersionFromResponse} from "./middlewares.js";
 
 /**

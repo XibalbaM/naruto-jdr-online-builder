@@ -4,7 +4,7 @@ import AuthService from "../services/auth.service.js";
 import Responses from "../utils/responses.utils.js";
 import Messages from "../utils/messages.utils.js";
 import StateService from "../services/state.service.js";
-import CharacterService from "../services/character.service";
+import CharacterService from "../services/character.service.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()

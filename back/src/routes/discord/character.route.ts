@@ -1,10 +1,10 @@
 import {Router} from "express";
 import discordAuthMiddleware from "../../middlewares/security/discord-auth.middleware.js";
 import DiscordCharacterController from "../../controllers/discord/character.controller.js";
-import idOfMiddleware from "../../middlewares/id-of.middleware";
-import CharacterModel from "../../models/character.model";
-import contentMiddleware from "../../middlewares/content.middleware";
-import * as charactersController from "../../controllers/characters.controller";
+import idOfMiddleware from "../../middlewares/id-of.middleware.js";
+import CharacterModel from "../../models/character.model.js";
+import contentMiddleware from "../../middlewares/content.middleware.js";
+import * as charactersController from "../../controllers/characters.controller.js";
 
 /**
  * The router for the /discord/auth path.

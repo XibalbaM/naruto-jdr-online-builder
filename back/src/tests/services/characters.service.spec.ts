@@ -9,7 +9,7 @@ import ClanModel from "../../models/clan.model.js";
 import RoadModel from "../../models/road.model.js";
 import {CustomSkillModel} from "../../models/skill.model.js";
 import {getTestUserId} from "../../utils/test.data.js";
-import Line from "naruto-jdr-online-builder-common/src/interfaces/line.interface";
+import Line from "naruto-jdr-online-builder-common/src/interfaces/line.interface.js";
 
 const createdCharacterIds: string[] = [];
 

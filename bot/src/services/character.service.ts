@@ -2,7 +2,7 @@ import apiUtils from "../utils/api.utils.js";
 import {Snowflake} from "discord.js";
 import Character, {CharacterInfo} from "../models/character.model.js";
 import {maxChakra} from "naruto-jdr-online-builder-common/src/utils/character.utils.js";
-import DataService from "./data.service";
+import DataService from "./data.service.js";
 
 export default class CharacterService {
 

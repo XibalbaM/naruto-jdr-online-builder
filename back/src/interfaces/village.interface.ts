@@ -1,5 +1,5 @@
 import {ObjectId} from "mongoose";
-import _Village from "naruto-jdr-online-builder-common/src/interfaces/village.interface";
+import _Village from "naruto-jdr-online-builder-common/src/interfaces/village.interface.js";
 
 export default interface Village extends _Village {
     _id: ObjectId;

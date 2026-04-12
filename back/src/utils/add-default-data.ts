@@ -12,8 +12,8 @@ import RankModel from "../models/rank.model.js";
 import ChakraSpe from "../interfaces/chakraSpe.interface.js";
 import ChakraSpeModel from "../models/chakraSpe.model.js";
 import {CommonSkillModel, CustomSkillModel} from "../models/skill.model.js";
-import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface";
-import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface";
+import Base from "naruto-jdr-online-builder-common/src/interfaces/base.interface.js";
+import Skill from "naruto-jdr-online-builder-common/src/interfaces/skill.interface.js";
 
 export default async function () {
 

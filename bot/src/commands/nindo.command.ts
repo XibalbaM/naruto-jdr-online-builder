@@ -3,9 +3,9 @@ import Responses from "../utils/responses.utils.js";
 import {SlashCommand} from "../classes.js";
 import nindo from "../datas/nindo.js";
 import StateService from "../services/state.service.js";
-import AuthService from "../services/auth.service";
-import Messages from "../utils/messages.utils";
-import CharacterService from "../services/character.service";
+import AuthService from "../services/auth.service.js";
+import Messages from "../utils/messages.utils.js";
+import CharacterService from "../services/character.service.js";
 
 const command: SlashCommand = {
     command: new SlashCommandBuilder()

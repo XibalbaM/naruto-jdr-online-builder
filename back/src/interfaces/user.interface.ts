@@ -1,5 +1,5 @@
 import {ObjectId} from "mongoose";
-import _User from "naruto-jdr-online-builder-common/src/interfaces/user.interface";
+import _User from "naruto-jdr-online-builder-common/src/interfaces/user.interface.js";
 
 export default interface User extends _User {
     _id: ObjectId;
