@@ -201,4 +201,11 @@ A côté de ça, tu peux explorer :
         SPENT: (quantity: number, remaining: number) => `${quantity} points de chakra ont été dépensés. Il en reste ${remaining}.` + (remaining < 0 ? "**\n Attention : Vous êtes dans le négatif.**" : ""),
         GAINED: (quantity: number, remaining: number) => `Vous avez gagné ${quantity} points de chakra. Vous en avez ${remaining}.` + (remaining < 0 ? "**\n Attention : Vous êtes dans le négatif.**" : "")
     }
+
+    static NINDO = {
+        CONVERSION_NOT_FOUND: (input: string) => `La conversion "${input}" n'a pas été trouvée. Utilisez la commande \`/nindo info\` pour voir la liste des conversions disponibles.`,
+        NOT_ENOUGH_POINTS: (currentPoints: number, cost: number) => `Vous n'avez pas assez de points de nindo pour utiliser cette conversion. Vous avez actuellement ${currentPoints} points de nindo, mais il en faut ${cost}.`,
+        SUCCESSFUL_USE: (conversion: string, cost: number, character: Character) => `${fullName(character, DataService.clans)} utilise la conversion "${conversion}" pour ${cost} points de nindo (${character.nindoPoints} restants).`,
+        DEPASSEMENT_SUCCESSFUL_USE: (character: Character) => `${fullName(character, DataService.clans)} à désormais 5 charges de nindo.`
+    }
 }

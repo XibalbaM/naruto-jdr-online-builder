@@ -38,4 +38,18 @@ export default class CharacterService {
             else character.activeChakraAmount += quantityToGain;
         }
     }
+
+    static Nindo = {
+        async spend(id: string, character: Character, quantityToSpend: number) {
+            if ((await apiUtils.post("/characters/" + character._id + "/nindoPoints", {points: character.nindoPoints - quantityToSpend}, id)).status !== 200)
+                throw new Error("Failed to spend nindo points");
+            else character.nindoPoints -= quantityToSpend;
+        },
+
+        async gainCharges(id: string, character: Character) {
+            if ((await apiUtils.post("/characters/" + character._id + "/nindoCharges", {charges: 5}, id)).status !== 200)
+                throw new Error("Failed to gain nindo charges");
+            else character.nindoCharges = 5;
+        },
+    }
 }
