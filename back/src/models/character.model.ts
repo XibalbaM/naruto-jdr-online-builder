@@ -71,6 +71,16 @@ const characterSchema = new mongoose.Schema<Character>({
 		required: true,
         default: 1
 	},
+	activeChakraAmount: {
+		type: Number,
+		required: true,
+		default: 0
+	},
+	nindoCharges: {
+		type: Number,
+		required: true,
+		default: 0
+	},
 	chakraSpes: {
         type: [String],
         required: true,

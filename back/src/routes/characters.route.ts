@@ -39,6 +39,8 @@ router.post('/:id/skills/custom/:skillId', authMiddleware(), idOfMiddleware(Char
 router.post('/:id/bases/:baseId', authMiddleware(), idOfMiddleware(CharacterModel, "id"), idOfMiddleware(BaseModel, "baseId"), contentMiddleware({value: 42}), charactersController.setBase);
 router.post('/:id/nindo', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({text: "string"}), charactersController.setNindo);
 router.post('/:id/nindoPoints', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({points: 42}), charactersController.setNindoPoints);
+router.post('/:id/activeChakraAmount', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({amount: 42}), charactersController.setActiveChakraAmount);
+router.post('/:id/nindoCharges', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({charges: 42}), charactersController.setNindoCharges);
 router.post('/:id/spes/:speIndex', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({id: "string"}), charactersController.setSpe);
 router.post('/:id/notes', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({text: "string"}), charactersController.setNotes);
 router.post('/:id/xp', authMiddleware(), idOfMiddleware(CharacterModel, "id"), contentMiddleware({xp: 42}), charactersController.setXp);

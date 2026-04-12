@@ -13,7 +13,7 @@ import {CustomSkillModel} from "../../models/skill.model.js";
 import ChakraSpeModel from "../../models/chakraSpe.model.js";
 import RoadModel from "../../models/road.model.js";
 
-const characterData: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "shareStatus" | "createdAt" | "updatedAt"> = {
+const characterData: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "activeChakraAmount" | "nindoCharges" | "shareStatus" | "createdAt" | "updatedAt"> = {
     firstName: "test",
     village: (await VillageModel.findOne().lean().select("_id"))!._id.toString(),
     xp: 100,
@@ -198,6 +198,39 @@ test("Set nindo points", async () => {
     await CharacterController.setNindoPoints(request, response);
     expect(response.sendStatus).toBeCalledWith(200);
     expect((await CharacterModel.findById(id).lean().select("nindoPoints"))!.nindoPoints).toBe(2);
+});
+
+test("Set active chakra amount", async () => {
+    let id = characterId;
+    let request = createMockRequest({params: {id}, body: {amount: 650}}, await getTestToken());
+    let response = createMockResponse();
+    await authenticateRequest(request, response);
+    await CharacterController.setActiveChakraAmount(request, response);
+    expect(response.sendStatus).toBeCalledWith(200);
+    expect((await CharacterModel.findById(id).lean().select("activeChakraAmount"))!.activeChakraAmount).toBe(650);
+});
+
+test("Set nindo charges", async () => {
+    let id = characterId;
+
+    const test = async (charges: number, expectedValue: number, expectedCode: number, useSendStatus: boolean) => {
+        let request = createMockRequest({params: {id}, body: {charges}}, await getTestToken());
+        let response = createMockResponse();
+        await authenticateRequest(request, response);
+        await CharacterController.setNindoCharges(request, response);
+        if (useSendStatus) {
+            expect(response.sendStatus).toBeCalledWith(expectedCode);
+        } else {
+            expect(response.status).toBeCalledWith(expectedCode);
+            expect(response.json).toBeCalledWith({error: "Invalid value"});
+        }
+        expect((await CharacterModel.findById(id).lean().select("nindoCharges"))!.nindoCharges).toBe(expectedValue);
+    }
+
+    await test(0, 0, 200, true);
+    await test(5, 5, 200, true);
+    await test(-1, 5, 400, false);
+    await test(6, 5, 400, false);
 });
 
 test("Set spe", async () => {

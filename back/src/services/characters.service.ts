@@ -31,7 +31,7 @@ export default class CharactersService {
         return characters;
     }
 
-    static async createCharacter(user: User, body: { character: Omit<Character, "_id" | "bases" | "skills" | "chakraSpes" | "nindoPoints"> }): Promise<Character> {
+    static async createCharacter(user: User, body: { character: Omit<Character, "_id" | "bases" | "skills" | "chakraSpes" | "nindoPoints" | "activeChakraAmount" | "nindoCharges"> }): Promise<Character> {
         const character = (await CharacterModel.create(body.character))!;
         await UserModel.findByIdAndUpdate(user._id, {$push: {characters: character._id}});
         return character;
@@ -137,6 +137,23 @@ export default class CharactersService {
             throw new Error("Character not found");
         }
         await CharacterModel.findByIdAndUpdate(characterId, {nindoPoints});
+    }
+
+    static async setActiveChakraAmount(user: User, characterId: string, activeChakraAmount: number) {
+        if (!canUserEditCharacter(user, characterId)) {
+            throw new Error("Character not found");
+        }
+        await CharacterModel.findByIdAndUpdate(characterId, {activeChakraAmount});
+    }
+
+    static async setNindoCharges(user: User, characterId: string, nindoCharges: number) {
+        if (nindoCharges < 0 || nindoCharges > 5) {
+            throw new Error("Invalid value");
+        }
+        if (!canUserEditCharacter(user, characterId)) {
+            throw new Error("Character not found");
+        }
+        await CharacterModel.findByIdAndUpdate(characterId, {nindoCharges});
     }
 
     static async addSpe(user: User, characterId: string, speIndex: number, speId: string) {

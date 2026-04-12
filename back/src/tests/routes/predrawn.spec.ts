@@ -9,7 +9,7 @@ import PredrawnController from "../../controllers/predrawn.controller.js";
 import {getTestToken} from "../../utils/test.data.js";
 import Character from "../../interfaces/character.interface.js";
 
-const dummyPredrawn: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "createdAt" | "updatedAt"> = {
+const dummyPredrawn: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "activeChakraAmount" | "nindoCharges" | "createdAt" | "updatedAt"> = {
     firstName: "test",
     village: (await VillageModel.findOne().lean().select("_id"))!._id.toString(),
     xp: 100,
@@ -21,7 +21,7 @@ const dummyPredrawn: Omit<Character, "_id" | "bases" | "commonSkills" | "customS
 }
 const dummyPredrawnId = (await CharacterModel.create(dummyPredrawn))._id;
 
-const dummyCharacter: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "createdAt" | "updatedAt" | "shareStatus"> = {
+const dummyCharacter: Omit<Character, "_id" | "bases" | "commonSkills" | "customSkills" | "chakraSpes" | "nindoPoints" | "activeChakraAmount" | "nindoCharges" | "createdAt" | "updatedAt" | "shareStatus"> = {
     firstName: "test",
     village: (await VillageModel.findOne().lean().select("_id"))!._id.toString(),
     xp: 100,

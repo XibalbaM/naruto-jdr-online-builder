@@ -14,6 +14,8 @@ export default interface _Character {
     customSkills: {skill: string, level: number}[];
     nindo: string;
     nindoPoints: number;
+    activeChakraAmount: number;
+    nindoCharges: number;
     chakraSpes: string[];
     notes: string;
     shareStatus: "private" | "not-referenced" | "public" | "predrawn";

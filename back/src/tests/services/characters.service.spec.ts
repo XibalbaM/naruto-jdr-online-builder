@@ -126,6 +126,22 @@ test("throws when setting a road with an invalid id", async () => {
     await expect(CharactersService.setRoad(user, character._id.toString(), "invalid-id")).rejects.toThrow("Road not found");
 });
 
+test("updates active chakra amount and nindo charges", async () => {
+    const character = await createCharacter();
+    await addCharacterToTestUser(character._id.toString());
+    const user = await getTestUser();
+
+    await CharactersService.setActiveChakraAmount(user, character._id.toString(), 900);
+    await CharactersService.setNindoCharges(user, character._id.toString(), 4);
+
+    const updated = (await CharacterModel.findById(character._id).lean().select(["activeChakraAmount", "nindoCharges"]))!;
+    expect(updated.activeChakraAmount).toBe(900);
+    expect(updated.nindoCharges).toBe(4);
+
+    await expect(CharactersService.setNindoCharges(user, character._id.toString(), -1)).rejects.toThrow("Invalid value");
+    await expect(CharactersService.setNindoCharges(user, character._id.toString(), 6)).rejects.toThrow("Invalid value");
+});
+
 test("builds summary names with custom and regular clan names", async () => {
     const customCharacter = await createCharacter({
         firstName: "Custom",

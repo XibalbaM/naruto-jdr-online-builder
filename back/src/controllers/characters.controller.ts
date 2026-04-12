@@ -127,6 +127,36 @@ export async function setNindoPoints(req: Request, res: Response) {
     }
 }
 
+export async function setActiveChakraAmount(req: Request, res: Response) {
+    try {
+        await CharactersService.setActiveChakraAmount(req.user!, req.params["id"], req.body.amount)
+        res.sendStatus(200);
+    } catch (error: any) {
+        if (error.message === "Character not found") {
+            res.status(404).json({error: "Character not found"});
+        } else {
+            console.error(error);
+            res.status(500).json({error: "Internal server error"});
+        }
+    }
+}
+
+export async function setNindoCharges(req: Request, res: Response) {
+    try {
+        await CharactersService.setNindoCharges(req.user!, req.params["id"], req.body.charges)
+        res.sendStatus(200);
+    } catch (error: any) {
+        if (error.message === "Character not found") {
+            res.status(404).json({error: "Character not found"});
+        } else if (error.message === "Invalid value") {
+            res.status(400).json({error: "Invalid value"});
+        } else {
+            console.error(error);
+            res.status(500).json({error: "Internal server error"});
+        }
+    }
+}
+
 export async function setSpe(req: Request, res: Response) {
     try {
         if (!Types.ObjectId.isValid(req.body["id"]) || !await ChakraSpeModel.exists({_id: req.body["id"]})) {
