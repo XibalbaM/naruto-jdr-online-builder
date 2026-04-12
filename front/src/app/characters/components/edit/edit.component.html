@@ -142,8 +142,23 @@
                     </span>
         </p>
     </div>
+    <div class="flex flex-row items-center justify-between stat-box">
+        <p>
+            Chakra
+            <span class="stat-box__value text-blue ms-[12px]">{{ character().activeChakraAmount }}/{{character() | characterToMaxChakra}}</span>
+        </p>
+        <div>
+            <div *ngIf="isEditable()" class="flex flex-row">
+                <button (click)="setActiveChakraAmount(character().activeChakraAmount - 1)" [disabled]="character().activeChakraAmount < 1" class="change-button me-[3px] group">
+                    <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+                </button>
+                <button (click)="setActiveChakraAmount(character().activeChakraAmount + 1)" [disabled]="character().activeChakraAmount >= (character() | characterToMaxChakra)" class="change-button">
+                    <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="stat-box space-y-[12px]">
-        <p>Chakra<span class="text-blue ms-[12px] stat-box__value">{{ character() | characterToMaxChakra  }}</span></p>
         <p>Régénération /tour<span class="text-blue ms-[12px] stat-box__value">{{ character() | characterToChakraRegen  }}</span></p>
         <p>Contrôle du chakra<span class="text-blue ms-[12px] stat-box__value">{{ character() | characterToChakraControl  }}</span></p>
     </div>
@@ -182,19 +197,37 @@
                 </span>
         </p>
     </div>
-    <div class="flex flex-row items-center justify-between stat-box">
-        <p>
-            Nindo
-            <span class="stat-box__value text-yellow ms-[12px]">{{ character().nindoPoints }}</span>
-        </p>
-        <div>
-            <div *ngIf="isEditable()" class="flex flex-row">
-                <button (click)="setNindoPoints(character().nindoPoints - 1)" [disabled]="character().nindoPoints < 1" class="change-button me-[3px] group">
-                    <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
-                </button>
-                <button (click)="setNindoPoints(character().nindoPoints + 1)" class="change-button">
-                    <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
-                </button>
+    <div class="flex flex-row space-x-[12px]">
+        <div class="flex flex-row items-center justify-between stat-box">
+            <p>
+                Nindo
+                <span class="stat-box__value text-yellow ms-[12px]">{{ character().nindoPoints }}</span>
+            </p>
+            <div>
+                <div *ngIf="isEditable()" class="flex flex-row">
+                    <button (click)="setNindoPoints(character().nindoPoints - 1)" [disabled]="character().nindoPoints < 1" class="change-button me-[3px] group">
+                        <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+                    </button>
+                    <button (click)="setNindoPoints(character().nindoPoints + 1)" class="change-button">
+                        <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-row items-center justify-between stat-box">
+            <p>
+                Charges de nindo
+                <span class="stat-box__value text-yellow ms-[12px]">{{ character().nindoCharges || 0 }}/5</span>
+            </p>
+            <div>
+                <div *ngIf="isEditable()" class="flex flex-row">
+                    <button (click)="setNindoCharges((character().nindoCharges || 0) - 1)" [disabled]="(character().nindoCharges || 0) < 1" class="change-button me-[3px] group">
+                        <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+                    </button>
+                    <button (click)="setNindoCharges((character().nindoCharges || 0) + 1)" [disabled]="(character().nindoCharges || 0) > 4" class="change-button">
+                        <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

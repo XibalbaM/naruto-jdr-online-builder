@@ -112,6 +112,34 @@ export class CharacterService {
         );
     }
 
+    setNindoCharges(characterId: string, charges: number): Observable<boolean> {
+        return this.apiService.doRequest('POST', CharacterApiEndpoints.NINDO_CHARGES(characterId), {charges}).pipe(
+            map((response) => response.status === 200),
+            tap((success) => {
+                if (success) {
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.nindoCharges = charges;
+                    character.updatedAt = new Date();
+                    this.auth.user = this.auth.user;
+                }
+            })
+        );
+    }
+
+    setActiveChakraAmount(characterId: string, amount: number): Observable<boolean> {
+        return this.apiService.doRequest('POST', CharacterApiEndpoints.ACTIVE_CHAKRA(characterId), {amount}).pipe(
+            map((response) => response.status === 200),
+            tap((success) => {
+                if (success) {
+                    let character = this.auth.user!.characters.find((character) => character._id === characterId)!;
+                    character.activeChakraAmount = amount;
+                    character.updatedAt = new Date();
+                    this.auth.user = this.auth.user;
+                }
+            })
+        );
+    }
+
     setVillage(characterId: string, village: string, multi: boolean = false): Observable<boolean> {
         return this.apiService.doRequest('POST', CharacterApiEndpoints.VILLAGE(characterId), {id: village}).pipe(
             map((response) => response.status === 200),
@@ -321,6 +349,12 @@ export const CharacterApiEndpoints = {
     },
     NINDO_POINTS(characterId: string): string {
         return `/characters/${characterId}/nindoPoints`;
+    },
+    NINDO_CHARGES(characterId: string): string {
+        return `/characters/${characterId}/nindoCharges`;
+    },
+    ACTIVE_CHAKRA(characterId: string): string {
+        return `/characters/${characterId}/activeChakraAmount`;
     },
     BASE(characterId: string, baseId: number): string {
         return `/characters/${characterId}/bases/${baseId}`;

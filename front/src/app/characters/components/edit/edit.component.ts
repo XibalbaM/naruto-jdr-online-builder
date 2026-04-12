@@ -74,7 +74,8 @@ export class EditComponent implements OnInit, AfterViewInit {
     constructor(private activeRoute: ActivatedRoute, protected router: Router, protected auth: Auth,
                 protected dataService: DataService, private idToData: IdToDataPipe, private changeDetectorRef: ChangeDetectorRef,
                 protected env: Environment, private characterService: CharacterService, private notificationService: NotificationService,
-                private title: Title, private characterToMaxSkillCountPipe: CharacterToMaxSkillCountPipe, private characterToReamingChakraSpesPipe: CharacterToReamingChakraSpesPipe) {
+                private title: Title, private characterToMaxSkillCountPipe: CharacterToMaxSkillCountPipe, private characterToReamingChakraSpesPipe: CharacterToReamingChakraSpesPipe,
+                private characterToMaxChakraPipe: CharacterToMaxChakraPipe) {
         effect(() => {
             this.title.setTitle(`${fullName(this.character(), this.dataService.clans)}, Fiche de personnage — Ninjadex`)
         });
@@ -195,6 +196,30 @@ export class EditComponent implements OnInit, AfterViewInit {
                 this.character.update(character => {character.nindoPoints = nindo; return character;});
             } else
                 this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du nombre de points de nindo, si le problème persiste, contactez nous');
+        });
+    }
+
+    setNindoCharges(nindo: number) {
+        if (!this.isEditable() || nindo < 0 || nindo > 5) {
+            return;
+        }
+        this.characterService.setNindoCharges(this.character()._id, nindo).subscribe((success) => {
+            if (success) {
+                this.character.update(character => {character.nindoCharges = nindo; return character;});
+            } else
+                this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du nombre de charges de nindo, si le problème persiste, contactez nous');
+        });
+    }
+
+    setActiveChakraAmount(activeChakraAmount: number) {
+        if (!this.isEditable() || activeChakraAmount < 0 || activeChakraAmount > this.characterToMaxChakraPipe.transform(this.character())!) {
+            return;
+        }
+        this.characterService.setActiveChakraAmount(this.character()._id, activeChakraAmount).subscribe((success) => {
+            if (success) {
+                this.character.update(character => {character.activeChakraAmount = activeChakraAmount; return character;});
+            } else
+                this.notificationService.showNotification('Une erreur est survenue', 'Une erreur est survenue lors de la modification du chakra, si le problème persiste, contactez nous');
         });
     }
 
