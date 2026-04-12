@@ -67,9 +67,9 @@ export default class Messages {
             message += `Village : ${findById(DataService.villages, character.village)?.name}\n`;
             if (character.road) message += `Voie : ${findById(DataService.roads, character.road)?.name}\n`;
             message += `XP : ${character.xp}\n`;
-            message += `Grade : ${findById(DataService.ranks, character.rank)?.name}\n`;
-            message += `Nindô : ${character.nindo}\n`;
-            message += `Points de nindô : ${character.nindoPoints}\n`;
+            message += `Rang : ${findById(DataService.ranks, character.rank)?.name}\n`;
+            message += `Nindo : ${character.nindo}\n`;
+            message += `Points de nindo : ${character.nindoPoints}\n`;
             message += `Modifié le : <t:${Math.floor(Date.parse(character.updatedAt as unknown as string)/1000)}:R>\n`;
             return message;
         },
