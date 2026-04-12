@@ -10,7 +10,7 @@ const command: SlashCommand = {
         .setDescription("Affiche la liste des options pour utiliser les points de nindo."),
     async execute(interaction) {
 
-        const text = nindo.map(nindo => `### - ${nindo.title}\n**Coût :** ${nindo.cost}\n**Temporalité :** ${nindo.time}\n${nindo.description}`).join("\n");
+        const text = nindo.map(nindo => `### - ${nindo.title}\n**Coût :** ${nindo.cost} points de Nindo\n**Temporalité :** ${nindo.time}\n${nindo.description}`).join("\n");
 
         await Responses.successEmbed(interaction, "Dépenser du Nindo", text, !StateService.isInSenseiMode(interaction.user.id));
     }

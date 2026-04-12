@@ -1,13 +1,13 @@
 export default [
     {
         "title": "ACCROISSEMENT DU CHAKRA (1)",
-        "cost": "1 point de Nindo",
+        "cost": 1,
         "time": "Momentané, 5 tours",
         "description": "Accroître temporairement son potentiel de chakra de 500 points pendant 5 tours.",
     },
     {
         "title": "DÉPASSEMENT (1)",
-        "cost": "1 point de Nindo",
+        "cost": 1,
         "time": "5 charges",
         "description": "Gagner cinq charges pouvant être dépensées au choix en:\n" +
             "**1. Bonus Critique**" +
@@ -19,13 +19,13 @@ export default [
     },
     {
         "title": "ÉVEIL (5)",
-        "cost": "5 points de Nindo",
+        "cost": 5,
         "time": "Instantané",
         "description": "Gagner trois actions retardées et/ou de lignée, à jouer obligatoirement dans le tour où l’Éveil est activé. Le personnage accède à l’ensemble des pouvoirs de sa lignée."
     },
     {
         "title": "LIER NOS DESTINÉES (1, 2, 3)",
-        "cost": "1 point de Nindo pour chaque palier, maximum 3 pour chaque Lien.",
+        "cost": 1,
         "time": "Permanent",
         "description": "**1. Notre lien**" +
             "1/session, le Lien peut offrir son aide, donner des conseils ou intervenir positivement dans le cadre de ses capacités.\n" +
@@ -36,7 +36,7 @@ export default [
     },
     {
         "title": "UNISON (1)",
-        "cost": "1 point de Nindo",
+        "cost": 1,
         "time": "Instantané",
         "description": "Gagner une Opportunité, à jouer immédiatement."
     }
