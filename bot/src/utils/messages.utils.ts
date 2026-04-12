@@ -208,4 +208,10 @@ A côté de ça, tu peux explorer :
         SUCCESSFUL_USE: (conversion: string, cost: number, character: Character) => `${fullName(character, DataService.clans)} utilise la conversion "${conversion}" pour ${cost} points de nindo (${character.nindoPoints} restants).`,
         DEPASSEMENT_SUCCESSFUL_USE: (character: Character) => `${fullName(character, DataService.clans)} à désormais 5 charges de nindo.`
     }
+
+    static CHARGES = {
+        INVALID_QUANTITY: (input: number) => `La quantité "${input}" n'est pas valide. Veuillez entrer un nombre entier positif.`,
+        NOT_ENOUGH_CHARGES: (currentCharges: number, requiredCharges: number) => `Vous n'avez pas assez de charges de nindo pour effectuer cette action. Vous avez actuellement ${currentCharges} charges, mais il en faut ${requiredCharges}.`,
+        SUCCESSFUL_USE_CHARGES: (quantity: number, character: Character) => `${fullName(character, DataService.clans)} utilise ${quantity} charge(s) de nindo. Il lui en reste ${character.nindoCharges}.`
+    }
 }

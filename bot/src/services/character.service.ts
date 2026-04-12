@@ -51,5 +51,11 @@ export default class CharacterService {
                 throw new Error("Failed to gain nindo charges");
             else character.nindoCharges = 5;
         },
+
+        async useCharges(id: string, character: Character, quantityToUse: number) {
+            if ((await apiUtils.post("/characters/" + character._id + "/nindoCharges", {charges: character.nindoCharges - quantityToUse}, id)).status !== 200)
+                throw new Error("Failed to spend nindo charges");
+            else character.nindoCharges -= quantityToUse;
+        },
     }
 }
