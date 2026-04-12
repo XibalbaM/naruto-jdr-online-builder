@@ -68,8 +68,11 @@ export default class Messages {
             if (character.road) message += `Voie : ${findById(DataService.roads, character.road)?.name}\n`;
             message += `XP : ${character.xp}\n`;
             message += `Rang : ${findById(DataService.ranks, character.rank)?.name}\n`;
+            message += `Chakra : ${character.activeChakraAmount}/${maxChakra(character, DataService.clans, DataService.spes)}\n`;
             message += `Nindo : ${character.nindo}\n`;
             message += `Points de nindo : ${character.nindoPoints}\n`;
+            if (character.nindoCharges > 0)
+                message += `Charges de nindo : ${character.nindoCharges}\n`;
             message += `Modifié le : <t:${Math.floor(Date.parse(character.updatedAt as unknown as string)/1000)}:R>\n`;
             return message;
         },
@@ -105,8 +108,9 @@ export default class Messages {
         },
         NEW_TURN_SUMMARY(character: Character) {
             return `Interceptions : ARM ${interceptions(character, "ARM", DataService.bases)} / TAI ${interceptions(character, "TAI", DataService.bases)}\n`
-                + `Chakra : ${maxChakra(character, DataService.clans, DataService.spes)}\n`
-                + `Nindo : ${character.nindoPoints}`; //TODO add active chakra, nindo
+                + `Chakra : ${character.activeChakraAmount}/${maxChakra(character, DataService.clans, DataService.spes)}\n`
+                + `Nindo : ${character.nindoPoints}\n`
+                + (character.nindoCharges > 0 ? `Charges de nindo : ${character.nindoCharges}\n` : "");
         },
         NOTES(character: Character) {
             return `Voici les notes du personnage ${fullName(character, DataService.clans)} :\n${character.notes}`;
