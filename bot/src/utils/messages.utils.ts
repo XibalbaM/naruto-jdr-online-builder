@@ -194,4 +194,11 @@ A côté de ça, tu peux explorer :
 - Ninjadex, notre plateforme de création / d'évolution de perso (en alpha) : https://builder.naruto-jdr.com/
 - les campagnes en cours, en obs (les dates des sessions sont dans la section événement du serveur !)`;
     }
+
+    static CHAKRA = {
+        QUANTITY: (character: Character) => `Le personnage ${fullName(character, DataService.clans)} a actuellement ${character.activeChakraAmount}/${maxChakra(character, DataService.clans, DataService.spes)} points de chakra.`,
+        RESTORED: "Tous les points de chakra dépensés ont été restaurés.",
+        SPENT: (quantity: number, remaining: number) => `${quantity} points de chakra ont été dépensés. Il en reste ${remaining}.` + (remaining < 0 ? "**\n Attention : Vous êtes dans le négatif.**" : ""),
+        GAINED: (quantity: number, remaining: number) => `Vous avez gagné ${quantity} points de chakra. Vous en avez ${remaining}.` + (remaining < 0 ? "**\n Attention : Vous êtes dans le négatif.**" : "")
+    }
 }
