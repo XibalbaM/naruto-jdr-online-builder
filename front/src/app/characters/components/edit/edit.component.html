@@ -149,10 +149,10 @@
         </p>
         <div>
             <div *ngIf="isEditable()" class="flex flex-row">
-                <button (click)="setActiveChakraAmount(character().activeChakraAmount - 1)" [disabled]="character().activeChakraAmount < 1" class="change-button me-[3px] group">
+                <button (click)="setActiveChakraAmount(character().activeChakraAmount - 5)" [disabled]="character().activeChakraAmount < 5" class="change-button me-[3px] group">
                     <app-minus-symbol class="fill-white group-disabled:fill-dark-gray"/>
                 </button>
-                <button (click)="setActiveChakraAmount(character().activeChakraAmount + 1)" [disabled]="character().activeChakraAmount >= (character() | characterToMaxChakra)" class="change-button">
+                <button (click)="setActiveChakraAmount(character().activeChakraAmount + 5)" [disabled]="character().activeChakraAmount >= (character() | characterToMaxChakra)" class="change-button">
                     <app-plus-symbol class="fill-white group-disabled:fill-dark-gray"/>
                 </button>
             </div>
